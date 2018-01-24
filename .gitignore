@@ -4,6 +4,8 @@
 # SASS specific files
 **/.sass-cache/
 *.css.map
+# Python
+*.pyc
 # Ignore IDEA files
 .idea/
 

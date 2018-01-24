@@ -4,6 +4,8 @@
 # SASS specific files
 **/.sass-cache/
 *.css.map
+# Ignore IDEA files
+.idea/
 
 package-lock.json
 node_modules/

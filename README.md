@@ -29,8 +29,6 @@ $ brew update
 $ brew install pyenv
 # Enable shims and autocompletion (don't forget to restart your shell after updating .bash_profile) 
 $ echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.bash_profile
-# List all Python versions available to pyenv
-$ pyenv versions
 # Install 3.6.x to your system.
 $ pyenv install 3.6.4
 # Install plugin

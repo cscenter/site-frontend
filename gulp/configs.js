@@ -46,10 +46,6 @@ export const plumberConfig = {
 };
 
 let PROXY_PORT = 8001;
-if (process.env.APP_VERSION !== "v2") {
-    PROXY_PORT = 8000;
-}
-
 export const browserSyncConfig = {
     proxy: `localhost:${PROXY_PORT}`,
     notify: false,

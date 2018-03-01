@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+{#    <meta name="viewport" content="width=960">#}
+    <meta name="google-site-verification" content="pBs4x-E9VGlX-gA7WxCNEqcYB0TYJCSmcZtSeLBpEgk" />
+    <title>{% block title %}Computer Science Center{% endblock title %}</title>
+    <link rel="shortcut icon" type="image/png" href="{{ static("v2/img/favicon.png") }}">
+
+    <link href="{{ static("v2/dist/css/main.css") }}" rel="stylesheet">
+
+    {% block stylesheets %} {% endblock stylesheets %}
+  </head>
+
+  <body {% block body_attrs %}{% endblock body_attrs %}>
+
+    {% block content %}
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          hello world
+        </div>
+      </div>
+    </div>
+    {% endblock content %}
+
+    {% block javascripts %}{% endblock javascripts %}
+  </body>
+</html>

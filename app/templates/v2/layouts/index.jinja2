@@ -1,29 +1,33 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="utf-8">
-{#    <meta name="viewport" content="width=960">#}
-    <meta name="google-site-verification" content="pBs4x-E9VGlX-gA7WxCNEqcYB0TYJCSmcZtSeLBpEgk" />
-    <title>{% block title %}Computer Science Center{% endblock title %}</title>
-    <link rel="shortcut icon" type="image/png" href="{{ static("v2/img/favicon.png") }}">
+<head>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <a href="https://msdn.microsoft.com/en-us/library/jj676915%28v=vs.85%29.aspx">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Computer Science Center — объединённая инициатива Школы анализа данных, Computer Science клуба и JetBrains.">
+        <meta charset="utf-8">
+        {#    <meta name="viewport" content="width=960">#}
+        <meta name="google-site-verification" content="pBs4x-E9VGlX-gA7WxCNEqcYB0TYJCSmcZtSeLBpEgk"/>
+        <title>{% block title %}Computer Science Center{% endblock title %}</title>
+        <link rel="shortcut icon" type="image/png" href="{{ static("v2/img/favicon.png") }}">
 
-    <link href="{{ static("v2/dist/css/main.css") }}" rel="stylesheet">
+        <link href="{{ static("v2/dist/css/main.css") }}" rel="stylesheet">
 
-    {% block stylesheets %} {% endblock stylesheets %}
-  </head>
+        {% block stylesheets %} {% endblock stylesheets %}
+        </head>
 
-  <body {% block body_attrs %}{% endblock body_attrs %}>
+<body {% block body_attrs %}{% endblock body_attrs %}>
 
-    {% block content %}
+{% block content %}
     <div class="container">
-      <div class="row">
-        <div class="col-12">
-          hello world
+        <div class="row">
+            <div class="col-12">
+                hello world
+            </div>
         </div>
-      </div>
     </div>
-    {% endblock content %}
+{% endblock content %}
 
-    {% block javascripts %}{% endblock javascripts %}
-  </body>
+{% block javascripts %}{% endblock javascripts %}
+</body>
 </html>

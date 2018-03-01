@@ -20,8 +20,13 @@
 
     background-color: $gray-500;
     font-size: 18px;
+
     .navbar-collapse {
       height: 100vh;
+    }
+
+    .navbar-brand{
+      margin: 0;
     }
 
     .nav-item {
@@ -38,7 +43,7 @@
     }
   }
 
-  .nav-link, .navbar-brand, .btn--reg {
+  .nav-link, .btn--reg {
     margin-left: 10px;
   }
 }

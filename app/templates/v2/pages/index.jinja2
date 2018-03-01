@@ -1,13 +1,383 @@
-{% extends "v2/layouts/base.jinja2" %}
+{% extends "v2/layouts/index.jinja2" %}
 
 {% block content %}
-<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-      <div class="col-md-5 p-lg-5 mx-auto my-5">
-        <h1 class="display-4 font-weight-normal">Very Good!</h1>
-        <p class="lead font-weight-normal">New index page</p>
-        <a class="btn btn-outline-secondary" href="#">Coming soon</a>
-      </div>
-      <div class="product-device box-shadow d-none d-md-block"></div>
-      <div class="product-device product-device-2 box-shadow d-none d-md-block"></div>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#"><img src="/static/v2/img/logo-csc.svg" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">О центре</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Курсы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Онлайн</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Лекторий</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Поступление</a>
+                </li>
+            </ul>
+
+            <button class="btn btn--stroke btn--reg">
+                {#                        <div class="city">#}
+                {#                            <a class="text-white dotted-link mr-3" href="">Санкт-Петербург</a>#}
+                {#                        </div>#}
+                <img src="/static/v2/img/icons/user-sign.svg" alt="">Войти
+            </button>
+        </div>
     </div>
-{% endblock content %}
+</nav>
+
+
+<div class="index-page-banner-cover">
+    <div class="container">
+        <h1 class="index-page-banner-cover__title">Знания востребованные в&nbsp;науке и&nbsp;индустрии</h1>
+        <p class="index-page-banner-cover__text">Двух- или трехгодичные очные вечерние курсы с возможностью
+            получения дипломов по трём направлениям: Computer Science, Data Science, Software Engineering</p>
+        <a href="#offline-courses" class="btn btn--big btn--green">Смотреть программы</a>
+        <a class="btn btn--big btn--stroke">Узнать о центре</a>
+
+    </div>
+</div>
+
+
+<div class="csc-offline-courses">
+    <div class="container">
+
+        <h2 id="offline-courses">Очные курсы центра</h2>
+        <p class="card-offline-course__text">Центр приглашает студентов средних и старших курсов технических вузов
+            пройти двух или трёхлетние
+            курсы:</p>
+
+        <div class="card-deck">
+            <a href="" class="card card-offline-course">
+                <div class="card-block">
+                    <div class="card-offline-course__icon card-offline-course__icon--software-engineering"></div>
+                    <h3 class="card-offline-course__card-title">Software Engineering</h3>
+                    <p class="card-offline-course__card-text">Разработка программного обеспечения</p>
+                </div>
+            </a>
+
+            <a href="" class="card card-offline-course">
+                <div class="card-block">
+                    <div class="card-offline-course__icon card-offline-course__icon--data-science"></div>
+                    <h3 class="card-offline-course__card-title">Data Science</h3>
+                    <p class="card-offline-course__card-text">Анализ данных</p>
+                </div>
+            </a>
+
+            <a href="" class="card card-offline-course">
+                <div class="card-block">
+                    <div class="card-offline-course__icon card-offline-course__icon--computer-science"></div>
+                    <h3 class="card-offline-course__card-title">Data Science</h3>
+                    <p class="card-offline-course__card-text">Анализ данных</p>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+
+<div class="about-csc">
+    <div class="container">
+        <h2>О центре</h2>
+        <div class="row m-0">
+            <div class="about-csc__img"></div>
+            <div class="about-csc__description">
+                <p>Computer Science Center — объединённая инициатива Школы анализа данных, Computer Science клуба и
+                    JetBrains. Мы существуем, чтобы дать возможность талантливым студентам и выпускникам развиваться
+                    в интересном им направлении.</p>
+                <button class="btn btn--small btn--stroke_gray" type="submit">
+                    Подробнее
+                </button>
+
+                <h4>Организаторы</h4>
+                <a href=""><img class="about-csc__sponsor-logos" src="/static/v2/img/logos/jetbrains.svg" alt=""></a>
+                <a href=""><img class="about-csc__sponsor-logos" src="/static/v2/img/logos/shad.svg" alt=""></a>
+                <a href=""><img class="about-csc__sponsor-logos" src="/static/v2/img/logos/flsh239.svg" alt=""></a>
+                <a href=""><img class="about-csc__sponsor-logos" src="/static/v2/img/logos/csclub.svg" alt=""></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+<div class="csc-online-education">
+    <div class="container">
+        <h2 class="h2--center">Онлайн-образование</h2>
+
+        <div class="card-deck">
+
+            <a class="responsive-card-deck" href="#">
+                <img class="card-img-top" src="/static/v2/img/program-online.png" alt="Card image cap">
+                <div class="card-block">
+                    <h4 class="csc-online-education__card-title">Основы программирования</h4>
+                    <p class="csc-online-education__card-text">
+                        <small class="text-muted">Онлайн-программа</small>
+                    </p>
+                </div>
+            </a>
+
+            <a class="responsive-card-deck" href="#">
+                <img class="card-img-top" src="/static/v2/img/course-diskret.png" alt="Card image cap">
+                <div class="card-block">
+                    <h4 class="csc-online-education__card-title">Ликбез по дискретной
+                        математике</h4>
+                    <p class="csc-online-education__card-text">
+                        <small class="text-muted">Онлайн-курс</small>
+                    </p>
+                </div>
+            </a>
+
+            <a class="responsive-card-deck" href="#">
+                <img class="card-img-top" src="/static/v2/img/course-c.png" alt="Card image cap">
+                <div class="card-block">
+                    <h4 class="csc-online-education__card-title">Программирование на языке C++</h4>
+                    <p class="csc-online-education__card-text">
+                        <small class="text-muted">Онлайн-курс</small>
+                    </p>
+                </div>
+            </a>
+
+            <a class="responsive-card-deck" href="#">
+                <img class="card-img-top" src="/static/v2/img/course-java.png" alt="Card image cap">
+                <div class="card-block">
+                    <h4 class="csc-online-education__card-title">Программирование на Java
+                        Script</h4>
+                    <p class="csc-online-education__card-text">
+                        <small class="text-muted">Онлайн-курс</small>
+                    </p>
+                </div>
+            </a>
+
+            <a class="responsive-card-deck" href="#">
+                <img class="card-img-top" src="/static/v2/img/lecture-online.png" alt="Card image cap">
+                <div class="card-block">
+                    <h4 class="csc-online-education__card-title">Основы программирования</h4>
+                    <p class="csc-online-education__card-text">
+                        <small class="text-muted">Онлайн-программа</small>
+                    </p>
+                </div>
+            </a>
+
+            <a class="responsive-card-deck" href="#">
+                <img class="card-img-top" src="/static/v2/img/program-online.png" alt="Card image cap">
+                <div class="card-block">
+                    <h4 class="csc-online-education__card-title">Основы программирования</h4>
+                    <p class="csc-online-education__card-text">
+                        <small class="text-muted">Онлайн-программа</small>
+                    </p>
+                </div>
+            </a>
+
+        </div>
+        <div class="text-center">
+            <button class="btn btn--stroke_gray btn--small" type="submit">Все материалы</button>
+        </div>
+    </div>
+
+</div>
+
+<div class="csc-student-reviews">
+
+    <div class="container">
+        <h2>Отзывы студентов</h2>
+
+        <div class="card-columns">
+
+            <div class="card student-review">
+                <div class="row">
+                    <img class="student-review__avatar" src="/static/v2/img/student.png" alt="">
+                    <div class="student-review__bio">
+                        <h4 class="student-review__name">Евгений Игоревич Викулов</h4>
+                        <small class="text-muted">Выпуск 2017, Разработка ПО</small>
+                        <p class="student-review__text">CS центр — это место, где сбываются мечты. Настоящая кладовая
+                            знаний, где каждому
+                            открыт
+                            путь к желаемым знаниям и умениям. Интересные курсы, увлекательные практики,
+                            живое
+                            общение и обсуждение – здесь каждый найдет себе занятие по душе. Преподаватели,
+                            руководители практик, кураторы, студенты – благодаря всем им в CS центре
+                            образуется
+                            невероятная атмосфера, настраивающая на позитивный лад и продуктивное обучение.
+                            Здесь
+                            очень круто и увлекательно!</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card student-review">
+                <div class="row">
+                    <img class="student-review__avatar" src="/static/v2/img/student.png" alt="">
+                    <div class="student-review__bio">
+                        <h4 class="student-review__name">Евгений Игоревич Викулов</h4>
+                        <small class="text-muted">Выпуск 2017, Разработка ПО</small>
+                        <p class="student-review__text">CS центр — это место, где сбываются мечты. Настоящая кладовая
+                            знаний, где каждому
+                            открыт
+                            путь к желаемым знаниям и умениям. Интересные курсы, увлекательные практики,
+                            живое
+                            общение и обсуждение – здесь каждый найдет себе занятие по душе. Преподаватели,
+                            руководители практик, кураторы, студенты – благодаря всем им в CS центре
+                            образуется
+                            невероятная атмосфера</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card student-review">
+                <div class="row">
+                    <img class="student-review__avatar" src="/static/v2/img/student.png" alt="">
+                    <div class="student-review__bio">
+                        <h4 class="student-review__name">Евгений Игоревич Викулов</h4>
+                        <small class="text-muted">Выпуск 2017, Разработка ПО</small>
+                        <p class="student-review__text">CS центр — это место, где сбываются мечты. Настоящая кладовая
+                            знаний, где каждому
+                            открыт
+                            путь к желаемым знаниям и умениям. Интересные курсы, увлекательные практики,
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card student-review">
+                <div class="row">
+                    <img class="student-review__avatar" src="/static/v2/img/student.png" alt="">
+                    <div class="student-review__bio">
+                        <h4 class="student-review__name">Евгений Игоревич Викулов</h4>
+                        <small class="text-muted">Выпуск 2017, Разработка ПО</small>
+                        <p class="student-review__text">CS центр — это место, где сбываются мечты. Настоящая кладовая
+                            знаний, где каждому
+                            открыт
+                            путь к желаемым знаниям и умениям. Интересные курсы, увлекательные практики,
+                            живое
+                            общение и обсуждение – здесь каждый найдет себе занятие по душе. Преподаватели,
+                            руководители практик, кураторы, студенты – благодаря всем им в CS центре
+                            образуется
+                            невероятная атмосфера, настраивающая на позитивный лад и продуктивное обучение.
+                            Здесь
+                            очень круто и увлекательно!</p>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn--small btn--stroke_gray mt-3">Все отзывы</button>
+        </div>
+    </div>
+
+</div>
+
+<div class="social-media-posts">
+    <div class="container ">
+        <h2>#compscicenter</h2>
+
+        <div class="card-group">
+            <div class=" social-media social-media--instagram social-media--full-size">
+                <img class="social-media__icon" src="/static/v2/img/pages/index/social-media-posts/instagram.svg"
+                     width="40px" alt="">
+                <p class="social-media__text">На Новый год студенты Центра обмениваются подарками в рамках
+                    «Тайного Санты» — игры,
+                    когда каждый дарит кому-то подарок, но получатель подарка не знает, кто же его Санта. У
+                    нас всегда есть специальная ёлочка, обрастающая подарками. Посмотрите, как она
+                    наполнилась в Новосибирске. И там обмен уже произошёл :)</p>
+                <p class="social-media__date social-media__date--light">26 дек</p>
+            </div>
+
+
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="social-media social-media--vk social-media--half-size">
+                        <img class="social-media__icon" src="/static/v2/img/pages/index/social-media-posts/vk.svg"
+                             width="40px" alt="">
+                        <p class="social-media__text social-media__text--dark">На Новый год студенты Центра обмениваются
+                            подарками в
+                            рамках
+                            «Тайного Санты» — игры,
+                            когда каждый дарит</p>
+                        <p class="social-media__date">26 дек</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="social-media social-media--twitter social-media--small">
+                        <img class="social-media__icon" src="/static/v2/img/pages/index/social-media-posts/twitter.svg"
+                             width="40px" alt="">
+                        <p class="social-media__text social-media__text--dark">CS центр теперь и в Новосибирске:
+                            compscicenter.ru/open-nsk/ </p>
+                        <p class="social-media__date">26 дек</p>
+                    </div>
+                    <div class="social-media social-media--youtube social-media--small">
+                        <img class="social-media__icon" src="/static/v2/img/pages/index/social-media-posts/youtube.svg"
+                             width="40px" alt="">
+                        <p class="social-media__text">CS центр теперь и в Новосибирске:
+                            compscicenter.ru/open-nsk/ </p>
+                        <p class="social-media__date social-media__date--light">26 дек</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container">
+        <hr>
+    </div>
+
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <p class="footer__copyright">
+                    ©Computer Science Center, 2017
+                </p>
+                <div class="footer__contacts">
+                    <a href="" class="footer__email">
+                        info@compscicenter.ru
+                    </a>
+                    <div class="footer__social-media-icons">
+                        <a href=""><img src="/static/v2/img/icons/footer/vk.svg" alt=""></a>
+                        <a href=""><img src="/static/v2/img/icons/footer/instagram.svg" alt=""></a>
+                        <a href=""><img src="/static/v2/img/icons/footer/twitter.svg" alt=""></a>
+                        <a href=""><img src="/static/v2/img/icons/footer/facebook.svg" alt=""></a>
+                        <a href=""><img src="/static/v2/img/icons/footer/youtube.svg" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- jQuery first, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+            integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+            integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+            crossorigin="anonymous"></script>
+
+
+    {% endblock content %}

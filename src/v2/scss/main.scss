@@ -1,1 +1,13 @@
+@import "components/functions";
+@import "components/variables";
+@import "components/media";
 @import "bootstrap.custom";
+@import "components/btns";
+@import "components/nav";
+@import "components/navbar";
+
+//@import "custom_variables";
+
+@import "components/pages/index";
+
+@import "components/typography";

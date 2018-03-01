@@ -1,0 +1,10 @@
+h1, h2, h3 {
+  font-weight: $font-weight-light;
+  @include media-breakpoint-down(md) {
+    text-align: center;
+  }
+}
+
+h4 {
+  font-weight: $font-weight-normal;
+}

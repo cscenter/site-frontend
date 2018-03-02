@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+MEDIA_ROOT = str(ROOT_DIR / "media")
+MEDIA_URL = "/media/"
+
 
 # Application definition
 
@@ -55,14 +58,14 @@ DATABASES = {
     }
 }
 
-ROOT_URLCONF = 'app.urls'
+ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
     {
         "BACKEND": "django_jinja.backend.Jinja2",
         "APP_DIRS": False,
         'DIRS': [
-            str(APP_DIR / "templates"),
+            str(ROOT_DIR / "templates"),
         ],
         "NAME": "jinja2",
         "OPTIONS": {
@@ -80,7 +83,7 @@ TEMPLATES = [
                 "django_jinja.builtins.extensions.StaticFilesExtension",
                 "django_jinja.builtins.extensions.DjangoFiltersExtension",
                 "webpack_loader.contrib.jinja2ext.WebpackExtension",
-                "app.jinja2_extensions.MenuExtension",
+                "core.jinja2_extensions.MenuExtension",
             ],
             "bytecode_cache": {
                 "name": "default",
@@ -95,7 +98,7 @@ TEMPLATES = [
     }
 ]
 
-WSGI_APPLICATION = 'app.wsgi.application'
+WSGI_APPLICATION = 'core.wsgi.application'
 
 
 # Internationalization

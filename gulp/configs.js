@@ -13,7 +13,7 @@ export const path = {
         img: `src/${staticVersion}/img/`,
     },
     watch: {
-        jinja2: `app/templates/${staticVersion}/**/*.jinja2`,
+        jinja2: `templates/${staticVersion}/**/*.jinja2`,
         scss: `src/${staticVersion}/scss/**/*.scss`,
         img: `src/${staticVersion}/img/**/*.*`,
         fonts: `src/${staticVersion}/fonts/**/*.*`
@@ -26,20 +26,36 @@ export const sassConfig = {
     includePaths: ['./node_modules/']
 };
 
-export const postCssPlugins = [
-    autoprefixer({
-        browsers: [
-            'Chrome >= 45',
-            'Firefox ESR',
-            'Edge >= 12',
-            'Explorer >= 10',
-            'iOS >= 9',
-            'Safari >= 9',
-            'Android >= 4.4',
-            'Opera >= 30'
-        ]
-    })
-];
+export let postCssPlugins;
+if (staticVersion === "v2") {
+    postCssPlugins = [
+        "last 1 major version",
+        ">= 1%",
+        "Chrome >= 45",
+        "Firefox >= 38",
+        "Edge >= 12",
+        "Explorer >= 10",
+        "iOS >= 9",
+        "Safari >= 9",
+        "Android >= 4.4",
+        "Opera >= 30"
+    ];
+} else {
+    postCssPlugins = [
+        autoprefixer({
+            browsers: [
+                'Chrome >= 45',
+                'Firefox ESR',
+                'Edge >= 12',
+                'Explorer >= 10',
+                'iOS >= 9',
+                'Safari >= 9',
+                'Android >= 4.4',
+                'Opera >= 30'
+            ]
+        })
+    ];
+}
 
 export const plumberConfig = {
     errorHandler

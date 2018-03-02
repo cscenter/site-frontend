@@ -1,6 +1,6 @@
 @media (max-width: 991px) {
   html {
-    font-size: 0.9rem;
+    font-size: .9rem;
 
     h1 {
       font-size: 2.8rem;
@@ -8,10 +8,8 @@
     h4 {
       font-size: 1rem;
     }
-    //h1, h2, h3, h4, p {
-    //  text-align: center;
-    //}
   }
+
   .navbar {
     position: fixed !important;
     top: 0;
@@ -43,20 +41,8 @@
     }
   }
 
-  .nav-link, .btn--reg {
+  .nav-link,
+  .btn--reg {
     margin-left: 10px;
   }
 }
-
-//@media (max-width: 600px) {
-//  h1 {
-//    font-size: 2rem;
-//  }
-//  h2 {
-//    font-size: 1.5rem;
-//  }
-//  h4 {
-//    font-size: 1rem;
-//  }
-//
-//}

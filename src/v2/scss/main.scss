@@ -1,11 +1,17 @@
 @import "bootstrap/scss/functions";
-
 @import "variables";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/transitions";
+
+@import "components/typography";  // After: reboot
+
+@import "bootstrap/scss/grid";
+
+@import "components/cards";
 @import "components/media";
-@import "bootstrap.custom";
-@import "components/btns";
+@import "components/buttons";
 @import "components/nav";
 @import "components/navbar";
 
 @import "pages/index";
-@import "components/typography";

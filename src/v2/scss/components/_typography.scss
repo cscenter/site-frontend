@@ -1,3 +1,5 @@
+@import "bootstrap/scss/type";
+
 h1, h2, h3 {
   font-weight: $font-weight-light;
   @include media-breakpoint-down(md) {

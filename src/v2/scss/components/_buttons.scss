@@ -1,4 +1,4 @@
-//btns
+@import "bootstrap/scss/buttons";
 
 .btn--big {
   @include button-size(20px, 25px, 18px, 20px, 4px);
@@ -18,10 +18,10 @@
 
 .btn--stroke {
   color: $light;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, .1);
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, .2);
   }
 }
 
@@ -30,7 +30,7 @@
   background-color: rgba(0, 0, 0, 0);
   border: 1px solid $gray-400;
   &:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(0, 0, 0, .05);
 
   }
 }

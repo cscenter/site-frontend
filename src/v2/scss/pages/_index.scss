@@ -157,29 +157,6 @@ nav {
   }
 }
 
-.responsive-card-deck {
-  color: $gray-500;
-  @include make-col-ready();
-  @include make-col(12);
-
-  @include media-breakpoint-up(sm) {
-    @include make-col(6);
-  }
-
-  @include media-breakpoint-up(md) {
-    @include make-col(4);
-  }
-
-  @include media-breakpoint-up(lg) {
-    @include make-col(2);
-  }
-
-  .card-img-top {
-    border-radius: 0px;
-    border: 1px solid $gray-300;
-  }
-}
-
 //5-screen students-reviews
 
 .csc-student-reviews {

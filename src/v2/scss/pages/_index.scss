@@ -1,10 +1,24 @@
-//1-screen cover
+@mixin append-hr-to-container() {
+  .container::after {
+    content: "";
+    margin: #{2 * $hr-margin-y} 0;
+    border-top: $hr-border-width solid $hr-border-color;
+    display: block;
+  }
+}
+
+
+// 1 - screen cover
 
 nav {
   z-index: 5;
 }
+#navbarSupportedContent {
+  @include font-smoothing();
+}
 
-.index-page-banner-cover {
+.cover {
+  @include font-smoothing();
   position: relative;
   top: -60px;
   background: url("/static/v2/img/pages/index/bg-main-page.jpg") no-repeat;
@@ -25,27 +39,59 @@ nav {
     margin-bottom: 40px;
     max-width: 900px;
   }
+
 }
 
-//2-screen offline-courses
+
+// 2 - screen offline-courses
+.csc-offline-courses {
+  @include append-hr-to-container;
+}
 
 .card-offline-course {
   background-color: $gray-100;
   text-align: center;
   padding: 25px 10px 35px;
 
-  &__text {
-    @include media-breakpoint-down(md) {
-      text-align: center;
+  &:hover {
+    background-color: $teal;
+    transition: .2s;
+
+    .card-offline-course__icon--software-engineering {
+      background-image: url("/static/v2/img/pages/index/offline-courses/software-engineering-hover.svg");
+    }
+
+    .card-offline-course__icon--data-science {
+      background-image: url("/static/v2/img/pages/index/offline-courses/data-science-hover.svg");
+    }
+
+    .card-offline-course__icon--computer-science {
+      background-image: url("/static/v2/img/pages/index/offline-courses/computer-science-hover.svg");
+    }
+
+    .card-offline-course__card-title,
+    .card-offline-course__card-text {
+      color: $white;
     }
 
   }
 
+  &__text {
+    @include media-breakpoint-down(md) {
+      text-align: center;
+    }
+  }
+
   &__card-title {
+    text-transform: uppercase;
+    color: $blue;
+    text-align: center;
+    letter-spacing: 3px;
+    margin-bottom: 0;
+
     @include media-breakpoint-down(md) {
       font-size: 18px;
     }
-
   }
 
   &__icon {
@@ -70,54 +116,36 @@ nav {
 
   }
 
-  &:hover {
-    background-color: $teal;
-    transition: .2s;
-
-    .card-offline-course__icon--software-engineering {
-      background-image: url("/static/v2/img/pages/index/offline-courses/software-engineering-hover.svg");
-    }
-
-    .card-offline-course__icon--data-science {
-      background-image: url("/static/v2/img/pages/index/offline-courses/data-science-hover.svg");
-    }
-
-    .card-offline-course__icon--computer-science {
-      background-image: url("/static/v2/img/pages/index/offline-courses/computer-science-hover.svg");
-    }
-
-    .card-offline-course__card-title, .card-offline-course__card-text {
-      color: $white;
-    }
-
-  }
-
-  &__card-title {
-    text-transform: uppercase;
-    color: $blue;
-    text-align: center;
-    letter-spacing: 3px;
-    margin-bottom: 0;
-  }
-
   &__card-text {
     font-size: $small-font-size;
     color: $gray-400;
+
     @include media-breakpoint-down(md) {
       text-align: center;
     }
   }
-
 }
 
 //3-screen about-csc
 
 .about-csc {
-  padding: 30px 0;
+  @include append-hr-to-container;
 
   @include media-breakpoint-down(md) {
     text-align: center;
     align-items: center;
+  }
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  h4 {
+    text-transform: uppercase;
+  }
+
+  .btn {
+    margin-bottom: 2rem;
   }
 
   &__img {
@@ -137,23 +165,33 @@ nav {
 
   }
 
-  &__sponsor-logos {
-    @include make-col(3);
+  .supported-by {
+    a {
+      @include make-col(3);
+    }
   }
 }
 
 //4-screen csc-online
 
 .csc-online-education {
-  padding: 30px 0;
   @include media-breakpoint-down(md) {
     text-align: center;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 1rem;
   }
 
   &__card-title {
     padding-top: 10px;
     margin-bottom: 0;
     font-size: 16px;
+  }
+
+  .btn {
+    margin-bottom: 2rem;
   }
 }
 
@@ -171,50 +209,6 @@ nav {
     }
   }
 
-}
-
-.student-review {
-  padding: 30px;
-  margin-top: 10px;
-  background-color: $white;
-  border: 1px solid #e9ecee;
-
-  @include media-breakpoint-down(md) {
-    justify-content: center;
-  }
-
-  .row {
-    @include media-breakpoint-down(md) {
-      @include make-col(12);
-      justify-content: center;
-      text-align: center;
-    }
-  }
-
-  &__avatar {
-    width: 75px;
-    height: 75px;
-    border-radius: 50%;
-    border: 3px solid #fff;
-    box-shadow: 0 0 4px #ddd;
-  }
-
-  &__bio {
-    margin-left: 20px;
-    flex-basis: 0;
-    flex-grow: 1;
-    @include media-breakpoint-down(md) {
-      @include make-col(12);
-      margin: 0;
-      text-align: center;
-    }
-  }
-  &__name {
-    margin: 0;
-  }
-  &__text {
-    margin-top: 10px;
-  }
 }
 
 //6-screen social-media-posts
@@ -332,8 +326,3 @@ nav {
     }
   }
 }
-
-.h2--center {
-  text-align: center;
-}
-

@@ -4,6 +4,8 @@
 @import "bootstrap/scss/reboot";
 @import "bootstrap/scss/transitions";
 
+@import "utils/mixins";
+
 @import "components/typography";  // After: reboot
 @import "components/grid";
 @import "components/cards";

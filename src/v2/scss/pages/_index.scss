@@ -8,6 +8,11 @@
 }
 
 
+.__dark {
+  color: $gray-500;
+}
+
+
 // 1 - screen cover
 
 nav {
@@ -149,11 +154,14 @@ nav {
   }
 
   &__img {
-    @include make-col(12);
     height: 400px;
     background-image: url("/static/v2/img/pages/index/cscenter_meetup.png");
+    @include make-col(12);
     @include media-breakpoint-up(lg) {
       @include make-col(8);
+    }
+    @include media-breakpoint-down(lg) {
+      margin-bottom: 1rem;
     }
   }
 
@@ -172,11 +180,18 @@ nav {
   }
 }
 
-//4-screen csc-online
+// 4 - screen csc-online
 
 .csc-online-education {
   @include media-breakpoint-down(md) {
     text-align: center;
+  }
+
+  .card-img-top {
+    width: auto;
+    @include media-breakpoint-up(sm) {
+      width: 100%;
+    }
   }
 
   h2 {
@@ -191,7 +206,7 @@ nav {
   }
 
   .btn {
-    margin-bottom: 2rem;
+    margin: .5rem 0 2rem;
   }
 }
 
@@ -214,7 +229,11 @@ nav {
 //6-screen social-media-posts
 
 .social-media-posts {
-  padding: 30px 0;
+  padding: 30px 0 0;
+  overflow: hidden;
+  font-size: .9375rem;
+
+  @include append-hr-to-container();
 }
 
 .social-media {
@@ -236,7 +255,7 @@ nav {
   &__text {
     @include make-col(12);
     color: $white;
-    margin-top: 10px;
+    margin-top: .625rem;
 
     &--dark {
       color: $gray-500;
@@ -252,7 +271,7 @@ nav {
   }
 
   &--instagram {
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(lg) {
       @include make-col(6);
     }
     background-image: url('/static/v2/img/pages/index/social-media-posts/instagram-img.jpg');
@@ -260,7 +279,10 @@ nav {
   }
 
   &--full-size {
-    height: 500px;
+    margin-bottom: .625rem;
+    @include media-breakpoint-up(lg) {
+      height: 500px;
+    }
   }
 
   &--vk {
@@ -276,13 +298,17 @@ nav {
   }
 
   &--half-size {
-    height: 245px;
+    @include media-breakpoint-up(lg) {
+      height: 245px;
+    }
   }
+
   &--small {
-    height: 245px;
-    margin-top: 10px;
+    margin-top: .625rem;
     @include make-col(12);
+
     @include media-breakpoint-up(md) {
+      height: 245px;
       @include make-col(6);
     }
   }
@@ -291,7 +317,14 @@ nav {
 //footer
 
 .footer {
-  padding: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  color: $gray-600;
+  font-size: .9375rem;
+  line-height: 1.5rem;
+  @include font-smoothing();
+
   &__copyright {
     @include make-col(6);
     @include media-breakpoint-down(md) {
@@ -307,15 +340,15 @@ nav {
 
     @include media-breakpoint-down(md) {
       @include make-col(12);
-      display: flex;
       flex-direction: column;
       text-align: center;
     }
 
   }
-  &__footer__social-media-icons {
-    @include media-breakpoint-down(md) {
-      @include make-col(12);
+  &__social-media-icons {
+
+    a {
+      margin: 0 .3rem;
     }
   }
 

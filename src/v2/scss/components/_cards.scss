@@ -47,25 +47,18 @@ $card-columns-margin:               $card-spacer-y !default;
 
 // Student reviews
 .testimonial {
-  padding: 30px;
-  margin-top: 10px;
+  padding: 1.7rem;
   color: $gray-500;
-  background-color: $white;
-  border: 1px solid #e9ecee;
+  //border: 1px solid #e9ecee;
   flex-direction: row;
   font-size: .9375rem;
   @include font-smoothing();
+  justify-content: center;
+  text-align: center;
 
-  &.card {
-    display: inline-block;
-    @include media-breakpoint-up(lg) {
-      display: flex;
-    }
-  }
-
-  @include media-breakpoint-down(md) {
-    justify-content: center;
-    text-align: center;
+  @include media-breakpoint-up(lg) {
+    display: flex;
+    text-align: left;
   }
 
   img {
@@ -95,7 +88,14 @@ $card-columns-margin:               $card-spacer-y !default;
   }
 
   &__name {
-    margin: 0;
-  }
+    margin: 1rem 0 0 0;
 
+    @include media-breakpoint-up(lg) {
+      margin: 0;
+    }
+  }
+}
+
+.testimonial__text {
+  margin-bottom: 1rem;
 }

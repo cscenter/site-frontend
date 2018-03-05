@@ -155,7 +155,7 @@ nav {
 
   &__img {
     height: 400px;
-    background-image: url("/static/v2/img/pages/index/cscenter_meetup.png");
+    background-image: url("/static/v2/img/pages/index/cscenter_meetup.jpg");
     @include make-col(12);
     @include media-breakpoint-up(lg) {
       @include make-col(8);

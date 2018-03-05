@@ -274,7 +274,7 @@ nav {
     @include media-breakpoint-up(lg) {
       @include make-col(6);
     }
-    background-image: url('/static/v2/img/pages/index/social-media-posts/instagram-img.jpg');
+    background-image: url('/media/pages/index/instagram-img.jpg');
 
   }
 
@@ -294,7 +294,7 @@ nav {
   }
 
   &--youtube {
-    background-image: url('/static/v2/img/pages/index/social-media-posts/youtube-img.jpg');
+    background-image: url('/media/pages/index/youtube-img.jpg');
   }
 
   &--half-size {

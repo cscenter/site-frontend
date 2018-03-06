@@ -25,22 +25,18 @@
     background-color: $gray-500;
     font-size: 18px;
 
-    .navbar-collapse {
-      height: 100vh;
-    }
+    //.navbar-collapse {
+    //  height: 100vh;
+    //}
 
     .navbar-brand {
       margin: 0;
     }
 
     .nav-item {
+      width: 100%;
       border-top: 1px solid $gray-600;
       padding: 10px 0;
-
-      &:last-child {
-        border-bottom: 1px solid $gray-600;
-        margin-bottom: 20px;
-      }
     }
     ul {
       margin-top: 20px;
@@ -51,5 +47,12 @@
   .btn--reg {
     margin-left: 10px;
   }
+
+  .navbar-reg-item {
+    padding-top: 40px;
+    margin-right: auto;
+    height: 100vh;
+  }
+
 }
 

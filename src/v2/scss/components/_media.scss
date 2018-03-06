@@ -9,12 +9,18 @@
       font-size: 1rem;
     }
   }
-
-  .navbar {
+  .navbar-container {
     position: fixed !important;
     top: 0;
     width: 100%;
     z-index: 10;
+
+    .top-banner {
+      margin: 0;
+    }
+  }
+  
+  .navbar {
 
     background-color: $gray-500;
     font-size: 18px;
@@ -23,7 +29,7 @@
       height: 100vh;
     }
 
-    .navbar-brand{
+    .navbar-brand {
       margin: 0;
     }
 
@@ -46,3 +52,4 @@
     margin-left: 10px;
   }
 }
+

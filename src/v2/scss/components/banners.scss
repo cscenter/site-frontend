@@ -1,0 +1,38 @@
+.top-banner {
+  background-color: darken($gray-500, 10%);
+  //height: 50px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  @include media-breakpoint-down (md) {
+    //position: fixed;
+    //z-index: 50;
+    //top: 50px;
+   // margin-bottom: 10px;
+  }
+
+  &__text {
+    color: $white;
+    text-align: center;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: lighter;
+    align-items: center;
+    margin: 0;
+  }
+  &__link {
+    padding-bottom: 1px;
+    border-bottom: 1px solid transparentize($teal, .5);
+    font-weight: normal;
+
+    &:hover{
+      color:  lighten($teal,20%);
+    }
+  }
+
+  &__img {
+    margin-right: 5px;
+  }
+}

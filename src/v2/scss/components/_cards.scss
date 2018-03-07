@@ -93,6 +93,17 @@ $card-columns-margin: $card-spacer-y !default;
   @include media-breakpoint-down(md) {
     margin-left: 0;
   }
+
+  ul {
+    @include media-breakpoint-down(md) {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      padding-bottom: 5px;
+    }
+
+  }
 }
 
 .testimonial__name {
@@ -105,15 +116,5 @@ $card-columns-margin: $card-spacer-y !default;
 
 .testimonial__text {
   margin-bottom: 1rem;
-}
-
-.testimonial__list {
-  @include media-breakpoint-down(md) {
-    list-style: none;
-    padding: 0;
-  }
-}
-
-.testimonial__list-item {
-  padding-bottom: 5px;
+  
 }

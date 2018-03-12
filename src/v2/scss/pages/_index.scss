@@ -197,13 +197,14 @@ nav {
   .card-img-wrapper {
     max-height: 10rem;
     overflow: hidden;
+    position: relative;
 
     @include media-breakpoint-up(sm) {
       max-height: none;
     }
 
     img {
-      border: 1px solid $gray-300;
+      //border: 1px solid $gray-300;
       width: auto;
       max-width: 80%;
 
@@ -212,6 +213,19 @@ nav {
         max-width: none;
       }
     }
+@include media-breakpoint-up(sm) {
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba($gray-500, .3);
+    transition: .3s;
+  }
+}
+
   }
 
   h2 {

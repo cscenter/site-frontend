@@ -312,13 +312,9 @@ nav {
 
   &--instagram {
     position: relative;
-    //@include media-breakpoint-up(lg) {
-    //  @include make-col(6);
-    //}
     &::before {
       content: "";
-      background-image: url('/media/pages/index/instagram-img.jpg');
-      //opacity: .4;
+      background-color: rgba($gray-500,.75);
       top: 0;
       left: 0;
       bottom: 0;
@@ -327,17 +323,18 @@ nav {
       z-index: -1;
     }
 
-    background-color: rgba($gray-500, .65);
+    background-image: url('/media/pages/index/instagram-img.jpg');
     transition: .3s;
+    z-index: 1;
+    opacity: .9;
 
     &:hover {
-      background-color: rgba($gray-500, .8);
+      opacity: 1;
     }
 
   }
 
   &--full-size {
-    //margin-bottom: 5px;
     @include media-breakpoint-up(lg) {
       height: 500px;
     }

@@ -319,27 +319,19 @@ nav {
 
   &--instagram {
     position: relative;
-<<<<<<< HEAD
-    &::before {
-      content: "";
-      background-color: rgba($gray-500,.75);
-=======
-    background-image: url('/media/pages/index/instagram-img.jpg');
 
     &::before {
       content: "";
->>>>>>> 81fc2cfea545e3e0c4a368cd7076b75c51e79939
+      background-color: rgba($gray-500, .75);
       top: 0;
       left: 0;
       bottom: 0;
       right: 0;
       position: absolute;
-      z-index: 0;
-      background-color: rgba($gray-500, .65);
+      z-index: -1;
       transition: .3s;
     }
 
-<<<<<<< HEAD
     background-image: url('/media/pages/index/instagram-img.jpg');
     transition: .3s;
     z-index: 1;
@@ -347,16 +339,6 @@ nav {
 
     &:hover {
       opacity: 1;
-=======
-    &:hover {
-      &::before {
-        background-color: rgba($gray-500, .8);
-      }
->>>>>>> 81fc2cfea545e3e0c4a368cd7076b75c51e79939
-    }
-
-    > * {
-      position: relative;
     }
   }
 

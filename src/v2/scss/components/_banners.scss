@@ -32,8 +32,10 @@
     position: relative;
     top: 4px;
     width: 70px;
+    height: 80px;
     margin-right: 5px;
     @include media-breakpoint-down(md){
+
       display: none;
     }
   }

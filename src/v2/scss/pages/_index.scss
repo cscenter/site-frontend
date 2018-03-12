@@ -213,18 +213,18 @@ nav {
         max-width: none;
       }
     }
-@include media-breakpoint-up(sm) {
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba($gray-500, .3);
-    transition: .3s;
-  }
-}
+    @include media-breakpoint-up(sm) {
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba($gray-500, .3);
+        transition: .3s;
+      }
+    }
 
   }
 
@@ -262,7 +262,6 @@ nav {
       text-align: center;
     }
   }
-
 }
 
 //6-screen social-media-posts
@@ -271,14 +270,13 @@ nav {
   padding: 30px 0 0;
   overflow: hidden;
   font-size: .9375rem;
-
   @include append-hr-to-container();
 }
 
 .social-media {
   padding: 20px;
+  margin: 5px;
   background-size: cover;
-  background-color: $gray-500;
 
   @include media-breakpoint-down(md) {
     text-align: center;
@@ -295,6 +293,8 @@ nav {
     @include make-col(12);
     color: $white;
     margin: .625rem 0;
+    max-height: 150px;
+    overflow: hidden;
 
     &--dark {
       color: $gray-500;
@@ -304,21 +304,40 @@ nav {
 
   &__date {
     font-size: small;
+    color: $gray-500;
     &--light {
       color: $gray-100;
     }
   }
 
   &--instagram {
-    @include media-breakpoint-up(lg) {
-      @include make-col(6);
+    position: relative;
+    //@include media-breakpoint-up(lg) {
+    //  @include make-col(6);
+    //}
+    &::before {
+      content: "";
+      background-image: url('/media/pages/index/instagram-img.jpg');
+      //opacity: .4;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      position: absolute;
+      z-index: -1;
     }
-    background-image: url('/media/pages/index/instagram-img.jpg');
+
+    background-color: rgba($gray-500, .65);
+    transition: .3s;
+
+    &:hover {
+      background-color: rgba($gray-500, .8);
+    }
 
   }
 
   &--full-size {
-    margin-bottom: .625rem;
+    //margin-bottom: 5px;
     @include media-breakpoint-up(lg) {
       height: 500px;
     }
@@ -326,6 +345,11 @@ nav {
 
   &--vk {
     background-color: $gray-300;
+    transition: .3s;
+    &:hover {
+      background-color: rgba($gray-300, .6);
+    }
+
   }
 
   &--twitter {
@@ -337,18 +361,21 @@ nav {
   }
 
   &--half-size {
+    //margin-bottom: .625rem;
     @include media-breakpoint-up(lg) {
       height: 245px;
     }
   }
 
   &--small {
-    margin-top: .625rem;
+    //margin-top: .625rem;
     @include make-col(12);
 
     @include media-breakpoint-up(md) {
       height: 245px;
       @include make-col(6);
+      flex-grow: 1;
+      max-width: 100%;
     }
   }
 }

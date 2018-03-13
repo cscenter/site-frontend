@@ -320,28 +320,26 @@ nav {
 
   &--instagram {
     position: relative;
-    background-image: url('/media/pages/index/instagram-img.jpg');
 
     &::before {
       content: "";
+      background-color: rgba($gray-500, .75);
       top: 0;
       left: 0;
       bottom: 0;
       right: 0;
       position: absolute;
-      z-index: 0;
-      background-color: rgba($gray-500, .65);
+      z-index: -1;
       transition: .3s;
     }
 
-    &:hover {
-      &::before {
-        background-color: rgba($gray-500, .8);
-      }
-    }
+    background-image: url('/media/pages/index/instagram-img.jpg');
+    transition: .3s;
+    z-index: 1;
+    opacity: .9;
 
-    > * {
-      position: relative;
+    &:hover {
+      opacity: 1;
     }
   }
 

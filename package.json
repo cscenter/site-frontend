@@ -34,7 +34,6 @@
     "lodash-es": "^4.17.4",
     "magnific-popup": "^1.1.0",
     "moment": "^2.19.1",
-    "npm": "^5.7.1",
     "tempusdominus-core": "^5.0.0-alpha2",
     "zeroclipboard": "^2.3.0"
   },

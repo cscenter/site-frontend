@@ -36,7 +36,7 @@ const svgSprites = () => {
             // build svg sprite
             .pipe(svgSprite({
                 mode: {
-                    symbol: {
+                    defs: {
                         dest: '.',
                         sprite: path.join(paths.build.svgSprites, `${dir}.svg`),
                         prefix: "._%s",

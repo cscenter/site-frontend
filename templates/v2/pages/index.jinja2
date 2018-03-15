@@ -26,8 +26,10 @@
         <div class="top-banner">
             <div class="container">
 
-                <div class="top-banner__text"><img class="top-banner__img"  src="/static/v2/img/banners/top-banner-kids.svg" width="70" alt="">
-                    До 14 апреля открыт <a class="top-banner__link" href="/application/">приём заявок</a> на очное обучение в центре
+                <div class="top-banner__text"><img class="top-banner__img"
+                                                   src="/static/v2/img/banners/top-banner-kids.svg" width="70" alt="">
+                    До 14 апреля открыт <a class="top-banner__link" href="/application/">приём заявок</a> на очное
+                    обучение в центре
                 </div>
             </div>
         </div>
@@ -59,32 +61,31 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Поступление</a>
                         </li>
-
-                        <li class="nav-item navbar-reg-item">
-                            <a class="btn btn--outline btn--reg" href="#">
-                                <img class="btn_img" src="/static/v2/img/icons/user-sign.svg" width="20" alt="">Войти
-                            </a>
-                            {#                            <div class="dropdown">#}
-                            {#                                <button class="btn btn--disable dropdown-toggle" type="button" id="dropdownMenuButton"#}
-                            {#                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
-                            {#                                    Святослав#}
-                            {#                                </button>#}
-                            {#                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">#}
-                            {#                                    <a class="dropdown-item" href="#">Обучение</a>#}
-                            {#                                    <a class="dropdown-item" href="#">Проекты</a>#}
-                            {#                                    <a class="dropdown-item" href="#">Курирование</a>#}
-                            {#                                    <a class="dropdown-item" href="#">Админ-панель</a>#}
-                            {#                                    <div class="dropdown-divider"></div>#}
-                            {#                                    <a class="dropdown-item" href="#">Выйти</a>#}
-                            {#                                </div>#}
-                            {#                            </div>#}
-
-
-                        </li>
                     </ul>
-
-
                 </div>
+
+{#                <a class="btn btn--outline btn--reg" href="#">#}
+{#                    Войти <div class="btn-reg--icon"></div>#}
+{##}
+{#                </a>#}
+
+                <div class="dropdown">
+                    <button class="btn btn--disable dropdown-toggle dropdown--mobile-view" type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Святослав
+                        <div class="dropdown--avatar"></div>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Обучение</a>
+                        <a class="dropdown-item" href="#">Проекты</a>
+                        <a class="dropdown-item" href="#">Курирование</a>
+                        <a class="dropdown-item" href="#">Админ-панель</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Выйти</a>
+                    </div>
+                </div>
+
             </div>
         </nav>
 

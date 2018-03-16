@@ -57,35 +57,34 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Лекторий</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item navbar-last-item">
                             <a class="nav-link" href="#">Поступление</a>
                         </li>
-
-                        <li class="nav-item navbar-reg-item">
-                            <a class="btn btn--outline btn--reg" href="#">
-                                <img class="btn_img" src="/static/v2/img/icons/user-sign.svg" width="20" alt="">Войти
-                            </a>
-                            {#                            <div class="dropdown">#}
-                            {#                                <button class="btn btn--disable dropdown-toggle" type="button" id="dropdownMenuButton"#}
-                            {#                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
-                            {#                                    Святослав#}
-                            {#                                </button>#}
-                            {#                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">#}
-                            {#                                    <a class="dropdown-item" href="#">Обучение</a>#}
-                            {#                                    <a class="dropdown-item" href="#">Проекты</a>#}
-                            {#                                    <a class="dropdown-item" href="#">Курирование</a>#}
-                            {#                                    <a class="dropdown-item" href="#">Админ-панель</a>#}
-                            {#                                    <div class="dropdown-divider"></div>#}
-                            {#                                    <a class="dropdown-item" href="#">Выйти</a>#}
-                            {#                                </div>#}
-                            {#                            </div>#}
-
-
-                        </li>
                     </ul>
-
-
                 </div>
+
+{#                <a class="btn btn--outline btn--reg" href="#">#}
+{#                    Войти <div class="btn-reg--icon"></div>#}
+{##}
+{#                </a>#}
+
+                <div class="dropdown">
+                    <button class="btn btn--disable dropdown-toggle dropdown--mobile-view" type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Святослав
+                        <div class="dropdown--avatar"></div>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Обучение</a>
+                        <a class="dropdown-item" href="#">Проекты</a>
+                        <a class="dropdown-item" href="#">Курирование</a>
+                        <a class="dropdown-item" href="#">Админ-панель</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Выйти</a>
+                    </div>
+                </div>
+
             </div>
         </nav>
 
@@ -345,92 +344,103 @@
     </div>
 </div>
 
-
 <div class="social-media-posts">
     <div class="container">
         <h2>#compscicenter</h2>
 
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="row">
-                        <a href="#" target="_blank" rel="noopener" class="social-media social-media--instagram social-media--full-size">
-                            <img class="social-media__icon" src="/static/v2/img/pages/index/social-media-posts/instagram.svg" width="40" alt="">
-                            <p class="social-media__text">На Новый год студенты Центра обмениваются подарками в рамках
-                                «Тайного Санты» — игры,
-                                когда каждый дарит кому-то подарок, но получатель подарка не знает, кто же его Санта. У
-                                нас всегда есть специальная ёлочка, обрастающая подарками. Посмотрите, как она
-                                наполнилась в Новосибирске. И там обмен уже произошёл :)</p>
-                            <p class="social-media__date social-media__date--light">26 дек</p>
-                        </a>
-                    </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    <a href="#" target="_blank" rel="noopener"
+                       class="social-media social-media--instagram social-media--full-size">
+                        <img class="social-media__icon"
+                             src="/static/v2/img/pages/index/social-media-posts/instagram.svg" width="40" alt="">
+                        <p class="social-media__text">На Новый год студенты Центра обмениваются подарками в рамках
+                            «Тайного Санты» — игры,
+                            когда каждый дарит кому-то подарок, но получатель подарка не знает, кто же его Санта. У
+                            нас всегда есть специальная ёлочка, обрастающая подарками. Посмотрите, как она
+                            наполнилась в Новосибирске. И там обмен уже произошёл :)</p>
+                        <p class="social-media__date social-media__date--light">26 дек</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="row">
+                    <a href="#" target="_blank" rel="noopener"
+                       class="social-media social-media--vk social-media--half-size">
+                        <img class="social-media__icon" src="/static/v2/img/pages/index/social-media-posts/vk.svg"
+                             width="40" alt="">
+                        <p class="social-media__text social-media__text--dark">На Новый год студенты Центра
+                            обмениваются
+                            подарками в
+                            рамках
+                            «Тайного Санты» — игры,
+                            когда каждый дарит</p>
+                        <p class="social-media__date">26 дек</p>
+                    </a>
                 </div>
 
-                <div class="col-lg-6">
-                    <div class="row">
-                        <a href="#" target="_blank" rel="noopener" class="social-media social-media--vk social-media--half-size">
-                            <img class="social-media__icon" src="/static/v2/img/pages/index/social-media-posts/vk.svg" width="40" alt="">
-                            <p class="social-media__text social-media__text--dark">На Новый год студенты Центра
-                                обмениваются
-                                подарками в
-                                рамках
-                                «Тайного Санты» — игры,
-                                когда каждый дарит</p>
-                            <p class="social-media__date">26 дек</p>
-                        </a>
-                    </div>
-
-                    <div class="row">
-                        <a href="" target="_blank" rel="noopener"
-                           class="social-media social-media--vk social-media--half-size">
-                            <img class="social-media__icon" src="/static/v2/img/pages/index/social-media-posts/vk.svg" width="40" alt="">
-                            <p class="social-media__text social-media__text--dark">На Новый год студенты Центра
-                                обмениваются
-                                подарками в рамках «Тайного Санты» — игры, да каждый дарит На Новый год студенты Центра
-                                обмениваются
-                                подарками в рамках «Тайного Санты» — игры, да каждый дарит На Новый год студенты Центра
-                                обмениваются
-                                подарками в рамках «Тайного Санты» — игры, да каждый дарит На Новый год студенты Центра
-                                обмениваются
-                                подарками в рамках «Тайного Санты» — игры, да каждый дарит На Новый год студенты Центра
-                                обмениваются
-                                подарками в рамках «Тайного Санты» — игры, да каждый дарит На Новый год студенты Центра
-                                обмениваются
-                                подарками в рамках «Тайного Санты» — игры, да каждый дарит На Новый год студенты Центра
-                                обмениваются
-                                подарками в рамках «Тайного Санты» — игры, да каждый дарит На Новый год студенты Центра
-                                обмениваются
-                                подарками в рамках «Тайного Санты» — игры, да каждый дарит</p>
-                            <p class="social-media__date">26 дек</p>
-                        </a>
-                    </div>
-{#                    <div class="row">#}
-{#                        <div class="social-media social-media--twitter social-media--small">#}
-{#                            <img class="social-media__icon"#}
-{#                                 src="/static/v2/img/pages/index/social-media-posts/twitter.svg"#}
-{#                                 width="40px" alt="">#}
-{#                            <p class="social-media__text social-media__text--dark">CS центр теперь и в Новосибирске:#}
-{#                                compscicenter.ru/open-nsk/ </p>#}
-{#                            <p class="social-media__date">26 дек</p>#}
-{##}
-{#                        </div>#}
-{##}
-{##}
-{#                        <div class="social-media social-media--youtube social-media--small">#}
-{#                            <img class="social-media__icon"#}
-{#                                 src="/static/v2/img/pages/index/social-media-posts/youtube.svg"#}
-{#                                 width="40px" alt="">#}
-{#                            <p class="social-media__text">CS центр теперь и в Новосибирске:#}
-{#                                compscicenter.ru/open-nsk/ </p>#}
-{#                            <p class="social-media__date social-media__date--light">26 дек</p>#}
-{##}
-{#                        </div>#}
-{##}
-{##}
-{#                    </div>#}
-
+                <div class="row">
+                    <a href="" target="_blank" rel="noopener"
+                       class="social-media social-media--vk social-media--half-size">
+                        <img class="social-media__icon" src="/static/v2/img/pages/index/social-media-posts/vk.svg"
+                             width="40" alt="">
+                        <p class="social-media__text social-media__text--dark">На Новый год студенты Центра
+                            обмениваются
+                            подарками в рамках «Тайного Санты» — игры, да каждый дарит На Новый год студенты Центра
+                            обмениваются
+                            подарками в рамках «Тайного Санты» — игры, да каждый дарит На Новый год студенты Центра
+                            обмениваются
+                            подарками в рамках «Тайного Санты» — игры, да каждый дарит На Новый год студенты Центра
+                            обмениваются
+                            подарками в рамках «Тайного Санты» — игры, да каждый дарит На Новый год студенты Центра
+                            обмениваются
+                            подарками в рамках «Тайного Санты» — игры, да каждый дарит На Новый год студенты Центра
+                            обмениваются
+                            подарками в рамках «Тайного Санты» — игры, да каждый дарит На Новый год студенты Центра
+                            обмениваются
+                            подарками в рамках «Тайного Санты» — игры, да каждый дарит На Новый год студенты Центра
+                            обмениваются
+                            подарками в рамках «Тайного Санты» — игры, да каждый дарит</p>
+                        <p class="social-media__date">26 дек</p>
+                    </a>
                 </div>
+                {#                    <div class="row">#}
+                {#                        <div class="social-media social-media--twitter social-media--small">#}
+                {#                            <img class="social-media__icon"#}
+                {#                                 src="/static/v2/img/pages/index/social-media-posts/twitter.svg"#}
+                {#                                 width="40px" alt="">#}
+                {# <p class="social-media__text social-media__text--dark">CS центр теперь и в Новосибирске:#}
+                {# compscicenter.ru/open-nsk/ </p>#}
+                {# <p class="social-media__date">26 дек</p>#}
+                {##}
+                {#
+            </div>
+            #}
+            {##}
+            {##}
+            {#
+            <div class="social-media social-media--youtube social-media--small">#}
+                {# <img class="social-media__icon" #}
+                        {# src="/static/v2/img/pages/index/social-media-posts/youtube.svg" #}
+                        {# width="40px" alt="">#}
+                {# <p class="social-media__text">CS центр теперь и в Новосибирске:#}
+                    {# compscicenter.ru/open-nsk/ </p>#}
+                {# <p class="social-media__date social-media__date--light">26 дек</p>#}
+                {##}
+                {#
+            </div>
+            #}
+            {##}
+            {##}
+            {#
         </div>
+        #}
+
     </div>
+</div>
+</div>
 </div>
 
 <footer class="footer container">

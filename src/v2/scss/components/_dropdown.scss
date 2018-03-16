@@ -51,7 +51,7 @@ $caret-width: 0em;
   padding: $btn-padding-y 0;
   @include media-breakpoint-down(md) {
     text-indent: -9999px;
-    width: 100%;
+    //width: 100%;
   }
 }
 

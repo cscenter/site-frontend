@@ -38,12 +38,12 @@
             <div class="container">
                 <a class="navbar-brand" href="#">{{ macros.svg_inline('logo-csc') }}</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        data-target="#topMainMenu" aria-controls="topMainMenu"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse" id="topMainMenu">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="#">О центре</a>
@@ -65,17 +65,13 @@
 
 {#                <a class="btn btn--outline btn--reg" href="#">#}
 {#                    Войти <div class="btn-reg--icon"></div>#}
-{##}
 {#                </a>#}
 
                 <div class="dropdown">
-                    <button class="btn btn--disable dropdown-toggle dropdown--mobile-view" type="button"
-                            id="dropdownMenuButton"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Святослав
-                        <div class="dropdown--avatar"></div>
+                    <button class="btn _user-menu-btn" type="button" id="userMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span>Святослав</span><img class="user-menu-img" src="/media/pages/index/student.png" alt="">
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <div class="dropdown-menu _user-menu" aria-labelledby="userMenuButton">
                         <a class="dropdown-item" href="#">Обучение</a>
                         <a class="dropdown-item" href="#">Проекты</a>
                         <a class="dropdown-item" href="#">Курирование</a>

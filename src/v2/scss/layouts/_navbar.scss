@@ -1,18 +1,4 @@
-// Contents
-//
-// Navbar
-// Navbar brand
-// Navbar nav
-// Navbar text
-// Navbar divider
-// Responsive navbar
-// Navbar position
-// Navbar themes
-
-// Navbar
-//
-// Provide a static navbar from which we expand to create full-width, fixed, and
-// other navbar variations.
+// XXX: modified version of `bootstrap/scss/navbar` for index layout only. Can't be used as component right now.
 
 $navbar-padding-y: ($spacer / 2) !default;
 $navbar-padding-x: $spacer !default;
@@ -43,6 +29,7 @@ $navbar-light-active-color: rgba($black, .9) !default;
 $navbar-light-disabled-color: rgba($black, .3) !default;
 $navbar-light-toggler-icon-bg: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-light-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"), "#", "%23") !default;
 $navbar-light-toggler-border-color: rgba($black, .1) !default;
+
 
 .navbar {
   position: relative;
@@ -91,7 +78,6 @@ $navbar-light-toggler-border-color: rgba($black, .1) !default;
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
-  width: 100%;
 
   &:hover {
     .nav-link {

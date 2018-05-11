@@ -45,7 +45,7 @@ const PATHS = {
 
 
 const VENDOR = [
-    'babel-polyfill',
+    '@babel/polyfill',
     // 'history',
     // 'react',
     // 'react-dom',
@@ -101,7 +101,7 @@ const common = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 use: [
                     {
                         loader: 'babel-loader',

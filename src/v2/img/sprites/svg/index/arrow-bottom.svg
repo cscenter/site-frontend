@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="7px" viewBox="0 0 12 7" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M0.344655154,1.75533186 C-0.072494586,1.39338637 -0.117246471,0.761804894 0.244699021,0.344655154 C0.606644513,-0.072494586 1.23822599,-0.117246471 1.65537573,0.244699021 L6.02536757,4.03638027 L10.340297,0.248502614 C10.755346,-0.115849841 11.3871758,-0.0747521109 11.7515283,0.340296963 C12.1158807,0.755346037 12.074783,1.38717581 11.6597339,1.75152827 L7.34480453,5.53940593 C6.59327974,6.19913491 5.46997544,6.20238383 4.714647,5.54701311 L0.344655154,1.75533186 Z" id="path-1"></path>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/arrow-bottom" transform="translate(-4.000000, -7.000000)">
+            <g id="Group" transform="translate(4.000000, 7.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Path-3" fill="#8B9CA7" fill-rule="nonzero" xlink:href="#path-1"></use>
+                <g id="Colors/gray-400" mask="url(#mask-2)" fill="#8B9CA7">
+                    <g transform="translate(-4.000000, -7.000000)" id="Rectangle-5">
+                        <rect x="0" y="0" width="20" height="20"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

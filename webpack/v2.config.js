@@ -74,7 +74,7 @@ const common = {
                             babelrc: false,
                             presets: [
                                 [
-                                    "@babel/preset-stage-0",
+                                    "@babel/preset-stage-2",
                                     {
                                         "decoratorsLegacy": true
                                     }

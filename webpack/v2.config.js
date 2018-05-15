@@ -88,7 +88,18 @@ const common = {
                                 ],
                                 "@babel/preset-react"
                             ],
-                            cacheDirectory: true  // Improve performance
+                            cacheDirectory: true,  // Improve performance
+                            "env": {
+                                "production": {
+                                    "plugins": [
+                                        ["transform-react-remove-prop-types", {
+                                            // TODO: eslint-plugin-react has a rule forbid-foreign-prop-types to make this plugin safer
+                                            "mode": "remove",
+                                            "ignoreFilenames": ["node_modules"]
+                                        }]
+                                    ]
+                                }
+                            }
                         }
                     }
                 ],

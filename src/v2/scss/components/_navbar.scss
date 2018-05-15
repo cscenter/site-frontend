@@ -3,7 +3,7 @@
 $navbar-padding-y: ($spacer / 2) !default;
 $navbar-padding-x: $spacer !default;
 
-$navbar-nav-link-padding-x: .5rem !default;
+$navbar-nav-link-padding-x: 0;
 
 $navbar-brand-font-size: $font-size-lg !default;
 // Compute the navbar-brand padding-y so the navbar-brand will have the same height as navbar-text and nav-link
@@ -30,7 +30,6 @@ $navbar-light-disabled-color: rgba($black, .3) !default;
 $navbar-light-toggler-icon-bg: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-light-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"), "#", "%23") !default;
 $navbar-light-toggler-border-color: rgba($black, .1) !default;
 
-
 .navbar {
   position: relative;
   display: flex;
@@ -46,7 +45,7 @@ $navbar-light-toggler-border-color: rgba($black, .1) !default;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 }
 
@@ -78,29 +77,15 @@ $navbar-light-toggler-border-color: rgba($black, .1) !default;
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
-
-  &:hover {
-    .nav-link {
-      opacity: .5;
-
-    }
-
-    .nav-item:hover .nav-link {
-      opacity: 1;
-    }
-  }
-
   .nav-link {
     padding-right: 0;
     padding-left: 0;
-
   }
 
   .dropdown-menu {
     position: static;
     float: none;
   }
-
 }
 
 // Navbar text

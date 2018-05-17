@@ -33,7 +33,7 @@
   color: $white;
   padding: 120px 0 100px;
   text-align: center;
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(lg) {
     text-align: left;
     padding-top: 0;
   }

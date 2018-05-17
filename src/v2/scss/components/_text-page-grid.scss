@@ -12,6 +12,9 @@
 }
 
 .main-content {
+  h1, h2, h3 {
+    text-align: left;
+  }
   @include make-col(12);
   @include media-breakpoint-up(lg) {
     @include make-col(8);
@@ -20,7 +23,7 @@
     img {
       width: 100%;
     }
-    ._img-description{
+    ._img-description {
       padding-top: 5px;
       font-size: $font-size-sm;
       color: $gray-400;
@@ -30,7 +33,7 @@
   ._text {
     padding-bottom: 20px;
   }
-  ._header {
+  ._title {
     padding-bottom: 10px;
     text-align: left;
   }

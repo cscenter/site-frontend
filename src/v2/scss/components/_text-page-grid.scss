@@ -80,14 +80,8 @@
     font-size: $small-font-size;
   }
 
-  ._img {
-    height: 160px;
+  img {
     width: 100%;
-    overflow: hidden;
-    background-image: url("/media/pages/text-page/info-card-image.jpg");
-    background-position: 50% 50%;
-    background-size: cover;
-    background-repeat: no-repeat;
   }
 }
 

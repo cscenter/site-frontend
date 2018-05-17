@@ -16,9 +16,16 @@
   @include media-breakpoint-up(lg) {
     @include make-col(8);
   }
-  .main-content_single-img {
-    width: 100%;
-    margin-bottom: 30px;
+  ._single-img {
+    img {
+      width: 100%;
+    }
+    ._img-description{
+      padding-top: 5px;
+      font-size: $font-size-sm;
+      color: $gray-400;
+      margin-bottom: 20px;
+    }
   }
   ._text {
     padding-bottom: 20px;

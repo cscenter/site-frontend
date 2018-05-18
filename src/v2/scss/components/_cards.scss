@@ -4,7 +4,7 @@ $card-spacer-x: 1.25rem !default;
 $card-border-width: 0;
 $card-border-radius: $border-radius !default;
 $card-border-color: rgba($black, .125) !default;
-$card-inner-border-radius: calc(#{$card-border-radius} - #{$card-border-width}) !default;
+$card-inner-border-radius: 0;
 $card-cap-bg: rgba($black, .03) !default;
 $card-bg: $white !default;
 
@@ -18,6 +18,7 @@ $card-columns-gap: 1.25rem !default;
 $card-columns-margin: $card-spacer-y !default;
 
 // Imports
+// TODO: вынести всё в папку cards/ удалить border-radius у card-img-top
 @import "bootstrap/scss/card";
 
 // FIXME: class name is too generic, since css below hardcoded for 6 columns on desktop, rename it to more appropriate name
@@ -36,6 +37,25 @@ $card-columns-margin: $card-spacer-y !default;
 
   @include media-breakpoint-up(lg) {
     @include make-col(2);
+  }
+}
+
+// TODO: Think about changing default .card settings?
+.card._note {
+  background-color: $gray-300;
+  padding: 15px;
+  font-size: $small-font-size;
+
+  .card-img-top {
+    margin-bottom: 10px;
+    display: none;
+    @include media-breakpoint-up(lg) {
+      display: inline;
+    }
+  }
+
+  .card-body {
+    padding: 0;
   }
 }
 
@@ -101,4 +121,80 @@ $card-columns-margin: $card-spacer-y !default;
 .testimonial__text {
   margin-bottom: 1rem;
 
+}
+
+
+
+change definition to "testimonial _bubble" or something like that
+.right-side_review {
+  margin-top: 20px;
+  display: none;
+  @include media-breakpoint-up(lg) {
+    display: block;
+  }
+}
+
+.right-side_review_bubble {
+  position: relative;
+  background-color: $gray-300;
+  font-size: $small-font-size;
+  padding: 15px 15px 10px 15px;
+  border-radius: $border-radius-sm;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -12px;
+    left: 6px;
+    width: 0;
+    height: 0;
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+    border-top: 14px solid $gray-300;
+  }
+}
+
+.right-side_review {
+  .testimonial {
+    padding: 0;
+    margin-top: 15px;
+    img {
+      width: 50px;
+      height: 50px;
+    }
+    .testimonial__details {
+      margin-left: 10px;
+      .testimonial__name {
+        font-size: $font-size-sm;
+      }
+      span {
+        margin: 0;
+      }
+    }
+  }
+}
+
+
+// text note? What the difference from card.info? Mb should make two versions: default and `inversed/dark/etc`?
+.text-note {
+  position: relative;
+  border: 1px solid $gray-300;
+  border-radius: $border-radius-sm;
+  padding: 15px 15px 10px 15px;
+  margin-bottom: 20px;
+
+  &::after {
+    content: " ";
+    width: 14px;
+    height: 14px;
+    background-image: url("/static/v2/img/icons/more-info-block_corner.svg");
+    position: absolute;
+    right: -1px;
+    bottom: -1px;
+  }
+
+  ._text {
+    margin-top: 5px;
+    font-size: $small-font-size;
+  }
 }

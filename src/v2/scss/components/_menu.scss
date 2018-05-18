@@ -18,6 +18,7 @@ $navbar-toggler-border-radius: $btn-border-radius;
   top: 0;
   position: fixed;
   z-index: 10;
+  // FIXME: set with js only
   height: 100%;
   overflow-y: scroll;
   @include font-smoothing();
@@ -153,6 +154,7 @@ $navbar-toggler-border-radius: $btn-border-radius;
   }
 }
 
+// TODO: make it `default` styles
 .__inner-theme {
   background-color: $gray-500;
   .nav-link {
@@ -164,9 +166,6 @@ $navbar-toggler-border-radius: $btn-border-radius;
     &._active {
       opacity: 1;
     }
-  }
-  .menu-link-active {
-    opacity: 1;
   }
 }
 
@@ -184,30 +183,30 @@ $navbar-toggler-border-radius: $btn-border-radius;
   }
 }
 
-.__transperent-theme {
+.__transparent-theme {
   background-color: $gray-500;
+  @include media-breakpoint-up(lg) {
+    background-color: transparent;
+  }
+
   .nav-link {
     color: $white;
   }
 
-  .navbar-nav:hover{
-    .nav-link{
+  .navbar-nav:hover {
+    .nav-link {
       opacity: .5;
     }
   }
 
-  .nav-item:hover{
+  .nav-item:hover {
     .nav-link {
       opacity: 1;
     }
   }
-    @include media-breakpoint-up(lg) {
-      background-color: transparent;
-  }
 }
 
 ._sub-menu {
-  display: flex;
   height: 40px;
   align-items: center;
   font-size: $font-size-sm;
@@ -216,6 +215,7 @@ $navbar-toggler-border-radius: $btn-border-radius;
     display: flex;
   }
 }
+
 ._user-menu-btn {
   color: $white;
   display: flex;
@@ -273,8 +273,13 @@ $navbar-toggler-border-radius: $btn-border-radius;
 .dropdown {
   margin-left: auto;
   margin-right: 20px;
-  //Отступ от края в мобильной версии
   @include media-breakpoint-up(lg) {
     margin-right: 0;
   }
+}
+
+._top-banner-kids {
+  margin-right: 5px;
+  position: relative;
+  bottom: -4px;
 }

@@ -1,31 +1,8 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="utf-8">
-    <title>{% block title %}Цели и история центра{% endblock title %}</title>
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description"
-          content="Computer Science Center — объединённая инициатива Школы анализа данных, Computer Science клуба и JetBrains.">
-    <meta name="google-site-verification" content="pBs4x-E9VGlX-gA7WxCNEqcYB0TYJCSmcZtSeLBpEgk"/>
+{% extends "v2/layouts/inner.jinja2" %}
 
-    <link rel="shortcut icon" type="image/png" href="{{ static("v2/img/favicon.png") }}">
-    <link href="{{ static("v2/dist/css/main.css") }}" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,400&amp;subset=cyrillic" rel="stylesheet">
-
-    {% block stylesheets %} {% endblock stylesheets %}
-</head>
-
-{% import "v2/_macros.jinja2" as macros %}
-{% import "v2/components/menu.jinja2" as top_menu %}
-
-<body>
-<div class="svg-inline">{% include "sprites/common.svg" %}</div>
-
-{{ top_menu.render(theme_class="__inner-theme") }}
-
+{% block content %}
 <div class="container page-content">
-    <div class="main-content">
+    <div class="main-col">
         <h1 class="_title">Цели и история CS центра</h1>
         <p class="_text">Computer Science Center — это совместная инициатива Computer Science клуба при ПОМИ РАН,
             компании JetBrains и
@@ -54,7 +31,7 @@
             <li><a href="">Александр Смаль</a></li>
         </ul>
     </div>
-    <div class="right-side">
+    <div class="right-col">
         <h3 class="_title">Полезные материалы</h3>
         <div class="text-note">
             <a href="#">Поступление</a>
@@ -62,11 +39,13 @@
                 год.</p>
         </div>
 
-        <div class="info-card">
-            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
-            <p class="_text">Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+        <div class="card _note">
+            <img class="card-img-top" src="/media/pages/text-page/info-card-image.jpg" alt="">
+            <div class="card-body">
+                Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
                 живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по будним вечерам и
-                выходным.</p>
+                выходным.
+            </div>
         </div>
 
         <div class="right-side_review">
@@ -86,8 +65,4 @@
     </div>
 
 </div>
-
-{{ render_bundle('manifest', config='V2') }}
-{{ render_bundle('main', config='V2') }}
-</body>
-</html>
+{% endblock content %}

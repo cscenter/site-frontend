@@ -1,1 +1,69 @@
 @import "bootstrap/scss/grid";
+
+// TODO: всё удалить
+.page-content {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 140px;
+  flex-flow: column;
+  padding: 20px;
+  @include media-breakpoint-up(lg) {
+    flex-flow: row;
+    margin-top: 40px;
+    padding: 0;
+  }
+}
+
+.main-col {
+  @include make-col(12);
+  @include media-breakpoint-up(lg) {
+    @include make-col(8);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-align: left;
+  }
+
+  ul {
+    margin-bottom: 20px;
+  }
+
+  ._single-img {
+    img {
+      width: 100%;
+    }
+    ._img-description {
+      padding-top: 5px;
+      font-size: $font-size-sm;
+      color: $gray-400;
+      margin-bottom: 20px;
+    }
+  }
+
+  ._text {
+    padding-bottom: 20px;
+  }
+
+  ._title {
+    padding-bottom: 10px;
+    text-align: left;
+  }
+}
+
+.right-col {
+  @include make-col(12);
+  @include media-breakpoint-up(lg) {
+    @include make-col(3);
+  }
+  margin-top: 10px;
+
+  ._title {
+    text-align: left;
+    display: block;
+    @include media-breakpoint-up(lg) {
+      display: none;
+    }
+  }
+}

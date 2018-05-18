@@ -25,7 +25,7 @@
     {% block sprites %}{% endblock sprites %}
 </div>
 
-{{ top_menu.render(theme_class="__inner-theme") }}
+{% block menu %}{{ top_menu.render(theme_class="__inner-theme") }}{% endblock menu %}
 
 {% block content %}place page content here{% endblock content %}
 

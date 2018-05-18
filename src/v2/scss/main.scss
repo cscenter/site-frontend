@@ -5,7 +5,6 @@
 @import "bootstrap/scss/transitions";
 @import "utils/mixins";
 
-@import "components/nav";  // Before: layouts/index
 @import "layouts/index";
 
 @import "components/banners";
@@ -15,6 +14,7 @@
 @import "components/grid";
 @import "components/sprites";
 @import "components/typography";  // After: reboot
+@import "components/text-page-grid";
 
 @import "pages/index";
 

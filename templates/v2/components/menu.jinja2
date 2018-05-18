@@ -21,196 +21,154 @@
 <body>
 <div class="svg-inline">{% include "sprites/common.svg" %}</div>
 
-<div class="navbar-container_mobile">
-    <div class="top-banner">
-        <div class="container">
-            <div class="top-banner__text">
-                {{ macros.svg_inline('top-banner-kids') }} До 14 апреля открыт <a class="top-banner__link"
-                                                                                  href="/application/">приём
-                заявок</a> на очное обучение в центре
+{% macro render(show_submenu=True, theme_class='__inner-theme') -%}
+
+    <div class="navbar-container">
+        <div class="top-banner">
+            <div class="container">
+                <div class="top-banner__text">
+                    {{ macros.svg_inline('top-banner-kids') }} До 14 апреля открыт <a class="top-banner__link"
+                                                                                      href="/application/">приём
+                    заявок</a>
+                    на очное обучение в центре
+                </div>
             </div>
         </div>
-    </div>
 
-    <nav class="navbar navbar-expand-lg navbar-dark __dark-menu">
-        <div class="container">
-            <a class="navbar-brand" href="#">{{ macros.svg_inline('logo-csc') }}</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#topMainMenu" aria-controls="topMainMenu"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <nav class="navbar{% if theme_class %} {{ theme_class }}{% endif %}">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#top-menu-mobile" aria-controls="top-menu-mobile"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon">{{ macros.svg_inline('burger-menu') }}</span>
+                </button>
+                <a class="navbar-logo" href="#">{{ macros.svg_inline('logo-csc') }}</a>
 
-            <div class="collapse navbar-collapse" id="topMainMenu">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        {#                        <a class="nav-link dropdown-toggle" href="#">О центре</a>#}
-                        <div class="dropdown">
-                            <a class="nav-link" id="userMenuButton" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                <span>О центре</span> {{ macros.svg_inline('arrow-bottom') }}
+                <div class="menu-desktop-wrapper">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link _active" href="#">О центре</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Программы</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Курсы</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Онлайн</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Лекторий</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Поступление</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="menu-mobile-wrapper collapse" id="top-menu-mobile">
+                    <ul>
+                        <li>
+                            <a class="nav-link _active"" data-toggle="collapse" aria-expanded="false"
+                            data-target="#top-menu-item-1"
+                            aria-controls="top-menu-item-1">
+                            <span>О центре</span> {{ macros.svg_inline('arrow-bottom') }}
                             </a>
-                            <div class="dropdown-menu _menu-mobile-view">
-                                <a class="dropdown-item" href="#">Цели и история</a>
-                                <a class="dropdown-item" href="#">Программа</a>
-                                <a class="dropdown-item" href="#">Команда</a>
-                                <a class="dropdown-item" href="#">Преподаватели</a>
-                                <a class="dropdown-item" href="#">Выпускники</a>
+                            <div class="mobile-submenu collapse show" id="top-menu-item-1">
+                                <a class="mobile-submenu-item _active" href="#">Цели и история</a>
+                                <a class="mobile-submenu-item" href="#">Программа</a>
+                                <a class="mobile-submenu-item" href="#">Команда</a>
+                                <a class="mobile-submenu-item" href="#">Преподаватели</a>
+                                <a class="mobile-submenu-item" href="#">Выпускники</a>
                             </div>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <div class="dropdown">
-                            <a class="nav-link" id="userMenuButton" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
+                        </li>
+                        <li>
+                            <a class="nav-link" data-toggle="collapse" aria-expanded="false"
+                               data-target="#top-menu-item-2"
+                               aria-controls="top-menu-item-2">
                                 <span>Программы</span> {{ macros.svg_inline('arrow-bottom') }}
                             </a>
-                            <div class="dropdown-menu _menu-mobile-view">
-                                <a class="dropdown-item" href="#">Software engineering</a>
-                                <a class="dropdown-item" href="#">Data science</a>
-                                <a class="dropdown-item" href="#">Computer science</a>
+                            <div class="mobile-submenu collapse" id="top-menu-item-2">
+                                <a class="mobile-submenu-item" href="#">Software engineering</a>
+                                <a class="mobile-submenu-item" href="#">Data science</a>
+                                <a class="mobile-submenu-item" href="#">Computer science</a>
                             </div>
-                        </div>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Курсы</a>
-                    </li>
-                    <li class="nav-item">
-                        <div class="dropdown">
-                            <a class="nav-link" id="userMenuButton" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
+                        </li>
+                        <li>
+                            <a class="nav-link" href="#">Курсы</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" data-toggle="collapse" aria-expanded="false"
+                               data-target="#top-menu-item-3"
+                               aria-controls="top-menu-item-3">
                                 <span>Онлайн</span> {{ macros.svg_inline('arrow-bottom') }}
                             </a>
-                            <div class="dropdown-menu _menu-mobile-view">
-                                <a class="dropdown-item" href="#">Онлайн-курсы</a>
-                                <a class="dropdown-item" href="#">Видеозаписи лекций</a>
-                                <a class="dropdown-item" href="#">Онлайн-программа</a>
+                            <div class="mobile-submenu collapse" id="top-menu-item-3">
+                                <a class="mobile-submenu-item" href="#">Онлайн-курсы</a>
+                                <a class="mobile-submenu-item" href="#">Видеозаписи лекций</a>
+                                <a class="mobile-submenu-item" href="#">Онлайн-программа</a>
                             </div>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Лекторий</a>
-                    </li>
-                    <li class="nav-item navbar-last-item">
-                        <a class="nav-link" href="#">Поступление</a>
-                    </li>
-                </ul>
-            </div>
-
-            {#                <a class="btn btn--outline btn--reg" href="#">#}
-            {#                    Войти <div class="btn-reg--icon"></div>#}
-            {#                </a>#}
-
-            <div class="dropdown">
-                <button class="btn _user-menu-btn" type="button" id="userMenuButton" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                    <span>Святослав</span><img class="user-menu-img" src="/media/pages/index/student.png" alt="">
-                </button>
-                <div class="dropdown-menu _user-menu" aria-labelledby="userMenuButton">
-                    <a class="dropdown-item" href="#">Обучение</a>
-                    <a class="dropdown-item" href="#">Проекты</a>
-                    <a class="dropdown-item" href="#">Курирование</a>
-                    <a class="dropdown-item" href="#">Админ-панель</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Выйти</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="#">Лекторий</a>
+                        </li>
+                        <li class="navbar-last-item">
+                            <a class="nav-link" href="#">Поступление</a>
+                        </li>
+                    </ul>
                 </div>
+                {#                            <a class="btn btn--outline btn--reg" href="#">#}
+                {#                                Войти <div class="btn-reg--icon"></div>#}
+                {#                            </a>#}
+
+                <div class="dropdown">
+                    <button class="btn _user-menu-btn" type="button" id="userMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        <span>Святослав</span><img class="user-menu-img" src="/media/pages/index/student.png" alt="">
+                    </button>
+                    <div class="dropdown-menu _user-menu" aria-labelledby="userMenuButton">
+                        <a class="dropdown-item" href="#">Обучение</a>
+                        <a class="dropdown-item" href="#">Проекты</a>
+                        <a class="dropdown-item" href="#">Курирование</a>
+                        <a class="dropdown-item" href="#">Админ-панель</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Выйти</a>
+                    </div>
+                </div>
+
             </div>
+        </nav>
 
-        </div>
-    </nav>
+        {% if show_submenu %}
+            <nav class="navbar __light-menu _sub-menu">
+                <div class="container">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link sub-link_active" href="#">Цели и история</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Команда</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Преподаватели</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Выпускники</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Отзывы</a>
+                        </li>
+                    </ul>
 
-</div>
-<div class="navbar-container">
+                </div>
+            </nav>
 
-    <div class="top-banner">
-        <div class="container">
-            <div class="top-banner__text">
-                {{ macros.svg_inline('top-banner-kids') }} До 14 апреля открыт <a class="top-banner__link"
-                                                                                  href="/application/">приём заявок</a>
-                на очное обучение в центре
-            </div>
-        </div>
+    {% endif %}
     </div>
+{%- endmacro %}
 
-
-    <nav class="navbar navbar-expand-lg navbar-dark __dark-menu">
-        <div class="container">
-            <a class="navbar-brand" href="#">{{ macros.svg_inline('logo-csc') }}</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#topMainMenu" aria-controls="topMainMenu"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="topMainMenu">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-link-active nav-item">
-                        <a class="nav-link menu-link-active" href="#">О центре</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Программы</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Курсы</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Онлайн</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Лекторий</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Поступление</a>
-                    </li>
-                </ul>
-            </div>
-
-            {#                <a class="btn btn--outline btn--reg" href="#">#}
-            {#                    Войти <div class="btn-reg--icon"></div>#}
-            {#                </a>#}
-
-            <div class="dropdown">
-                <button class="btn _user-menu-btn" type="button" id="userMenuButton" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                    <span>Святослав</span><img class="user-menu-img" src="/media/pages/index/student.png" alt="">
-                </button>
-                <div class="dropdown-menu _user-menu" aria-labelledby="userMenuButton">
-                    <a class="dropdown-item" href="#">Обучение</a>
-                    <a class="dropdown-item" href="#">Проекты</a>
-                    <a class="dropdown-item" href="#">Курирование</a>
-                    <a class="dropdown-item" href="#">Админ-панель</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Выйти</a>
-                </div>
-            </div>
-
-        </div>
-    </nav>
-    <nav class="navbar navbar-expand-lg __light-sub-menu">
-        <div class="container">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link sub-link_active" href="#">Цели и история</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Команда</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Преподаватели</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Выпускники</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Отзывы</a>
-                </li>
-            </ul>
-
-        </div>
-    </nav>
-
-</div>
+{{ render() }}
 
 {{ render_bundle('manifest', config='V2') }}
 {{ render_bundle('main', config='V2') }}

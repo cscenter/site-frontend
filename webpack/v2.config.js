@@ -35,7 +35,7 @@ const PATHS = {
 
 // Let's include necessary parts instead of the whole polyfill bundle
 const VENDOR = [
-    'babel-polyfill',
+    '@babel/polyfill',
 ];
 
 const common = {
@@ -70,13 +70,42 @@ const common = {
                     {
                         loader: 'babel-loader',
                         options: {
-                            cacheDirectory: true  // Improve performance
+                            // `.babelrc.js` doesn't work for 7.0.0.-beta.46
+                            babelrc: false,
+                            presets: [
+                                [
+                                    "@babel/preset-stage-2",
+                                    {
+                                        "decoratorsLegacy": true
+                                    }
+                                ],
+                                [
+                                    "@babel/preset-env",
+                                    {
+                                        "modules": false,
+                                        "loose": true
+                                    }
+                                ],
+                                "@babel/preset-react"
+                            ],
+                            cacheDirectory: true,  // Improve performance
+                            "env": {
+                                "production": {
+                                    "plugins": [
+                                        ["transform-react-remove-prop-types", {
+                                            // TODO: eslint-plugin-react has a rule forbid-foreign-prop-types to make this plugin safer
+                                            "mode": "remove",
+                                            "ignoreFilenames": ["node_modules"]
+                                        }]
+                                    ]
+                                }
+                            }
                         }
                     }
                 ],
                 include: [
                     path.resolve(__srcdir, "js"),
-                    path.resolve(__nodemodulesdir, "bootstrap"),  // used object spread syntax
+                    path.resolve(__nodemodulesdir, "bootstrap"),  // needs babel, used object spread syntax
                 ]
             },
             {

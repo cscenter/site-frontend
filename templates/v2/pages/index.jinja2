@@ -20,6 +20,7 @@
 {% import "v2/components/menu.jinja2" as top_menu %}
 
 <body>
+
 <div class="svg-inline">
     {% include "sprites/common.svg" %}
     {% include "sprites/index.svg" %}
@@ -27,7 +28,6 @@
 
 <div class="cover">
     {{ top_menu.render(show_submenu=False, theme_class="__transperent-theme") }}
-
 
     <div class="container">
         <h1 class="cover__title">Знания, востребованные в&nbsp;науке и&nbsp;индустрии</h1>

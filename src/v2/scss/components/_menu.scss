@@ -148,7 +148,6 @@ $navbar-toggler-border-radius: $btn-border-radius;
             background-color: transparentize($black, .6);
           }
         }
-
       }
     }
   }
@@ -217,9 +216,6 @@ $navbar-toggler-border-radius: $btn-border-radius;
     display: flex;
   }
 }
-
-
-//Выпадающий список с меню авторизованного пользователя
 ._user-menu-btn {
   color: $white;
   display: flex;

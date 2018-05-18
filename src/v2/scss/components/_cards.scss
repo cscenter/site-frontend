@@ -44,6 +44,7 @@ $card-columns-margin: $card-spacer-y !default;
 .card._note {
   background-color: $gray-300;
   padding: 15px;
+  margin-bottom: 1rem;
   font-size: $small-font-size;
 
   .card-img-top {
@@ -181,7 +182,7 @@ change definition to "testimonial _bubble" or something like that
   border: 1px solid $gray-300;
   border-radius: $border-radius-sm;
   padding: 15px 15px 10px 15px;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 
   &::after {
     content: " ";

@@ -18,7 +18,7 @@ $gray-100: #f3f6f7;
 $gray-200: #e9e9e9;
 $gray-300: #ecf0f2;
 $gray-400: #8b9ca7;
-$gray-500: #314451;
+$gray-500: #374148;
 $gray-600: #6c757d;
 
 $colors: (
@@ -39,7 +39,7 @@ $grays: (
 
 // Themes
 
-$primary:       $teal;
+$primary:       $blue;
 $secondary:     $gray-600;
 $light:         $gray-100;
 $dark:          $gray-500;
@@ -142,10 +142,10 @@ $grid-breakpoints: (
 // Define the maximum width of `.container` for different screen sizes.
 
 $container-max-widths: (
-  sm: 540px,
-  md: 720px,
-  lg: 960px,
-  xl: 1200px
+  sm: 536px,
+  md: 728px,
+  lg: 912px,
+  xl: 1120px
 );
 
 @include _assert-ascending($container-max-widths, "$container-max-widths");

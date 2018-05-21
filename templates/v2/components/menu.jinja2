@@ -21,9 +21,10 @@
 <body>
 <div class="svg-inline">{% include "sprites/common.svg" %}</div>
 
-{% macro render(show_submenu=True, theme_class='__inner-theme') -%}
+{% macro render(show_submenu=True, show_notification=True, theme_class='') -%}
 
     <div class="navbar-container">
+        {% if show_notification %}
         <div class="top-banner">
             <div class="container">
                 <div class="top-banner__text">
@@ -34,6 +35,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
 
         <nav class="navbar{% if theme_class %} {{ theme_class }}{% endif %}">
             <div class="container">
@@ -70,7 +72,7 @@
                 <div class="menu-mobile-wrapper collapse" id="top-menu-mobile">
                     <ul>
                         <li>
-                            <a class="nav-link _active"" data-toggle="collapse" aria-expanded="false"
+                            <a class="nav-link _active" data-toggle="collapse" aria-expanded="true"
                             data-target="#top-menu-item-1"
                             aria-controls="top-menu-item-1">
                             <span>О центре</span> {{ macros.svg_inline('arrow-bottom') }}
@@ -141,11 +143,11 @@
         </nav>
 
         {% if show_submenu %}
-            <nav class="navbar __light-menu _sub-menu">
+            <nav class="navbar navbar-submenu">
                 <div class="container">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link sub-link_active" href="#">Цели и история</a>
+                        <li class="nav-item _active">
+                            <a class="nav-link" href="#">Цели и история</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Команда</a>
@@ -166,6 +168,7 @@
 
     {% endif %}
     </div>
+    {% if show_notification %}<div class="top-banner-spacer"></div>{% endif %}
 {%- endmacro %}
 
 {{ render() }}

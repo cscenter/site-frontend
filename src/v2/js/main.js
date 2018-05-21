@@ -18,7 +18,27 @@ if (authenticatedUser !== undefined && !isNaN(parseInt(authenticatedUser))) {
 }
 
 $(function () {
-    // Click on `Show programs'
+    $('#top-menu-mobile')
+        .on('show.bs.collapse', function (event) {
+            // Ignores bubbled events from submenu
+            if (event.target.classList.contains("mobile-submenu")) {
+                return;
+            }
+            document.getElementsByClassName("navbar-container")[0].style.height = "100%";
+            document.body.style.height = "100%";
+            document.body.style.overflow = "hidden";
+    })
+        .on('hidden.bs.collapse', function (event) {
+            // Ignores bubbled events from submenu
+            if (event.target.classList.contains("mobile-submenu")) {
+                return;
+            }
+            document.getElementsByClassName("navbar-container")[0].style.height = "";
+            document.body.style.height = "";
+            document.body.style.overflow = "auto";
+    });
+
+    // Click `Show Programs' on index page
     $('a[href="#offline-courses"]').click(function (e) {
         e.preventDefault();
         let scrollTo = $(this).attr('href');

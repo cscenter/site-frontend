@@ -1,3 +1,5 @@
+$top-banner-height: 60px;
+
 .top-banner {
   background-color: darken($gray-500, 10%);
   display: flex;
@@ -32,5 +34,12 @@
   &:hover {
     border-bottom: 1px solid transparentize($teal, .5);
     color: lighten($teal, 20%);
+  }
+}
+
+.top-banner-spacer {
+  height: $top-banner-height;
+  @include media-breakpoint-up(lg) {
+    height: 0;
   }
 }

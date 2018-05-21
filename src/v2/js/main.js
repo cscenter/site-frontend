@@ -11,32 +11,30 @@ Raven
             ravenOptions)
     .install();
 let authenticatedUser = $("#userMenuButton").data('id');
-if (authenticatedUser !== undefined && !isNaN(parseInt(authenticatedUser))) {
-    Raven.setUserContext({
-        id: authenticatedUser
-    });
-}
-
 $(function () {
+    let navbarContainer = document.getElementsByClassName("navbar-container")[0];
     $('#top-menu-mobile')
         .on('show.bs.collapse', function (event) {
             // Ignores bubbled events from submenu
             if (event.target.classList.contains("mobile-submenu")) {
                 return;
             }
-            document.getElementsByClassName("navbar-container")[0].style.height = "100%";
             document.body.style.height = "100%";
             document.body.style.overflow = "hidden";
-    })
+            navbarContainer.style.height = "100%";
+            navbarContainer.style.overflowY = "scroll";
+        })
         .on('hidden.bs.collapse', function (event) {
             // Ignores bubbled events from submenu
             if (event.target.classList.contains("mobile-submenu")) {
                 return;
             }
+            navbarContainer.style.height = "";
+            navbarContainer.style.overflowY = "visible";
             document.getElementsByClassName("navbar-container")[0].style.height = "";
             document.body.style.height = "";
             document.body.style.overflow = "auto";
-    });
+        });
 
     // Click `Show Programs' on index page
     $('a[href="#offline-courses"]').click(function (e) {
@@ -52,3 +50,9 @@ $(function () {
         }, 700);
     });
 });
+if (authenticatedUser !== undefined && !isNaN(parseInt(authenticatedUser))) {
+    Raven.setUserContext({
+        id: authenticatedUser
+    });
+
+}

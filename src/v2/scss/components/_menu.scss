@@ -18,11 +18,9 @@ $navbar-toggler-border-radius: $btn-border-radius;
   top: 0;
   position: fixed;
   z-index: 10;
-  overflow-y: scroll;
   @include font-smoothing();
   @include media-breakpoint-up(lg) {
     position: relative;
-    overflow-y: visible;
   }
 }
 
@@ -45,7 +43,7 @@ $navbar-toggler-border-radius: $btn-border-radius;
   height: 60px;
   align-items: center;
   margin-right: $navbar-padding-x;
-  margin-left: 5px;
+  margin-left: .5rem;
   @include media-breakpoint-up(lg) {
     margin-left: 0;
   }

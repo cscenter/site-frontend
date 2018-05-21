@@ -86,6 +86,7 @@
   margin-bottom: 1rem;
   border-radius: $border-radius-sm;
   text-align: left;
+  max-width: 100%;  // for ie10
 
   &::after {
     content: "";

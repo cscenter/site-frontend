@@ -6,9 +6,11 @@
 @import "bootstrap/scss/utilities/spacing";
 @import "bootstrap/scss/utilities/display";
 @import "utils/mixins";
+@import "utils/misc";
 
 @import "layouts/index";
 
+@import "components/images";
 @import "components/banners";
 @import "components/buttons";
 @import "components/cards";

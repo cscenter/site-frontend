@@ -3,6 +3,7 @@
   padding: 1.7rem;
   color: $gray-500;
   flex-direction: row;
+  flex-wrap: wrap;
   font-size: .9375rem;
   justify-content: center;
   text-align: center;
@@ -13,15 +14,18 @@
 
   &._bubble {
     padding: 0;
-    display: block;
 
-    .testimonial__name {
-      font-size: $font-size-sm;
-    }
+    .testimonial__author {
+      line-height: 1.2;
 
-    .testimonial__details {
       span {
         margin: 0;
+      }
+    }
+
+    img {
+      @include media-breakpoint-up(lg) {
+        margin-right: .625rem;
       }
     }
   }
@@ -32,11 +36,6 @@
     }
   }
 
-  span {
-    margin: .3rem 0;
-    display: block;
-    color: $gray-400;
-  }
 }
 
 .testimonial__details {
@@ -55,11 +54,26 @@
   }
 }
 
-.testimonial__name {
-  margin: 1rem 0 0 0;
+.testimonial__author {
+  flex-basis: 0;
+  flex-grow: 1;
 
-  @include media-breakpoint-up(lg) {
-    margin: 0;
+  h4 {
+    margin: 1rem 0 0 0;
+
+    @include media-breakpoint-up(lg) {
+      margin: 0;
+    }
+  }
+
+  a {
+    font-size: 1rem;
+  }
+
+  span {
+    margin: .3rem 0;
+    display: block;
+    color: $gray-400;
   }
 }
 
@@ -71,17 +85,23 @@
   background-color: $gray-300;
   margin-bottom: 1rem;
   border-radius: $border-radius-sm;
+  text-align: left;
 
   &::after {
     content: "";
     position: absolute;
     bottom: -12px;
-    left: 6px;
     width: 0;
     height: 0;
     border-left: 18px solid transparent;
     border-right: 18px solid transparent;
     border-top: 14px solid $gray-300;
+    left: 50%;
+    margin-left: -18px;
+    @include media-breakpoint-up(lg) {
+      left: 6px;
+      margin-left: auto;
+    }
   }
 }
 

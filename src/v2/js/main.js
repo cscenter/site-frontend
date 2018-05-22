@@ -13,6 +13,7 @@ Raven
 let authenticatedUser = $("#userMenuButton").data('id');
 $(function () {
     let navbarContainer = document.getElementsByClassName("navbar-container")[0];
+    let navbarToggler = $(".navbar-toggler");
     $('#top-menu-mobile')
         .on('show.bs.collapse', function (event) {
             // Ignores bubbled events from submenu
@@ -23,6 +24,14 @@ $(function () {
             document.body.style.overflow = "hidden";
             navbarContainer.style.height = "100%";
             navbarContainer.style.overflowY = "scroll";
+            navbarToggler.addClass("is-active");
+        })
+        .on('hide.bs.collapse', function (event) {
+            // Ignores bubbled events from submenu
+            if (event.target.classList.contains("mobile-submenu")) {
+                return;
+            }
+            navbarToggler.removeClass("is-active");
         })
         .on('hidden.bs.collapse', function (event) {
             // Ignores bubbled events from submenu

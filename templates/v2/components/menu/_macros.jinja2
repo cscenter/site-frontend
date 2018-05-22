@@ -18,11 +18,12 @@
 
         <nav class="navbar navbar-main{% if theme_class %} {{ theme_class }}{% endif %}">
             <div class="container">
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#top-menu-mobile" aria-controls="top-menu-mobile"
+                <button class="navbar-toggler hamburger hamburger--vortex" type="button"
+                        data-toggle="collapse" data-target="#top-menu-mobile" aria-controls="top-menu-mobile"
                         aria-expanded="false" aria-label="Toggle navigation">
-                    {{ macros.svg_inline('burger-menu') }}
+                    <span class="hamburger-box"><span class="hamburger-inner"></span></span>
                 </button>
+
                 <a class="navbar-logo" href="/v2/pages/">{{ macros.svg_inline('logo-csc') }}</a>
 
                 <div class="menu-desktop-wrapper">

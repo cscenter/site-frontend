@@ -16,6 +16,8 @@ $navbar-toggler-margin-x: $nav-link-padding-x - $input-btn-padding-x;
 $navbar-toggler-font-size: $font-size-lg;
 $navbar-toggler-border-radius: $btn-border-radius;
 
+@import "hamburger";
+
 .navbar-container {
   position: fixed;
   width: 100%;
@@ -48,22 +50,18 @@ $navbar-toggler-border-radius: $btn-border-radius;
 }
 
 .navbar-toggler {
+  display: flex;
+  align-self: center;
+
   padding: $navbar-padding-y $navbar-toggler-padding-x;
   margin: 0 $navbar-toggler-margin-x;
   background-color: transparent; // remove default button style
   border: none; // remove default button style
 
-  &:focus {
-    outline: none;
-  }
-
   @include media-breakpoint-up(lg) {
     display: none;
   }
 
-  &:not(:disabled):not(.disabled) {
-    cursor: pointer;
-  }
 }
 
 .nav-link {
@@ -276,6 +274,7 @@ $navbar-toggler-border-radius: $btn-border-radius;
     background-color: rgba(0, 0, 0, 0);
 
     span {
+      margin-right: 10px;
       display: none;
       @include media-breakpoint-up(lg) {
         display: inline-block;
@@ -288,6 +287,5 @@ $navbar-toggler-border-radius: $btn-border-radius;
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  margin-left: 10px;
   opacity: .9;
 }

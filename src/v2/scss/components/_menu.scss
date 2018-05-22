@@ -39,14 +39,6 @@ $navbar-toggler-border-radius: $btn-border-radius;
       flex-wrap: nowrap;
     }
   }
-
-  .btn--reg {
-    margin-left: auto;
-  }
-}
-
-.navbar-main {
-  align-items: center;
 }
 
 .navbar-logo {
@@ -94,7 +86,7 @@ $navbar-toggler-border-radius: $btn-border-radius;
 }
 
 .menu-desktop-wrapper {
-  padding: $navbar-padding-y 0;
+  padding: $navbar-padding-y 0 ($navbar-padding-y - $nav-link-padding-y);
   display: none;
   @include media-breakpoint-up(lg) {
     display: flex;
@@ -111,9 +103,15 @@ $navbar-toggler-border-radius: $btn-border-radius;
   list-style: none;
   width: 100%; // ie 10 fix
 
+
   .nav-link {
-    margin-right: 1rem;
-  // TODO:  padding: .5rem 1rem
+    padding: $nav-link-padding-y;
+  }
+}
+
+.navbar-main {
+  .nav-item {
+    margin-top: -$nav-link-padding-y;
   }
 }
 
@@ -234,23 +232,46 @@ $navbar-toggler-border-radius: $btn-border-radius;
   }
 }
 
-.dropdown-user-menu {
-  padding: $navbar-padding-y 0 0; // skip bottom padding since user img height > logo height
-  margin-top: -1px;
-  margin-left: auto;
-  margin-right: $navbar-padding-y;
-  @include media-breakpoint-up(lg) {
+.btn-reg {
+  display: flex;
+  margin: ($navbar-padding-y - $input-btn-padding-y) 0 0 auto;
+
+  @include media-breakpoint-down(md) {
+    text-indent: -9999px;
+    border: none;
+
+    &:hover {
+      border: none;
+    }
+  }
+}
+
+.btn-reg--icon {
+  margin-right: 5px;
+  height: 24px;
+  width: 24px;
+  background-image: url("/static/v2/img/icons/user-sign.svg");
+  background-size: cover;
+  order: -1;
+
+  @include media-breakpoint-down(md) {
     margin-right: 0;
   }
+}
+
+
+.dropdown-user-menu {
+  padding: ($navbar-padding-y - $input-btn-padding-y) 0 0; // skip bottom padding since user img height > logo height
+  margin-top: -1px;
+  margin-left: auto;
 
   .dropdown-menu {
-    right: 0;
+    right: $input-btn-padding-x;
     left: auto;
   }
 
   .btn {
     color: $white;
-    padding: 0 0 .375rem;
     border-color: transparent;
     background-color: rgba(0, 0, 0, 0);
 
@@ -270,19 +291,3 @@ $navbar-toggler-border-radius: $btn-border-radius;
   margin-left: 10px;
   opacity: .9;
 }
-
-// TODO: move to dropdown?
-._arrow {
-  &::after {
-    content: "";
-    position: absolute;
-    top: -5px;
-    right: 8px;
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-bottom: 6px solid $white;
-  }
-}
-

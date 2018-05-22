@@ -1,6 +1,6 @@
 {% import "v2/_macros.jinja2" as macros %}
 
-{% macro render(show_submenu=True, show_notification=True, theme_class='') -%}
+{% macro render(show_submenu=True, show_notification=True, show_login_button=False, theme_class='') -%}
 
     <div class="navbar-container">
         {% if show_notification %}
@@ -58,7 +58,7 @@
                             <a class="nav-link" href="#">Проекты</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Проекты</a>
+                            <a class="nav-link" href="/v2/components/">Компоненты</a>
                         </li>
                     </ul>
                 </div>
@@ -114,25 +114,27 @@
                         </li>
                     </ul>
                 </div>
-                {#                            <a class="btn btn--outline btn--reg" href="#">#}
-                {#                                Войти <div class="btn-reg--icon"></div>#}
-                {#                            </a>#}
 
-                <div class="dropdown dropdown-user-menu">
-                    <button class="btn" type="button" id="userMenuButton" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                        <span>Святослав Михайлов</span><img class="user-menu-img" src="/media/pages/index/student.png" alt="">
-                    </button>
-                    <div class="dropdown-menu _arrow _user-menu" aria-labelledby="userMenuButton">
-                        <a class="dropdown-item" href="#">Обучение</a>
-                        <a class="dropdown-item" href="#">Проекты</a>
-                        <a class="dropdown-item" href="#">Курирование</a>
-                        <a class="dropdown-item" href="#">Админ-панель</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Выйти</a>
+                {% if show_login_button %}
+                    <a class="btn btn--outline btn-reg" href="#">
+                        Войти <div class="btn-reg--icon"></div>
+                    </a>
+                {% else %}
+                    <div class="dropdown dropdown-user-menu">
+                        <button class="btn" type="button" id="userMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            <span>Святослав Михайлов</span><img class="user-menu-img" src="/media/pages/index/student.png" alt="">
+                        </button>
+                        <div class="dropdown-menu _arrow-right _user-menu" aria-labelledby="userMenuButton">
+                            <a class="dropdown-item" href="#">Обучение</a>
+                            <a class="dropdown-item" href="#">Проекты</a>
+                            <a class="dropdown-item" href="#">Курирование</a>
+                            <a class="dropdown-item" href="#">Админ-панель</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Выйти</a>
+                        </div>
                     </div>
-                </div>
-
+                {% endif %}
             </div>
         </nav>
 

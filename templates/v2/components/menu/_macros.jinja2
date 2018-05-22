@@ -1,25 +1,4 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="utf-8">
-    <title>{% block title %}Цели и история центра{% endblock title %}</title>
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description"
-          content="Computer Science Center — объединённая инициатива Школы анализа данных, Computer Science клуба и JetBrains.">
-    <meta name="google-site-verification" content="pBs4x-E9VGlX-gA7WxCNEqcYB0TYJCSmcZtSeLBpEgk"/>
-
-    <link rel="shortcut icon" type="image/png" href="{{ static("v2/img/favicon.png") }}">
-    <link href="{{ static("v2/dist/css/main.css") }}" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,400&amp;subset=cyrillic" rel="stylesheet">
-
-    {% block stylesheets %} {% endblock stylesheets %}
-</head>
-
 {% import "v2/_macros.jinja2" as macros %}
-
-<body>
-<div class="svg-inline">{% include "sprites/common.svg" %}</div>
 
 {% macro render(show_submenu=True, show_notification=True, theme_class='') -%}
 
@@ -37,12 +16,12 @@
         </div>
         {% endif %}
 
-        <nav class="navbar{% if theme_class %} {{ theme_class }}{% endif %}">
+        <nav class="navbar navbar-main{% if theme_class %} {{ theme_class }}{% endif %}">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#top-menu-mobile" aria-controls="top-menu-mobile"
                         aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon">{{ macros.svg_inline('burger-menu') }}</span>
+                    {{ macros.svg_inline('burger-menu') }}
                 </button>
                 <a class="navbar-logo" href="/v2/pages/">{{ macros.svg_inline('logo-csc') }}</a>
 
@@ -65,6 +44,21 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Поступление</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Обучение</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Преподавание</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Набор</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Проекты</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Проекты</a>
                         </li>
                     </ul>
                 </div>
@@ -124,12 +118,12 @@
                 {#                                Войти <div class="btn-reg--icon"></div>#}
                 {#                            </a>#}
 
-                <div class="dropdown">
-                    <button class="btn _user-menu-btn" type="button" id="userMenuButton" data-toggle="dropdown"
+                <div class="dropdown dropdown-user-menu">
+                    <button class="btn" type="button" id="userMenuButton" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
-                        <span>Святослав</span><img class="user-menu-img" src="/media/pages/index/student.png" alt="">
+                        <span>Святослав Михайлов</span><img class="user-menu-img" src="/media/pages/index/student.png" alt="">
                     </button>
-                    <div class="dropdown-menu _user-menu" aria-labelledby="userMenuButton">
+                    <div class="dropdown-menu _arrow _user-menu" aria-labelledby="userMenuButton">
                         <a class="dropdown-item" href="#">Обучение</a>
                         <a class="dropdown-item" href="#">Проекты</a>
                         <a class="dropdown-item" href="#">Курирование</a>
@@ -170,10 +164,3 @@
     </div>
     {% if show_notification %}<div class="top-banner-spacer"></div>{% endif %}
 {%- endmacro %}
-
-{{ render() }}
-
-{{ render_bundle('manifest', config='V2') }}
-{{ render_bundle('main', config='V2') }}
-</body>
-</html>

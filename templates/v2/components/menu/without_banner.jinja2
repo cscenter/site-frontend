@@ -20,30 +20,11 @@
 {% import "v2/components/menu/_macros.jinja2" as top_menu %}
 
 <body>
-<div class="svg-inline">
-    {% include "sprites/common.svg" %}
-    {% block sprites %}{% endblock sprites %}
-</div>
+<div class="svg-inline">{% include "sprites/common.svg" %}</div>
 
-{% block menu %}{{ top_menu.render(theme_class="__inner-theme") }}{% endblock menu %}
 
-{% block content %}place page content here{% endblock content %}
 
-<footer class="footer container">
-    <span class="footer__copyright">&copy; Computer Science Center, 2018</span>
-    <div class="footer__contacts">
-        <a href="" class="footer__email">
-            info@compscicenter.ru
-        </a>
-        <div class="footer__social-media-icons">
-            <a href="">{{ macros.svg_inline('vk') }}</a>
-            <a href="">{{ macros.svg_inline('instagram') }}</a>
-            <a href="">{{ macros.svg_inline('twitter') }}</a>
-            <a href="">{{ macros.svg_inline('facebook') }}</a>
-            <a href="">{{ macros.svg_inline('youtube') }}</a>
-        </div>
-    </div>
-</footer>
+{{ top_menu.render(show_notification=False) }}
 
 {{ render_bundle('manifest', config='V2') }}
 {{ render_bundle('main', config='V2') }}

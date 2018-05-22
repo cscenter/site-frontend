@@ -43,3 +43,10 @@ $top-banner-height: 60px;
     height: 0;
   }
 }
+
+// hack
+._top-banner-kids {
+  margin-right: 5px;
+  position: relative;
+  bottom: -4px;
+}

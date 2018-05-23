@@ -14,7 +14,8 @@ let authenticatedUser = $("#userMenuButton").data('id');
 $(function () {
     let navbarContainer = document.getElementsByClassName("navbar-container")[0];
     let navbarToggler = $(".navbar-toggler");
-    let userMenu = document.getElementsByClassName("dropdown-user-menu")[0];
+    let menuRightBlock = document.getElementsByClassName("dropdown-user-menu")[0] ||
+                         document.getElementsByClassName("menu-btn-reg")[0];
     $('#top-menu-mobile')
         .on('show.bs.collapse', function (event) {
             // Ignores bubbled events from submenu
@@ -26,7 +27,7 @@ $(function () {
             navbarContainer.style.height = "100%";
             navbarContainer.style.overflowY = "scroll";
             navbarToggler.addClass("is-active");
-            userMenu.style.display = "none";
+            menuRightBlock.style.display = "none";
         })
         .on('hide.bs.collapse', function (event) {
             // Ignores bubbled events from submenu
@@ -34,7 +35,7 @@ $(function () {
                 return;
             }
             navbarToggler.removeClass("is-active");
-            userMenu.style.removeProperty("display");
+            menuRightBlock.style.removeProperty("display");
         })
         .on('hidden.bs.collapse', function (event) {
             // Ignores bubbled events from submenu

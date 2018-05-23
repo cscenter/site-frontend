@@ -65,12 +65,10 @@ $btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, bord
 
 .btn--outline {
   color: $light;
-  //background-color: rgba(255, 255, 255, 0);
   border: 1px solid transparentize($white, .8);
 
   &:hover {
     color: $light;
-    //background-color: rgba(255, 255, 255, .2);
     border: 1px solid transparentize($white, .6);
   }
 }
@@ -102,5 +100,12 @@ $btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, bord
 
   &:focus {
     background-color: lighten($teal, 3%);
+  }
+}
+
+._m-wide {
+  width: 100%;
+  @include media-breakpoint-up(lg) {
+    width: auto;
   }
 }

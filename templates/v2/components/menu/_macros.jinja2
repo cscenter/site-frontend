@@ -7,10 +7,7 @@
         <div class="top-banner">
             <div class="container">
                 <div class="top-banner__text">
-                    {{ macros.svg_inline('top-banner-kids') }} До 14 апреля открыт <a class="top-banner__link"
-                                                                                      href="/application/">приём
-                    заявок</a>
-                    на очное обучение в центре
+                    {{ macros.svg_inline('top-banner-kids') }} До 14 апреля открыт <a class="top-banner__link" href="/application/">приём заявок</a> на очное обучение в центре
                 </div>
             </div>
         </div>
@@ -64,67 +61,15 @@
                     </ul>
                 </div>
 
-                <div class="menu-mobile-wrapper collapse" id="top-menu-mobile">
-                    <ul>
-                        <li>
-                            <a class="nav-link _active" data-toggle="collapse" aria-expanded="true"
-                            data-target="#top-menu-item-1"
-                            aria-controls="top-menu-item-1">
-                            <span>О центре</span> {{ macros.svg_inline('arrow-bottom') }}
-                            </a>
-                            <div class="mobile-submenu collapse show" id="top-menu-item-1">
-                                <a class="mobile-submenu-item _active" href="#">Цели и история</a>
-                                <a class="mobile-submenu-item" href="#">Программа</a>
-                                <a class="mobile-submenu-item" href="#">Команда</a>
-                                <a class="mobile-submenu-item" href="#">Преподаватели</a>
-                                <a class="mobile-submenu-item" href="#">Выпускники</a>
-                            </div>
-                        </li>
-                        <li>
-                            <a class="nav-link" data-toggle="collapse" aria-expanded="false"
-                               data-target="#top-menu-item-2"
-                               aria-controls="top-menu-item-2">
-                                <span>Программы</span> {{ macros.svg_inline('arrow-bottom') }}
-                            </a>
-                            <div class="mobile-submenu collapse" id="top-menu-item-2">
-                                <a class="mobile-submenu-item" href="#">Software engineering</a>
-                                <a class="mobile-submenu-item" href="#">Data science</a>
-                                <a class="mobile-submenu-item" href="#">Computer science</a>
-                            </div>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="#">Курсы</a>
-                        </li>
-                        <li>
-                            <a class="nav-link" data-toggle="collapse" aria-expanded="false"
-                               data-target="#top-menu-item-3"
-                               aria-controls="top-menu-item-3">
-                                <span>Онлайн</span> {{ macros.svg_inline('arrow-bottom') }}
-                            </a>
-                            <div class="mobile-submenu collapse" id="top-menu-item-3">
-                                <a class="mobile-submenu-item" href="#">Онлайн-курсы</a>
-                                <a class="mobile-submenu-item" href="#">Видеозаписи лекций</a>
-                                <a class="mobile-submenu-item" href="#">Онлайн-программа</a>
-                            </div>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="#">Лекторий</a>
-                        </li>
-                        <li class="navbar-last-item">
-                            <a class="nav-link" href="#">Поступление</a>
-                        </li>
-                    </ul>
-                </div>
-
                 {% if show_login_button %}
                     <a class="btn btn--outline btn-reg" href="#">
-                        Войти <div class="btn-reg--icon"></div>
+                        {{ macros.svg_inline('user-sign') }} Войти
                     </a>
                 {% else %}
                     <div class="dropdown dropdown-user-menu">
                         <button class="btn" type="button" id="userMenuButton" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                            <span>Святослав Михайлов</span><img class="user-menu-img" src="/media/pages/index/student.png" alt="">
+                            <span>Святослав Михайлов</span><img class="user-menu-img" src="/media/pages/index/student.png" width="30" height="30" alt="">
                         </button>
                         <div class="dropdown-menu _arrow-right _user-menu" aria-labelledby="userMenuButton">
                             <a class="dropdown-item" href="#">Обучение</a>
@@ -137,6 +82,59 @@
                     </div>
                 {% endif %}
             </div>
+
+            <div class="menu-mobile-wrapper collapse" id="top-menu-mobile">
+                <ul class="container">
+                    <li>
+                        <a class="nav-link _active" data-toggle="collapse" aria-expanded="true"
+                           data-target="#top-menu-item-1"
+                           aria-controls="top-menu-item-1">
+                            <span>О центре</span> {{ macros.svg_inline('arrow-bottom') }}
+                        </a>
+                        <div class="mobile-submenu collapse show" id="top-menu-item-1">
+                            <a class="mobile-submenu-item _active" href="/v2/pages/about/">Цели и история</a>
+                            <a class="mobile-submenu-item" href="#">Программа</a>
+                            <a class="mobile-submenu-item" href="#">Команда</a>
+                            <a class="mobile-submenu-item" href="#">Преподаватели</a>
+                            <a class="mobile-submenu-item" href="#">Выпускники</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="nav-link" data-toggle="collapse" aria-expanded="false"
+                           data-target="#top-menu-item-2"
+                           aria-controls="top-menu-item-2">
+                            <span>Программы</span> {{ macros.svg_inline('arrow-bottom') }}
+                        </a>
+                        <div class="mobile-submenu collapse" id="top-menu-item-2">
+                            <a class="mobile-submenu-item" href="#">Software engineering</a>
+                            <a class="mobile-submenu-item" href="#">Data science</a>
+                            <a class="mobile-submenu-item" href="#">Computer science</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="#">Курсы</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" data-toggle="collapse" aria-expanded="false"
+                           data-target="#top-menu-item-3"
+                           aria-controls="top-menu-item-3">
+                            <span>Онлайн</span> {{ macros.svg_inline('arrow-bottom') }}
+                        </a>
+                        <div class="mobile-submenu collapse" id="top-menu-item-3">
+                            <a class="mobile-submenu-item" href="#">Онлайн-курсы</a>
+                            <a class="mobile-submenu-item" href="#">Видеозаписи лекций</a>
+                            <a class="mobile-submenu-item" href="#">Онлайн-программа</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="#">Лекторий</a>
+                    </li>
+                    <li class="navbar-last-item">
+                        <a class="nav-link" href="#">Поступление</a>
+                    </li>
+                </ul>
+            </div>
+
         </nav>
 
         {% if show_submenu %}

@@ -141,21 +141,31 @@ $navbar-toggler-border-radius: $btn-border-radius;
         border-bottom: 0;
       }
 
-      .nav-link {
-        color: $white;
-        opacity: .5;
-        padding: $nav-link-mobile-padding-x;
-        &:hover {
-          opacity: 1;
-          color: $white;
-        }
 
-        &._active {
-          color: $white;
-          opacity: 1;
+    }
+    .nav-link {
+      color: $white;
+      opacity: .5;
+      padding: $nav-link-mobile-padding-x;
+      &:hover {
+        opacity: 1;
+        color: $white;
+      }
+
+      &[aria-expanded="true"] {
+        ._arrow-bottom {
+          transform: rotate(180deg);
         }
       }
 
+      &._active {
+        color: $white;
+        opacity: 1;
+      }
+
+      ._arrow-bottom {
+        transition: all .25s;
+      }
     }
   }
 
@@ -165,7 +175,7 @@ $navbar-toggler-border-radius: $btn-border-radius;
     }
   }
 
-  .mobile-submenu-item {
+  .mobile-submenu__item {
     text-align: left;
     display: block;
     color: $gray-400;

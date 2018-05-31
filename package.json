@@ -21,7 +21,7 @@
     "bootstrap": "^4.0.0",
     "bootstrap-fileinput": "^4.4.6",
     "bootstrap-sass": "^3.3.7",
-    "bootstrap-select": "^1.12.2",
+    "bootstrap-select": "^1.13.1",
     "bootstrap-sweetalert": "^1.0.1",
     "c3": "^0.4.17",
     "core-js": "^2.5.3",

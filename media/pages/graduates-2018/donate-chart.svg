@@ -6,7 +6,7 @@
     <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="Group-51" transform="translate(-10.000000, -11.000000)">
-            <text id="оценок-по-курсам-copy" font-family="FiraSans-Regular, Fira Sans" font-size="14" font-weight="normal" line-spacing="16" fill="#1D1D1D">
+            <text id="оценок-по-курсам-copy" font-size="14" font-weight="normal" line-spacing="16" fill="#1D1D1D">
                 <tspan x="230.672" y="276.543945">оценок по курсам</tspan>
             </text>
             <text id="оценок-отлично-copy" font-family="FiraSans-Regular, Fira Sans" font-size="14" font-weight="normal" line-spacing="25" fill="#1D1D1D">
@@ -19,7 +19,7 @@
             <text id="оценок-хорошо-copy" font-family="FiraSans-Regular, Fira Sans" font-size="14" font-weight="normal" line-spacing="25" fill="#1D1D1D">
                 <tspan x="464.519" y="65">оценок хорошо</tspan>
             </text>
-            <text id="381-copy" font-family="FiraSans-Bold, Fira Sans" font-size="97" font-weight="bold" fill="#304452">
+            <text id="381-copy" font-size="97" font-weight="bold" fill="#304452">
                 <tspan x="226" y="254">381</tspan>
             </text>
             <text id="169-copy" font-family="FiraSans-Bold, Fira Sans" font-size="42" font-weight="bold" fill="#00C49F">

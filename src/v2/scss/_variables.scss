@@ -297,3 +297,16 @@ $label-margin-bottom:                   .5rem !default;
 // Nav
 $nav-divider-color:                 $gray-200 !default;
 $nav-divider-margin-y:              ($spacer / 2) !default;
+
+// Z-index master list
+//
+// Warning: Avoid customizing these values. They're used for a bird's eye view
+// of components dependent on the z-axis and are designed to all work together.
+$zindex-dropdown:                   1000 !default;
+$zindex-sticky:                     1020 !default;
+$zindex-fixed:                      1030 !default;
+$zindex-modal-backdrop:             1040 !default;
+$zindex-modal:                      1050 !default;
+$zindex-popover:                    1060 !default;
+$zindex-tooltip:                    1070 !default;
+$zindex-menu:                       1080;

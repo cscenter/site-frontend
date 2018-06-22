@@ -13,6 +13,7 @@ $black:    #1d1d1d;
 $blue:    #4f86a0;
 $orange:  #ff6c0d;
 $teal:    #07c39f;
+$red:     #DB3131;
 
 $gray-100: #f3f6f7;
 $gray-200: #e9e9e9;
@@ -43,6 +44,7 @@ $primary:       $blue;
 $secondary:     $gray-600;
 $light:         $gray-100;
 $dark:          $gray-500;
+$error:         $red;
 
 $theme-colors: (
   "primary":    $primary,

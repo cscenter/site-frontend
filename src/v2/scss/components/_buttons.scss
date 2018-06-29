@@ -33,6 +33,7 @@ $btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, bord
 
 .btn{
   font-size: $font-size-normal;
+  @include button-size($btn-padding-y, $btn-padding-x, $font-size-normal, $btn-line-height, $btn-border-radius);
 }
 
 .btn--big {

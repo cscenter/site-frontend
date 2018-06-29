@@ -3,18 +3,19 @@
 //---------------------*/
 
 .ui.input {
-  position: relative;
   font-weight: $font-weight-base;
-  //font-style: normal;
-  display: inline-block;
+  display: inline-flex;
   color: $input-color;
-  vertical-align: top;
+  flex-direction: column;
+  width: 100%;
+  &.btn{
+    color: $white;
+  }
 }
 
 .ui.input > input {
   margin: 0;
   width: 100%;
-  flex: 1 0 auto;
   outline: none;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   text-align: left;
@@ -24,10 +25,22 @@
   background: $input-bg;
   border: $input-border-width solid $input-border-color;
   color: $input-color;
-  border-radius: $input-border-radius-sm;
+  border-radius: $input-border-radius;
   &:hover {
     transition: $input-transition;
     border: $input-border-width solid $input-border-color-hover;
+  }
+}
+
+.input-hint {
+  display: block;
+  width: 100%;
+  font-size: $font-size-extra-sm;
+  color: $gray-400;
+  margin: 5px 0 0;
+  line-height: $input-btn-line-height;
+  &.__invalid-feedback {
+    color: $error;
   }
 }
 
@@ -59,7 +72,7 @@
 
 .ui.disabled.input,
 .ui.input:not(.disabled) input[disabled] {
-  opacity: .5;
+  opacity: .6;
 }
 
 .ui.disabled.input > input,
@@ -73,50 +86,33 @@
 
 .ui.input > input:active,
 .ui.input.down input {
-  background: white;
+  background: $input-focus-bg;
 }
 
 //
 ///*--------------------
 //       Loading
 //---------------------*/
-//
-//.ui.loading.loading.input > i.icon:before {
-//  position: absolute;
-//  content: '';
-//  top: 50%;
-//  left: 50%;
-//
-//  margin: @loaderMargin;
-//  width: @loaderSize;
-//  height: @loaderSize;
-//
-//  border-radius: @circularRadius;
-//  border: @loaderLineWidth solid @loaderFillColor;
-//}
-//.ui.loading.loading.input > i.icon:after {
-//  position: absolute;
-//  content: '';
-//  top: 50%;
-//  left: 50%;
-//
-//  margin: @loaderMargin;
-//  width: @loaderSize;
-//  height: @loaderSize;
-//
-//  animation: button-spin @loaderSpeed linear;
-//  animation-iteration-count: infinite;
-//
-//  border-radius: @circularRadius;
-//
-//  border-color: @loaderLineColor transparent transparent;
-//  border-style: solid;
-//  border-width: @loaderLineWidth;
-//
-//  box-shadow: 0px 0px 0px 1px transparent;
-//}
-//
-//
+
+.ui.loading.loading.input > i.icon{
+  width: 30px;
+  height: 30px;
+}
+
+.ui.loading.loading.input > i.icon {
+  position: absolute;
+  content: '';
+  margin-right: 5px;
+  animation-iteration-count: infinite;
+  border-radius: 50%;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: .25rem solid $gray-400;
+  border-top-color: $border-color;
+  animation: spin 700ms infinite linear;
+}
+
+
 /*--------------------
         Focus
 ---------------------*/
@@ -128,24 +124,9 @@
   color: $input-focus-color;
 }
 
-.ui.input.focus > input::-webkit-input-placeholder,
-.ui.input > input:focus::-webkit-input-placeholder {
-  //color: @placeholderFocusColor;
-}
 
-.ui.input.focus > input::-moz-placeholder,
-.ui.input > input:focus::-moz-placeholder {
-  //color: @placeholderFocusColor;
-}
 
-.ui.input.focus > input:-ms-input-placeholder,
-.ui.input > input:focus:-ms-input-placeholder {
-  //color: @placeholderFocusColor;
-}
 
-//
-//
-//
 /*--------------------
         Error
 ---------------------*/
@@ -153,4 +134,91 @@
 .ui.input.error > input {
   background-color: $form-feedback-color;
   border-color: $form-feedback-invalid-color;
+}
+
+
+/*--------------------
+        Action
+---------------------*/
+//
+.ui.action.input{
+flex-direction: row;
+}
+
+.ui.action.input > .btn,
+.ui.action.input > .btn {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  color: $white;
+}
+.ui.action.input > .btn,
+.ui.action.input > .btn > .btn {
+  margin: 0;
+}
+
+/* Button on Right */
+.ui.action.input:not([class*="left action"]) > input {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-right-color: transparent !important;
+}
+.ui.action.input:not([class*="left action"]) > .dropdown:not(:first-child),
+.ui.action.input:not([class*="left action"]) > .btn:not(:first-child),
+.ui.action.input:not([class*="left action"]) > .btn:not(:first-child) > .btn {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+.ui.action.input:not([class*="left action"]) > .dropdown:last-child,
+.ui.action.input:not([class*="left action"]) > .btn:last-child,
+.ui.action.input:not([class*="left action"]) > .btn:last-child > .btn {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+
+/*--------------------
+         Icon
+---------------------*/
+
+.ui.icon.input{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.ui.icon.input > i.icon {
+  cursor: default;
+  position: absolute;
+  line-height: 1;
+  text-align: center;
+  right: 20px;
+  opacity: .6;
+  border-radius: 0 $border-radius $border-radius 0;
+  transition: $transition-base;
+}
+.ui.icon.input > i.icon:not(.link) {
+  pointer-events: none;
+}
+
+.ui.icon.input > input {
+  padding-right: 30px;
+}
+
+
+.ui.icon.input > i.icon:before,
+.ui.icon.input > i.icon:after {
+  left: 0;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  margin-top: 30px;
+}
+.ui.icon.input > i.link.icon {
+  cursor: pointer;
+}
+
+/* Focus */
+.ui.icon.input > input:focus ~ i.icon {
+  opacity: 1;
 }

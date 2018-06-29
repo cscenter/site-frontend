@@ -1,7 +1,7 @@
 
 $label-margin-bottom:                   .5rem !default;
 
-$input-padding-y:                       .75rem;
+$input-padding-y:                       .875rem;
 $input-padding-x:                       .75rem;;
 $input-line-height:                     1;
 
@@ -67,10 +67,71 @@ $form-feedback-color:               $white;
 $form-feedback-valid-color:         green;
 $form-feedback-invalid-color:       $red;
 
-@import "bootstrap/scss/forms";
 @import "components/_forms/inputs";
+@import "components/dropdown";
+@import "components/_forms/checkbox";
 
-.invalid-feedback{
-  display: inline-block;
-  position: absolute;
+form {
+  margin-bottom: 40px;
+  overflow: hidden;
+  border: 1px solid $gray-300;
+  background: $white;
+  border-radius: $border-radius-lg;
+  .form-body {
+    padding: 0 30px;
+  }
+  .field {
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 40px;
+    }
+  }
+  .form-section {
+    margin-bottom: 30px;
+    .form_title._subtitle {
+      padding: 0;
+    }
+    &::after {
+      content: "";
+      margin: 10px -30px;
+      border-top: $hr-border-width solid $gray-200;
+      display: block;
+    }
+
+  }
 }
+
+  label {
+    display: block;
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    line-height: $input-btn-line-height;
+    vertical-align: top;
+    margin-bottom: 5px;
+  }
+
+  .form_title {
+    padding: 30px 30px 0;
+    margin-bottom: 30px;
+    h2, h3 {
+      margin: 0;
+    }
+    p {
+      margin-top: 5px;
+    }
+    &.__inverse {
+      padding: 30px;
+      background: $gray-600;
+      color: $white;
+    }
+    &._subtitle {
+      padding: 0;
+      margin-bottom: 20px;
+    }
+  }
+
+
+.__no-border{
+  border: none;
+}
+

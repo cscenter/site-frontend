@@ -10,13 +10,13 @@
 
 @import "layouts/base";
 
+@import "components/forms";
 @import "components/notifications";
 @import "components/images";
 @import "components/banners";
 @import "components/buttons";
 @import "components/cards";
 @import "components/dropdown";
-@import "components/forms";
 @import "components/grid";
 @import "components/tooltips";
 @import "components/sprites";
@@ -25,6 +25,7 @@
 @import "components/misc";
 @import "components/pagination";
 @import "components/preloader";
+@import "components/forms";
 
 @import "pages/index";
 

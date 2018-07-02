@@ -1,0 +1,25 @@
+{% extends "v2/layouts/inner.jinja2" %}
+
+
+{% block content %}
+    <div class="container page-content">
+        <form action="">
+            <div class="row">
+                    <div class="col-3 ui input">
+                        <input type="text" placeholder="Фамилия">
+                    </div>
+                    <div class="col-3 ui input error">
+                        <input type="text" placeholder="Error">
+                        <div class="invalid-feedback">
+                            Please provide a valid city.
+                        </div>
+                    </div>
+                    <div class="col-3 ui disabled input">
+                        <input type="text" placeholder="Disabled">
+                    </div>
+                <a href="" class="btn btn--green">Отправить</a>
+                </div>
+        </form>
+    </div>
+
+{% endblock content %}

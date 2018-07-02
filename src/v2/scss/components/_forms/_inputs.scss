@@ -1,0 +1,156 @@
+///*--------------------
+//        Inputs
+//---------------------*/
+
+.ui.input {
+  position: relative;
+  font-weight: $font-weight-base;
+  //font-style: normal;
+  display: inline-block;
+  color: $input-color;
+  vertical-align: top;
+}
+
+.ui.input > input {
+  margin: 0;
+  width: 100%;
+  flex: 1 0 auto;
+  outline: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  text-align: left;
+  line-height: $input-line-height;
+  font-family: $font-family-base;
+  padding: $input-padding-y $input-padding-x;
+  background: $input-bg;
+  border: $input-border-width solid $input-border-color;
+  color: $input-color;
+  border-radius: $input-border-radius-sm;
+  &:hover {
+    transition: $input-transition;
+    border: $input-border-width solid $input-border-color-hover;
+  }
+}
+
+/*--------------------
+      Placeholder
+---------------------*/
+
+/* browsers require these rules separate */
+
+.ui.input > input::-webkit-input-placeholder {
+  color: $input-placeholder-color;
+}
+
+.ui.input > input::-moz-placeholder {
+  color: $input-placeholder-color;
+}
+
+.ui.input > input:-ms-input-placeholder {
+  color: $input-placeholder-color;
+}
+
+/*******************************
+            States
+*******************************/
+
+/*--------------------
+1        Disabled
+---------------------*/
+
+.ui.disabled.input,
+.ui.input:not(.disabled) input[disabled] {
+  opacity: .5;
+}
+
+.ui.disabled.input > input,
+.ui.input:not(.disabled) input[disabled] {
+  pointer-events: none;
+}
+
+/*--------------------
+        Active
+---------------------*/
+
+.ui.input > input:active,
+.ui.input.down input {
+  background: white;
+}
+
+//
+///*--------------------
+//       Loading
+//---------------------*/
+//
+//.ui.loading.loading.input > i.icon:before {
+//  position: absolute;
+//  content: '';
+//  top: 50%;
+//  left: 50%;
+//
+//  margin: @loaderMargin;
+//  width: @loaderSize;
+//  height: @loaderSize;
+//
+//  border-radius: @circularRadius;
+//  border: @loaderLineWidth solid @loaderFillColor;
+//}
+//.ui.loading.loading.input > i.icon:after {
+//  position: absolute;
+//  content: '';
+//  top: 50%;
+//  left: 50%;
+//
+//  margin: @loaderMargin;
+//  width: @loaderSize;
+//  height: @loaderSize;
+//
+//  animation: button-spin @loaderSpeed linear;
+//  animation-iteration-count: infinite;
+//
+//  border-radius: @circularRadius;
+//
+//  border-color: @loaderLineColor transparent transparent;
+//  border-style: solid;
+//  border-width: @loaderLineWidth;
+//
+//  box-shadow: 0px 0px 0px 1px transparent;
+//}
+//
+//
+/*--------------------
+        Focus
+---------------------*/
+
+.ui.input.focus > input,
+.ui.input > input:focus {
+  border-color: $input-focus-border-color;
+  background: $input-focus-bg;
+  color: $input-focus-color;
+}
+
+.ui.input.focus > input::-webkit-input-placeholder,
+.ui.input > input:focus::-webkit-input-placeholder {
+  //color: @placeholderFocusColor;
+}
+
+.ui.input.focus > input::-moz-placeholder,
+.ui.input > input:focus::-moz-placeholder {
+  //color: @placeholderFocusColor;
+}
+
+.ui.input.focus > input:-ms-input-placeholder,
+.ui.input > input:focus:-ms-input-placeholder {
+  //color: @placeholderFocusColor;
+}
+
+//
+//
+//
+/*--------------------
+        Error
+---------------------*/
+
+.ui.input.error > input {
+  background-color: $form-feedback-color;
+  border-color: $form-feedback-invalid-color;
+}

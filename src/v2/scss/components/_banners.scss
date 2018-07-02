@@ -19,7 +19,7 @@ $top-banner-height: 60px;
 .top-banner__text {
   color: $white;
   text-align: center;
-  font-size: 14px;
+  font-size:$font-size-sm;
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: $font-weight-light;

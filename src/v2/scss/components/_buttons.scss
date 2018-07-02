@@ -31,6 +31,11 @@ $btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, bord
 
 @import "bootstrap/scss/buttons";
 
+.btn{
+  font-size: $font-size-normal;
+  @include button-size($btn-padding-y, $btn-padding-x, $font-size-normal, $btn-line-height, $btn-border-radius);
+}
+
 .btn--big {
   @include button-size(20px, 25px, 18px, 20px, 4px);
   text-transform: uppercase;

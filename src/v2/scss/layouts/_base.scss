@@ -70,7 +70,7 @@ body {
     border-top: $hr-border-width solid $hr-border-color;
     margin-bottom: 2rem;
     color: $gray-600;
-    font-size: .9375rem;
+    font-size: $font-size-sm;
     line-height: 1.5rem;
     @include font-smoothing();
   }

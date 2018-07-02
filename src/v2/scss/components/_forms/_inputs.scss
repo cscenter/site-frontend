@@ -1,0 +1,224 @@
+///*--------------------
+//        Inputs
+//---------------------*/
+
+.ui.input {
+  font-weight: $font-weight-base;
+  display: inline-flex;
+  color: $input-color;
+  flex-direction: column;
+  width: 100%;
+  &.btn{
+    color: $white;
+  }
+}
+
+.ui.input > input {
+  margin: 0;
+  width: 100%;
+  outline: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  text-align: left;
+  line-height: $input-line-height;
+  font-family: $font-family-base;
+  padding: $input-padding-y $input-padding-x;
+  background: $input-bg;
+  border: $input-border-width solid $input-border-color;
+  color: $input-color;
+  border-radius: $input-border-radius;
+  &:hover {
+    transition: $input-transition;
+    border: $input-border-width solid $input-border-color-hover;
+  }
+}
+
+.input-hint {
+  display: block;
+  width: 100%;
+  font-size: $font-size-extra-sm;
+  color: $gray-400;
+  margin: 5px 0 0;
+  line-height: $input-btn-line-height;
+  &.__invalid-feedback {
+    color: $error;
+  }
+}
+
+/*--------------------
+      Placeholder
+---------------------*/
+
+/* browsers require these rules separate */
+
+.ui.input > input::-webkit-input-placeholder {
+  color: $input-placeholder-color;
+}
+
+.ui.input > input::-moz-placeholder {
+  color: $input-placeholder-color;
+}
+
+.ui.input > input:-ms-input-placeholder {
+  color: $input-placeholder-color;
+}
+
+/*******************************
+            States
+*******************************/
+
+/*--------------------
+1        Disabled
+---------------------*/
+
+.ui.disabled.input,
+.ui.input:not(.disabled) input[disabled] {
+  opacity: .6;
+}
+
+.ui.disabled.input > input,
+.ui.input:not(.disabled) input[disabled] {
+  pointer-events: none;
+}
+
+/*--------------------
+        Active
+---------------------*/
+
+.ui.input > input:active,
+.ui.input.down input {
+  background: $input-focus-bg;
+}
+
+//
+///*--------------------
+//       Loading
+//---------------------*/
+
+.ui.loading.loading.input > i.icon{
+  width: 30px;
+  height: 30px;
+}
+
+.ui.loading.loading.input > i.icon {
+  position: absolute;
+  content: '';
+  margin-right: 5px;
+  animation-iteration-count: infinite;
+  border-radius: 50%;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: .25rem solid $gray-400;
+  border-top-color: $border-color;
+  animation: spin 700ms infinite linear;
+}
+
+
+/*--------------------
+        Focus
+---------------------*/
+
+.ui.input.focus > input,
+.ui.input > input:focus {
+  border-color: $input-focus-border-color;
+  background: $input-focus-bg;
+  color: $input-focus-color;
+}
+
+
+
+
+/*--------------------
+        Error
+---------------------*/
+
+.ui.input.error > input {
+  background-color: $form-feedback-color;
+  border-color: $form-feedback-invalid-color;
+}
+
+
+/*--------------------
+        Action
+---------------------*/
+//
+.ui.action.input{
+flex-direction: row;
+}
+
+.ui.action.input > .btn,
+.ui.action.input > .btn {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  color: $white;
+}
+.ui.action.input > .btn,
+.ui.action.input > .btn > .btn {
+  margin: 0;
+}
+
+/* Button on Right */
+.ui.action.input:not([class*="left action"]) > input {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-right-color: transparent !important;
+}
+.ui.action.input:not([class*="left action"]) > .dropdown:not(:first-child),
+.ui.action.input:not([class*="left action"]) > .btn:not(:first-child),
+.ui.action.input:not([class*="left action"]) > .btn:not(:first-child) > .btn {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+.ui.action.input:not([class*="left action"]) > .dropdown:last-child,
+.ui.action.input:not([class*="left action"]) > .btn:last-child,
+.ui.action.input:not([class*="left action"]) > .btn:last-child > .btn {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+
+/*--------------------
+         Icon
+---------------------*/
+
+.ui.icon.input{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.ui.icon.input > i.icon {
+  cursor: default;
+  position: absolute;
+  line-height: 1;
+  text-align: center;
+  right: 20px;
+  opacity: .6;
+  border-radius: 0 $border-radius $border-radius 0;
+  transition: $transition-base;
+}
+.ui.icon.input > i.icon:not(.link) {
+  pointer-events: none;
+}
+
+.ui.icon.input > input {
+  padding-right: 30px;
+}
+
+
+.ui.icon.input > i.icon:before,
+.ui.icon.input > i.icon:after {
+  left: 0;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  margin-top: 30px;
+}
+.ui.icon.input > i.link.icon {
+  cursor: pointer;
+}
+
+/* Focus */
+.ui.icon.input > input:focus ~ i.icon {
+  opacity: 1;
+}

@@ -6,10 +6,10 @@ class NotyView(TemplateView):
     template_name = "v2/components/noty.jinja2"
 
     def get_context_data(self, **kwargs):
-        messages.warning(self.request, "<i>Курсив</i> [warning]")
-        messages.info(self.request, "Использован вот этот плагин <a href='https://ned.im/noty/#/' target='_blank'>ссылка</a> [info]")
-        messages.error(self.request, "Слава Украине! [error]")
-        messages.success(self.request, "<b>Тестовое</b> сообщение длиной чуть более чем ваша жизнь. Скриньте [success]")
+        messages.warning(self.request, "<b>Предупреждение</b><p>Вы добавили уже 20 часов лекций в неделю, рассчитайте свои силы :)</p>")
+        messages.info(self.request, "<b>Переадресация</b><p>Страница «Обучение» теперь стала отдельной страницей</p> <a href="">Узнать подробнее</a><span><a href="">Отменить</a></span>")
+        messages.error(self.request, "<b>Ошибка</b>Нельзя поставить два занятия на одно и то же время")
+        messages.success(self.request, "<b>Добавлен новый пользователь</b> Петров Олег Олегович ")
         messages.success(self.request, "Я тут повисю пару секунд, зырьте", extra_tags='timeout')
         return {}
 

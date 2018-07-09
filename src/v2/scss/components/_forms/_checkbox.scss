@@ -1,16 +1,19 @@
-.custom-control {
+.custom-checkbox {
   display: flex;
   align-items:flex-start;
-  margin-top: 5px;
-  font-weight: $font-weight-base;
-  line-height: $line-height-sm;
-  font-size: $font-size-extra-sm;
+  margin: 0 0 10px 0;
+
   &.fill-checkbox {
+
+    &:hover .fill-control-indicator {
+      border: $border-width solid $input-border-color-hover;
+    }
+
     .fill-control-input {
       display: none;
       &:checked ~ .fill-control-indicator {
-        background-color: $gray-400;
-        border-color: $gray-400;
+        background-color: $control-checked-bg;
+        border-color: $control-checked-bg;
         background-size: 140%;
       }
     }
@@ -19,7 +22,7 @@
       position: absolute;
       width: 24px;
       height: 24px;
-      border: $border-width solid $gray-200;
+      border: $border-width solid $input-border-color;
       border-radius: $border-radius;
       transition: .3s;
       background: $input-bg;
@@ -28,8 +31,52 @@
       background-repeat: no-repeat;
       background-image: url("/static/v2/img/icons/checkmark.svg");
     }
-    .fill-control-description{
-      margin-left: 30px;
+    .fill-control-description {
+      margin: 0 0 0 30px;
+      display: inline-block;
+      line-height: 1.375;
+      font-size: $font-size-normal;
+      color: $input-color;
+
+      &.__user-agreement {
+        font-size: $font-size-extra-sm;
+      }
+    }
+  }
+  &:last-child {
+    margin-bottom: 0;
+  }
+  &.disabled {
+    .fill-control-indicator {
+      border: $border-width solid $control-disabled-bg;
+    }
+    &:hover .fill-control-indicator {
+      border: $border-width solid $control-disabled-bg;
+    }
+  }
+}
+
+.checkbox-group{
+  display: inline-flex;
+  flex-flow: column;
+}
+
+.custom-checkbox.fill-checkbox.disabled {
+  .fill-control-indicator {
+    background: $control-disabled-bg;
+  }
+  .fill-control-description {
+    color: darken($control-disabled-bg, 20%);
+  }
+}
+
+.custom-checkbox.fill-checkbox.disabled{
+  .fill-control-input {
+    &:checked ~ .fill-control-indicator {
+      opacity: .6;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-image: url("/static/v2/img/icons/checkmark.svg");
     }
   }
 }

@@ -8,9 +8,6 @@
   color: $input-color;
   flex-direction: column;
   width: 100%;
-  &.btn{
-    color: $white;
-  }
 }
 
 .ui.input > input {
@@ -221,4 +218,54 @@ flex-direction: row;
 /* Focus */
 .ui.icon.input > input:focus ~ i.icon {
   opacity: 1;
+}
+
+/* Text Area */
+.ui.input textarea {
+  margin: 0;
+  -webkit-appearance: none;
+  padding: $input-padding-x;
+  background: $input-bg;
+  resize: vertical;
+  outline: none;
+  border-radius: $border-radius;
+  border: $input-border-width solid $input-border-color;
+
+  &:hover {
+    transition: $input-transition;
+    border: $input-border-width solid $input-border-color-hover;
+  }
+  &:focus {
+    background: $white;
+    border: $input-border-width solid $input-border-color-hover;
+  }
+}
+
+.ui.input textarea:not([rows]) {
+  height: auto;
+  min-height: 100px;
+  max-height: 500px;
+}
+
+.ui.form textarea,
+.ui.form input[type="checkbox"] {
+  vertical-align: top;
+}
+
+/*--------------------
+      Placeholder
+---------------------*/
+
+/* browsers require these rules separate */
+
+.ui.input > textarea::-webkit-input-placeholder {
+  color: $input-placeholder-color;
+}
+
+.ui.input > textarea::-moz-placeholder {
+  color: $input-placeholder-color;
+}
+
+.ui.input > textarea:-ms-input-placeholder {
+  color: $input-placeholder-color;
 }

@@ -21,7 +21,7 @@ export function showNotification(msg, options) {
     new Noty({
         layout: 'topLeft',
         type: 'info',
-        theme: 'bootstrap-v4',
+        theme: 'notification',
         text: msg,
         timeout: 2000,
         ...options

@@ -1,6 +1,6 @@
 @import "noty/src/noty.scss";
 
-.noty_theme__bootstrap-v4.noty_bar {
+.noty_theme__notification.noty_bar {
   margin: 10px 0;
   overflow: hidden;
   position: relative;
@@ -47,32 +47,32 @@
   }
 }
 
-.noty_theme__bootstrap-v4.noty_type__alert,
-.noty_theme__bootstrap-v4.noty_type__notification {
+.noty_theme__notification.noty_type__alert,
+.noty_theme__notification.noty_type__notification {
   background-color: #fff;
   color: inherit;
 }
 
-.noty_theme__bootstrap-v4.noty_type__warning {
+.noty_theme__notification.noty_type__warning {
   background-color: $white;
   color: $gray-500;
   box-shadow: 0 0 2rem transparentize($gray-500,.8);
 }
 
-.noty_theme__bootstrap-v4.noty_type__error {
+.noty_theme__notification.noty_type__error {
   background-color: $red;
   color: $white;
   box-shadow: 0 0 2rem transparentize($red,.8);
 }
 
-.noty_theme__bootstrap-v4.noty_type__info,
-.noty_theme__bootstrap-v4.noty_type__information {
+.noty_theme__notification.noty_type__info,
+.noty_theme__notification.noty_type__information {
   background-color: $white;
   color: $gray-500;
   box-shadow: 0 0 2rem transparentize($gray-500,.8);
 }
 
-.noty_theme__bootstrap-v4.noty_type__success {
+.noty_theme__notification.noty_type__success {
   background-color: $green;
   color: $white;
   box-shadow: 0 0 2rem transparentize($green,.8);

@@ -109,7 +109,7 @@ $navbar-toggler-border-radius: $btn-border-radius;
 
 .navbar-main {
   .nav-item {
-    margin-bottom: 1px; // hack to avoid blinking on hovering two vertically adjacent links
+    margin: 1px 1px 0 0; // hack to avoid blinking on hovering two vertically adjacent links
   }
 }
 
@@ -233,10 +233,10 @@ $navbar-toggler-border-radius: $btn-border-radius;
 }
 
 .menu-btn-reg {
-  //display: flex;
-  margin: ($navbar-padding-y - $input-btn-padding-y) 0 0 auto;
+  margin: ($navbar-padding-y - $nav-link-padding-y) 0 0 auto;
+  padding: $nav-link-padding-y $nav-link-padding-x;
+  line-height: $line-height-lg;
 }
-
 
 .dropdown-user-menu {
   padding: ($navbar-padding-y - $input-btn-padding-y) 0 0; // skip bottom padding since user img height > logo height
@@ -262,6 +262,9 @@ $navbar-toggler-border-radius: $btn-border-radius;
       @include media-breakpoint-up(lg) {
         display: inline-block;
       }
+    }
+    &:focus{
+      box-shadow: none;
     }
   }
 }

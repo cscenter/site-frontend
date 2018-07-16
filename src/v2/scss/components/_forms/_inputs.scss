@@ -8,6 +8,25 @@
   color: $input-color;
   flex-direction: column;
   width: 100%;
+  
+  &.__split-input{
+    flex-flow: row;
+    flex-wrap: wrap;
+    label{
+      width: 100%;
+    }
+    .start-range{
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+      border-right:$border-width solid $input-border-color-hover;
+    }
+    .end-range{
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+      border-left:none
+    }
+
+  }
 }
 
 .ui.input > input {

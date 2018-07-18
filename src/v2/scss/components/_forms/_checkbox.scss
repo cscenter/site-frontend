@@ -6,7 +6,7 @@
   &.fill-checkbox {
 
     &:hover .fill-control-indicator {
-      border: $border-width solid $input-border-color-hover;
+      border: $control-border-width solid $control-bg-hover;
     }
 
     .fill-control-input {
@@ -22,10 +22,10 @@
       position: absolute;
       width: 24px;
       height: 24px;
-      border: $border-width solid $input-border-color;
+      border: $control-border-width solid $control-border-color;
       border-radius: $border-radius;
       transition: .3s;
-      background: $input-bg;
+      background: $control-bg;
       background-size: 0;
       background-position: center;
       background-repeat: no-repeat;
@@ -36,8 +36,7 @@
       display: inline-block;
       line-height: 1.375;
       font-size: $font-size-normal;
-      color: $input-color;
-
+      color: $control-color;
       &.__user-agreement {
         font-size: $font-size-extra-sm;
       }

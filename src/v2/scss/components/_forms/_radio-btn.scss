@@ -5,7 +5,7 @@
   &.fill-radiobtn {
 
     &:hover .fill-control-indicator {
-       border: $border-width solid $input-border-color-hover;
+       border: $control-border-width solid $control-bg-hover;
     }
 
     .fill-control-indicator {
@@ -14,8 +14,8 @@
       height: 24px;
       border-radius: 50%;
       transition: .3s;
-      background-color: $input-bg;
-      border-color: $input-bg;
+      background-color: $control-bg;
+      border: $control-border-width solid $control-border-color;
     }
 
     .fill-control-input {

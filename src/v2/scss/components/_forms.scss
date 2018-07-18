@@ -32,8 +32,13 @@ $input-focus-box-shadow:                $input-btn-focus-box-shadow !default;
 $input-placeholder-color:               $gray-400 !default;
 $input-plaintext-color:                 $body-color !default;
 
+$control-bg:                            $gray-100;
+$control-bg-hover:                      darken($gray-100, 20%);
 $control-checked-bg:                    $gray-400;
 $control-disabled-bg:                   $gray-200;
+$control-color:                         $black;
+$control-border-width:                  2px;
+$control-border-color:                  darken($gray-300, 10%);
 
 $input-height-border:                   $input-border-width * 2 !default;
 
@@ -132,5 +137,15 @@ $form-feedback-invalid-color:       $red;
   }
 }
 
+.title-label {
+  font-size: $font-size-normal;
+  margin-bottom: 15px;
+}
 
-
+.ui.form.survey {
+  .survey-label{
+    font-size: $h3-font-size;
+    font-weight: $font-weight-light;
+    margin-bottom: 15px;
+  }
+}

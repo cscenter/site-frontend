@@ -1,6 +1,6 @@
 $input-padding-y:                       .875rem;
 $input-padding-x:                       .75rem;
-$input-line-height:                     1;
+$input-line-height:                     1.125;
 
 $input-padding-y-sm:                    $input-btn-padding-y-sm !default;
 $input-padding-x-sm:                    $input-btn-padding-x-sm !default;
@@ -66,6 +66,7 @@ $form-feedback-color:               $white;
 $form-feedback-valid-color:         green;
 $form-feedback-invalid-color:       $red;
 
+@import "components/_forms/file-input";
 @import "components/_forms/inputs";
 @import "components/dropdown";
 @import "components/_forms/checkbox";

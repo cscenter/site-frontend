@@ -65,6 +65,7 @@
 .checkbox-group{
   display: inline-flex;
   flex-flow: column;
+  max-width: 100%; //IE11
 }
 
 .custom-checkbox.fill-checkbox.disabled {

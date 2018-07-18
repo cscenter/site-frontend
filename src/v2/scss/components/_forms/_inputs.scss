@@ -131,6 +131,9 @@
 .ui.input.error > input {
   background-color: $form-feedback-color;
   border-color: $form-feedback-invalid-color;
+  &:hover{
+    border-color: $form-feedback-invalid-color;
+  }
 }
 
 

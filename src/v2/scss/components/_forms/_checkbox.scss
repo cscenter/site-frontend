@@ -1,12 +1,15 @@
 .custom-checkbox {
   display: flex;
-  align-items:flex-start;
-  margin: 0 0 10px 0;
-
+  align-items: flex-start;
+  margin: 0 0 15px 0;
   &.fill-checkbox {
 
     &:hover .fill-control-indicator {
       border: $control-border-width solid $control-bg-hover;
+    }
+
+    &:hover .fill-control-description {
+      color: $input-color;
     }
 
     .fill-control-input {
@@ -15,6 +18,9 @@
         background-color: $control-checked-bg;
         border-color: $control-checked-bg;
         background-size: 140%;
+      }
+      &:checked ~ .fill-control-description {
+        color: $input-color;
       }
     }
     .fill-control-indicator {
@@ -76,6 +82,9 @@
       background-position: center;
       background-repeat: no-repeat;
       background-image: url("/static/v2/img/icons/checkmark.svg");
+    }
+    &:checked ~ .fill-control-description {
+      opacity: .6;
     }
   }
 }

@@ -29,6 +29,7 @@ h2,
 
 h3, .h3 {
   font-size: $h3-font-size;
+  font-weight: $font-weight-normal;
 }
 
 h4, .h4 {
@@ -74,6 +75,10 @@ h1 {
 
 h4 {
   font-weight: $font-weight-normal;
+}
+
+.title_description{
+  margin-bottom: 40px;
 }
 
 

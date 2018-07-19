@@ -1,11 +1,14 @@
 .custom-radiobtn {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 10px;
+  margin: 0 0 15px 0;
   &.fill-radiobtn {
 
     &:hover .fill-control-indicator {
        border: $control-border-width solid $control-bg-hover;
+    }
+    &:hover .fill-control-description {
+      color: $input-color;
     }
 
     .fill-control-indicator {
@@ -24,6 +27,9 @@
         background-color: $control-checked-bg;
         border:$border-width solid $control-checked-bg;
       }
+      &:checked ~ .fill-control-description {
+        color: $input-color;
+      }
     }
 
     .fill-control-description {
@@ -31,7 +37,7 @@
       display: inline-block;
       line-height: 1.375;
       font-size: $font-size-normal;
-      color: $input-color;
+      color: $control-color;
     }
   }
 
@@ -50,7 +56,7 @@
     }
   }
   .fill-control-description {
-    color: darken($control-disabled-bg, 20%);
+    opacity: .6;
   }
 }
 

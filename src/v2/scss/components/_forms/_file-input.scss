@@ -17,7 +17,7 @@
 
       &:hover ~ .custom-file-label {
         &::after {
-          background: darken($teal, 5%);
+          background: darken($blue, 5%);
         }
       }
     }

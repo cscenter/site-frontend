@@ -40,6 +40,8 @@ $control-disabled-bg:                   $gray-200;
 
 $input-height-border:                   $input-border-width * 2 !default;
 
+$control-color:                         $gray-400;
+
 $input-height-inner:                    ($font-size-base * $input-btn-line-height) + ($input-btn-padding-y * 2) !default;
 $input-height:                          calc(#{$input-height-inner} + #{$input-height-border}) !default;
 

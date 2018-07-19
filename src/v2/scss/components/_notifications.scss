@@ -7,10 +7,11 @@
   border: 1px solid transparent;
   border-radius: $border-radius;
   font-size: $font-size-sm;
-  b{
+  h3{
     display: block;
     width: 100%;
     font-size: $font-size-base;
+    font-weight: $font-weight-bold;
     margin:0 0 2px 0;
   }
   span{
@@ -43,7 +44,7 @@
   }
 
   .noty_body {
-	padding: $input-padding-x-lg;
+	padding: $input-padding-y;
   }
 }
 

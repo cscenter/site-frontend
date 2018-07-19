@@ -41,8 +41,17 @@
                 <div class="field col-lg-4">
                     <div class="ui icon input">
                         <input type="text" placeholder="" value="Удалить контент">
-                        <i class="_password-hidden icon">{{ macros.svg_inline('cross') }}</i>
+                        <i class="icon">{{ macros.svg_inline('cross') }}</i>
                     </div>
+                </div>
+                <div class="field col-lg-4">
+                    <div class="ui input custom-file">
+                        <input type="file" class="custom-file-input" id="customFile" multiple>
+                        <label class="custom-file-label" for="customFile">Загрузить файл</label>
+                    </div>
+                    <p class="input-hint">
+                        Вставить сюда имя загруженного файла
+                    </p>
                 </div>
                 <div class="field col-lg-4">
                     <div class="ui action input">
@@ -109,7 +118,7 @@
                             </div>
                             <div class="field col-12">
                                 <div class="ui checkbox-group">
-                                    <label>На каком направлении вы хотите учиться?</label>
+                                    <label class="title-label">На каком направлении вы хотите учиться?</label>
                                     <label class="custom-checkbox fill-checkbox">
                                         <input type="checkbox" class="fill-control-input">
                                         <span class="fill-control-indicator"></span>
@@ -141,7 +150,7 @@
 
                             <div class="field col-12">
                                 <div class="ui radiobtn-group">
-                                    <label>Ваш любимый цвет:</label>
+                                    <label class="title-label">Ваш любимый цвет:</label>
                                     <label class="custom-radiobtn fill-radiobtn">
                                         <input type="radio" name="Colors" class="fill-control-input">
                                         <span class="fill-control-indicator"></span>

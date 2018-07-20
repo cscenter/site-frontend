@@ -63,6 +63,7 @@
 .radiobtn-group {
   display: inline-flex;
   flex-flow: column;
+  max-width: 100%;
 }
 
 .custom-radiobtn.fill-radiobtn, .custom-radiobtn.fill-radiobtn.disabled {

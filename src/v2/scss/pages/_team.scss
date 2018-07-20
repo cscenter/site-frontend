@@ -1,0 +1,25 @@
+.team-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-flow: column;
+  width: 100%;
+  @include media-breakpoint-up(sm) {
+    flex-flow: row;
+  }
+  .member {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 30px;
+    @include media-breakpoint-up(sm) {
+      width: auto;
+    }
+    img {
+      max-width: 100%;
+      margin-bottom: 20px;
+    }
+    h3{
+      margin-bottom: 5px;
+    }
+  }
+}

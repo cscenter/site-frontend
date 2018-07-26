@@ -1,3 +1,4 @@
+//TODO: Create mobile view
 .nav-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -8,6 +9,10 @@
 
   .nav-item {
     margin-bottom: -$border-width;
+    margin-left: -$border-width;
+    &:first-child{
+      margin-left: 0;
+    }
   }
 
   .nav-link {
@@ -19,6 +24,9 @@
       color: $input-disabled-bg;
       background-color: $control-disabled-bg;
       border-color: transparent;
+      &:hover{
+        background-color: $control-disabled-bg;
+      }
     }
     &:hover{
       background-color: $gray-100;

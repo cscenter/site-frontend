@@ -1,5 +1,4 @@
-
-
+//TODO: Create mobile view
 .nav-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -10,6 +9,18 @@
 
   .nav-item {
     margin-bottom: -$border-width;
+    margin-left: -$border-width;
+    &:first-child{
+      margin-left: 0;
+      a {
+        border-top-left-radius: $border-radius;
+      }
+    }
+    &:last-child {
+      a {
+        border-top-right-radius: $border-radius;
+      }
+    }
   }
 
   .nav-link {
@@ -21,6 +32,9 @@
       color: $input-disabled-bg;
       background-color: $control-disabled-bg;
       border-color: transparent;
+      &:hover{
+        background-color: $control-disabled-bg;
+      }
     }
     &:hover{
       background-color: $gray-100;
@@ -30,8 +44,8 @@
   .nav-link.active,
   .nav-item.show .nav-link {
     color: $white;
-    background-color: $control-color;
-    border-color: $control-color;
+    background-color: $control-checked-bg;
+    border-color: $control-checked-bg;
   }
 
   .dropdown-menu {

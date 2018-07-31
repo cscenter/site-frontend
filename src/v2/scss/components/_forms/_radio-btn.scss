@@ -1,11 +1,14 @@
 .custom-radiobtn {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 10px;
+  margin: 0 0 15px 0;
   &.fill-radiobtn {
 
     &:hover .fill-control-indicator {
-       border: $border-width solid $input-border-color-hover;
+       border: $control-border-width solid $control-bg-hover;
+    }
+    &:hover .fill-control-description {
+      color: $input-color;
     }
 
     .fill-control-indicator {
@@ -14,8 +17,8 @@
       height: 24px;
       border-radius: 50%;
       transition: .3s;
-      background-color: $input-bg;
-      border-color: $input-bg;
+      background-color: $control-bg;
+      border: $control-border-width solid $control-border-color;
     }
 
     .fill-control-input {
@@ -24,6 +27,9 @@
         background-color: $control-checked-bg;
         border:$border-width solid $control-checked-bg;
       }
+      &:checked ~ .fill-control-description {
+        color: $input-color;
+      }
     }
 
     .fill-control-description {
@@ -31,7 +37,7 @@
       display: inline-block;
       line-height: 1.375;
       font-size: $font-size-normal;
-      color: $input-color;
+      color: $control-color;
     }
   }
 
@@ -50,13 +56,14 @@
     }
   }
   .fill-control-description {
-    color: darken($control-disabled-bg, 20%);
+    opacity: .6;
   }
 }
 
 .radiobtn-group {
   display: inline-flex;
   flex-flow: column;
+  max-width: 100%;
 }
 
 .custom-radiobtn.fill-radiobtn, .custom-radiobtn.fill-radiobtn.disabled {

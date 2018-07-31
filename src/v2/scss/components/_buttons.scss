@@ -37,13 +37,13 @@ $btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, bord
 }
 
 .btn:focus{
-  box-shadow: 0px 0px 0px 5px transparentize($gray-400,.8);
+  box-shadow: 0px 0px 0px 3px transparentize($gray-400,.8);
 }
 
 .btn--big {
-  @include button-size(20px, 25px, 18px, 20px, 4px);
+  @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $font-size-normal, $btn-line-height-lg, $btn-border-radius);
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
   margin: 0 auto 1rem;
 
   @include media-breakpoint-up(md) {
@@ -52,9 +52,10 @@ $btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, bord
 }
 
 .btn--small {
-  @include button-size(10px, 25px, 14px, 20px, 20px);
+  @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $font-size-sm, $btn-line-height-sm, $btn-border-radius-sm);
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
+  border-radius: 2rem;
 }
 
 .btn--white {
@@ -74,18 +75,18 @@ $btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, bord
 
 .btn--outline {
   color: $light;
-  border: 1px solid transparentize($white, .8);
+  border: $btn-border-width solid transparentize($white, .8);
 
   &:hover {
     color: $light;
-    border: 1px solid transparentize($white, .6);
+    border: $btn-border-width solid transparentize($white, .6);
   }
 }
 
 .btn--outline_gray {
   color: $gray-400;
   background-color: rgba(0, 0, 0, 0);
-  border: 1px solid $gray-400;
+  border: $btn-border-width solid $gray-400;
 
   &:hover {
     color: $gray-400;

@@ -23,6 +23,11 @@
   }
 }
 
+.react-select__control.react-select__control-is-focused{
+  border: $input-border-width solid $input-border-color-hover;
+  box-shadow: none !important;
+}
+
 .react-select__indicators{
   .react-select__indicator.react-select__dropdown-indicator, .react-select__indicator.react-select__clear-indicator{
     padding: 0;

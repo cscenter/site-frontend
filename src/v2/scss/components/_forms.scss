@@ -133,6 +133,7 @@ $form-feedback-invalid-color:       $red;
   }
   &.__no-border {
     border: none;
+    border-radius: 0;
   }
 }
 

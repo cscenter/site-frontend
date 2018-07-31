@@ -6,10 +6,10 @@ class NotyView(TemplateView):
     template_name = "v2/components/noty.jinja2"
 
     def get_context_data(self, **kwargs):
-        messages.warning(self.request, "<b>Предупреждение</b><p>Вы добавили уже 20 часов лекций в неделю, рассчитайте свои силы :)</p>")
-        messages.info(self.request, "<b>Переадресация</b><p>Страница «Обучение» теперь стала отдельной страницей</p> <a href="">Узнать подробнее</a><span><a href="">Отменить</a></span>")
-        messages.error(self.request, "<b>Ошибка</b>Нельзя поставить два занятия на одно и то же время")
-        messages.success(self.request, "<b>Добавлен новый пользователь</b> Петров Олег Олегович ")
+        messages.warning(self.request, "<h3>Предупреждение</h3><p>Вы добавили уже 20 часов лекций в неделю, рассчитайте свои силы :)</p>")
+        messages.info(self.request, "<h3>Переадресация</h3><p>Страница «Обучение» теперь стала отдельной страницей</p> <a href="">Узнать подробнее</a><span><a href="">Отменить</a></span>")
+        messages.error(self.request, "<h3>Ошибка</h3>Нельзя поставить два занятия на одно и то же время")
+        messages.success(self.request, "<h3>Добавлен новый пользователь</h3> Петров Олег Олегович ")
         messages.success(self.request, "Я тут повисю пару секунд, зырьте", extra_tags='timeout')
         return {}
 

@@ -156,10 +156,10 @@ $mobile-breakpoints: (
 // Define the maximum width of `.container` for different screen sizes.
 
 $container-max-widths: (
-  sm: 540px,
+  sm: 544px,
   md: 720px,
   lg: 960px,
-  xl: 1140px
+  xl: 1152px
 );
 
 @include _assert-ascending($container-max-widths, "$container-max-widths");
@@ -170,8 +170,8 @@ $container-max-widths: (
 // Set the number of columns and specify the width of the gutters.
 
 $grid-columns:                12;
-$grid-gutter-width:           20px;
-$mobile-padding-x: 20px;
+$grid-gutter-width:           32px;
+$mobile-padding-x: 16px;
 
 // Components
 //

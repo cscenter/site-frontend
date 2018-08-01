@@ -2,7 +2,7 @@ $navbar-padding-y: $spacer;
 $navbar-padding-x: $spacer;
 $navbar-nav-link-padding-x: 0;
 $nav-link-padding-x: .5rem;
-$nav-link-padding-y: .3rem;
+$nav-link-padding-y: .5rem;
 $nav-link-mobile-padding-x: 20px;
 $navbar-brand-font-size: $font-size-lg;
 // Compute the navbar-brand padding-y so the navbar-brand will have the same height as navbar-text and nav-link
@@ -10,9 +10,8 @@ $nav-link-height: ($font-size-base * $line-height-base + $nav-link-padding-y * 2
 $navbar-brand-height: $navbar-brand-font-size * $line-height-base;
 $navbar-brand-padding-y: ($nav-link-height - $navbar-brand-height) / 2;
 
-$navbar-toggler-padding-y: .25rem;
-$navbar-toggler-padding-x: .25rem;
-$navbar-toggler-padding-x: 10px;
+$navbar-toggler-padding-y: 1rem;
+$navbar-toggler-padding-x: 1rem;
 $navbar-toggler-margin-x: $nav-link-padding-x - $input-btn-padding-x;
 $navbar-toggler-font-size: $font-size-lg;
 $navbar-toggler-border-radius: $btn-border-radius;
@@ -46,14 +45,20 @@ $navbar-toggler-border-radius: $btn-border-radius;
 .navbar-logo {
   display: flex; // ie 10 fix
   padding: $nav-link-padding-y 0;
-  margin: ($navbar-padding-y - $nav-link-padding-y) $navbar-padding-x ($navbar-padding-y - $nav-link-padding-y) 0;
+  margin: ($navbar-padding-y - $nav-link-padding-y) ($navbar-padding-x / 2) ($navbar-padding-y - $nav-link-padding-y) ($navbar-padding-x / 2);
+
+}
+
+._logo-csc {
+  height: 32px;
+  width: 88px;
 }
 
 .navbar-toggler {
   display: flex;
   align-self: center;
 
-  padding: $navbar-padding-y $navbar-toggler-padding-x;
+  padding: $navbar-toggler-padding-y $navbar-toggler-padding-x;
   margin-left: -$navbar-toggler-padding-x;
   background-color: transparent; // remove default button style
   border: none; // remove default button style
@@ -70,6 +75,7 @@ $navbar-toggler-border-radius: $btn-border-radius;
   color: $white;
   opacity: .5;
   white-space: nowrap;
+
   &:hover {
     color: $white;
     opacity: 1;
@@ -180,7 +186,8 @@ $navbar-toggler-border-radius: $btn-border-radius;
     display: block;
     color: $gray-400;
     font-size: $font-size-normal;
-    padding: 10px 20px;
+    line-height: 24px; // crutch
+    padding: 12px 20px;
     &:hover {
       color: $white;
     }

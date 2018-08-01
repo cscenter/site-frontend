@@ -44,8 +44,12 @@ $navbar-toggler-border-radius: $btn-border-radius;
 
 .navbar-logo {
   display: flex; // ie 10 fix
+  margin: 0 ($navbar-padding-x / 2);
   padding: $nav-link-padding-y 0;
-  margin: ($navbar-padding-y - $nav-link-padding-y) ($navbar-padding-x / 2) ($navbar-padding-y - $nav-link-padding-y) ($navbar-padding-x / 2);
+  @include media-breakpoint-up(lg) {
+    margin-top: ($navbar-padding-y - $nav-link-padding-y);
+    margin-bottom: ($navbar-padding-y - $nav-link-padding-y);
+  }
 
 }
 
@@ -261,7 +265,10 @@ $navbar-toggler-border-radius: $btn-border-radius;
     color: $white;
     border-color: transparent;
     background-color: rgba(0, 0, 0, 0);
-    padding: $btn-padding-y $navbar-toggler-padding-x 0;
+    padding: $nav-link-padding-y $navbar-toggler-padding-x 0;
+    @include media-breakpoint-up(lg) {
+      padding-top: $btn-padding-y;
+    }
     span {
       margin-right: 10px;
       display: none;

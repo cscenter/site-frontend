@@ -46,7 +46,6 @@ $navbar-toggler-border-radius: $btn-border-radius;
 .navbar-logo {
   display: flex; // ie 10 fix
   padding: $nav-link-padding-y ($navbar-padding-x / 2);
-  margin: 1px 0 0;
   @include media-breakpoint-up(lg) {
     margin-top: ($navbar-padding-y - $nav-link-padding-y);
     margin-bottom: ($navbar-padding-y - $nav-link-padding-y);
@@ -254,7 +253,6 @@ $navbar-toggler-border-radius: $btn-border-radius;
 .dropdown-user-menu {
   margin-left: auto;
   margin-right: (-$navbar-toggler-padding-x / 2);
-  margin-top: 1px;
   @include media-breakpoint-up(lg) {
     margin-top: 0;
   }

@@ -32,8 +32,8 @@ $btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, bord
 @import "bootstrap/scss/buttons";
 
 .btn{
-  font-size: $font-size-normal;
-  @include button-size($btn-padding-y, $btn-padding-x, $font-size-normal, $btn-line-height, $btn-border-radius);
+  font-size: $font-size-content-base;
+  @include button-size($btn-padding-y, $btn-padding-x, $font-size-content-base, $btn-line-height, $btn-border-radius);
 }
 
 .btn:focus{
@@ -41,7 +41,7 @@ $btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, bord
 }
 
 .btn--big {
-  @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $font-size-normal, $btn-line-height-lg, $btn-border-radius);
+  @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $font-size-content-base, $btn-line-height-lg, $btn-border-radius);
   text-transform: uppercase;
   letter-spacing: 2px;
   margin: 0 auto 1rem;

@@ -64,7 +64,7 @@
     margin-bottom: 0;
 
     @include media-breakpoint-down(md) {
-      font-size: $font-size-normal;
+      font-size: $font-size-content-base;
     }
   }
 
@@ -166,7 +166,7 @@
   &__card-title {
     padding-top: 10px;
     margin-bottom: 0;
-    font-size: $font-size-normal;
+    font-size: $font-size-content-base;
   }
 
   .btn {

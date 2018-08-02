@@ -202,7 +202,7 @@ $navbar-toggler-border-radius: $btn-border-radius;
     text-align: left;
     display: block;
     color: $gray-400;
-    font-size: $font-size-normal;
+    font-size: $font-size-content-base;
     line-height: 24px; // crutch
     padding: 12px $nav-link-mobile-padding-x;
     &:hover {
@@ -279,7 +279,7 @@ $navbar-toggler-border-radius: $btn-border-radius;
   }
 
   .dropdown-menu {
-    font-size: $font-size-normal;
+    font-size: $font-size-content-base;
     right: ($navbar-toggler-padding-x / 2);
     left: auto;
   }

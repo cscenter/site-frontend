@@ -99,3 +99,29 @@ h4 {
     }
   }
 }
+
+.page-content {
+  .content-block {
+    ol, ul, dl {
+      padding: 0;
+      margin: .5rem 0 1.5rem 3.5rem;
+    }
+    ul {
+      list-style-type: none;
+      li {
+        margin-bottom: .5rem;
+      }
+      li::before {
+        content: "\2014\a0";
+        color: $gray-500;
+        float: left;
+        margin-left: -1.25em;
+      }
+    }
+    ol {
+      li {
+        margin-bottom: .5rem;
+      }
+    }
+  }
+}

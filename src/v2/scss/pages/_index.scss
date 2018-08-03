@@ -188,34 +188,23 @@
 //6-screen social-media-posts
 
 .social-media-posts {
-  padding: 30px 0;
-  overflow: hidden;
+  padding: 2rem 0;
   font-size: $font-size-base;
 }
 
 .social-media {
-  padding: 20px;
-  margin: 5px;
-  display: block;
-  width: 100%;
+  display: flex;
+  flex-flow: column;
+  padding: 2rem 1.5rem 1rem;
+  margin-bottom: 1rem;
   background-size: cover;
-
   @include media-breakpoint-down(md) {
     text-align: center;
+    align-items: center;
   }
-
-  .card-columns {
-    column-count: 2;
-    @include media-breakpoint-down(md) {
-      column-count: 1;
-    }
-  }
-
   &__text {
-    @include make-col(12);
     color: $white;
-    margin: .625rem 0;
-    max-height: 140px;
+    margin: 1rem 0;
     overflow: hidden;
 
     &--dark {
@@ -227,6 +216,10 @@
   &__date {
     font-size: $font-size-extra-sm;
     color: $gray-500;
+    margin-top: auto;
+    @include media-breakpoint-down(md) {
+      margin-top: 0;
+    }
     &--light {
       color: $gray-100;
     }
@@ -234,6 +227,9 @@
 
   &--instagram {
     position: relative;
+    background-image: url('/media/pages/index/instagram-img.jpg');
+    transition: .3s;
+    z-index: 1;
 
     &::before {
       content: "";
@@ -246,20 +242,15 @@
       z-index: -1;
       transition: .3s;
     }
-
-    background-image: url('/media/pages/index/instagram-img.jpg');
-    transition: .3s;
-    z-index: 1;
-    opacity: .9;
-
     &:hover {
-      opacity: 1;
+      box-shadow: 0 0 2rem transparentize($gray-500, .75);
     }
   }
 
   &--full-size {
-    @include media-breakpoint-up(lg) {
-      height: 500px;
+      height: 512px;
+    @include media-breakpoint-down(md) {
+      justify-content: space-between;
     }
   }
 
@@ -267,9 +258,8 @@
     background-color: $gray-300;
     transition: .3s;
     &:hover {
-      background-color: rgba($gray-300, .6);
+      box-shadow: 0 0 2rem transparentize($gray-400, .85);
     }
-
   }
 
   &--twitter {
@@ -281,19 +271,25 @@
   }
 
   &--half-size {
-    @include media-breakpoint-up(lg) {
-      height: 245px;
+    position: relative;
+    height: 248px;
+    @include media-breakpoint-down(md) {
+      justify-content: space-between;
     }
-  }
-
-  &--small {
-    @include make-col(12);
-
-    @include media-breakpoint-up(md) {
-      height: 245px;
-      @include make-col(6);
-      flex-grow: 1;
-      max-width: 100%;
+    .social-media__text {
+      max-height: 96px;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      right: 16px;
+      bottom: 0px;
+      width: 150px;
+      height: 104px;
+      background: linear-gradient(to right, rgba($gray-300, 0.2), $gray-300);
+      @include media-breakpoint-down(lg) {
+        height: 96px;
+      }
     }
   }
 }

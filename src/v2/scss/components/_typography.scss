@@ -113,7 +113,7 @@ h4 {
       }
       li::before {
         content: "\2014\a0";
-        color: $gray-500;
+        color: $gray-darker;
         float: left;
         margin-left: -1.25em;
       }

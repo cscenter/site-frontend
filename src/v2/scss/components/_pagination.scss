@@ -30,3 +30,9 @@ $pagination-disabled-border-color:  $gray-lighter !default;
 
 
 @import "bootstrap/scss/pagination";
+
+.pagination{
+  .page-item.active{
+    z-index: 100;
+  }
+}

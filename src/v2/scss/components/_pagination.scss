@@ -1,7 +1,7 @@
 // Pagination
 
-$pagination-padding-y:              .5rem !default;
-$pagination-padding-x:               1rem !default;
+$pagination-padding-y:              .25rem !default;
+$pagination-padding-x:               .8rem !default;
 $pagination-padding-y-sm:           .5rem !default;
 $pagination-padding-x-sm:           .5rem !default;
 $pagination-padding-y-lg:           1rem !default;
@@ -35,6 +35,12 @@ $pagination-disabled-border-color:  $gray-lighter !default;
   .page-item {
     &.active {
       z-index: 100;
+    }
+    &.disabled {
+      .page-link {
+        fill: $gray-disable-dark;
+        opacity: .6;
+      }
     }
   }
   .page-link:hover {

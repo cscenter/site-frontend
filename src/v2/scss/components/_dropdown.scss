@@ -32,9 +32,10 @@ $caret-width: 0;
 
 .dropdown-menu {
   border: none;
+  box-shadow: $dropdown-box-shadow;
 }
 
-._arrow-right {
+._arrow-top-right {
   &::after {
     content: "";
     position: absolute;

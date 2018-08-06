@@ -12,7 +12,7 @@
 }
 
 .card-offline-course {
-  background-color: $gray-100;
+  background-color: $gray-lighter;
   text-align: center;
   padding: 25px 10px 35px;
   border-radius: 0;
@@ -70,7 +70,7 @@
 
   &__card-text {
     font-size: $font-size-sm;
-    color: $gray-400;
+    color: $gray-dark;
 
     @include media-breakpoint-down(md) {
       text-align: center;
@@ -135,7 +135,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background-color: rgba($gray-500, .3);
+      background-color: rgba($gray-darker, .3);
       transition: .3s;
     }
 
@@ -152,7 +152,7 @@
     &:hover {
       .card-img-wrapper {
         &::before {
-          background-color: rgba($gray-500, .1);
+          background-color: rgba($gray-darker, .1);
         }
       }
     }
@@ -208,20 +208,20 @@
     overflow: hidden;
 
     &--dark {
-      color: $gray-500;
+      color: $gray-darker;
     }
 
   }
 
   &__date {
     font-size: $font-size-extra-sm;
-    color: $gray-500;
+    color: $gray-darker;
     margin-top: auto;
     @include media-breakpoint-down(md) {
       margin-top: 0;
     }
     &--light {
-      color: $gray-100;
+      color: $gray-lighter;
     }
   }
 
@@ -233,7 +233,7 @@
 
     &::before {
       content: "";
-      background-color: rgba($gray-500, .75);
+      background-color: rgba($gray-darker, .75);
       top: 0;
       left: 0;
       bottom: 0;
@@ -243,7 +243,7 @@
       transition: .3s;
     }
     &:hover {
-      box-shadow: 0 0 2rem transparentize($gray-500, .75);
+      box-shadow: 0 0 2rem transparentize($gray-darker, .75);
     }
   }
 
@@ -255,15 +255,15 @@
   }
 
   &--vk {
-    background-color: $gray-300;
+    background-color: $gray-lighter;
     transition: .3s;
     &:hover {
-      box-shadow: 0 0 2rem transparentize($gray-400, .85);
+      box-shadow: 0 0 2rem transparentize($gray-dark, .85);
     }
   }
 
   &--twitter {
-    background-color: $gray-300;
+    background-color: $gray-lighter;
   }
 
   &--youtube {
@@ -286,7 +286,7 @@
       bottom: 0px;
       width: 150px;
       height: 104px;
-      background: linear-gradient(to right, rgba($gray-300, 0.2), $gray-300);
+      background: linear-gradient(to right, rgba($gray-lighter, 0.2), $gray-lighter);
       @include media-breakpoint-down(lg) {
         height: 96px;
       }

@@ -5,22 +5,22 @@ $dropdown-spacer: 0;
 $dropdown-bg: $white;
 $dropdown-border-color: rgba($black, .15);
 $dropdown-border-width: $border-width;
-$dropdown-divider-bg: $gray-200;
-$dropdown-box-shadow: 0 .5rem 1rem rgba($black, .175);
+$dropdown-divider-bg: $gray-disable-light;
+$dropdown-box-shadow: 0 0 1rem rgba($black, .175);
 
 $dropdown-link-color: $black;
 $dropdown-link-hover-color: $black;
-$dropdown-link-hover-bg: $gray-100;
+$dropdown-link-hover-bg: $gray-lighter;
 
 $dropdown-link-active-color: $component-active-color;
 $dropdown-link-active-bg: $component-active-bg;
 
-$dropdown-link-disabled-color: $gray-600;
+$dropdown-link-disabled-color: $gray-disable-dark;
 
 $dropdown-item-padding-y: .2rem;
 $dropdown-item-padding-x: .8rem;
 
-$dropdown-header-color: $gray-600;
+$dropdown-header-color: $gray-disable-dark;
 $dropdown-border-radius: 4px;
 
 $zindex-dropdown: 1000;

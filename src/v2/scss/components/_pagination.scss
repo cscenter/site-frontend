@@ -32,21 +32,26 @@ $pagination-disabled-border-color:  $gray-lighter !default;
 @import "bootstrap/scss/pagination";
 
 .pagination {
+
   .page-item {
     &.active {
       z-index: 100;
     }
     &.disabled {
-      .page-link {
+      .page-link,
+      .ellipsis {
         fill: $gray-disable-dark;
         opacity: .6;
       }
     }
   }
+
   .page-link:hover {
     fill: $teal;
   }
-  .page-status {
+
+  .page-status,
+  .ellipsis {
     position: relative;
     display: block;
     padding: $pagination-padding-y $pagination-padding-x;

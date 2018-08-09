@@ -14,7 +14,7 @@ $nav-link-mobile-padding-x: 16px;
 $navbar-toggler-padding-y: $grid-gutter-width / 2 - 1;  // humburger size is 18px, to fit in 8pt grid, remove px here
 $navbar-toggler-padding-x: $grid-gutter-width / 2;
 $navbar-toggler-font-size: $font-size-lg;
-$navbar-toggler-border-radius: $btn-border-radius;
+$navbar-toggler-border-radius: $border-radius;
 
 @import "hamburger";
 
@@ -144,6 +144,10 @@ $navbar-toggler-border-radius: $btn-border-radius;
     display: none;
   }
 
+  .sprite-img._arrow-bottom {
+    fill: $white;
+  }
+
   ul {
     border-top: 1px solid $gray-disable-dark;
     list-style: none;
@@ -256,10 +260,10 @@ $navbar-toggler-border-radius: $btn-border-radius;
   }
 }
 
-.menu-btn-reg {
+.btn.menu-btn-reg {
   padding: ($nav-link-padding-y / 2) $nav-link-padding-x;
   margin: ($nav-link-padding-y / 2) 0 ($nav-link-padding-y / 2) auto;
-  line-height: $nav-link-line-height - 2 * $btn-border-width;
+  line-height: $nav-link-line-height - 2 * $input-btn-border-width;
 }
 
 .dropdown-user-menu {
@@ -272,6 +276,8 @@ $navbar-toggler-border-radius: $btn-border-radius;
 
   &.show {
     .btn {
+      box-shadow: none;
+
       .user-menu-img {
         box-shadow: 0 0 0 4px transparentize($gray-dark, .6);
       }
@@ -290,9 +296,9 @@ $navbar-toggler-border-radius: $btn-border-radius;
     background-color: rgba(0, 0, 0, 0);
     padding: $nav-link-padding-y $nav-link-padding-x;
     line-height: $nav-link-line-height;
-    box-shadow: none;
 
     &:focus {
+      box-shadow: none;
       .user-menu-img {
         box-shadow: 0 0 0 4px transparentize($gray-dark, .6);
       }

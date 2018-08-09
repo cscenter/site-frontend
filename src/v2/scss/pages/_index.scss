@@ -82,29 +82,50 @@
 //3-screen about-csc
 
 .about-csc {
-
+  text-align: center;
   @include append-hr-to-container;
-
-  @include media-breakpoint-down(md) {
-    text-align: center;
-    align-items: center;
+  @include media-breakpoint-up(lg) {
+    & .container {
+      position: relative;
+    }
   }
+  .about-csc__description {
+      padding: 0;
+      color: $black;
+    margin: 2rem 0;
+    @include media-breakpoint-up(lg) {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 3rem;
+      left: 0;
+      right: 0;
+      margin: 0 .5rem;
+      color: $white;
+      &:before {
+        content: "";
+        position: absolute;
+        top: -3rem;
+        background-image: linear-gradient(0deg, rgba(49, 68, 81, 0.00) 0%, rgba(49, 68, 81, 0.70) 100%);
+        width: 100%;
+        height: 240px;
+      }
+      h1, p {
+        z-index: $zindex-fixed;
+        padding: 0 120px;
+      }
 
-  h2 {
-    margin-bottom: 1rem;
+    }
+
+     .img-fluid {
+      width: 100%; //For IE
+    }
   }
-
-  h4 {
-    text-transform: uppercase;
-  }
-
-  .btn {
-    margin-bottom: 2rem;
-  }
-
-  .img-fluid {
-    @include media-breakpoint-down(lg) {
-      margin-bottom: 1rem;
+  .about-csc_btn {
+    bottom: 0;
+    @include media-breakpoint-up(lg) {
+    position: relative;
+    bottom: 6rem;
     }
   }
 }

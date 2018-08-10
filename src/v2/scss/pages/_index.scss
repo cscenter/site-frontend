@@ -84,49 +84,75 @@
 .about-csc {
   text-align: center;
   @include append-hr-to-container;
-  @include media-breakpoint-up(lg) {
-    & .container {
-      position: relative;
+  .about-csc_content{
+    position: relative;
+    @include media-breakpoint-up(lg) {
+      margin-bottom: -4rem;
     }
   }
   .about-csc__description {
-      padding: 0;
-      color: $black;
-    margin: 2rem 0;
+    color: $black;
+    margin-top: 2rem;
+
     @include media-breakpoint-up(lg) {
       display: flex;
       flex-direction: column;
       position: absolute;
-      top: 3rem;
+      top: 0;
       left: 0;
       right: 0;
-      margin: 0 .5rem;
+      margin: 0;
       color: $white;
       &:before {
         content: "";
         position: absolute;
-        top: -3rem;
         background-image: linear-gradient(0deg, rgba(49, 68, 81, 0.00) 0%, rgba(49, 68, 81, 0.70) 100%);
         width: 100%;
         height: 240px;
       }
-      h1, p {
+      p {
         z-index: $zindex-fixed;
         padding: 0 120px;
       }
-
+      h1{
+        z-index: $zindex-fixed;
+        margin-top: 3rem;
+      }
     }
 
-     .img-fluid {
+    .img-fluid {
       width: 100%; //For IE
     }
   }
   .about-csc_btn {
-    bottom: 0;
+    margin-bottom: 2rem;
     @include media-breakpoint-up(lg) {
-    position: relative;
-    bottom: 6rem;
+      position: relative;
+      bottom: 7rem;
     }
+  }
+}
+
+.about-csc__organizers {
+  .sprite-img {
+    opacity: .8;
+    filter: grayscale(100%);
+    transition: $transition-base;
+    &:hover {
+      opacity: 1;
+      filter: grayscale(0%);
+    }
+    @include media-breakpoint-up(md) {
+      width: 112px;
+      height: 88px;
+      margin: 0 .5rem;
+    }
+  }
+  h3{
+    margin-bottom: .5rem;
+  }
+  p{
+    font-size: $font-size-sm;
   }
 }
 
@@ -179,8 +205,7 @@
   }
 
   h2 {
-    text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
 
   .btn {

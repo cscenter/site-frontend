@@ -9,7 +9,7 @@
       opacity: 0;
       font-size: $font-size-base;
       padding: $input-padding-y $input-padding-x;
-      line-height: 15px; //Didn't find another solution for same height
+      line-height: 1;
 
       &:focus ~ .custom-file-label {
         border-color: $input-border-color-hover;

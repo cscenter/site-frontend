@@ -20,7 +20,7 @@ h1, h2, h3, h4, h5, h6,
 h1,
 .h1 {
   font-size: $h1-font-size;
-  margin-bottom: $spacer*1.5;
+  margin-bottom: spacer(6x);
 }
 
 h2,
@@ -46,7 +46,7 @@ h6, .h6 {
 
 // Blockquotes
 .blockquote {
-  margin-bottom: $spacer;
+  margin-bottom: spacer(4x);
   font-size: $blockquote-font-size;
 }
 

@@ -1,15 +1,3 @@
-$input-padding-y:                       .875rem;
-$input-padding-x:                       .75rem;
-$input-line-height:                     1.125;
-
-$input-padding-y-sm:                    $input-btn-padding-y-sm !default;
-$input-padding-x-sm:                    $input-btn-padding-x-sm !default;
-$input-line-height-sm:                  $input-btn-line-height-sm !default;
-
-$input-padding-y-lg:                    $input-btn-padding-y-lg !default;
-$input-padding-x-lg:                    $input-btn-padding-x-lg !default;
-$input-line-height-lg:                  $input-btn-line-height-lg !default;
-
 $input-bg:                              $gray-lighter !default;
 $input-disabled-bg:                     $gray-disable-dark !default;
 
@@ -42,30 +30,10 @@ $control-border-color:                  darken($gray-lighter, 10%);
 
 $input-height-border:                   $input-border-width * 2 !default;
 
-$input-height-inner:                    ($font-size-base * $input-btn-line-height) + ($input-btn-padding-y * 2) !default;
-$input-height:                          calc(#{$input-height-inner} + #{$input-height-border}) !default;
-
-$input-height-inner-sm:                 ($font-size-sm * $input-btn-line-height-sm) + ($input-btn-padding-y-sm * 2) !default;
-$input-height-sm:                       calc(#{$input-height-inner-sm} + #{$input-height-border}) !default;
-
-$input-height-inner-lg:                 ($font-size-lg * $input-btn-line-height-lg) + ($input-btn-padding-y-lg * 2) !default;
-$input-height-lg:                       calc(#{$input-height-inner-lg} + #{$input-height-border}) !default;
-
 $input-transition:                      border-color .15s ease-in-out;
 
-$form-text-margin-top:                  .25rem !default;
-
-$form-check-input-gutter:               1.25rem !default;
-$form-check-input-margin-y:             .3rem !default;
-$form-check-input-margin-x:             .25rem !default;
-
-$form-check-inline-margin-x:            .75rem !default;
-$form-check-inline-input-margin-x:      .3125rem !default;
-
-$form-group-margin-bottom:              1rem !default;
 
 // Form validation
-$form-feedback-margin-top:          $form-text-margin-top !default;
 $form-feedback-font-size:           $font-size-sm !default;
 $form-feedback-color:               $white;
 $form-feedback-valid-color:         green;
@@ -78,28 +46,28 @@ $form-feedback-invalid-color:       $red;
 @import "components/_forms/select";
 
 .ui.form {
-  margin-bottom: 40px;
+  margin-bottom: spacer("10x");
   overflow: hidden;
   border: $border-width solid $gray-lighter;
   background: $white;
   border-radius: $border-radius-lg;
   .form-body {
-    padding: 0 30px;
+    padding: 0 spacer("8x");
   }
   .field {
-    margin-bottom: 30px;
+    margin-bottom: spacer("6x");
     &:last-child {
-      margin-bottom: 40px;
+      margin-bottom: spacer("10x");
     }
   }
   .form-section {
-    margin-bottom: 30px;
+    margin-bottom: spacer("6x");
     .form_title._subtitle {
       padding: 0;
     }
     &::after {
       content: "";
-      margin: 10px -30px;
+      margin: spacer("2x") -#{spacer("8x")};
       border-top: $hr-border-width solid $gray-disable-light;
       display: block;
     }
@@ -113,22 +81,22 @@ $form-feedback-invalid-color:       $red;
   }
 
   .form_title {
-    padding: 30px 30px 0;
-    margin-bottom: 30px;
+    padding: spacer("8x") spacer("8x") 0;
+    margin-bottom: spacer("8x");
     h2, h3 {
       margin: 0;
     }
     p {
-      margin: 5px 0 0 0;
+      margin: spacer("1x") 0 0 0;
     }
     &.__inverse {
-      padding: 30px;
+      padding: spacer("8x");
       background: $gray-dark;
       color: $white;
     }
     &._subtitle {
       padding: 0;
-      margin-bottom: 20px;
+      margin-bottom: spacer("6x");
     }
   }
   &.__no-border {
@@ -139,13 +107,13 @@ $form-feedback-invalid-color:       $red;
 
 .title-label {
   font-size: $font-size-content-base;
-  margin-bottom: 15px;
+  margin-bottom: spacer("4x");
 }
 
 .ui.form.survey {
   .survey-label{
     font-size: $h3-font-size;
     font-weight: $font-weight-light;
-    margin-bottom: 15px;
+    margin-bottom: spacer("4x");
   }
 }

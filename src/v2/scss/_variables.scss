@@ -2,7 +2,7 @@
 //
 // Variables should follow the `$component-state-property-size` formula for
 // consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
-
+@import "utils/spacer";
 //
 // Color system
 //
@@ -90,14 +90,16 @@ $enable-print-styles:       true !default;
 // You can add more entries to the $spacers map, should you need more variation.
 
 // stylelint-disable
-$spacer: 1rem;
+$spacer: .25rem;
 $spacers: (
   0: 0,
-  1: ($spacer * .25),
-  2: ($spacer * .5),
-  3: $spacer,
-  4: ($spacer * 1.5),
-  5: ($spacer * 3)
+  1x: ($spacer),
+  2x: ($spacer * 2),
+  3x: ($spacer * 3),
+  4x: ($spacer * 4),
+  6x: ($spacer * 6),
+  8x: ($spacer * 8),
+  10x: ($spacer * 10)
 );
 
 // This variable affects the `.h-*` and `.w-*` classes.

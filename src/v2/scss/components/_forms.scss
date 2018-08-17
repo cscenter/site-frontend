@@ -1,6 +1,6 @@
 $input-bg:                              $gray-lighter !default;
 $input-disabled-bg:                     $gray-disable-dark !default;
-
+$input-line-height:                     calculateLineHeight(48px);
 $input-color:                           $gray-darker;
 $input-border-color:                    $gray-lighter;
 $input-border-color-hover:              darken($gray-lighter, 10%);

@@ -134,6 +134,12 @@
 }
 
 .about-csc__organizers {
+  border-top: $hr-border-width solid $hr-border-color;
+  padding-top: spacer("8x");
+  @include media-breakpoint-up(lg) {
+    border-top: none;
+    padding-top: 0;
+  }
   .sprite-img {
     opacity: .8;
     filter: grayscale(100%);

@@ -37,7 +37,7 @@
     padding: spacer("3x") spacer("4x");
     color: $input-placeholder-color;
     background-color: $input-bg;
-    border: $border-width solid transparent;
+    border: $border-width solid $input-border-color;
     border-radius: $border-radius;
     &::after {
       position: absolute;

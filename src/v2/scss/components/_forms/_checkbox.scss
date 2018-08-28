@@ -72,20 +72,18 @@
     background: $control-disabled-bg;
   }
   .fill-control-description {
-    color: darken($control-disabled-bg, 20%);
+    color: $control-disabled-bg;
   }
 }
 
 .custom-checkbox.fill-checkbox.disabled{
   .fill-control-input {
     &:checked ~ .fill-control-indicator {
-      opacity: .6;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-image: url("/static/v2/img/icons/checkmark.svg");
+      background: $control-disabled-bg url("/static/v2/img/icons/checkmark.svg") center no-repeat;
+      border: $border-width solid $control-disabled-bg;
     }
     &:checked ~ .fill-control-description {
-      opacity: .6;
+      color: $control-disabled-bg;
     }
   }
 }

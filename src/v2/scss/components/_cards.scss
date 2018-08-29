@@ -53,3 +53,7 @@ aside{
     font-size: $font-size-sm;
   }
 }
+
+.responsive-card{
+  float: left; //For old browsers
+}

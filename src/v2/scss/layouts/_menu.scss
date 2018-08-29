@@ -1,4 +1,5 @@
 $nav-link-line-height: 32px;
+$nav-link-padding:spacer("2x");
 // logo, navbar-toggler, .nav-link and reg button should have the same size
 $nav-link-height: ($nav-link-line-height + #{spacer("4x")});
 // Hack to show rows with menu items vertically closer to each other.
@@ -41,8 +42,8 @@ $navbar-toggler-border-radius: $border-radius;
 .navbar-logo {
   display: flex; // ie 10 fix
   //align-self: center;
-  padding: spacer("2x");
-  margin-left: -#{spacer("2x")};
+  padding: $nav-link-padding;
+  margin-left: -$nav-link-padding;
 
   ._logo-csc {
     height: 24px;

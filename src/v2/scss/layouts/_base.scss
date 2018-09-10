@@ -23,6 +23,10 @@ body {
   }
 }
 
+.bg-gray {
+  background-color: $gray-lighter;
+}
+
 .cover {
   @include font-smoothing();
   position: relative;

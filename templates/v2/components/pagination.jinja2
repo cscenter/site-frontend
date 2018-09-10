@@ -123,10 +123,7 @@
         <ul class="pagination">
             <li class="page-item disabled">
                 <button class="page-link">
-                    <svg aria-hidden="true" class="sprite-img _arrow-left"
-                         xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <use xlink:href="#arrow-left"></use>
-                    </svg>
+                    {{ macros.svg_inline('arrow-left') }}
                 </button>
             </li>
             <li class="page-item d-none d-md-block active">
@@ -147,10 +144,7 @@
             <li class="page-status d-md-none">1&nbsp;из&nbsp;5</li>
             <li class="page-item">
                 <button class="page-link">
-                    <svg aria-hidden="true" class="sprite-img _arrow-right"
-                         xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <use xlink:href="#arrow-right"></use>
-                    </svg>
+                    {{ macros.svg_inline('arrow-right') }}
                 </button>
             </li>
         </ul>

@@ -82,30 +82,98 @@
 //3-screen about-csc
 
 .about-csc {
+  text-align: center;
+  @include append-hr-to-container();
 
-  @include append-hr-to-container;
+  .about-csc__cover {
+    position: relative;
+    padding-top: 52.5%;
 
-  @include media-breakpoint-down(md) {
-    text-align: center;
-    align-items: center;
-  }
-
-  h2 {
-    margin-bottom: 1rem;
-  }
-
-  h4 {
-    text-transform: uppercase;
-  }
-
-  .btn {
-    margin-bottom: 2rem;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
   }
 
   .img-fluid {
-    @include media-breakpoint-down(lg) {
-      margin-bottom: 1rem;
+    width: 100%; // For IE
+  }
+
+  .about-csc__description {
+    color: $black;
+    margin-top: 2rem;
+
+    @include media-breakpoint-up(lg) {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      margin: 0;
+      color: $white;
+      &:before {
+        content: "";
+        position: absolute;
+        background-image: linear-gradient(0deg, rgba(29, 29, 29, 0.00) 0%, rgba(29, 29, 29, 0.8) 100%);
+        width: 100%;
+        height: 360px;
+      }
+
+      p {
+        z-index: $zindex-cover;
+        padding: 0 120px;
+      }
+
+      h1 {
+        z-index: $zindex-cover;
+        margin-top: 3rem;
+      }
     }
+  }
+  .about-csc_btn {
+    margin-bottom: 2rem;
+    @include media-breakpoint-up(lg) {
+      position: absolute;
+      bottom: 3rem;
+      margin: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+}
+
+.about-csc__organizers {
+  border-top: $hr-border-width solid $hr-border-color;
+  padding-top: spacer("8x");
+  @include media-breakpoint-up(lg) {
+    border-top: none;
+  }
+
+  .sprite-img {
+    opacity: .8;
+    filter: grayscale(100%);
+    transition: $transition-base;
+    &:hover {
+      opacity: 1;
+      filter: grayscale(0%);
+    }
+    @include media-breakpoint-up(md) {
+      width: 112px;
+      height: 88px;
+      margin: 0 .5rem;
+    }
+  }
+
+  h3 {
+    margin-bottom: .5rem;
+  }
+
+  p {
+    font-size: $font-size-sm;
   }
 }
 
@@ -158,8 +226,7 @@
   }
 
   h2 {
-    text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
 
   .btn {

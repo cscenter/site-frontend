@@ -18,7 +18,7 @@ $btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, bord
 
 .btn{
   font-size: $font-size-content-base;
-  @include button-size(spacer("3x"), spacer("6x"), $font-size-content-base, calculateInputLineHeight(48px), $btn-border-radius);
+  @include button-size(spacer("3x"), spacer("6x"), $font-size-content-base, calculateInputLineHeight(48px, spacer("3x")), $btn-border-radius);
   display: inline-block;
   font-weight: $btn-font-weight;
   text-align: center;
@@ -34,7 +34,7 @@ $btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, bord
 }
 
 .btn--big {
-  @include button-size(spacer("3x"), spacer("6x"), $font-size-content-base, calculateInputLineHeight(56px), $btn-border-radius);
+  @include button-size(spacer("3x"), spacer("6x"), $font-size-content-base, calculateInputLineHeight(56px, spacer("3x")), $btn-border-radius);
   text-transform: uppercase;
   letter-spacing: 2px;
   margin: 0 auto 1rem;
@@ -45,7 +45,7 @@ $btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, bord
 }
 
 .btn--small {
-  @include button-size(spacer("3x"), spacer("4x"), $font-size-sm, calculateInputLineHeight(40px), $btn-border-radius-sm);
+  @include button-size(spacer("3x"), spacer("4x"), $font-size-sm, calculateInputLineHeight(40px, spacer("3x")), $btn-border-radius-sm);
   text-transform: uppercase;
   letter-spacing: 2px;
   border-radius: 2rem;

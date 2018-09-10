@@ -3,7 +3,7 @@
   @return #{$remSize}rem;
 }
 
-@function calculateLineHeight($input-height-px){
+@function calculateInputLineHeight($input-height-px){
   $lineHeight: calc(#{calculateRem($input-height-px)} - #{spacer("3x")}*2 - #{calculateRem($border-width)}*2);
   @return #{$lineHeight};
 }

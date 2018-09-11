@@ -8,3 +8,29 @@
     -moz-osx-font-smoothing: auto;
   }
 }
+
+
+// Customize mobile grid margins for extra small devices
+@mixin make-container() {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: $grid-gutter-width;
+  padding-left: $grid-gutter-width;
+  @include media-breakpoint-up(sm) {
+    padding-right: ($grid-gutter-width / 2);
+    padding-left: ($grid-gutter-width / 2);
+  }
+}
+
+
+@function calc-rem($size) {
+  $remSize: ($size / 16px);
+  @return #{$remSize}rem;
+}
+
+
+@function calculate-input-line-height($input-height-px, $spacer) {
+  $lineHeight: calc(#{calc-rem($input-height-px)} - #{$spacer} * 2 - #{calc-rem($border-width)} * 2);
+  @return #{$lineHeight};
+}

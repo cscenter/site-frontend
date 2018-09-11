@@ -13,7 +13,6 @@ import {
 } from "../utils";
 
 
-// TODO: replace with HOC `UserCardFilter`
 class Alumni extends React.Component {
 
     constructor(props) {
@@ -21,7 +20,7 @@ class Alumni extends React.Component {
         this.state = {
             "loading": true,
             "items": [],
-            ...props.init.state
+            ...props.initialState
         };
         this.fetch = _debounce(this.fetch, 300);
     }
@@ -44,19 +43,19 @@ class Alumni extends React.Component {
         });
     };
 
-    componentDidMount = () => {
+    componentDidMount() {
         const filterState = this.getFilterState(this.state);
-        console.log("filterState", filterState);
+        console.debug("Alumni: filterState", filterState);
         const newPayload = this.getRequestPayload(filterState);
-        console.log("newPayload", newPayload);
+        console.debug("Alumni: newPayload", newPayload);
         this.fetch(newPayload);
     };
 
-    componentWillUnmount = function () {
+    componentWillUnmount() {
         this.serverRequest.abort();
     };
 
-    componentDidUpdate = (prevProps, prevState) => {
+    componentDidUpdate(prevProps, prevState) {
         if (this.state.loading) {
             const filterState = this.getFilterState(this.state);
             const newPayload = this.getRequestPayload(filterState);
@@ -73,8 +72,10 @@ class Alumni extends React.Component {
     }
 
     getRequestPayload(filterState) {
-        console.log(filterState);
         Object.keys(filterState).map((k) => {
+            if (k === "year") {
+                filterState[k] = filterState[k]["value"];
+            }
             // Convert null and undefined to empty string
             filterState[k] = !filterState[k] ? "" : filterState[k];
         });
@@ -82,7 +83,7 @@ class Alumni extends React.Component {
     }
 
     fetch = (payload) => {
-        console.log("fetch", this.props, payload);
+        console.debug("Alumni: fetch", this.props, payload);
         this.serverRequest = $.ajax({
             type: "GET",
             url: this.props.entry_url,
@@ -103,7 +104,6 @@ class Alumni extends React.Component {
         if (this.state.loading) {
             showBodyPreloader();
         }
-        //TODO: prevent rerendering if query < 3 symbols
         const {year, city, area} = this.state;
         const {years, cities, areas} = this.props;
 
@@ -118,41 +118,45 @@ class Alumni extends React.Component {
             <Fragment>
                 <h1>Выпускники</h1>
                 <div className="row mb-4">
-                    <div className="col-lg-3">
-                        <FormSelect
-                            onChange={this.handleYearChange}
-                            value={year}
-                            name="year"
-                            isClearable={false}
-                            placeholder="Год выпуска"
-                            options={years}
-                            key="year"
-                        />
-                    </div>
-                    <div className="col-lg-3">
-                        <FormSelect
-                            onChange={this.handleAreaChange}
-                            value={area}
-                            name="area"
-                            placeholder="Направление"
-                            isClearable={true}
-                            options={areas}
-                            key="area"
-                        />
-                    </div>
-                    <div className="col-lg-3">
-                        <FormSelect
-                            onChange={this.handleCityChange}
-                            value={city}
-                            name="city"
-                            isClearable={true}
-                            placeholder="Город"
-                            options={cities}
-                            key="city"
-                        />
-                    </div>
+                            <div className="col-lg-2">
+                                <FormSelect
+                                    onChange={this.handleYearChange}
+                                    value={year}
+                                    name="year"
+                                    isClearable={false}
+                                    placeholder="Год выпуска"
+                                    options={years}
+                                    key="year"
+                                />
+                            </div>
+                            <div className="col-lg-3">
+                                <FormSelect
+                                    onChange={this.handleAreaChange}
+                                    value={area}
+                                    name="area"
+                                    placeholder="Направление"
+                                    isClearable={true}
+                                    options={areas}
+                                    key="area"
+                                />
+                            </div>
+                            <div className="col-lg-3">
+                                <FormSelect
+                                    onChange={this.handleCityChange}
+                                    value={city}
+                                    name="city"
+                                    isClearable={true}
+                                    placeholder="Город"
+                                    options={cities}
+                                    key="city"
+                                />
+                            </div>
                 </div>
-                <UserCardList users={filteredItems} />
+                {
+                    filteredItems.length > 0 ?
+                        <UserCardList users={filteredItems} />
+                        : "Таких выпускников у нас нет. Выберите другие параметры фильтрации."
+                }
             </Fragment>
         );
     }

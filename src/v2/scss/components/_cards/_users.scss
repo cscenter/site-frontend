@@ -1,11 +1,10 @@
+$user-card-gutter-width: $grid-gutter-width / 2;
+
 .user-cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: left;
-  margin: 0 -10px 0 -10px;
-  @include media-breakpoint-up(sm) {
-    justify-content: space-between;
-  }
+  margin: 0 #{-$user-card-gutter-width} 0 -#{$user-card-gutter-width};
   &:after {
     content: "";
     flex: auto;
@@ -13,34 +12,47 @@
 }
 
 .user-card {
-  width: 170px;
   float: left; // for older browsers
   vertical-align: top;
-  line-height: 1.25;
-  margin-bottom: 32px;
-  padding-left: $grid-gutter-width / 2;
-  padding-right: $grid-gutter-width / 2;
+  line-height: $line-height-sm;
+  margin-bottom: spacer("8x");
+  padding-left: $user-card-gutter-width;
+  padding-right: $user-card-gutter-width;
 
-  @include media-breakpoint-up(iphone5, $mobile-breakpoints) {
-      width: 50%;
-  }
-
+  width: percentage(6 / $grid-columns);
   @include media-breakpoint-up(iphone6plus, $mobile-breakpoints) {
-    width: 170px;
+    width: percentage(4 / $grid-columns);
+  }
+  @include media-breakpoint-up(sm) {
+    width: percentage(3 / $grid-columns);
   }
   @include media-breakpoint-up(lg) {
-    width: 190px;
+    width: percentage(2 / $grid-columns);
   }
 
 }
 
 .user-card__photo {
   position: relative;
-  margin: 0 auto 5px;
+  margin: 0 auto spacer("1x");
+  padding-bottom: 139.75%; // calc((100% - #{$border-width} * 2) * 1.4
+  overflow: hidden;
+  background: $gray-lighter;
+  background-size: cover;
+  &._m {
+    background-image: url("/static/v2/img/placeholder/boy.png");
+  }
+  &._f {
+    background-image: url("/static/v2/img/placeholder/girl.png");
+  }
 
   img {
-    height: auto;
-    max-width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
   }
 }
 
@@ -51,12 +63,12 @@
 }
 
 .achievements__item {
-  margin-bottom: 5px;
+  margin-bottom: spacer("1x");
   transition: all 200ms;
   &:hover {
     transform: scale(1.3);
     transition: all 200ms ease;
-    padding-bottom: 4px;
+    padding-bottom: spacer("1x");
   }
 }
 

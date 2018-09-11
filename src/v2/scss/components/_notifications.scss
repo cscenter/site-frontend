@@ -1,24 +1,25 @@
-@import "noty/src/noty.scss";
+@import "noty/src/noty";
 
 .noty_theme__notification.noty_bar {
-  margin: 10px 0;
+  margin: spacer("3x") 0;
   overflow: hidden;
   position: relative;
   border: 1px solid transparent;
   border-radius: $border-radius;
   font-size: $font-size-sm;
-  b{
+  h3{
     display: block;
     width: 100%;
     font-size: $font-size-base;
+    font-weight: $font-weight-bold;
     margin:0 0 2px 0;
   }
   span{
     a{
-      color: $gray-500;
-      background: $gray-200;
+      color: $gray-darker;
+      background: $gray-disable-light;
       &:hover{
-        background: darken($gray-200, 5%);
+        background: darken($gray-disable-light, 5%);
       }
     }
     }
@@ -27,11 +28,11 @@
     display: inline-block;
 	line-height: 1;
 	color: $white;
-	padding: $input-padding-y $input-padding-x;
+	padding: spacer("3x") spacer("4x");
     background: $teal;
     border-radius: $border-radius;
     box-sizing: border-box;
-    margin: 0 10px 0 0;
+    margin: 0 spacer("3x") 0 0;
   }
 
   a:hover{
@@ -43,7 +44,7 @@
   }
 
   .noty_body {
-	padding: $input-padding-x-lg;
+	padding: spacer("3x");
   }
 }
 
@@ -55,8 +56,8 @@
 
 .noty_theme__notification.noty_type__warning {
   background-color: $white;
-  color: $gray-500;
-  box-shadow: 0 0 2rem transparentize($gray-500,.8);
+  color: $gray-darker;
+  box-shadow: 0 0 2rem transparentize($gray-darker,.8);
 }
 
 .noty_theme__notification.noty_type__error {
@@ -68,8 +69,8 @@
 .noty_theme__notification.noty_type__info,
 .noty_theme__notification.noty_type__information {
   background-color: $white;
-  color: $gray-500;
-  box-shadow: 0 0 2rem transparentize($gray-500,.8);
+  color: $gray-darker;
+  box-shadow: 0 0 2rem transparentize($gray-darker,.8);
 }
 
 .noty_theme__notification.noty_type__success {

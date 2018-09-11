@@ -25,7 +25,7 @@ class App extends React.Component {
         this.state = {
             loading: true,
             items: [],
-            ...props.init.state
+            ...props.initialState
         };
         // bind function in constructor instead of render (https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)
         this.onChangePage = this.onChangePage.bind(this);
@@ -43,13 +43,13 @@ class App extends React.Component {
                 initLayout: false
             });
             grid.on('layoutComplete', function() {
-                console.log("layoutComplete");
+                console.debug("masonry event: layoutComplete");
                 hideBodyPreloader();
             });
         }
 
         history.listen((location, action) => {
-          let nextPage = this.props.init.state.page;
+          let nextPage = this.props.initialState.page;
           if (location.state && location.state.page !== this.state.page) {
               nextPage = location.state.page;
           }
@@ -69,7 +69,7 @@ class App extends React.Component {
 
         // Pagination component controls fetch
         this.setState({ loading: true, page: this.state.page });
-        console.debug("componentDidMount");
+        console.debug("Testimonials: componentDidMount");
     };
 
     componentWillUnmount() {
@@ -86,8 +86,8 @@ class App extends React.Component {
         this.setState({ loading: true, page: page });
     }
 
-    componentDidUpdate = (prevProps, prevState) => {
-        console.debug("componentDidUpdate");
+    componentDidUpdate(prevProps, prevState) {
+        console.debug("Testimonials: componentDidUpdate");
         if (this.state.loading) {
             const payload = this.getRequestPayload(this.state);
             this.fetch(payload);
@@ -145,7 +145,8 @@ class App extends React.Component {
                     )}
                     <div className="grid-sizer" />
                 </div>
-                <Pagination totalItems={this.props.total} pageSize={this.props.page_size} currentPage={this.state.page} onChangePage={this.onChangePage} />
+                <Pagination totalItems={this.props.total} pageSize={this.props.page_size}
+                            currentPage={this.state.page} onChangePage={this.onChangePage} />
             </div>
         );
     }

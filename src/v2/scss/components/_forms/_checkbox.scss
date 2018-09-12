@@ -23,6 +23,7 @@
         color: $input-color;
       }
     }
+
     .fill-control-indicator {
       display: inline-block;
       position: absolute;
@@ -52,6 +53,7 @@
     margin-bottom: 0;
   }
   &.disabled {
+
     .fill-control-indicator {
       border: $border-width solid $control-disabled-bg;
     }
@@ -67,6 +69,18 @@
   max-width: 100%;
 }
 
+.checkbox-group.inline {
+  display: inline-flex;
+  flex-flow: row;
+  max-width: 100%;
+  height: $input-outerheight;
+  align-items: center;
+
+  .custom-checkbox {
+    margin: 0 20px 0 0;
+  }
+}
+
 .custom-checkbox.fill-checkbox.disabled {
   .fill-control-indicator {
     background: $control-disabled-bg;
@@ -77,6 +91,7 @@
 }
 
 .custom-checkbox.fill-checkbox.disabled{
+
   .fill-control-input {
     &:checked ~ .fill-control-indicator {
       background: $control-disabled-bg url("/static/v2/img/icons/checkmark.svg") center no-repeat;

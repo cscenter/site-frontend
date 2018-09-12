@@ -115,7 +115,16 @@ $(function () {
             $(".svg-inline").append(svgDefs);
         });
     });
+
+    // Replace data-src
+    loadLazyImages();
 });
 
 
-
+function loadLazyImages() {
+    const attribute = 'data-src';
+    const matches = document.querySelectorAll('img[' + attribute + ']');
+    for (let i = 0, n = matches.length; i < n; i++) {
+      matches[i].setAttribute('src', matches[i].getAttribute(attribute));
+    }
+}

@@ -3,7 +3,7 @@ import React, {Fragment} from 'react';
 import _debounce from 'lodash-es/debounce';
 import $ from 'jquery';
 
-import FormSelect from 'components/FormSelect';
+import Select from 'components/Select';
 import UserCardList from 'components/UserCardList';
 import {
     hideBodyPreloader,
@@ -116,7 +116,7 @@ class Alumni extends React.Component {
                 <h1>Выпускники</h1>
                 <div className="row mb-4">
                             <div className="col-lg-2">
-                                <FormSelect
+                                <Select
                                     onChange={this.handleYearChange}
                                     value={year}
                                     name="year"
@@ -127,7 +127,7 @@ class Alumni extends React.Component {
                                 />
                             </div>
                             <div className="col-lg-3">
-                                <FormSelect
+                                <Select
                                     onChange={this.handleAreaChange}
                                     value={area}
                                     name="area"
@@ -138,7 +138,7 @@ class Alumni extends React.Component {
                                 />
                             </div>
                             <div className="col-lg-3">
-                                <FormSelect
+                                <Select
                                     onChange={this.handleCityChange}
                                     value={city}
                                     name="city"

@@ -2,6 +2,12 @@
 
 {% block title %}Преподаватели CS центра{% endblock title %}
 
+{% block sprites %}
+    <script type="text/javascript">
+        (window.__CSC_SPRITES__ = window.__CSC_SPRITES__ || []).push("{{ static("v2/dist/img/sprites/ui.svg")  }}");
+    </script>
+{% endblock sprites %}
+
 {% block content %}
     <div class="container page-content">
         <div class="row">

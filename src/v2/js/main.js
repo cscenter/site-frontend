@@ -94,9 +94,8 @@ $(function () {
         import(/* webpackChunkName: "honorBoard" */ 'apps/honorBoard')
             .then(module => { module.launch(); })
             .catch(error => showComponentError(error));
-    } else {
-
     }
+
     let reactApps = document.querySelectorAll('.__react-root');
     if (reactApps.length > 0) {
         import(/* webpackChunkName: "react" */ 'react_app')
@@ -105,6 +104,17 @@ $(function () {
             })
             .catch(error => showComponentError(error));
     }
+
+    // Append svg sprites
+    window.__CSC_SPRITES__.forEach((url) => {
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: "text",
+        }).then((svgDefs) => {
+            $(".svg-inline").append(svgDefs);
+        });
+    });
 });
 
 

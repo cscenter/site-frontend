@@ -368,8 +368,10 @@
 </footer>
 
 <script type="text/javascript">
-    window.__CSC_NOTIFICATIONS__ = {{ messages(request)|tojson }};
-    (window.__CSC_SPRITES__ = window.__CSC_SPRITES__ || []).push("{{ static("v2/dist/img/sprites/common.svg")  }}");
+    window.__CSC__ = {
+        notifications: {{ messages(request)|tojson }},
+        sprites: ["{{ static("v2/dist/img/sprites/common.svg") }}"]
+    };
 </script>
 
 {{ render_bundle('common', config='V2') }}

@@ -77,8 +77,8 @@ $(function () {
     });
 
     // Notifications
-    if (window.__CSC_NOTIFICATIONS__ !== undefined) {
-        window.__CSC_NOTIFICATIONS__.forEach((item) => {
+    if (window.__CSC__.notifications !== undefined) {
+        window.__CSC__.notifications.forEach((item) => {
             const {text, ...props} = item;
             if (props.type === "error") {
                 showErrorNotification(text, props);
@@ -106,7 +106,7 @@ $(function () {
     }
 
     // Append svg sprites
-    window.__CSC_SPRITES__.forEach((url) => {
+    window.__CSC__.sprites.forEach((url) => {
         $.ajax({
             type: "GET",
             url: url,

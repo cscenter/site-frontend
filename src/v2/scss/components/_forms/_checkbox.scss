@@ -3,11 +3,10 @@
   align-items: flex-start;
   margin: 0 0 spacer("4x") 0;
   &.fill-checkbox {
-
+    cursor: pointer;
     &:hover .fill-control-indicator {
       border: $control-border-width solid $control-bg-hover;
     }
-
     &:hover .fill-control-description {
       color: $input-color;
     }
@@ -16,13 +15,14 @@
       display: none;
       &:checked ~ .fill-control-indicator {
         background-color: $control-checked-bg;
-        border-color: $control-checked-bg;
-        background-size: 140%;
+        border: none;
+        background-size: 135%;
       }
       &:checked ~ .fill-control-description {
         color: $input-color;
       }
     }
+
     .fill-control-indicator {
       display: inline-block;
       position: absolute;
@@ -30,19 +30,20 @@
       height: 24px;
       border: $control-border-width solid $control-border-color;
       border-radius: $border-radius;
-      transition: .3s;
       background: $control-bg;
       background-size: 0;
       background-position: center;
       background-repeat: no-repeat;
       background-image: url("/static/v2/img/icons/checkmark.svg");
     }
+
     .fill-control-description {
       margin: 0 0 0 spacer("8x");
       display: inline-block;
       line-height: 1.375;
       font-size: $font-size-content-base;
       color: $control-color;
+
       &.__user-agreement {
         font-size: $font-size-extra-sm;
       }
@@ -52,6 +53,7 @@
     margin-bottom: 0;
   }
   &.disabled {
+
     .fill-control-indicator {
       border: $border-width solid $control-disabled-bg;
     }
@@ -61,26 +63,31 @@
   }
 }
 
-.checkbox-group{
+.checkbox-group {
   display: inline-flex;
   flex-flow: column;
   max-width: 100%;
 }
 
 .custom-checkbox.fill-checkbox.disabled {
+
   .fill-control-indicator {
     background: $control-disabled-bg;
   }
+
   .fill-control-description {
     color: $control-disabled-bg;
   }
 }
 
-.custom-checkbox.fill-checkbox.disabled{
+.custom-checkbox.fill-checkbox.disabled {
+  cursor: default;
+
   .fill-control-input {
     &:checked ~ .fill-control-indicator {
       background: $control-disabled-bg url("/static/v2/img/icons/checkmark.svg") center no-repeat;
-      border: $border-width solid $control-disabled-bg;
+      border: none;
+      background-size: 135%;
     }
     &:checked ~ .fill-control-description {
       color: $control-disabled-bg;

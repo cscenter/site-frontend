@@ -27,8 +27,8 @@
     .fill-control-indicator {
       display: inline-block;
       position: absolute;
-      width: 24px;
-      height: 24px;
+      width: $control-size;
+      height: $control-size;
       border: $control-border-width solid $control-border-color;
       border-radius: $border-radius;
       transition: .3s;
@@ -70,14 +70,22 @@
 }
 
 .checkbox-group.inline {
-  display: inline-flex;
-  flex-flow: row;
-  max-width: 100%;
-  height: $input-outerheight;
-  align-items: center;
+  height: auto;
+  padding: calc(#{$input-outerheight - $control-size} / 2) 0;
+  flex-flow: column;
+  flex-wrap: wrap;
+  @include media-breakpoint-up(md) {
+    flex-wrap: wrap;
+    height: $input-outerheight;
+    flex-flow: row;
+    max-width: 100%;
+  }
 
   .custom-checkbox {
-    margin: 0 20px 0 0;
+    margin: 0 0 spacer("4x") 0;
+    @include media-breakpoint-up(md) {
+      margin: 0 20px 0 0;
+    }
   }
 }
 

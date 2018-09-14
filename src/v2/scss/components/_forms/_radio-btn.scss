@@ -14,8 +14,8 @@
 
     .fill-control-indicator {
       position: absolute;
-      width: 24px;
-      height: 24px;
+      width: $control-size;
+      height: $control-size;
       border-radius: 50%;
       background-color: $control-bg;
       border: $control-border-width solid $control-border-color;
@@ -73,6 +73,26 @@
   display: inline-flex;
   flex-flow: column;
   max-width: 100%;
+}
+
+.radiobtn-group.inline {
+  height: auto;
+  padding: calc(#{$input-outerheight - $control-size} / 2) 0;
+  flex-flow: column;
+  flex-wrap: wrap;
+  @include media-breakpoint-up(md) {
+    flex-wrap: wrap;
+    height: $input-outerheight;
+    flex-flow: row;
+    max-width: 100%;
+  }
+
+  .custom-radiobtn {
+    margin: 0 0 spacer("4x") 0;
+    @include media-breakpoint-up(md) {
+      margin: 0 20px 0 0;
+    }
+  }
 }
 
 .custom-radiobtn.fill-radiobtn, .custom-radiobtn.fill-radiobtn.disabled {

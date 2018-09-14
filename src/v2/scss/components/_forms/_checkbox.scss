@@ -2,6 +2,7 @@
   display: flex;
   align-items: flex-start;
   margin: 0 0 spacer("4x") 0;
+
   &.fill-checkbox {
     cursor: pointer;
     &:hover .fill-control-indicator {
@@ -26,15 +27,13 @@
     .fill-control-indicator {
       display: inline-block;
       position: absolute;
-      width: 24px;
-      height: 24px;
+      width: $control-size;
+      height: $control-size;
       border: $control-border-width solid $control-border-color;
       border-radius: $border-radius;
-      background: $control-bg;
       background-size: 0;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-image: url("/static/v2/img/icons/checkmark.svg");
+      background: url("/static/v2/img/icons/checkmark.svg") center no-repeat;
+      background-color: $control-bg;
     }
 
     .fill-control-description {
@@ -67,6 +66,26 @@
   display: inline-flex;
   flex-flow: column;
   max-width: 100%;
+}
+
+.checkbox-group.inline {
+  height: auto;
+  padding: calc(#{$input-outerheight - $control-size} / 2) 0;
+  flex-flow: column;
+  flex-wrap: wrap;
+  @include media-breakpoint-up(md) {
+    flex-wrap: wrap;
+    height: $input-outerheight;
+    flex-flow: row;
+    max-width: 100%;
+  }
+
+  .custom-checkbox {
+    margin: 0 0 spacer("4x") 0;
+    @include media-breakpoint-up(md) {
+      margin: 0 20px 0 0;
+    }
+  }
 }
 
 .custom-checkbox.fill-checkbox.disabled {

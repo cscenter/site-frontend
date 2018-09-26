@@ -154,15 +154,6 @@
   }
 
   .sprite-img {
-    //Black&white logo become colored on hover
-    /* opacity: .8;
-     filter: grayscale(100%);
-     transition: $transition-base;
-     &:hover {
-       opacity: 1;
-       filter: grayscale(0%);
-     }*/
-
     @include media-breakpoint-up(md) {
       width: 112px;
       height: 88px;

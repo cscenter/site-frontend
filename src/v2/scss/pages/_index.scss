@@ -86,20 +86,6 @@
 
   .about-csc__cover {
     position: relative;
-    padding-top: 52.5%;
-
-    img {
-      background: $gray-darker;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-  }
-
-  .img-fluid {
-    width: 100%; // For IE
   }
 
   .about-csc__description {

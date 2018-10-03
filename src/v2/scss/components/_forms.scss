@@ -56,13 +56,10 @@ $form-feedback-invalid-color:       $red;
   background: $gray-lighter;
   border-radius: $border-radius-lg;
   .form-body {
-    padding: 0 spacer("8x");
+    padding: 0 spacer("8x") spacer("4x");
   }
   .field {
     margin-bottom: spacer("6x");
-    &:last-child {
-      margin-bottom: spacer("10x");
-    }
   }
   .form-section {
     margin-bottom: spacer("6x");
@@ -124,22 +121,22 @@ $form-feedback-invalid-color:       $red;
   }
 }
 
-.field {
-  &.hidden {
-    max-height: 30px;
-    overflow: hidden;
-    transition: max-height .15s ease-out, margin-top .15s ease-out, opacity .15s ease-out;
-    margin-top: -40px;
-    opacity: 0;
-    &:hover {
-      opacity: 1;
-      margin-top: 0;
-      max-height: 800px;
-      transition: max-height .25s ease-in, margin-top .25s ease-in, opacity .25s ease-in;
+.ui {
+  .field {
+    &.hidden {
+      max-height: 1px;
+      overflow: hidden;
+      transition: max-height .15s ease-out, margin-top .15s ease-out, opacity .15s ease-out;
+      margin-top: -(spacer("4x"));
+      margin-bottom: 0;
+      opacity: 0;
+      &:hover {
+        opacity: 1;
+        margin-top: 0;
+        margin-bottom: spacer("6x");
+        max-height: 800px;
+        transition: max-height .25s ease-in, margin-top .25s ease-in, opacity .25s ease-in;
+      }
     }
   }
-}
-
-.input.free-answer{
-  margin-top: spacer("2x");
 }

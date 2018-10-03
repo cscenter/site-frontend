@@ -1,10 +1,9 @@
 .custom-radiobtn {
   display: flex;
   align-items: flex-start;
-  margin: 0 0 15px 0;
+  margin: 0 0 spacer("4x") 0;
 
   &.fill-radiobtn {
-    cursor: pointer;
     &:hover .fill-control-indicator {
       border: $control-border-width solid $control-bg-hover;
     }
@@ -72,7 +71,7 @@
 .radiobtn-group {
   display: inline-flex;
   flex-flow: column;
-  max-width: 100%;
+  width: 100%;
 }
 
 .radiobtn-group.inline {

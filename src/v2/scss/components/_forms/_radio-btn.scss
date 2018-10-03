@@ -4,7 +4,6 @@
   margin: 0 0 15px 0;
 
   &.fill-radiobtn {
-    cursor: pointer;
     &:hover .fill-control-indicator {
       border: $control-border-width solid $control-bg-hover;
     }

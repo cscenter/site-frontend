@@ -4,7 +4,6 @@
   margin: 0 0 spacer("4x") 0;
 
   &.fill-checkbox {
-    cursor: pointer;
     &:hover .fill-control-indicator {
       border: $control-border-width solid $control-bg-hover;
     }

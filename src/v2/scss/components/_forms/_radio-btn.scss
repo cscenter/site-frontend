@@ -25,7 +25,7 @@
       display: none;
       &:checked ~ .fill-control-indicator {
         background-color: $control-checked-bg;
-        border: $border-width solid $control-checked-bg;
+        border: $control-border-width solid $control-checked-bg;
       }
       &:checked ~ .fill-control-description {
         color: $input-color;
@@ -51,9 +51,9 @@
 
   .fill-control-indicator {
     background: $control-disabled-bg;
-    border: $border-width solid $control-disabled-bg;
+    border: $control-border-width solid $control-disabled-bg;
     &:hover .fill-control-indicator {
-      border: $border-width solid $control-disabled-bg;
+      border: $control-border-width solid $control-disabled-bg;
     }
   }
 

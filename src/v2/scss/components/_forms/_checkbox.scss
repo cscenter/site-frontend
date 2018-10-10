@@ -54,10 +54,10 @@
   &.disabled {
 
     .fill-control-indicator {
-      border: $border-width solid $control-disabled-bg;
+      border: $control-border-width solid $control-disabled-bg;
     }
     &:hover .fill-control-indicator {
-      border: $border-width solid $control-disabled-bg;
+      border: $control-border-width solid $control-disabled-bg;
     }
   }
 }

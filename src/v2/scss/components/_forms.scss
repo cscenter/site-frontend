@@ -62,6 +62,10 @@ $form-feedback-invalid-color: $red;
     &:last-child {
       margin-bottom: spacer("10x");
     }
+
+    &.hidden {
+      margin-bottom: 0;
+    }
   }
 
   .form-section {
@@ -147,9 +151,9 @@ $form-feedback-invalid-color: $red;
   }
 
   .survey-label {
+    @extend .h3;
     font-weight: $font-weight-normal;
     margin-bottom: spacer("4x");
-    @extend .h3;
 
     .asterisk {
       font-weight: $font-weight-light;

@@ -136,8 +136,13 @@ $form-feedback-invalid-color: $red;
     }
   }
 
-  .form-body .field {
-    margin-bottom: spacer("10x");
+  .form-body {
+    .field {
+      margin-bottom: spacer("10x");
+      &.hidden {
+        margin-bottom: 0;
+      }
+    }
   }
 
   .survey-label {

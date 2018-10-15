@@ -10,22 +10,24 @@
   @include media-breakpoint-up(lg) {
     padding-top: 40px;
   }
-}
 
-.content-center{
-  justify-content: center;
-}
+  &._survey {
+    @include media-breakpoint-down(xs) {
+      max-width: 100%;
+      padding: $navbar-mobile-height 0 spacer("8x");
 
-.page-content.mobile {
-  @include media-breakpoint-down(xs) {
-    max-width: 100%;
-    padding: $navbar-mobile-height 0 spacer("8x");
-    .survey {
-      border: none;
-      border-radius: 0;
-      .form-body {
-        padding: 0 spacer("4x");
+      .survey {
+        border: none;
+        border-radius: 0;
+
+        .form-body {
+          padding: 0 spacer("4x");
+        }
       }
     }
   }
+}
+
+.content-center {
+  justify-content: center;
 }

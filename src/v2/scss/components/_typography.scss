@@ -41,18 +41,22 @@ h2,
 
 h3, .h3 {
   font-size: $h3-font-size;
+  font-weight: $font-weight-normal;
 }
 
 h4, .h4 {
   font-size: $h4-font-size;
+  font-weight: $font-weight-normal;
 }
 
 h5, .h5 {
   font-size: $h5-font-size;
+  font-weight: $font-weight-normal;
 }
 
 h6, .h6 {
   font-size: $h6-font-size;
+  font-weight: $font-weight-normal;
 }
 
 // Blockquotes
@@ -83,10 +87,6 @@ h1 {
   @include font-smoothing();
 }
 
-h4 {
-  font-weight: $font-weight-normal;
-}
-
 .title_description {
   margin-bottom: spacer("8x");
 }
@@ -96,14 +96,16 @@ h4 {
   html {
     //font-size: .9rem;
 
-    h1 {
+    h1, .h1 {
       font-size: 2.4rem;
     }
-    h2 {
+    h2, .h2 {
       font-size: 2rem;
     }
-
-    h4 {
+    h3, .h3 {
+      font-size: 1.5rem;
+    }
+    h4, .h4 {
       font-size: 1rem;
     }
   }

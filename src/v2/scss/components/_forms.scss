@@ -97,6 +97,7 @@ $form-feedback-invalid-color: $red;
     }
 
     p {
+      font-size: $font-size-lg;
       margin: spacer("1x") 0 0 0;
     }
 
@@ -136,14 +137,19 @@ $form-feedback-invalid-color: $red;
     }
   }
 
-  .form-body .field {
-    margin-bottom: spacer("10x");
+  .form-body {
+    .field {
+      margin-bottom: spacer("10x");
+      &.hidden {
+        margin-bottom: 0;
+      }
+    }
   }
 
   .survey-label {
-    font-size: $h3-font-size;
     font-weight: $font-weight-normal;
     margin-bottom: spacer("4x");
+    @extend .h3;
   }
 }
 

@@ -6,7 +6,7 @@
 
 .page-content {
   padding-top: 80px;
-  padding-bottom: 2rem;
+  padding-bottom: spacer("8x");
   @include media-breakpoint-up(lg) {
     padding-top: 40px;
   }
@@ -16,21 +16,11 @@
   justify-content: center;
 }
 
-.container.container_mobile-wrapper {
+.page-content.mobile {
   @include media-breakpoint-down(xs) {
     max-width: 100%;
-    padding-left: 0;
-    padding-right: 0;
-    &.page-content {
-      padding-top: $navbar-mobile-height;
-    }
-    .row {
-      margin: 0;
-      [class^="col-"] {
-        padding: 0;
-      }
-    }
-    .form {
+    padding: $navbar-mobile-height 0 spacer("8x");
+    .survey {
       border: none;
       border-radius: 0;
       .form-body {

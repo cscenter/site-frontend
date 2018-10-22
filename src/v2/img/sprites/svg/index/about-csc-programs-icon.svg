@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="148" height="89" viewBox="0 0 148 89">
+  <g fill="none" fill-rule="evenodd">
+    <g fill-rule="nonzero" transform="rotate(15 42.915 352.926)">
+      <rect width="55" height="74" x="1" y="1" fill="#FFF" stroke="#CED8DD" stroke-width="2" rx="2"/>
+      <path fill="#CED8DD" d="M31,34 L46.5,34 C47.3284271,34 48,34.6715729 48,35.5 C48,36.3284271 47.3284271,37 46.5,37 L31,37 L31,52.5 C31,53.3284271 30.3284271,54 29.5,54 C28.6715729,54 28,53.3284271 28,52.5 L28,37 L12.5,37 C11.6715729,37 11,36.3284271 11,35.5 C11,34.6715729 11.6715729,34 12.5,34 L28,34 L28,18.5 C28,17.6715729 28.6715729,17 29.5,17 C30.3284271,17 31,17.6715729 31,18.5 L31,34 Z"/>
+      <path stroke="#CED8DD" stroke-linecap="round" stroke-width="3" d="M35,18 C34.9116211,26 38.5782878,30 46,30"/>
+      <path stroke="#CED8DD" stroke-linecap="round" stroke-width="3" d="M13.0015601,41 C12.9131812,49 16.5798478,53 24.0015601,53" transform="rotate(180 18.5 47)"/>
+    </g>
+    <g transform="rotate(-15 59.585 7.32)">
+      <rect width="55" height="74" x="1" y="1" fill="#FFF" fill-rule="nonzero" stroke="#CED8DD" stroke-width="2" rx="2"/>
+      <g fill="#CED8DD" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="36" font-weight="400" transform="translate(12 12)">
+        <text>
+          <tspan x=".2" y="35">∫</tspan>
+        </text>
+        <text>
+          <tspan x="11.2" y="35">∫</tspan>
+        </text>
+      </g>
+    </g>
+    <g transform="translate(44)">
+      <rect width="58" height="78" x="1" y="1" fill="#FFF" fill-rule="nonzero" stroke="#ECF0F2" stroke-width="2" rx="2"/>
+      <text fill="#B4BFC6" font-family="PTMono-Bold, PT Mono" font-size="24" font-weight="bold">
+        <tspan x="8.4" y="44">&lt;/&gt;</tspan>
+      </text>
+    </g>
+  </g>
+</svg>

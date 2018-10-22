@@ -150,6 +150,34 @@
   }
 }
 
+.about-csc__icons {
+  border-bottom: $hr-border-width solid $hr-border-color;
+  border-top: $hr-border-width solid $hr-border-color;
+  padding: spacer("8x") 0 0 0;
+  @include media-breakpoint-up(lg) {
+    border-top: none;
+    padding: spacer("8x") 0;
+  }
+
+  .icon {
+    height: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: spacer("2x");
+  }
+
+  .icon-description {
+    padding: 0;
+    margin-bottom: spacer("8x");
+    font-size: $font-size-base;
+    @include media-breakpoint-up(lg) {
+      margin-bottom: 0;
+      padding: 0 spacer("4x");
+    }
+  }
+}
+
 
 // 4 - screen csc-online
 

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="82" height="89" viewBox="0 0 82 89">
+  <g fill="none" transform="translate(-6)">
+    <rect width="16" height="16" x="40" y="36" fill="#B4BFC6" rx="1"/>
+    <rect width="8" height="8" x="44" y="40" fill="#ECF0F2" rx="1"/>
+    <ellipse cx="48.5" cy="44.5" stroke="#ECF0F2" stroke-width="3" rx="17.573" ry="43"/>
+    <ellipse cx="48.235" cy="44.126" stroke="#ECF0F2" stroke-width="3" rx="17.573" ry="43" transform="rotate(60 48.235 44.126)"/>
+    <ellipse cx="48.235" cy="44.126" stroke="#ECF0F2" stroke-width="3" rx="17.573" ry="43" transform="rotate(-60 48.235 44.126)"/>
+    <ellipse cx="58.309" cy="8.14" fill="#CED8DD" rx="4.904" ry="4.884"/>
+    <ellipse cx="11.444" cy="55.896" fill="#CED8DD" rx="4.904" ry="4.884"/>
+    <ellipse cx="79.017" cy="70.006" fill="#CED8DD" rx="4.904" ry="4.884"/>
+    <g fill="#B4BFC6" transform="translate(41 33)">
+      <rect width="2" height="5" rx="1"/>
+      <rect width="2" height="5" x="4" rx="1"/>
+      <rect width="2" height="5" x="8" rx="1"/>
+      <rect width="2" height="5" x="12" rx="1"/>
+    </g>
+    <g fill="#B4BFC6" transform="translate(41 50)">
+      <rect width="2" height="5" rx="1"/>
+      <rect width="2" height="5" x="4" rx="1"/>
+      <rect width="2" height="5" x="8" rx="1"/>
+      <rect width="2" height="5" x="12" rx="1"/>
+    </g>
+    <g fill="#B4BFC6" transform="rotate(90 11 48)">
+      <rect width="2" height="5" rx="1"/>
+      <rect width="2" height="5" x="4" rx="1"/>
+      <rect width="2" height="5" x="8" rx="1"/>
+      <rect width="2" height="5" x="12" rx="1"/>
+    </g>
+    <g fill="#B4BFC6" transform="rotate(90 2.5 39.5)">
+      <rect width="2" height="5" rx="1"/>
+      <rect width="2" height="5" x="4" rx="1"/>
+      <rect width="2" height="5" x="8" rx="1"/>
+      <rect width="2" height="5" x="12" rx="1"/>
+    </g>
+  </g>
+</svg>

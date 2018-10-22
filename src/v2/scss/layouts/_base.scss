@@ -24,7 +24,6 @@ body {
 }
 
 .cover {
-  @include font-smoothing();
   position: relative;
   background: #201f20 no-repeat;
   background-size: cover;

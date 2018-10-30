@@ -154,6 +154,7 @@
 // 4 - screen csc-online
 
 .csc-online-education {
+  @include append-hr-to-container();
   @include media-breakpoint-down(md) {
     text-align: center;
   }
@@ -200,10 +201,6 @@
 
   h2 {
     margin-bottom: 1.5rem;
-  }
-
-  .btn {
-    margin: .5rem 0 2rem;
   }
 }
 
@@ -333,6 +330,85 @@
       @include media-breakpoint-down(lg) {
         height: 96px;
       }
+    }
+  }
+}
+
+.open-lecture_announcement {
+  background: $white;
+  border-radius: $border-radius-lg;
+  border: $border-width solid $border-color;
+  margin-bottom: spacer("10x");
+  text-align: center;
+  @include media-breakpoint-up(lg) {
+    height: 440px;
+    text-align: left;
+  }
+
+  img {
+    height: 240px;
+    margin-top: spacer("8x");
+    @include media-breakpoint-up(lg) {
+      height: calc(440px - #{$border-width*2});
+      margin-top: 0;
+    }
+  }
+}
+
+.open-lecture_description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: spacer("8x");
+  width: 100%; //For IE
+  @include media-breakpoint-up(lg) {
+    padding: spacer("8x") spacer("8x") spacer("8x") 0;
+  }
+
+  ._subtitle {
+    color: $gray-dark;
+  }
+
+  ._text {
+    max-height: 160px;
+    overflow: hidden;
+    position: relative;
+    &:after {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 150px;
+      height: 24px;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0.2), #fff);
+    }
+  }
+
+  ._enrol {
+    display: flex;
+    flex-wrap: wrap;
+    ._m-wide{
+      display: block;
+    }
+  }
+}
+
+.open-lecture_details {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: spacer("6x");
+  justify-content: center;
+  @include media-breakpoint-up(lg) {
+    justify-content: flex-start;
+  }
+
+  ._location, ._time {
+    display: flex;
+    align-items: baseline;
+
+    p {
+      margin: 0 20px 0 5px;
+      font-size: $font-size-base;
     }
   }
 }

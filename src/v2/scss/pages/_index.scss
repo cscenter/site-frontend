@@ -426,7 +426,7 @@
   }
 
   ._text {
-    max-height: 144px;
+    max-height: 136px;
     overflow: hidden;
     position: relative;
     &:after {
@@ -435,7 +435,7 @@
       right: 0;
       bottom: 0;
       width: 150px;
-      height: 24px;
+      height: 28px;
       background: linear-gradient(to right, rgba(255, 255, 255, 0.2), #fff);
     }
   }

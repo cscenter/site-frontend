@@ -15,8 +15,6 @@
   background-color: $gray-lighter;
   text-align: center;
   padding: spacer("6x") spacer("2x") spacer("8x");
-  border-radius: 0;
-
   svg {
     margin-left: 30px;
     fill: #1d1d1d;
@@ -44,33 +42,32 @@
     }
 
   }
+}
 
-  &__text {
-    margin-bottom: spacer("6x");
-    @include media-breakpoint-down(md) {
-      text-align: center;
-    }
-  }
-
-  &__card-title {
-    text-transform: uppercase;
-    color: $blue;
+.card-offline-course__text {
+  margin-bottom: spacer("6x");
+  @include media-breakpoint-down(md) {
     text-align: center;
-    letter-spacing: 3px;
-    margin-bottom: 0;
-
-    @include media-breakpoint-down(md) {
-      font-size: $font-size-content-base;
-    }
   }
+}
 
-  &__card-text {
-    font-size: $font-size-sm;
-    color: $gray-dark;
+.card-offline-course__card-title {
+  color: $blue;
+  text-align: center;
+  margin-bottom: 0;
+  letter-spacing: -.01rem;
 
-    @include media-breakpoint-down(md) {
-      text-align: center;
-    }
+  @include media-breakpoint-down(md) {
+    font-size: $font-size-content-base;
+  }
+}
+
+.card-offline-course__card-text {
+  font-size: $font-size-sm;
+  color: $gray-dark;
+
+  @include media-breakpoint-down(md) {
+    text-align: center;
   }
 }
 
@@ -86,6 +83,8 @@
 
   .about-csc__cover {
     position: relative;
+    border-radius: $border-radius-lg;
+    overflow: hidden;
   }
 
   .about-csc__description {
@@ -93,7 +92,7 @@
     margin-top: 2rem;
 
     @include media-breakpoint-up(lg) {
-      background-image: linear-gradient(0deg, rgba(29, 29, 29, 0.00) 0%, rgba(29, 29, 29, 0.8) 100%);
+      background-image: linear-gradient(0deg, rgba(29, 29, 29, 0.00) 0%, rgba(29, 29, 29, 1) 100%);
       display: flex;
       flex-direction: column;
       position: absolute;
@@ -105,7 +104,7 @@
 
       p {
         z-index: $zindex-cover;
-        padding: 0 120px;
+        padding: 0 120px 100px;
       }
 
       h1 {
@@ -150,6 +149,34 @@
   }
 }
 
+.about-csc__icons {
+  border-bottom: $hr-border-width solid $hr-border-color;
+  border-top: $hr-border-width solid $hr-border-color;
+  padding: spacer("8x") 0 0 0;
+  @include media-breakpoint-up(lg) {
+    border-top: none;
+    padding: spacer("8x") 0;
+  }
+
+  .icon {
+    height: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: spacer("2x");
+  }
+
+  .icon-description {
+    padding: 0;
+    margin-bottom: spacer("8x");
+    font-size: $font-size-base;
+    @include media-breakpoint-up(lg) {
+      margin-bottom: 0;
+      padding: 0 spacer("4x");
+    }
+  }
+}
+
 
 // 4 - screen csc-online
 
@@ -163,7 +190,7 @@
     text-align: center;
     overflow: hidden;
     position: relative;
-
+    border-radius: $border-radius;
     @include media-breakpoint-down(sm) {
       max-width: 200px;
       margin-left: auto;
@@ -190,22 +217,20 @@
   }
 
   .responsive-card {
-    &:hover {
-      .card-img-wrapper {
-        &::before {
-          background-color: rgba($gray-darker, .1);
-        }
-      }
+    &:hover .card-img-wrapper::before {
+      background-color: rgba($gray-darker, .1);
     }
   }
 
-  h2 {
-    margin-bottom: 1.5rem;
+  .order-2 {
+    @include media-breakpoint-down(md) {
+      order: 4;
+    }
   }
 }
 
 .csc-online-education__card-title {
-  padding-top: 10px;
+  padding-top: spacer("2x");
   margin-bottom: 0;
   font-size: $font-size-base;
   @include media-breakpoint-up(xl) {
@@ -218,18 +243,14 @@
 .csc-student-reviews {
   padding: spacer("8x") 0 spacer("10x");
   background-color: $light;
-
-  .card-columns {
-    margin: 30px 0;
+  .order-2 {
+    @include media-breakpoint-down(md) {
+      order: 4;
+    }
   }
 }
 
 //6-screen social-media-posts
-
-.social-media-posts {
-  padding: 2rem 0;
-  font-size: $font-size-base;
-}
 
 .social-media {
   display: flex;
@@ -237,95 +258,130 @@
   padding: spacer("8x") spacer("6x") spacer("2x");
   margin-bottom: spacer("4x");
   background-size: cover;
+  border-radius: $border-radius;
+  overflow: hidden;
   @include media-breakpoint-down(md) {
     text-align: center;
     align-items: center;
   }
-  &__text {
-    color: $white;
-    margin: spacer("4x") 0;
-    overflow: hidden;
-    width: 100%; //fix for IE
+}
 
-    &--dark {
-      color: $gray-darker;
+.social-media-posts {
+  padding: spacer("8x") 0;
+  font-size: $font-size-base;
+}
+
+.social-media_icon {
+  .sprite-img {
+    vertical-align: bottom;
+    fill: $gray;
+    @include media-breakpoint-up(lg) {
+      margin-bottom: spacer("2x");
+    }
+    &._inst-bordered {
+      width: 32px;
+      height: 32px;
     }
 
+    &._vk {
+      width: 38px;
+      height: 38px;
+    }
   }
+}
 
-  &__date {
-    font-size: $font-size-extra-sm;
-    color: $gray-darker;
-    margin-top: auto;
-    @include media-breakpoint-down(md) {
-      margin-top: 0;
-    }
-    &--light {
-      color: $gray-lighter;
-    }
+.social-media__text {
+  color: $white;
+  margin: 0;
+  overflow: hidden;
+  width: 100%; //fix for IE
+}
+
+.social-media__text--dark {
+  color: $gray-darker;
+}
+
+.social-media__date {
+  font-size: $font-size-extra-sm;
+  color: $gray-darker;
+  margin-top: auto;
+  @include media-breakpoint-down(md) {
+    margin-top: 0;
   }
+}
 
-  &--instagram {
-    position: relative;
-    background-image: url('/media/pages/index/instagram-img.jpg');
+.social-media__date--light {
+  color: $gray-lighter;
+}
+
+.social-media--instagram {
+  position: relative;
+  background-image: url('/media/pages/index/instagram-img.jpg');
+  transition: .3s;
+  z-index: 1;
+
+  &::before {
+    content: "";
+    background-color: rgba($gray-darker, .75);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
     transition: .3s;
-    z-index: 1;
+  }
 
-    &::before {
-      content: "";
-      background-color: rgba($gray-darker, .75);
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      position: absolute;
-      z-index: -1;
-      transition: .3s;
-    }
-    &:hover {
-      box-shadow: 0 0 2rem transparentize($gray-darker, .75);
+  &:hover {
+    .sprite-img._inst-bordered {
+      fill: #de5a78;
+      transition: $transition-base;
     }
   }
+}
 
-  &--full-size {
-      height: 512px;
-    @include media-breakpoint-down(md) {
-      justify-content: space-between;
+.social-media--full-size {
+  height: 512px;
+  @include media-breakpoint-down(md) {
+    justify-content: space-between;
+  }
+}
+
+.social-media--vk {
+  background-color: $gray-lighter;
+  transition: .3s;
+  &:hover {
+    .sprite-img._vk {
+      fill: #4c75a3;
+      transition: $transition-base;
     }
   }
+}
 
-  &--vk {
-    background-color: $gray-lighter;
-    transition: .3s;
-    &:hover {
-      box-shadow: 0 0 2rem transparentize($gray-dark, .85);
-    }
+.social-media--twitter {
+  background-color: $gray-lighter;
+}
+
+.social-media--youtube {
+  background-image: url('/media/pages/index/youtube-img.jpg');
+}
+
+.social-media--half-size {
+  position: relative;
+  height: 248px;
+  @include media-breakpoint-down(md) {
+    justify-content: space-between;
   }
-
-  &--twitter {
-    background-color: $gray-lighter;
-  }
-
-  &--youtube {
-    background-image: url('/media/pages/index/youtube-img.jpg');
-  }
-
-  &--half-size {
+  .social-media__text {
+    max-height: 96px;
     position: relative;
-    height: 248px;
-    @include media-breakpoint-down(md) {
-      justify-content: space-between;
-    }
-    .social-media__text {
-      max-height: 96px;
-    }
     &:after {
       content: '';
       position: absolute;
-      right: 16px;
-      bottom: 0px;
+      right: 0;
+      bottom: 0;
       width: 150px;
-      height: 104px;
+      max-height: 24px;
       background: linear-gradient(to right, rgba($gray-lighter, 0.2), $gray-lighter);
       @include media-breakpoint-down(lg) {
         height: 96px;
@@ -370,7 +426,7 @@
   }
 
   ._text {
-    max-height: 160px;
+    max-height: 144px;
     overflow: hidden;
     position: relative;
     &:after {
@@ -385,10 +441,10 @@
   }
 
   ._enrol {
-    display: flex;
-    flex-wrap: wrap;
-    ._m-wide{
-      display: block;
+    display: block;
+    text-align: center;
+    @include media-breakpoint-up(lg) {
+      text-align: left;
     }
   }
 }

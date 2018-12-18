@@ -3,6 +3,7 @@ import $ from 'jquery';
 import '@babel/polyfill';
 import 'bootstrap/js/src/collapse';
 import 'bootstrap/js/src/dropdown';
+import 'bootstrap/js/src/modal';
 
 import ravenOptions from './raven_conf';
 import {

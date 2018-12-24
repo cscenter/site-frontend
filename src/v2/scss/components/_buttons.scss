@@ -10,13 +10,11 @@ $btn-link-disabled-color: $gray-disable-dark;
 
 $btn-block-spacing-y: .5rem;
 
-
-
 $btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 
 //@import "bootstrap/scss/buttons";
 
-.btn{
+.btn {
   font-size: $font-size-content-base;
   @include button-size(spacer("3x"), spacer("6x"), $font-size-content-base, calculate-input-line-height(48px, spacer("3x")), $btn-border-radius);
   display: inline-block;
@@ -27,6 +25,8 @@ $btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, bord
   user-select: none;
   border: $btn-border-width solid transparent;
   overflow: hidden;
+  cursor: pointer;
+  transition: all 300ms ease-in;
   &:focus,
   &.focus {
     outline: 0;
@@ -136,4 +136,19 @@ $btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, bord
   @include media-breakpoint-up(lg) {
     width: auto;
   }
+}
+
+.btn._loading {
+  padding-left: 3rem;
+  color: transparentize($white, .3);
+  &:after {
+    margin-left: spacer("4x");
+    border: .25rem solid transparentize($white, .5);
+    border-top-color: $white;
+    animation: spin 700ms infinite linear, loading-btn 500ms ease-out;
+  }
+  &:before {
+    background-color: transparent;
+  }
+
 }

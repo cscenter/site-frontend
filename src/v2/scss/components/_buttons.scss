@@ -22,6 +22,13 @@ $btn-focus-box-shadow: 0 0 0 3px transparentize($gray-dark, .8);
   overflow: hidden;
   @include button-size(spacer("3x"), spacer("6x"), $font-size-content-base, calculate-input-line-height(48px, spacer("3x")), $btn-border-radius);
   @include transition($btn-transition);
+  margin-left: 0;
+  @include media-breakpoint-up(md) {
+    margin-left: 1rem;
+    &:first-child {
+      margin-left: 0;
+    }
+  }
 
   &:focus,
   &.focus {
@@ -70,11 +77,6 @@ $btn-focus-box-shadow: 0 0 0 3px transparentize($gray-dark, .8);
   @include button-size(spacer("3x"), spacer("6x"), $font-size-content-base, calculate-input-line-height(56px, spacer("3x")), $btn-border-radius);
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin: 0 auto 1rem;
-
-  @include media-breakpoint-up(md) {
-    margin: 0 1rem 1rem 0;
-  }
 }
 
 .btn_small {
@@ -112,5 +114,14 @@ $btn-focus-box-shadow: 0 0 0 3px transparentize($gray-dark, .8);
   width: 100%;
   @include media-breakpoint-up(lg) {
     width: auto;
+  }
+}
+
+.btn-group {
+  font-size: 0;
+  &.spaced {
+    .btn {
+      margin-bottom: 1rem;
+    }
   }
 }

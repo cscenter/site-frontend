@@ -290,10 +290,9 @@ $navbar-toggler-border-radius: $border-radius;
     color: $white;
     border: 0;
     background-color: rgba(0, 0, 0, 0);
-    padding: 0 $nav-link-padding-x;
+    padding: $nav-link-padding-y $nav-link-padding-x;
 
     @include media-breakpoint-up(lg) {
-      padding: $nav-link-padding-y $nav-link-padding-x;
       line-height: $nav-link-line-height;
     }
 

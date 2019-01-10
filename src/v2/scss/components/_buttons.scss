@@ -136,8 +136,4 @@ $btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, bord
   @include media-breakpoint-up(md) {
     width: auto;
   }
-  &.btn:last-child{
-    margin-right: 0;
-  }
-
 }

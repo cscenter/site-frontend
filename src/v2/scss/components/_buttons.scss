@@ -11,6 +11,7 @@ $btn-block-spacing-y: .5rem;
 $btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 $btn-box-shadow:              inset 0 1px 0 rgba($white, .15), 0 1px 1px rgba($black, .075) !default;
 $btn-focus-box-shadow: 0 0 0 3px transparentize($gray-dark, .8);
+$button-fill: solid;
 
 .btn {
   display: inline-block;
@@ -43,13 +44,13 @@ $btn-focus-box-shadow: 0 0 0 3px transparentize($gray-dark, .8);
 
 @each $color, $value in $theme-colors {
   .btn._#{$color} {
-    @include button-variant($value, $value);
+    @include button-variant('solid', $value, $value);
   }
 }
 
 @each $color, $value in $theme-colors {
   .btn._outline._#{$color} {
-    @include button-outline-variant($value);
+    @include button-variant('outline', $value, $value);
   }
 }
 

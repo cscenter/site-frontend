@@ -25,7 +25,7 @@ $card-bg: $white !default;
   overflow: hidden;
   padding-top: spacer("4x");
 
-  &._inversed {
+  &._inverse {
     background-color: $gray-lighter;
   }
 

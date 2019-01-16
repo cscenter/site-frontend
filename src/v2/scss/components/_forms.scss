@@ -52,7 +52,7 @@ $form-feedback-invalid-color: $red;
   border: $border-width solid $gray-lighter;
   background: $gray-lighter;
   border-radius: $border-radius-lg;
-  padding-top: 0;
+  padding: 0;
 
   .card__body {
     padding: 0 spacer("8x");

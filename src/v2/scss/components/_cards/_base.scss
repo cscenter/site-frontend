@@ -23,7 +23,7 @@ $card-bg: $white !default;
   border: $card-border-width solid $card-border-color;
   @include border-radius($card-border-radius);
   overflow: hidden;
-  padding-top: spacer("4x");
+  padding: spacer("4x") 0;
 
   &._inverse {
     background-color: $gray-lighter;
@@ -65,7 +65,7 @@ $card-bg: $white !default;
   // Enable `flex-grow: 1` for decks and groups so that card blocks take up
   // as much space as possible, ensuring footers are aligned to the bottom.
   flex: 1 1 auto;
-  padding: 0 spacer("4x") spacer("4x") spacer("4x");
+  padding: 0 spacer("4x");
   // FIXME: rename to `small-text`
   &._small {
     font-size: $font-size-sm;

@@ -85,6 +85,7 @@
 
   .about-csc__cover {
     position: relative;
+    @include font-smoothing();
   }
 
   .about-csc__description {

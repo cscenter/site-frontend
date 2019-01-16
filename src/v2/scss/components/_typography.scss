@@ -2,7 +2,6 @@
 
 body {
   font-size: $font-size-content-base;
-  @include font-smoothing();
   font-feature-settings: "tnum" on, "dlig" on;
 }
 
@@ -27,7 +26,6 @@ h6,
   font-weight: $headings-font-weight;
   line-height: $headings-line-height;
   color: $headings-color;
-  text-rendering: optimizeLegibility;
 }
 
 h1,

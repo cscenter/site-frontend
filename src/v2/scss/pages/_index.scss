@@ -11,9 +11,10 @@
   @include append-hr-to-container;
 }
 
-.card-offline-course {
+.card._offline-course {
   background-color: $gray-lighter;
   text-align: center;
+  padding: spacer("8x") 0;
 
   svg {
     margin-left: 30px;
@@ -28,29 +29,19 @@
       fill: $white;
     }
 
-    .card-offline-course__icon--data-science {
-      background-image: url("/static/v2/img/pages/index/offline-courses/data-science-hover.svg");
-    }
-
-    .card-offline-course__icon--computer-science {
-      background-image: url("/static/v2/img/pages/index/offline-courses/computer-science-hover.svg");
-    }
-
-    .card-offline-course__card-title,
-    .card-offline-course__card-text {
+    .card__title,
+    p {
       color: $white;
     }
-
   }
 
-  &__text {
-    margin-bottom: spacer("6x");
-    @include media-breakpoint-down(md) {
-      text-align: center;
-    }
+  p {
+    font-size: $font-size-sm;
+    color: $gray-dark;
+    margin-bottom: 0;
   }
 
-  &__card-title {
+  .card__title {
     text-transform: uppercase;
     color: $blue;
     text-align: center;
@@ -61,14 +52,9 @@
       font-size: $font-size-content-base;
     }
   }
-
-  &__card-text {
-    font-size: $font-size-sm;
-    color: $gray-dark;
-  }
 }
 
-.card-offline-course__icon {
+.card__icon {
   height: 96px;
 }
 
@@ -152,7 +138,7 @@
     text-align: center;
   }
 
-  .card-img-wrapper {
+  ._img-wrapper {
     text-align: center;
     overflow: hidden;
     position: relative;
@@ -182,9 +168,9 @@
     }
   }
 
-  .responsive-card {
+  ._responsive-card {
     &:hover {
-      .card-img-wrapper {
+      ._img-wrapper {
         &::before {
           background-color: rgba($gray-darker, .1);
         }
@@ -199,14 +185,11 @@
   .btn {
     margin: .5rem 0 2rem;
   }
-}
 
-.csc-online-education__card-title {
-  padding-top: 10px;
-  margin-bottom: 0;
-  font-size: $font-size-base;
-  @include media-breakpoint-up(xl) {
-    font-size: $font-size-content-base;
+  .card__subtitle {
+    font-size: $font-size-sm;
+    line-height: 1;
+    color: $gray-dark;
   }
 }
 

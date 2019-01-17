@@ -9,7 +9,8 @@ $card-columns-count: 2;
 .card-deck {
   display: flex;
   flex-direction: column;
-
+  margin-bottom: spacer("4x");
+  
   .card {
     margin-bottom: $card-deck-margin;
   }

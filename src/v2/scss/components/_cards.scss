@@ -5,11 +5,12 @@
 
 
 // FIXME: class name is too generic, since css below hardcoded for 6 columns on desktop, rename it to more appropriate name
-.responsive-card {
+._responsive-card {
   color: $gray-darker;
   float: left; //For old browsers
   //position: relative;
   @include make-col-ready();
+  padding: spacer("4x") 0 0 0;
 
   @include media-breakpoint-up(sm) {
     @include make-col(6);
@@ -21,6 +22,10 @@
 
   @include media-breakpoint-up(lg) {
     @include make-col(2);
+  }
+  .card__title {
+    font-size: 1.125rem;
+    line-height: $line-height-sm;
   }
 }
 

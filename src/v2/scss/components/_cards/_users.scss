@@ -61,7 +61,47 @@ $user-card-gutter-width: $grid-gutter-width / 2;
 
       .card__title {
         margin-top: spacer("4x");
-        flex-grow: 1;
+      }
+      .author {
+        color: $gray-dark;
+        font-size: $font-size-sm;
+      }
+
+      &:hover {
+        transition: $transition-base;
+        box-shadow: 0 0 32px $gray-light;
+      }
+    }
+  }
+}
+
+.user-cards._videoarchive {
+  .user-card {
+    margin-bottom: spacer("4x");
+    width: percentage(12 / $grid-columns);
+    @include media-breakpoint-up(iphone6plus, $mobile-breakpoints) {
+      width: percentage(6 / $grid-columns);
+    }
+    @include media-breakpoint-up(sm) {
+      width: percentage(6 / $grid-columns);
+    }
+    @include media-breakpoint-up(lg) {
+      width: percentage(4 / $grid-columns);
+    }
+
+    .card-body {
+      padding: spacer("4x");
+      text-align: left;
+      background-color: $white;
+      @include font-smoothing();
+      border-radius: $border-radius-sm;
+      overflow: hidden;
+      box-shadow: 0 0 10px $gray-light;
+      height: 100%;
+
+      .card__title {
+        margin-top: spacer("2x") spacer("4x");
+        color: $gray-darker;
       }
       .author {
         color: $gray-dark;

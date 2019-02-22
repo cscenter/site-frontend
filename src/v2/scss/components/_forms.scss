@@ -45,6 +45,7 @@ $form-feedback-invalid-color: $red;
 @import "_forms/file-input";
 @import "_forms/inputs";
 @import "_forms/select"; // FIXME: move to options?
+@import "_forms/tags";
 
 .ui.form {
   margin-bottom: spacer("10x");
@@ -168,4 +169,9 @@ $form-feedback-invalid-color: $red;
 
 .input.free-answer {
   margin-top: spacer("2x");
+}
+
+._right-side-filter {
+  margin-bottom: spacer("8x");
+  margin-left: spacer("2x");
 }

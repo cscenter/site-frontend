@@ -32,6 +32,50 @@ $user-card-gutter-width: $grid-gutter-width / 2;
 
 }
 
+.user-cards._online-courses {
+  .user-card {
+    width: percentage(6 / $grid-columns);
+    @include media-breakpoint-up(iphone6plus, $mobile-breakpoints) {
+      width: percentage(6 / $grid-columns);
+    }
+    @include media-breakpoint-up(sm) {
+      width: percentage(4 / $grid-columns);
+    }
+    @include media-breakpoint-up(lg) {
+      width: percentage(4 / $grid-columns);
+    }
+
+    .user-card__photo {
+      padding-bottom: 100%;
+    }
+
+    .card-body {
+      padding: 0 0 spacer("2x") 0;
+      text-align: center;
+      background-color: $white;
+      @include font-smoothing();
+      border-radius: $border-radius-lg;
+      overflow: hidden;
+      box-shadow: 0 0 10px $gray-light;
+      height: 100%;
+
+      .card__title {
+        margin-top: spacer("4x");
+        flex-grow: 1;
+      }
+      .author {
+        color: $gray-dark;
+        font-size: $font-size-sm;
+      }
+
+      &:hover {
+        transition: $transition-base;
+        box-shadow: 0 0 32px $gray-light;
+      }
+    }
+  }
+}
+
 .user-card__photo {
   position: relative;
   margin: 0 auto spacer("1x");

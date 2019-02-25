@@ -1,13 +1,14 @@
 .timeline {
   border-left: $border-width solid $gray-light;
   padding-top: spacer("10x");
+  position: relative;
 
   &:after {
     content: "";
     position: absolute;
     bottom: 0;
-    left: 0;
-    width: 16px;
+    left: -4px;
+    width: 8px;
     height: 14px;
     background-color: $white;
   }
@@ -16,8 +17,8 @@
     content: "";
     position: absolute;
     top: 0;
-    left: 0;
-    width: 16px;
+    left: -4px;
+    width: 8px;
     height: 52px;
     background-color: $white;
   }

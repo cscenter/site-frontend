@@ -98,14 +98,25 @@ $user-card-gutter-width: $grid-gutter-width / 2;
       overflow: hidden;
       box-shadow: 0 0 10px $gray-light;
       height: 100%;
+      display: flex;
+      flex-flow: column;
 
       .card__title {
-        margin-top: spacer("2x") spacer("4x");
+        margin-bottom: spacer("2x");
         color: $gray-darker;
       }
-      .author {
+
+      .type {
         color: $gray-dark;
         font-size: $font-size-sm;
+        margin-bottom: 0;
+        margin-top: auto;
+      }
+
+      .author {
+        font-size: $font-size-sm;
+        color: $gray-darker;
+        margin-bottom: spacer("8x");
       }
 
       &:hover {

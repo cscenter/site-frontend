@@ -193,6 +193,7 @@ $navbar-toggler-border-radius: $border-radius;
   }
 
   .mobile-submenu {
+    margin-bottom: spacer("4x");
     &.collapsing {
       transition-duration: .25s;
     }
@@ -207,9 +208,6 @@ $navbar-toggler-border-radius: $border-radius;
     padding: 12px $nav-link-mobile-padding-x;
     &:hover {
       color: $white;
-    }
-    &:last-child {
-      padding: spacer("3x") spacer("4x") spacer("8x");
     }
     &._active {
       color: $white;

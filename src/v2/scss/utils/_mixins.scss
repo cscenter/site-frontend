@@ -23,14 +23,77 @@
   }
 }
 
-
 @function calc-rem($size) {
   $remSize: ($size / 16px);
   @return #{$remSize}rem;
 }
 
-
 @function calculate-input-line-height($input-height-px, $spacer) {
   $lineHeight: calc(#{calc-rem($input-height-px)} - #{$spacer} * 2 - #{calc-rem($border-width)} * 2);
   @return #{$lineHeight};
+}
+
+
+//Buttons
+
+// Button variants
+//
+// Easily pump out default styles, as well as :hover, :focus, :active,
+// and disabled options for all buttons
+
+@mixin button-variant($button-fill, $background, $border, $hover-background: darken($background, 7.5%), $hover-border: $hover-background, $active-background: darken($background, 12%), $active-border: $active-background) {
+  @if $button-fill == solid {
+    color: color-yiq($background);
+    @include gradient-bg($background);
+    border-color: $border;
+    @include hover {
+      color: color-yiq($hover-background);
+      @include gradient-bg($hover-background);
+      border-color: $hover-border;
+    }
+  } @else if $button-fill == outline{
+    $color: $background;
+    color: $color;
+    background-color: transparent;
+    background-image: none;
+    @include hover {
+      background-color: rgba($active-background, .1);
+    }
+  }
+  transition: $btn-transition;
+
+  &:focus,
+  &._focus {
+    box-shadow: $btn-focus-box-shadow;
+  }
+
+  // Disabled comes first so active can properly restyle
+  &:disabled,
+  &._disabled {
+    color: color-yiq($background);
+    background-color: $background;
+    opacity: .3;
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled):not(._disabled):active,
+  &:not(:disabled):not(._disabled)._active,
+  .show > &.dropdown-toggle {
+    &:focus {
+        box-shadow: 0 0 0 $btn-focus-width rgba($border, .5);
+    }
+  }
+}
+
+// Button sizes
+@mixin button-size($padding-y, $padding-x, $font-size, $line-height, $border-radius) {
+  padding: $padding-y $padding-x;
+  font-size: $font-size;
+  line-height: $line-height;
+  // Manually declare to provide an override to the browser default
+  @if $enable-rounded {
+    border-radius: $border-radius;
+  } @else {
+    border-radius: 0;
+  }
 }

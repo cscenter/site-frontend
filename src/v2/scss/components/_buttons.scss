@@ -35,9 +35,7 @@ $btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, bord
 }
 
 .btn--big {
-  @include button-size(spacer("3x"), spacer("6x"), $font-size-content-base, calculate-input-line-height(56px, spacer("3x")), $btn-border-radius);
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  @include button-size(spacer("3x"), spacer("6x"), $font-size-lg, calculate-input-line-height(56px, spacer("3x")), $btn-border-radius);
   margin: 0 auto 1rem;
 
   @include media-breakpoint-up(md) {
@@ -46,9 +44,7 @@ $btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, bord
 }
 
 .btn--small {
-  @include button-size(spacer("3x"), spacer("4x"), $font-size-sm, calculate-input-line-height(40px, spacer("3x")), $btn-border-radius-sm);
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  @include button-size(spacer("2x"), spacer("6x"), $font-size-sm, calculate-input-line-height(40px, spacer("2x")), $btn-border-radius-sm);
   border-radius: 2rem;
 }
 

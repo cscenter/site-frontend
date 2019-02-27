@@ -46,21 +46,15 @@ $colors: (
 
 // Themes
 
-$primary:       $teal;
-$secondary:     $gray-disable-dark;
 $light:         $gray-lighter;
 $dark:          $gray-darker;
-$error:         $red;
 
 $theme-colors: (
-  "primary":    $primary,
+  "teal":       $teal,
   "light":      $light,
   "gray":       $gray-dark,
-  "dark":       $gray-darker,
-  "danger":     $error,
-  "white":      $white,
-  "green":      $green,
-  "opacity-10":   $white-10
+  "red":        $red,
+  "green":      $green
 );
 // stylelint-enable
 

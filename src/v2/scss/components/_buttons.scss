@@ -141,9 +141,10 @@ $button-fill: solid;
   }
 }
 
-.btn._white._opacity-10 {
+.btn._opacity-10 {
   color: $white;
   border-color: transparent;
+  background-color: $white-10;
 
   &:hover {
     color: $white;

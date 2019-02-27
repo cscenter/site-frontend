@@ -12,6 +12,7 @@ $top-banner-height: 64px;
     display: none;
     @include media-breakpoint-up(lg) {
       display: inline-block;
+      vertical-align: middle;
     }
   }
 }

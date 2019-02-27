@@ -63,51 +63,18 @@ $card-bg: $white !default;
   font-size: $font-size-lg;
 }
 
+.card__img {
+  width: 100%; // Required because we use flexbox and this inherently applies align-self: stretch
+  text-align: center;
 
-.card-text:last-child {
-  margin-bottom: 0;
-}
-
-.card-link {
-  @include hover {
-    text-decoration: none;
-  }
-
-  + .card-link {
-    margin-left: spacer("4x");
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: inherit;
   }
 }
 
-//
-// Optional textual caps
-//
-// FIXME: Let's comment it, mb it will be useful really soon
-//.card-header {
-//  padding: $card-spacer-y $card-spacer-x;
-//  margin-bottom: 0; // Removes the default margin-bottom of <hN>
-//  background-color: $card-cap-bg;
-//  border-bottom: $card-border-width solid $card-border-color;
-//
-//  &:first-child {
-//    @include border-radius($card-inner-border-radius $card-inner-border-radius 0 0);
-//  }
-//
-//  + .list-group {
-//    .list-group-item:first-child {
-//      border-top: 0;
-//    }
-//  }
-//}
-//
-//.card-footer {
-//  padding: $card-spacer-y $card-spacer-x;
-//  background-color: $card-cap-bg;
-//  border-top: $card-border-width solid $card-border-color;
-//
-//  &:last-child {
-//    @include border-radius(0 0 $card-inner-border-radius $card-inner-border-radius);
-//  }
-//}
 
 
 //
@@ -127,17 +94,3 @@ $card-bg: $white !default;
 //}
 
 
-// Card image
-
-.card-img-overlay {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: spacer("4x");
-}
-
-.card__img {
-  width: 100%; // Required because we use flexbox and this inherently applies align-self: stretch
-}

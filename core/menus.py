@@ -129,7 +129,7 @@ public_menu = [
     # Private part (my.* domain)
     MenuItem(
         pgettext_lazy("menu", "Обучение"),
-        '',
+        '/v2/pages/learning/',
         weight=10,
         children=[
             MenuItem(pgettext_lazy("menu", "Задания"), '/learning/assignments/', weight=10, budge='assignments_student'),
@@ -144,12 +144,12 @@ public_menu = [
         css_classes='for-students'),
     MenuItem(
         pgettext_lazy("menu", "Преподавание"),
-        '',
+        '#',
         weight=20,
         children=[
             MenuItem(
                 pgettext_lazy("menu", "Задания"),
-                '',
+                '#',
                 weight=10,
                 budge='assignments_teacher',
                 selected_patterns=[
@@ -158,21 +158,21 @@ public_menu = [
                 ]),
             MenuItem(
                 pgettext_lazy("menu", "Расписание"),
-                '',
+                '#',
                 weight=20,
                 selected_patterns=[r"^/teaching/calendar/"]),
             MenuItem(
                 pgettext_lazy("menu", "Календарь"),
-                '',
+                '#',
                 weight=30),
             MenuItem(
                 pgettext_lazy("menu", "Мои курсы"),
-                '',
+                '#',
                 weight=40,
                 budge='courseoffering_news'),
             MenuItem(
                 pgettext_lazy("menu", "Ведомости"),
-                '',
+                '#',
                 weight=50),
         ],
         visible_to=[
@@ -180,7 +180,7 @@ public_menu = [
         css_classes='for-teachers'),
     MenuItem(
         pgettext_lazy("menu", "Набор"),
-        '',
+        '#',
         weight=30,
         children=[
             MenuItem(pgettext_lazy("menu", "Собеседования"), '/admission/interviews/', weight=10),
@@ -191,7 +191,7 @@ public_menu = [
         ]),
     MenuItem(
         pgettext_lazy("menu", "Проекты"),
-        '',
+        '#',
         weight=30,
         children=[
             MenuItem(pgettext_lazy("menu", "Отчеты"), '/projects/reports/', weight=10, selected_patterns=[r"^/projects/\d+/report/\d+/$"]),
@@ -201,20 +201,6 @@ public_menu = [
         ],
         visible_to=[
         ]),
-    MenuItem(
-        pgettext_lazy("menu", "Курирование"),
-        '',
-        weight=40,
-        children=[
-            MenuItem(pgettext_lazy("menu", "Ведомости"), '', weight=10),
-            MenuItem(pgettext_lazy("menu", "Поиск студентов"), '', weight=20),
-            MenuItem(pgettext_lazy("menu", "Файлы"), '', weight=30),
-            MenuItem(pgettext_lazy("menu", "Полезное"), '', weight=40),
-            MenuItem(pgettext_lazy("menu", "Фейсбук"), '', weight=50),
-            MenuItem(pgettext_lazy("menu", "Пересечения"), '', weight=60),
-        ],
-        for_staff=True,
-        css_classes='for-staff'),
     MenuItem(
         pgettext_lazy("menu", "Компоненты"),
         '/v2/components/',

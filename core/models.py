@@ -90,7 +90,11 @@ class ExtendedAnonymousUser(PermissionMixin, AnonymousUser):
 
 class User(PermissionMixin, AbstractUser):
     def get_thumbnail(self, geometry, use_stub=True, **options):
-        return None
+        class Img(object):
+            pass
+        im = Img()
+        im.url = '/media/pages/index/student.png'
+        return im
 
     def get_absolute_url(self):
         return '/v2/pages/profile/'

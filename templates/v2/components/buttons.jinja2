@@ -1,0 +1,78 @@
+{% extends "v2/layouts/inner.jinja2" %}
+
+{% block content %}
+    <div class="svg-inline">
+        {% include "sprites/common.svg" %}
+        {% include "sprites/index.svg" %}
+        {% include "sprites/ui.svg" %}
+    </div>
+    <div class="container page-content">
+        <h1>Sizes</h1>
+        <div class="btn _big _primary m-8">
+            Big button
+        </div>
+        <div class="btn _primary m-8">
+            Default button
+        </div>
+        <div class="btn _small _primary m-8">
+            Small button
+        </div>
+
+        <h1 class="mt-10">Styles</h1>
+        <div class="btn _primary m-8">
+            Default button
+        </div>
+        <div class="btn _outline _primary m-8">
+            Default button
+        </div>
+        <div class="btn _gray m-8">
+            Default button
+        </div>
+        <div class="btn _outline _gray m-8">
+            Default button
+        </div>
+        <div class="btn _green m-8">
+            Default button
+        </div>
+        <div class="btn _outline _green m-8">
+            Default button
+        </div>
+        <div class="btn _danger m-8">
+            Default button
+        </div>
+        <div class="btn _outline _danger m-8">
+            Default button
+        </div>
+    </div>
+
+    <div class="container" style="background-color: #1b181b">
+    <h1 class="text-white p-8">On black</h1>
+        <div class="btn _light m-8">
+            Default button
+        </div>
+        <div class="btn _outline _light m-8">
+            {{ macros.svg_inline('cross') }}
+            Default button
+        </div>
+        <div class="btn _white _opacity-10 m-8">
+            Default button
+        </div>
+    </div>
+
+    <div class="container">
+    <h1 class="m-8">WIth icon</h1>
+        <div class="btn _light m-8">
+            {{ macros.svg_inline('user-sign') }}
+            Default button
+        </div>
+        <div class="btn  _danger m-8">
+            Default button
+            {{ macros.svg_inline('cross') }}
+        </div>
+        <div class="btn _small _gray m-8">
+            Default button
+            {{ macros.svg_inline('cross') }}
+        </div>
+    </div>
+
+{% endblock content %}

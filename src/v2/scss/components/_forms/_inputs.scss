@@ -169,9 +169,11 @@
   line-height: 1;
   text-align: center;
   right: 2rem;
-  opacity: .6;
   border-radius: 0 $border-radius $border-radius 0;
-  transition: $transition-base;
+
+  .sprite-img {
+    transition: $transition-base;
+  }
 }
 
 .ui.icon.input > i.icon:not(.link) {
@@ -206,7 +208,9 @@
 // Focus
 
 .ui.icon.input > input:focus ~ i.icon {
-  opacity: 1;
+  .sprite-img {
+    fill: $gray-dark;
+  }
 }
 
 //Text Area

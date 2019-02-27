@@ -16,6 +16,13 @@
   top: -10000px;
 }
 
+//FIX ME: Is it good rule for default icon's color?
+.ui, .btn {
+  .sprite-img {
+    fill: $gray;
+  }
+}
+
 // Social icons customization
 .sprite-img._facebook {
   &:hover {

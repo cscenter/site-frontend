@@ -31,7 +31,9 @@
     {% block sprites %}{% endblock sprites %}
 </div>
 
-{% block menu %}{{ top_menu.render(theme_class="__inner-theme") }}{% endblock menu %}
+{% block menu %}
+    {%- include "v2/layouts/_top_menu.jinja2" %}
+{% endblock menu %}
 
 {% block content %}place page content here{% endblock content %}
 

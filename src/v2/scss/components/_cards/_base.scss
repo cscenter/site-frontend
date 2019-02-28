@@ -24,6 +24,7 @@ $card-bg: $white !default;
   @include border-radius($card-border-radius);
   overflow: hidden;
   padding: 0;
+  margin-bottom: spacer("8x");
 
   &._inverted {
     background-color: $gray-lighter;
@@ -63,34 +64,16 @@ $card-bg: $white !default;
   font-size: $font-size-lg;
 }
 
-.card__img {
-  width: 100%; // Required because we use flexbox and this inherently applies align-self: stretch
-  text-align: center;
+.card__img { //this wrapper need for IE
+  position: relative;
+  display: block;
+  flex: 0 0 auto;
+  padding: 0;
 
   img {
-    display: block;
     width: 100%;
     height: auto;
-    border-radius: inherit;
+    display: block;
+    text-align: center;
   }
 }
-
-
-
-//
-// Header navs
-//
-
-//.card-header-tabs {
-//  margin-right: -($card-spacer-x / 2);
-//  margin-bottom: -$card-spacer-y;
-//  margin-left: -($card-spacer-x / 2);
-//  border-bottom: 0;
-//}
-//
-//.card-header-pills {
-//  margin-right: -($card-spacer-x / 2);
-//  margin-left: -($card-spacer-x / 2);
-//}
-
-

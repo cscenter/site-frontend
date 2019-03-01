@@ -64,9 +64,7 @@ $card-bg: $white !default;
 
 .card__img { //this wrapper need for IE
   position: relative;
-  display: block;
   flex: 0 0 auto;
-  padding: 0;
 
   img {
     width: 100%;

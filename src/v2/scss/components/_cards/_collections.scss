@@ -1,4 +1,4 @@
-$card-group-margin: $grid-gutter-width / 2;
+$card-group-margin: ($grid-gutter-width / 2);
 $card-deck-margin: $card-group-margin;
 
 $card-columns-count: 2;
@@ -11,7 +11,7 @@ $card-columns-count: 2;
   flex-wrap: wrap;
   margin-left: -$card-group-margin;
   margin-right: -$card-group-margin;
-  float: left; //For old browsers
+  float: left; //For IE
 
   &._six {
     .card {
@@ -71,8 +71,6 @@ $card-columns-count: 2;
 
   .card {
     margin: 0 $card-group-margin spacer("4x");
-    display: block;
-    height: auto;
     width: calc(100% - #{$grid-gutter-width});
   }
 }

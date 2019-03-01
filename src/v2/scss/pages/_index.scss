@@ -11,13 +11,12 @@
   @include append-hr-to-container;
 }
 
-.card-offline-course {
+._card-offline-course {
   background-color: $gray-lighter;
   text-align: center;
 
   svg {
     margin-left: 30px;
-    fill: #1d1d1d;
   }
 
   &:hover {
@@ -60,11 +59,11 @@
       font-size: $font-size-content-base;
     }
   }
+}
 
-  &__card-text {
-    font-size: $font-size-sm;
-    color: $gray-dark;
-  }
+.card-offline-course__card-text {
+  font-size: $font-size-sm;
+  color: $gray-dark;
 }
 
 .card-offline-course__icon {

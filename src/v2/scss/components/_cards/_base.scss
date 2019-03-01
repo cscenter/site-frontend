@@ -24,7 +24,6 @@ $card-bg: $white !default;
   @include border-radius($card-border-radius);
   overflow: hidden;
   padding: 0;
-  margin-bottom: spacer("8x");
 
   &._inverted {
     background-color: $gray-lighter;

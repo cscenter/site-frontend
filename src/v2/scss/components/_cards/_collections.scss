@@ -72,6 +72,9 @@ $card-columns-count: 2;
   .card {
     margin-left: $card-group-margin;
     margin-right: $card-group-margin;
+    display: block;
+    height: auto;
+    width: calc(100% - #{$grid-gutter-width});
   }
 }
 

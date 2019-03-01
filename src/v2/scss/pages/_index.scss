@@ -15,6 +15,10 @@
   background-color: $gray-lighter;
   text-align: center;
 
+  .card__content {
+    padding: spacer("8x") spacer("4x");
+  }
+
   svg {
     margin-left: 30px;
   }
@@ -35,21 +39,14 @@
       background-image: url("/static/v2/img/pages/index/offline-courses/computer-science-hover.svg");
     }
 
-    .card-offline-course__card-title,
-    .card-offline-course__card-text {
+    .card__title,
+    .card__subtitle {
       color: $white;
     }
 
   }
 
-  .card-offline-course__text {
-    margin-bottom: spacer("6x");
-    @include media-breakpoint-down(md) {
-      text-align: center;
-    }
-  }
-
-  .card-offline-course__card-title {
+  .card__title {
     color: $blue;
     margin-bottom: 0;
     letter-spacing: -.01rem;
@@ -59,11 +56,6 @@
       font-size: $font-size-content-base;
     }
   }
-}
-
-.card-offline-course__card-text {
-  font-size: $font-size-sm;
-  color: $gray-dark;
 }
 
 .card-offline-course__icon {
@@ -147,8 +139,9 @@
 // 4 - screen csc-online
 
 .csc-online-education {
-  @include media-breakpoint-down(md) {
-    text-align: center;
+  text-align: center;
+  @include media-breakpoint-up(md) {
+    text-align: left;
   }
   padding-bottom: spacer("8x");
 }

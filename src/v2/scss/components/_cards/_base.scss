@@ -44,7 +44,6 @@ $card-bg: $white !default;
   }
 }
 
-
 .card__content,
 .card__header {
   // Enable `flex-grow: 1` for decks and groups so that card blocks take up
@@ -75,4 +74,32 @@ $card-bg: $white !default;
     display: block;
     text-align: center;
   }
+
+  &._darken::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba($gray-darker, .3);
+    transition: .3s;
+  }
+}
+
+.card {
+  &:hover {
+    .card__img {
+      &::before {
+        background-color: rgba($gray-darker, .1);
+      }
+    }
+  }
+}
+
+.card__subtitle {
+  color: $gray-dark;
+  font-size: $font-size-sm;
+  margin-bottom: 0;
+  margin-top: auto;
 }

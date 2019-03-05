@@ -12,6 +12,7 @@
       height: 160px;
       align-items: center;
     }
+
     &:before {
       content: '';
       width: 100%;
@@ -21,14 +22,20 @@
         padding-top: 100%;
       }
     }
+
     &.cs:before {
       background: url("/static/v2/img/icons/cs_white.svg") no-repeat 50% 50%;
+      display: block;
     }
+
     &.se:before {
       background: url("/static/v2/img/icons/se_white.svg") no-repeat 50% 50%;
+      display: block;
     }
+
     &.ds:before {
       background: url("/static/v2/img/icons/ds_white.svg") no-repeat 50% 50%;
+      display: block;
     }
   }
 

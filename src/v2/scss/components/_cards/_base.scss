@@ -50,11 +50,6 @@ $card-bg: $white !default;
   // as much space as possible, ensuring footers are aligned to the bottom.
   flex: 1 1 auto;
   padding: spacer("4x");
-
-  // FIXME: rename to `small-text`
-  &._small {
-    font-size: $font-size-sm;
-  }
 }
 
 .card__title {

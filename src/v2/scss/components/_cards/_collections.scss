@@ -5,7 +5,7 @@ $card-columns-count: 2;
 
 
 @mixin card-width($card-count) {
-  width: calc(100%/#{$card-count} - #{$grid-gutter-width});
+  width: calc(#{percentage(1 / $card-count)} - #{$grid-gutter-width});
 }
 
 // Card deck

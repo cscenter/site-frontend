@@ -5,13 +5,14 @@
   }
 }
 
-// 2 - screen offline-courses
-.csc-offline-courses {
+// 2 - screen `Study Areas`
+
+.csc-study-areas {
   padding: spacer("10x") 0 0;
   @include append-hr-to-container;
 }
 
-._card-offline-course {
+._study-area {
   background-color: $gray-lighter;
   text-align: center;
 
@@ -29,14 +30,6 @@
 
     svg {
       fill: $white;
-    }
-
-    .card-offline-course__icon--data-science {
-      background-image: url("/static/v2/img/pages/index/offline-courses/data-science-hover.svg");
-    }
-
-    .card-offline-course__icon--computer-science {
-      background-image: url("/static/v2/img/pages/index/offline-courses/computer-science-hover.svg");
     }
 
     .card__title,

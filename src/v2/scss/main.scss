@@ -6,9 +6,10 @@
 @import "bootstrap/scss/utilities/display";
 @import "utils/mixins";
 @import "utils/functions";
-@import "utils/spacing";
-@import "utils/misc";
 @import "utils/animation";
+@import "utils/sizing";
+@import "utils/spacing";
+@import "utils/text";
 
 @import "components/sprites"; // Before: menu
 

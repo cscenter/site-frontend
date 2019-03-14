@@ -1,21 +1,8 @@
 .card._program {
   text-align: center;
   color: $black;
-  border: $border-width solid $gray-light;
-  &:hover {
-    svg {
-      #bg {
-        fill: $teal;
-        transition: $transition-base;
-      }
-    }
-  }
-
-  .card__img {
-    padding-bottom: 57.75%;
-  }
+  border-color: $gray-light;
 }
-
 
 .program__stats {
   display: flex;

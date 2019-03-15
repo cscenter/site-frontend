@@ -7,35 +7,19 @@
     background-color: $teal;
     height: 184px;
     border-radius: $border-radius;
+    justify-content: center;
+    align-items: flex-start;
+
+    img {
+      max-width: 130px;
+      height: 130px;
+    }
+
     @include media-breakpoint-up(md) {
-      max-width: 160px;
-      height: 160px;
-      align-items: center;
-    }
-
-    &:before {
-      content: '';
-      width: 100%;
-      margin-bottom: 60px;
-      @include media-breakpoint-up(md) {
-        margin-bottom: 0;
-        padding-top: 100%;
+      img {
+        max-width: 180px;
+        height: 180px;
       }
-    }
-
-    &.cs:before {
-      background: url("/static/v2/img/icons/cs_white.svg") no-repeat 50% 50%;
-      display: block;
-    }
-
-    &.se:before {
-      background: url("/static/v2/img/icons/se_white.svg") no-repeat 50% 50%;
-      display: block;
-    }
-
-    &.ds:before {
-      background: url("/static/v2/img/icons/ds_white.svg") no-repeat 50% 50%;
-      display: block;
     }
   }
 

@@ -2,6 +2,7 @@
   flex-flow: wrap;
   margin-bottom: spacer("6x");
   border: none;
+
   .card__img {
     display: flex;
     background-color: $teal;
@@ -43,6 +44,13 @@
     @include media-breakpoint-up(md) {
       text-align: left;
       color: $link-color;
+    }
+
+    a {
+      color: $white;
+      @include media-breakpoint-up(md) {
+        color: $link-color;
+      }
     }
   }
 

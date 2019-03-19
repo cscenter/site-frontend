@@ -1,18 +1,19 @@
 {% extends "v2/layouts/inner.jinja2" %}
-{% block before_navbar_container %}
-    <div class="cover _program">{% endblock before_navbar_container %}
-{% block after_navbar_container %}
-    <div class="container text-center">
-        <div class="cover__content">
-            <img src="/static/v2/img/pages/program/distance.svg" alt="Заочное обучение">
-            <h1 class="cover__title">Заочное обучение</h1>
-            <p class="translate">Платное заочное обучение длительностью один год</p>
-        </div>
-    </div>
-    </div> {# -- div.cover #}
-{% endblock after_navbar_container %}
+
+{% block title %}{{ super() }}{% endblock title %}
+
 {% block body_attrs %}class="_dark"{% endblock body_attrs %}
+
 {% block content %}
+    <div class="cover _program">
+        <div class="container text-center">
+            <div class="cover__content">
+                <img src="/static/v2/img/pages/syllabus/distance/distance.svg" alt="Заочное обучение">
+                <h1 class="cover__title">Заочное обучение</h1>
+                <p class="translate">Платное заочное обучение длительностью один год</p>
+            </div>
+        </div>
+    </div> {# -- div.cover #}
     <div class="container mt-10">
         <div class="row content-center mb-4">
             <div class="col-lg-8 text-center">
@@ -24,7 +25,7 @@
         <div class="card-deck _three mb-8">
             <a href="#" class="card _program _shadowed">
                 <div class="card__img">
-                    <img src="/static/v2/img/pages/program/algorythms-part1.png" alt="Алгоритмы и структуры данных, часть 1">
+                    <img src="{{ static('v2/img/pages/syllabus/distance/algorythms-part1.png') }}" alt="Алгоритмы и структуры данных, часть 1">
                 </div>
                 <div class="card__content">
                     <div class="card__title">
@@ -36,7 +37,7 @@
             </a>
             <a href="#" class="card _program _shadowed">
                 <div class="card__img">
-                    <img src="/static/v2/img/pages/program/math.png" alt="Математика для разработчиков">
+                    <img src="{{ static('v2/img/pages/syllabus/distance/math.png') }}" alt="Математика для разработчиков">
                 </div>
                 <div class="card__content">
                     <div class="card__title">
@@ -49,7 +50,7 @@
             </a>
             <a href="#" class="card _program _shadowed">
                 <div class="card__img">
-                    <img src="/static/v2/img/pages/program/python.png" alt="Программирование на Python">
+                    <img src="{{ static('v2/img/pages/syllabus/distance/python.png') }}" alt="Программирование на Python">
                 </div>
                 <div class="card__content">
                     <div class="card__title">
@@ -69,7 +70,7 @@
         <div class="card-deck _three mb-8">
             <a href="#" class="card _program _shadowed">
                 <div class="card__img">
-                    <img src="/static/v2/img/pages/program/algorythms-part2.png" alt="Алгоритмы и структуры данных, часть 2">
+                    <img src="{{ static('v2/img/pages/syllabus/distance/algorythms-part2.png') }}" alt="Алгоритмы и структуры данных, часть 2">
                 </div>
                 <div class="card__content">
                     <div class="card__title">
@@ -80,7 +81,7 @@
             </a>
             <a href="#" class="card _program _shadowed">
                 <div class="card__img">
-                    <img src="/static/v2/img/pages/program/specialization.png" alt="Курс по специализации">
+                    <img src="{{ static('v2/img/pages/syllabus/distance/specialization.png') }}" alt="Курс по специализации">
                 </div>
                 <div class="card__content">
                     <div class="card__title">
@@ -92,7 +93,7 @@
             </a>
             <a href="#" class="card _program _shadowed">
                 <div class="card__img">
-                    <img src="/static/v2/img/pages/program/practice.png" alt="">
+                    <img src="{{ static('v2/img/pages/syllabus/distance/practice.png') }}" alt="">
                 </div>
                 <div class="card__content">
                     <div class="card__title">
@@ -113,13 +114,13 @@
                     <p>Помимо хорошей базовой подготовки программа предлагает курсы специализации для выбора дальнейшей
                         профессии</p>
                     <div class="row mt-10">
-                        <div class="col-sm-4 mb-4"><img src="/static/v2/img/pages/program/backend.svg" alt="Бэкенд-разработчик">
+                        <div class="col-sm-4 mb-4"><img src="{{ static('v2/img/pages/syllabus/distance/backend.svg') }}" alt="Бэкенд-разработчик">
                             <p class="mt-2">Бэкенд-разработчик</p>
                         </div>
-                        <div class="col-sm-4 mb-4"><img src="/static/v2/img/pages/program/web-developer.svg" alt="Веб-разработчик">
+                        <div class="col-sm-4 mb-4"><img src="{{ static('v2/img/pages/syllabus/distance/web-developer.svg') }}" alt="Веб-разработчик">
                             <p class="mt-2">Веб-разработчик</p>
                         </div>
-                        <div class="col-sm-4 mb-4"><img src="/static/v2/img/pages/program/analytic.svg" alt="Аналитик">
+                        <div class="col-sm-4 mb-4"><img src="{{ static('v2/img/pages/syllabus/distance/analytic.svg') }}" alt="Аналитик">
                             <p class="mt-2">Аналитик</p>
                         </div>
                     </div>

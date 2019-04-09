@@ -1,35 +1,64 @@
 .author {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   margin-bottom: spacer("4x");
+}
 
-  .author__details {
-    margin-left: spacer("2x");
-    flex: 1 1 0;
+// FIXME: нафигачить отступы для картинки, добавить переменных, не забыть про border: 3px у картинки
 
-    h4 {
-      margin: 0;
-    }
+.author__img {
+  margin-right: spacer("4x");
+  width: 72px;
+  height: 72px;
+}
 
-    span {
-      font-size: $font-size-sm;
-      margin: spacer("1x") 0;
-      display: block;
-      color: $gray-dark;
-    }
+.author__details {
+  flex: 1 1 0;
+
+  h4 {
+    margin: 0;
   }
 
-  img {
-    width: 48px;
-    height: 48px;
+  span {
+    font-size: $font-size-sm;
+    margin: spacer("1x") 0;
+    display: block;
+    color: $gray-dark;
   }
 }
 
-.author._testimonial {
-  padding: spacer("6x");
+.author__testimonial {
 
-  img {
-    width: 74px;
-    height: 74px;
+  > p:last-child {
+    margin-bottom: 0;
+  }
+
+  &._bubble {
+    color: $body-color;
+    //font-size: $font-size-sm;
+    padding: spacer("4x");
+    position: relative;
+    background-color: $gray-lighter;
+    margin-bottom: 1rem;
+    border-radius: $border-radius-sm;
+    text-align: left;
+    max-width: 100%; // for ie10
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -12px;
+      width: 0;
+      height: 0;
+      border-left: 18px solid transparent;
+      border-right: 18px solid transparent;
+      border-top: 14px solid $gray-lighter;
+      left: 50%;
+      margin-left: -18px;
+      @include media-breakpoint-up(lg) {
+        left: 6px;
+        margin-left: auto;
+      }
+    }
   }
 }

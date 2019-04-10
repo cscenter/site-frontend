@@ -4,16 +4,21 @@
   margin-bottom: spacer("4x");
 }
 
-// FIXME: нафигачить отступы для картинки, добавить переменных, не забыть про border: 3px у картинки
-
 .author__img {
-  margin-right: spacer("4x");
-  width: 72px;
-  height: 72px;
+  margin-right: spacer("2x");
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 0 4px #ddd;
 }
 
 .author__details {
   flex: 1 1 0;
+  margin-top: spacer("1x");
+  @include media-breakpoint-up(lg) {
+    margin-top: 0;
+  }
 
   h4 {
     margin: 0;
@@ -21,11 +26,45 @@
 
   span {
     font-size: $font-size-sm;
-    margin: spacer("1x") 0;
+    margin-top: spacer("1x");
     display: block;
     color: $gray-dark;
   }
 }
+
+.author._testimonial {
+  padding: spacer("2x");
+  margin-bottom: 0;
+
+  .author__img {
+    position: absolute;
+    width: 72px;
+    height: 72px;
+  }
+
+  .author__details {
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+    height: 72px;
+    padding-left: 84px;
+    margin: 0;
+    @include media-breakpoint-up(sm) {
+      justify-content: start;
+      height: auto;
+    }
+  }
+
+  .author__testimonial {
+    padding: 0;
+    margin-top: spacer("4x");
+    @include media-breakpoint-up(sm) {
+      padding-left: 84px;
+      margin-top: spacer("2x");
+    }
+  }
+}
+
 
 .author__testimonial {
 
@@ -35,7 +74,6 @@
 
   &._bubble {
     color: $body-color;
-    //font-size: $font-size-sm;
     padding: spacer("4x");
     position: relative;
     background-color: $gray-lighter;
@@ -50,15 +88,11 @@
       bottom: -12px;
       width: 0;
       height: 0;
-      border-left: 18px solid transparent;
-      border-right: 18px solid transparent;
+      border-left: 14px solid transparent;
+      border-right: 14px solid transparent;
       border-top: 14px solid $gray-lighter;
-      left: 50%;
-      margin-left: -18px;
-      @include media-breakpoint-up(lg) {
-        left: 6px;
-        margin-left: auto;
-      }
+      left: 10px;
+      margin-left: auto;
     }
   }
 }

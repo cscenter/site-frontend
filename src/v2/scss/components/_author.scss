@@ -1,7 +1,6 @@
 .author {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: spacer("4x");
 }
 
 .author__img {
@@ -20,7 +19,7 @@
     margin-top: 0;
   }
 
-  h4 {
+  h4, h5 {
     margin: 0;
   }
 
@@ -33,23 +32,24 @@
 }
 
 .author._testimonial {
-  padding: spacer("2x");
-  margin-bottom: 0;
+  $img-width: 72px;
+  $img-margin: 12px;
 
   .author__img {
-    position: absolute;
-    width: 72px;
-    height: 72px;
+    width: $img-width;
+    height: $img-width;
+    @include media-breakpoint-up(sm) {
+      position: absolute;
+    }
   }
 
   .author__details {
     display: flex;
     justify-content: center;
     flex-flow: column;
-    height: 72px;
-    padding-left: 84px;
     margin: 0;
     @include media-breakpoint-up(sm) {
+      padding-left: $img-width + $img-margin;
       justify-content: start;
       height: auto;
     }
@@ -59,14 +59,16 @@
     padding: 0;
     margin-top: spacer("4x");
     @include media-breakpoint-up(sm) {
-      padding-left: 84px;
       margin-top: spacer("2x");
+      padding-left: $img-width + $img-margin;
     }
   }
 }
 
 
 .author__testimonial {
+  margin-top: spacer("2x");
+  width: 100%; // ie10 hack
 
   > p:last-child {
     margin-bottom: 0;

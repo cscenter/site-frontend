@@ -75,8 +75,7 @@ $navbar-toggler-border-radius: $border-radius;
 }
 
 .nav-link {
-  display: flex;
-  align-items: center;
+  display: inline-block;
   color: $white;
   opacity: .5;
   white-space: nowrap;
@@ -87,10 +86,6 @@ $navbar-toggler-border-radius: $border-radius;
   }
   &._active {
     opacity: 1;
-  }
-
-  svg {
-    margin-left: auto;
   }
 }
 
@@ -143,6 +138,7 @@ $navbar-toggler-border-radius: $border-radius;
 
   .sprite-img._arrow-bottom {
     fill: $white;
+    float: right;
   }
 
   ul {
@@ -163,10 +159,9 @@ $navbar-toggler-border-radius: $border-radius;
       &:last-child {
         border-bottom: 0;
       }
-
-
     }
     .nav-link {
+      display: block;
       color: $white;
       opacity: .5;
       padding: $nav-link-mobile-padding-x;

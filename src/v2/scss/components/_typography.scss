@@ -85,6 +85,17 @@ a {
   }
 }
 
+a._external-link {
+  &::after {
+    content: "";
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    background-image: url("/static/v2/img/icons/external-link-icon.svg");
+    vertical-align: top;
+  }
+}
+
 //TODO: find solution for this
 @include media-breakpoint-down(md) {
   html {

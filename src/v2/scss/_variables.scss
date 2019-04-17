@@ -62,6 +62,15 @@ $theme-colors: (
   "green":      $green,
   "opacity-10":   $white-10
 );
+
+// Messages
+$system-colors: (
+  "info"   :    $white,
+  "warning":    $blue,
+  "success":    $green,
+  "danger":     $red
+);
+
 // stylelint-enable
 
 // Body

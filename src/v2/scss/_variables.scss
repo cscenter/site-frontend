@@ -65,6 +65,17 @@ $theme-colors: (
   "green":      $green,
   "opacity-10":   $white-10
 );
+
+// Btns
+$btn-colors: (
+  "primary":    $teal,
+  "light":      $gray-light,
+  "gray":       $gray-dark,
+  "success":    $green,
+  "danger":     $red,
+  "white":      $white
+);
+
 // stylelint-enable
 
 // Body

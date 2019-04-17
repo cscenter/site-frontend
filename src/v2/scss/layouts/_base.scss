@@ -39,6 +39,26 @@ body {
   nav {
     z-index: 5;
   }
+
+  .btn._about-csc {
+    background-color: $white-10;
+    color: $white;
+
+    &:hover {
+      background-color: $white-30;
+    }
+
+    &:focus,
+    .focus {
+      background-color: $white-30;
+    }
+
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active,
+    .show > &.dropdown-toggle {
+      background-color: $white-30;
+    }
+  }
 }
 
 .cover-index-page {

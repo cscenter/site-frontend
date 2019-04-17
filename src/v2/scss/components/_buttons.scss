@@ -123,31 +123,6 @@ $button-fill: solid;
   }
 }
 
-.btn._white._opacity-10 {
-  color: $white;
-  border-color: transparent;
-
-  &:hover {
-    color: $white;
-    background-color: $white-30;
-    border-color: transparent;
-  }
-
-  &:focus,
-  .focus {
-    background-color: $white-30;
-  }
-
-  &:not(:disabled):not(.disabled):active,
-  &:not(:disabled):not(.disabled).active,
-  .show > &.dropdown-toggle {
-    color: $white;
-    background-color: $white-30;
-    border-color: transparent;
-  }
-}
-
-
 .btn-animation {
   height: 28px;
   position: relative;

@@ -111,13 +111,13 @@ $button-fill: solid;
 // Alternate buttons
 //
 
-@each $color, $value in $theme-colors {
+@each $color, $value in $btn-colors {
   .btn._#{$color} {
     @include button-variant('solid', $value, $value);
   }
 }
 
-@each $color, $value in $theme-colors {
+@each $color, $value in $btn-colors {
   .btn._outline._#{$color} {
     @include button-variant('outline', $value, $value);
   }

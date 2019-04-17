@@ -126,7 +126,7 @@ a {
       }
       li::before {
         content: "\2014";
-        color: $gray;
+        color: $gray-light;
         float: left;
         margin-left: -#{spacer("6x")};
       }

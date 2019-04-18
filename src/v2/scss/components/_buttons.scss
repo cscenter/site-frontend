@@ -124,13 +124,15 @@ $button-fill: solid;
 }
 
 .btn._white._opacity-10 {
-  color: $white;
+  $white-10: rgba($white, .1);
+  $white-30: rgba($white, .3);
+
+  background-color: $white-10;
   border-color: transparent;
+  color: $white;
 
   &:hover {
-    color: $white;
     background-color: $white-30;
-    border-color: transparent;
   }
 
   &:focus,
@@ -141,9 +143,7 @@ $button-fill: solid;
   &:not(:disabled):not(.disabled):active,
   &:not(:disabled):not(.disabled).active,
   .show > &.dropdown-toggle {
-    color: $white;
     background-color: $white-30;
-    border-color: transparent;
   }
 }
 
@@ -187,18 +187,6 @@ $button-fill: solid;
 
     &:last-child {
       margin-right: 0;
-    }
-  }
-}
-
-
-// FIXME: remove?
-.btn-group {
-  font-size: 0;
-
-  &.spaced {
-    .btn {
-      margin-bottom: 1rem;
     }
   }
 }

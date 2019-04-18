@@ -22,18 +22,11 @@ $blue:    #357A9C;
 $teal:    #07c39f;
 $green:   #30BD4C;
 $red:     #DB3131;
-
-$white-10: rgba(255,255,255,.1);
-$white-30: rgba(255,255,255,.3);
-
 $gray-lighter:  #ecf0f2;
 $gray-light:    #c0c9ce;
 $gray-dark:     #75828a;
 $gray-darker:   #374148;
-
 $gray-disabled: #717374;
-
-$dark-bg:       #f8fafc;
 
 $colors: (
   "white":        $white,
@@ -49,7 +42,10 @@ $colors: (
   "gray-disabled": $gray-disabled
 );
 
-// Themes. Using in components/grid.scss in utils for body's bg-color
+// Themes. Used in:
+// * components/grid.scss
+// * bootstrap/scss/utilities/_text.scss
+$dark-bg:       #f8fafc;
 $theme-colors: (
   "light":      $white,
   "dark":       $dark-bg

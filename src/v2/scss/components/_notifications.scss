@@ -7,45 +7,42 @@
   border: 1px solid transparent;
   border-radius: $border-radius;
   font-size: $font-size-sm;
-  h3{
+
+  h3 {
     display: block;
     width: 100%;
     font-size: $font-size-base;
     font-weight: $font-weight-bold;
-    margin:0 0 2px 0;
+    margin: 0 0 spacer("1x") 0;
   }
-  span{
-    a{
-      color: $gray-darker;
-      background: $gray-lighter;
-      &:hover{
-        background: darken($gray-lighter, 5%);
-      }
-    }
-    }
 
-  a{
+  span {
+    a {
+      @extend .btn._small;
+      @extend .btn._light;
+    }
+  }
+
+  a {
+    @extend .btn._small;
+    @extend .btn._primary;
     display: inline-block;
-	line-height: 1;
-	color: $white;
-	padding: spacer("3x") spacer("4x");
-    background: $teal;
-    border-radius: $border-radius;
-    box-sizing: border-box;
-    margin: 0 spacer("3x") 0 0;
+    margin: 0 spacer("3x") spacer("1x") 0;
   }
 
-  a:hover{
-    background: darken($teal, 5%);
-  }
-
-  p{
+  p {
     margin-bottom: .5rem;
   }
 
   .noty_body {
-	padding: spacer("3x");
+    padding: spacer("4x");
   }
+}
+
+@mixin notification($background, $color: map_get($system-colors, $background)) {
+  background-color: $color;
+  color: color-yiq($color);
+  box-shadow: 0 0 2rem transparentize($color, .8);
 }
 
 .noty_theme__notification.noty_type__alert,
@@ -55,26 +52,18 @@
 }
 
 .noty_theme__notification.noty_type__warning {
-  background-color: $white;
-  color: $gray-darker;
-  box-shadow: 0 0 2rem transparentize($gray-darker,.8);
+  @include notification('warning');
 }
 
 .noty_theme__notification.noty_type__error {
-  background-color: $red;
-  color: $white;
-  box-shadow: 0 0 2rem transparentize($red,.8);
+  @include notification('danger');
 }
 
 .noty_theme__notification.noty_type__info,
 .noty_theme__notification.noty_type__information {
-  background-color: $white;
-  color: $gray-darker;
-  box-shadow: 0 0 2rem transparentize($gray-darker,.8);
+  @include notification('info');
 }
 
 .noty_theme__notification.noty_type__success {
-  background-color: $green;
-  color: $white;
-  box-shadow: 0 0 2rem transparentize($green,.8);
+  @include notification('success');
 }

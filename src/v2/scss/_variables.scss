@@ -49,7 +49,7 @@ $colors: (
   "gray-disabled": $gray-disabled
 );
 
-// Themes
+// Themes. Using in components/grid.scss in utils for body's bg-color
 $theme-colors: (
   "light":      $white,
   "dark":       $dark-bg

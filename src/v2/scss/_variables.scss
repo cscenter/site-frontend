@@ -33,6 +33,8 @@ $gray-darker:   #374148;
 
 $gray-disabled: #717374;
 
+$dark-bg:       #f8fafc;
+
 $colors: (
   "white":        $white,
   "black":        $black,
@@ -47,23 +49,10 @@ $colors: (
   "gray-disabled": $gray-disabled
 );
 
-// Themes
-
-$primary:       $teal;
-$secondary:     $gray-disabled;
-$light:         $gray-lighter;
-$dark:          $gray-darker;
-$error:         $red;
-
+// Themes. Using in components/grid.scss in utils for body's bg-color
 $theme-colors: (
-  "primary":    $primary,
-  "light":      $light,
-  "gray":       $gray-dark,
-  "dark":       $gray-darker,
-  "danger":     $error,
-  "white":      $white,
-  "green":      $green,
-  "opacity-10":   $white-10
+  "light":      $white,
+  "dark":       $dark-bg
 );
 
 // Btns

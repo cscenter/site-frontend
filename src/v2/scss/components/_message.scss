@@ -20,19 +20,19 @@
   }
 }
 
-@each $color, $value in $system-colors {
+@each $color, $value in $message-colors {
   .message._#{$color} {
     @include message-variant('solid', $value);
   }
 }
 
-@each $color, $value in $system-colors {
+@each $color, $value in $message-colors {
   .message._outline._#{$color} {
     @include message-variant('outline', $value);
   }
 }
 
-@each $color, $value in $system-colors {
+@each $color, $value in $message-colors {
   .message._inverted._#{$color} {
     @include message-variant('inverted', $value);
   }

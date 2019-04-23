@@ -19,6 +19,7 @@ $figure-caption-color:              $gray-dark;
 .figure {
   // Ensures the caption's text aligns with the image.
   display: inline-block;
+  vertical-align: top; //for remove float:right
 }
 
 .figure-img {

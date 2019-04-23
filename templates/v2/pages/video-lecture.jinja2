@@ -1,0 +1,51 @@
+{% extends "v2/layouts/inner.jinja2" %}
+
+{% block content %}
+    <div class="container page-content">
+
+        <div class="row">
+            <div class="col-lg-9">
+        <h2>Проектирование пользовательских интерфейсов с&nbsp;точки зрения программного инженера</h2>
+                <section class="content-block">
+                    <div class="row mb-4">
+                        <div class="col-lg-12">
+                            <div class="author _project">
+                                <img class="author__img" width="48" height="48" src="/media/pages/index/student.png"
+                                     alt="">
+                                <div class="author__details">
+                                    <h4>Егор Пахомов</h4>
+                                    <span>JetBrains</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Егор&nbsp;&mdash; Spark contributor. Занимался интеграцией Spark в&nbsp;Яндекс Островах и&nbsp;Yandex
+                        Data
+                        Factory. Работает в&nbsp;AlpineNow, компания занимающаяся разработкой&nbsp;BI инструмента для
+                        Apache Spark.</p>
+                    <div class="video">
+                        <iframe class="embed _responsive" src="https://www.youtube.com/embed/A3SomwRa5iw"
+                                frameborder="0"
+                                allowfullscreen></iframe>
+                    </div>
+                    <p><a href="https://yadi.sk/i/kulcsRfRgiBnv" target="_blank">Слайды с лекции</a>
+                    </p>
+                    <p>На&nbsp;лекции рассматривается технология для batch и&nbsp;streaming обработки больших данных
+                        Apache Spark. Существует ряд проблем, с&nbsp;которыми инженеры сталкиваются, работая с&nbsp;большими
+                        данными: нехватки объёма диска одной машины для хранения данных, сложность разработки
+                        параллельных алгоритмов, etc. На&nbsp;протяжении долгого времени стандартом в&nbsp;индустрии для
+                        решения этих проблем являлся Hadoop, но&nbsp;ряд архитектурных недостатков этого фреймворка не&nbsp;позволяет
+                        ему справляться с&nbsp;новыми вызовами больших данных: machine learning, streaming,
+                        интерактивная работа с&nbsp;данными. Spark предложил новую вычислительную модель&nbsp;&mdash;
+                        RDD, в&nbsp;которой это всё стало возможно. Рассматриваются основные принципы этой модели и&nbsp;примеры
+                        кода.</p>
+                    <p>Важной частью любого big data framework является инфраструктура вокруг него. Обзорно
+                        рассматриваются основные библиотеки, написанные в&nbsp;рамках RDD: GraphX для графовой обработки
+                        данных, MLLib для machine learning, Spark Streaming для стриминга, SparkSQL, а&nbsp;также виды
+                        деплоинга spark кластера и&nbsp;тулы, облегчающие работу дата аналитиков.</p>
+                </section>
+            </div>
+
+        </div>
+    </div>
+{% endblock content %}

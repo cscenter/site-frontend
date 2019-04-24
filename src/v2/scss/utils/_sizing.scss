@@ -1,5 +1,6 @@
 @mixin img-height($img-height) {
   height: auto;
+  width: 100%;
   @include media-breakpoint-up(sm) {
     height: #{$img-height};
     width: auto;
@@ -7,29 +8,29 @@
 }
 
 .h-100 {
-  @include img-height(100%);
+  height: 100%;
 }
 
 .w-100 {
   width: 100%;
 }
 
-.h-150px {
+img.h-150px {
   @include img-height(150px);
 }
 
-.h-200px {
+img.h-200px {
   @include img-height(200px);
 }
 
-.h-250px {
+img.h-250px {
   @include img-height(250px);
 }
 
-.h-300px {
+img.h-300px {
   @include img-height(300px);
 }
 
-.h-400px {
+img.h-400px {
   @include img-height(400px);
 }

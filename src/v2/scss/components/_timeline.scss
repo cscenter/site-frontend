@@ -1,11 +1,11 @@
-$bullet-size: 8px;
-$bullet-active-size: $bullet-size * 1.5;
-$timeline-text-padding: $bullet-size * 1.5;
-$bullet-margin: $timeline-text-padding + $bullet-size / 2;
-$bullet-border: 2px;
-$item-height: $bullet-size*4;
+$timeline-bullet-size: 8px;
+$timeline-bullet-active-size: $timeline-bullet-size * 1.5;
+$timeline-text-padding: $timeline-bullet-size * 1.5;
+$timeline-bullet-margin: $timeline-text-padding + $timeline-bullet-size / 2;
+$timeline-bullet-border: 2px;
+$timeline-item-height: $timeline-bullet-size * 4;
 
-$bullet-photo-size: $bullet-size*10;
+$timeline-bullet-photo-size: $timeline-bullet-size * 10;
 
 .timeline {
   border-left: $border-width solid $gray-light;
@@ -13,17 +13,18 @@ $bullet-photo-size: $bullet-size*10;
   position: relative;
   padding: 0 $timeline-text-padding;
 
-  &:after, &:before {
+  &::after,
+  &::before {
     content: "";
     position: absolute;
     top: 0;
-    left: -$bullet-margin / 2;
-    width: $bullet-size;
-    height: $item-height / 2;
+    left: -$timeline-bullet-margin / 2;
+    width: $timeline-bullet-size;
+    height: $timeline-item-height / 2;
     background-color: $white;
   }
 
-  &:before {
+  &::before {
     top: auto;
     bottom: 0;
   }
@@ -32,32 +33,32 @@ $bullet-photo-size: $bullet-size*10;
 .timeline__date {
   display: block;
   position: relative;
-  line-height: $item-height;
+  line-height: $timeline-item-height;
   color: $gray-light;
 
-  &:before {
+  &::before {
     z-index: 2;
     content: "";
     display: inline-block;
-    width: $bullet-size;
-    height: $bullet-size;
+    width: $timeline-bullet-size;
+    height: $timeline-bullet-size;
     background-color: $gray-light;
     border-radius: 50%;
     position: absolute;
-    left: -$bullet-margin;
-    top: ($item-height - $bullet-size) / 2;
+    left: -$timeline-bullet-margin;
+    top: ($timeline-item-height - $timeline-bullet-size) / 2;
   }
 
   &.active {
     color: $gray-dark;
 
-    &:before {
-      width: $bullet-active-size;
-      height: $bullet-active-size;
+    &::before {
+      width: $timeline-bullet-active-size;
+      height: $timeline-bullet-active-size;
       background-color: $white;
-      border: $bullet-border solid $gray-dark;
-      left: -$bullet-margin - $bullet-border;
-      top: ($item-height - $bullet-active-size) / 2;
+      border: $timeline-bullet-border solid $gray-dark;
+      left: -$timeline-bullet-margin - $timeline-bullet-border;
+      top: ($timeline-item-height - $timeline-bullet-active-size) / 2;
     }
   }
 
@@ -73,22 +74,32 @@ $bullet-photo-size: $bullet-size*10;
     display: flex;
     flex-flow: column;
     justify-content: center;
-    width: 100%; //For IE10
+    width: 100%; // IE10
 
-    p, h1, h2, h3, h4 {
+    p,
+    h1,
+    h2,
+    h3,
+    h4 {
       margin: 0;
     }
   }
 
   .timeline__img {
-    flex: 0 0 $bullet-photo-size;
-    height: $bullet-photo-size;
-    margin-right: -$bullet-photo-size / 2;
+    flex: 0 0 $timeline-bullet-photo-size;
+    height: $timeline-bullet-photo-size;
+    margin-right: -$timeline-bullet-photo-size / 2;
     overflow: hidden;
     border-radius: 50%;
     position: relative;
-    left: -$bullet-photo-size / 2 - $timeline-text-padding;
+    left: -$timeline-bullet-photo-size / 2 - $timeline-text-padding;
     z-index: 4;
+  }
+
+  .timeline__img + .timeline__text {
+    .timeline__date::before {
+      display: none;
+    }
   }
 
   .timeline__content {
@@ -96,21 +107,14 @@ $bullet-photo-size: $bullet-size*10;
     position: relative;
     display: flex;
 
-    &:last-child:before {
+    &:last-child::before {
       content: "";
       position: absolute;
-      top: ($item-height - $bullet-size) / 2;
+      top: ($timeline-item-height - $timeline-bullet-size) / 2;
       bottom: 0;
-      left: -$bullet-margin;
-      width: $bullet-size;
+      left: -$timeline-bullet-margin;
+      width: $timeline-bullet-size;
       background-color: $white;
     }
   }
 }
-
-.timeline__img + .timeline__text {
-  .timeline__date:before {
-    display: none;
-  }
-}
-

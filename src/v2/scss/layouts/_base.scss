@@ -68,6 +68,10 @@ body {
   }
 }
 
+.cover._person {
+  background: linear-gradient(to right, $teal, $blue);
+}
+
 .cover__title {
   padding: 40px 0 0;
   max-width: 900px;

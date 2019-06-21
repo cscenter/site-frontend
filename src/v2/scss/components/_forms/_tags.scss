@@ -1,3 +1,14 @@
+@mixin tag-color($color) {
+  background-color: rgba($color, .1);
+  color: $color;
+  &:before {
+    color: $color;
+  }
+  &:hover {
+    background-color: rgba($color, .2);
+  }
+}
+
 .tags-group {
   display: flex;
   flex-flow: row;
@@ -9,12 +20,12 @@
     border: $input-border-width solid $gray-light;
     border-radius: $border-radius;
     font-size: $font-size-base;
-    padding: spacer("1x") spacer("2x");
+    padding: spacer("1x") spacer("3x");
     margin: 0 spacer("2x") spacer("2x") 0;
     cursor: pointer;
     float: left;
 
-    &:hover{
+    &:hover {
       background-color: $white;
       transition: $transition-base;
     }
@@ -22,6 +33,33 @@
     &.active {
       background-color: $white;
       color: $teal;
+    }
+  }
+
+  ._pill {
+    font-size: $font-size-sm;
+    line-height: $line-height-sm;
+    border: none;
+    border-radius: 2rem;
+  }
+
+  ._year {
+    @include tag-color($gray-dark);
+  }
+
+  ._lecture {
+    @include tag-color($green);
+
+    &:before {
+      content: "Лекция";
+    }
+  }
+
+  ._course {
+    @include tag-color($blue);
+
+    &:before {
+      content: "Курс";
     }
   }
 }

@@ -7,11 +7,7 @@
                 <a href="/v2/pages/projects/" class="text-small text-muted">Видеозаписи /</a>
                 <h1>Современный С++: новые возможности и лучшие методологии (часть 1)</h1>
                 <section class="content-block">
-                    <div class="video">
-                        <iframe class="embed _responsive" src="https://www.youtube.com/embed/A3SomwRa5iw"
-                                frameborder="0"
-                                allowfullscreen></iframe>
-                    </div>
+                    {{ macros.video_iframe(url="https://www.youtube.com/embed/A3SomwRa5iw") }}
                     <div class="external-links">
                         <a href="#" target="_blank" rel="noopener">{{ macros.svg_inline('slides') }}<span>Слайды с лекции</span></a>
                     </div>

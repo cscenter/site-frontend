@@ -49,17 +49,9 @@
 
   ._lecture {
     @include tag-color($green);
-
-    &:before {
-      content: "Лекция";
-    }
   }
 
   ._course {
     @include tag-color($blue);
-
-    &:before {
-      content: "Курс";
-    }
   }
 }

@@ -1,0 +1,18 @@
+{% extends "v2/layouts/inner.jinja2" %}
+
+{% block sprites %}{% include "sprites/common.svg" %}{% endblock sprites %}
+
+{% block content %}
+    <div class="container page-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <p>TODO: Перенести иконки в отдельный спрайт, т.к. они используются не на всех страницах</p>
+                <div class="external-links">
+                    <h3>Публикации на внешних ресурсах</h3>
+                    <a href="https://github.com/" target="_blank" rel="noopener">{{ macros.svg_inline('github') }}<span>https://github.com</span></a>
+                    <a href="https://habr.com/ru/" target="_blank" rel="noopener">{{ macros.svg_inline('habr') }}<span>https://habr.com/ru/</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

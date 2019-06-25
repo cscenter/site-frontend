@@ -5,19 +5,47 @@
   }
 }
 
-// 2 - screen offline-courses
-.csc-offline-courses {
+.cover-index-page {
+  background-image: url("/static/v2/img/pages/index/bg-main-page.jpg");
+  background-color: #201f20;
+  padding: 0 0 64px;
+  @include media-breakpoint-up(lg) {
+    padding-top: 0;
+    text-align: left;
+  }
+
+  .cover__title {
+    padding-top: 40px;
+  }
+
+  .cover__text {
+    margin-bottom: 40px;
+    max-width: 900px;
+  }
+}
+
+// 2 - screen `Study Areas`
+
+.csc-study-areas {
   padding: spacer("10x") 0 0;
   @include append-hr-to-container;
 }
 
-.card-offline-course {
+.card._study-area {
   background-color: $gray-lighter;
   text-align: center;
-  padding: spacer("6x") spacer("2x") spacer("8x");
+  margin-bottom: spacer("4x");
+
+  @include media-breakpoint-up(lg) {
+    margin-bottom: 0;
+  }
+
+  .card__content {
+    padding: spacer("8x") spacer("4x");
+  }
+
   svg {
     margin-left: 30px;
-    fill: #1d1d1d;
   }
 
   &:hover {
@@ -28,46 +56,35 @@
       fill: $white;
     }
 
-    .card-offline-course__icon--data-science {
-      background-image: url("/static/v2/img/pages/index/offline-courses/data-science-hover.svg");
-    }
-
-    .card-offline-course__icon--computer-science {
-      background-image: url("/static/v2/img/pages/index/offline-courses/computer-science-hover.svg");
-    }
-
-    .card-offline-course__card-title,
-    .card-offline-course__card-text {
+    .card__title,
+    .card__subtitle {
       color: $white;
     }
 
   }
-}
-
-.card-offline-course__text {
-  margin-bottom: spacer("6x");
-  @include media-breakpoint-down(md) {
-    text-align: center;
-  }
-}
-
-.card-offline-course__card-title {
-  color: $blue;
-  text-align: center;
-  margin-bottom: 0;
-  letter-spacing: -.01rem;
+  .card__title {
+    color: $blue;
+    margin-bottom: 0;
+    letter-spacing: -.01rem;
+    font-weight: $font-weight-light;
 
   @include media-breakpoint-down(md) {
     font-size: $font-size-content-base;
   }
 }
+}
 
-.card-offline-course__card-text {
-  font-size: $font-size-sm;
-  color: $gray-dark;
+a.card {
+  color: $black;
 
-  @include media-breakpoint-down(md) {
-    text-align: center;
+  .card__title {
+    color: $blue;
+  }
+
+  &:hover {
+    .card__title {
+      color: $link-hover-color;
+    }
   }
 }
 
@@ -83,8 +100,7 @@
 
   .about-csc__cover {
     position: relative;
-    border-radius: $border-radius-lg;
-    overflow: hidden;
+    @include font-smoothing();
   }
 
   .about-csc__description {
@@ -181,60 +197,44 @@
 // 4 - screen csc-online
 
 .csc-online-education {
-  @include append-hr-to-container();
-  @include media-breakpoint-down(md) {
-    text-align: center;
+  text-align: center;
+  @include media-breakpoint-up(md) {
+    text-align: left;
   }
-
-  .card-img-wrapper {
-    text-align: center;
-    overflow: hidden;
-    position: relative;
-    border-radius: $border-radius;
-    @include media-breakpoint-down(sm) {
-      max-width: 200px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background-color: rgba($gray-darker, .3);
-      transition: .3s;
-    }
-
-    img {
-      width: 100%;
-
-      @include media-breakpoint-up(sm) {
-        width: 100%;
-      }
-    }
-  }
-
-  .responsive-card {
-    &:hover .card-img-wrapper::before {
-      background-color: rgba($gray-darker, .1);
-    }
-  }
-
-  .order-2 {
-    @include media-breakpoint-down(md) {
-      order: 4;
-    }
-  }
+  padding-bottom: spacer("8x");
 }
 
-.csc-online-education__card-title {
-  padding-top: spacer("2x");
-  margin-bottom: 0;
-  font-size: $font-size-base;
-  @include media-breakpoint-up(xl) {
-    font-size: $font-size-content-base;
+.card-deck._online-education {
+  .card {
+    @include media-breakpoint-up(sm) {
+      width: calc(50% - #{$grid-gutter-width});
+    }
+
+    @include media-breakpoint-up(md) {
+      width: calc(33.3333% - #{$grid-gutter-width});
+    }
+
+    @include media-breakpoint-up(lg) {
+      width: #{calc(16.6666% - #{$grid-gutter-width})};
+    }
+
+    @include media-breakpoint-up(xl) {
+      width: #{calc(16.6666% - #{$grid-gutter-width})};
+    }
+  }
+
+  .card__content {
+    padding-top: spacer("2x");
+  }
+
+  .card__title {
+    font-size: $font-size-base;
+    @include media-breakpoint-up(lg) {
+      font-size: $font-size-sm;
+    }
+    @include media-breakpoint-up(xl) {
+      font-size: $font-size-base;
+    }
   }
 }
 
@@ -242,11 +242,10 @@
 
 .csc-student-reviews {
   padding: spacer("8x") 0 spacer("10x");
-  background-color: $light;
-  .order-2 {
-    @include media-breakpoint-down(md) {
-      order: 4;
-    }
+  background-color: $gray-lighter;
+
+  .card-columns {
+    margin: 30px 0;
   }
 }
 
@@ -274,7 +273,7 @@
 .social-media_icon {
   .sprite-img {
     vertical-align: bottom;
-    fill: $gray;
+    fill: $gray-light;
     @include media-breakpoint-up(lg) {
       margin-bottom: spacer("2x");
     }
@@ -381,10 +380,10 @@
       right: 0;
       bottom: 0;
       width: 150px;
-      max-height: 24px;
+      height: 96px;
       background: linear-gradient(to right, rgba($gray-lighter, 0.2), $gray-lighter);
-      @include media-breakpoint-down(lg) {
-        height: 96px;
+      @include media-breakpoint-up(lg) {
+        height: 104px;
       }
     }
   }

@@ -1,7 +1,6 @@
-@import "bootstrap/scss/utilities/text"; // TODO: what exactly we use from here right now?
-
 body {
   font-size: $font-size-content-base;
+  font-feature-settings: "tnum" on, "dlig" on;
 }
 
 //
@@ -34,15 +33,15 @@ h1,
     font-weight: $font-weight-light;
   }
   margin-bottom: spacer("6x");
+  letter-spacing: -.04rem;
 }
 
 h2,
 .h2 {
   font-size: $h2-font-size;
-  @include media-breakpoint-up(sm) {
-    font-weight: $font-weight-light;
-  }
-  margin-bottom: spacer("6x");
+  font-weight: $font-weight-light;
+  margin-bottom: spacer("4x");
+  letter-spacing: -.04rem;
 }
 
 h3, .h3 {
@@ -71,6 +70,7 @@ h6, .h6 {
   display: block;
   font-size: 80%; // back to default font-size
   color: $blockquote-small-color;
+
   &::before {
     content: "\2014 \00A0"; // em dash, nbsp
   }
@@ -82,14 +82,6 @@ a {
     margin-bottom: 4px;
     color: $link-color;
   }
-}
-
-h1 {
-  @include font-smoothing();
-}
-
-.title_description {
-  margin-bottom: spacer("8x");
 }
 
 //TODO: find solution for this
@@ -115,27 +107,76 @@ h1 {
 }
 
 .page-content {
-  .content-block {
-    ol, ul, dl {
-      padding: 0;
+  ol:not(.ui), ul:not(.ui), dl:not(.ui) {
+    padding: 0;
+    margin: spacer("2x") 0 spacer("6x") spacer("6x");
+    @include media-breakpoint-up(md) {
       margin: spacer("2x") 0 spacer("6x") 3.5rem;
     }
-    ul {
-      list-style-type: none;
-      li {
-        margin-bottom: spacer("2x");
-      }
-      li::before {
-        content: "\2014\a0";
-        color: $gray-darker;
-        float: left;
-        margin-left: -1.25em;
-      }
+
+    ul:not(.ui) li {
+
     }
-    ol {
-      li {
-        margin-bottom: spacer("2x");
+  }
+
+  ul:not(.ui) {
+    list-style-type: none;
+
+    li {
+      margin-bottom: spacer("2x");
+    }
+
+    li::before {
+      content: "\2014";
+      color: $gray-light;
+      float: left;
+      margin-left: -#{spacer("6x")};
+    }
+
+    ul:not(.ui) li::before {
+      content: "\2022";
+    }
+  }
+
+  ol:not(.ui) {
+    li {
+      margin-bottom: spacer("2x");
+    }
+  }
+
+  ol,
+  ul,
+  dl {
+    &._unstyled {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+
+      li::before {
+        content: "";
       }
     }
   }
+}
+
+code {
+  padding: spacer("1x") spacer("2x");
+  background-color: $gray-lighter;
+
+  pre & {
+    padding: spacer("2x") spacer("4x");
+    display: block;
+  }
+}
+
+table:not(.ui) tr {
+  border-bottom: $border-width solid $gray-light;
+
+  th, td {
+    padding-right: 1.5rem;
+  }
+}
+
+mark {
+  background-color: $teal;
 }

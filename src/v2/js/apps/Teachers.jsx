@@ -1,18 +1,24 @@
 import React, {Fragment} from 'react';
-import { forceCheck } from 'react-lazyload';
 
-import _debounce from 'lodash-es/debounce';
+import _throttle from 'lodash-es/throttle';
+import _includes from 'lodash-es/includes';
 import $ from 'jquery';
 
 import Select from 'components/Select';
-import SelectLazy from "components/SelectLazy";
+import SelectLazyOptions from "components/SelectLazyOptions";
 import SearchInput from 'components/SearchInput';
 import UserCardList from 'components/UserCardList';
 import {
     hideBodyPreloader,
     showBodyPreloader,
-    showErrorNotification
+    showErrorNotification,
+    loadIntersectionObserverPolyfill
 } from "utils";
+
+
+export let polyfills = [
+    loadIntersectionObserverPolyfill(),
+];
 
 
 class App extends React.Component {
@@ -27,7 +33,7 @@ class App extends React.Component {
             "recentOnly": true,
             ...props.initialState
         };
-        this.fetch = _debounce(this.fetch, 300);
+        this.fetch = _throttle(this.fetch, 300);
         this.CourseSelect = React.createRef();
     }
 
@@ -105,6 +111,7 @@ class App extends React.Component {
         }).done((data) => {
             data.forEach((item) => {
                item.courses = new Set(item.courses);
+               item.url = `/teachers/${item.id}`;
             });
             this.setState({
                 loading: false,
@@ -147,9 +154,9 @@ class App extends React.Component {
         let filteredItems = this.state.items.filter(function(item) {
             let cityCondition = (city !== null) ? item.city === city.value : true;
             let courseCondition = (course !== null) ? item.courses.has(course.value) : true;
-            let activityCondition = recentOnly ? item.last_session >= term_index: true;
+            let activityCondition = recentOnly ? item.latest_session >= term_index: true;
             return cityCondition && courseCondition && activityCondition &&
-                   item.name.toLowerCase().search(query.toLowerCase()) !== -1;
+                   _includes(item.name.toLowerCase(), query.toLowerCase());
         });
 
         return (
@@ -158,13 +165,13 @@ class App extends React.Component {
                 <div className="row mb-4">
                     <div className="col-lg-3 mb-4">
                         <SearchInput
-                            onChange={this.handleSearchInputChange}
+                            handleSearch={this.handleSearchInputChange}
+                            query={query}
                             placeholder="Поиск"
-                            value={query}
                             icon="search"
                         />
                     </div>
-                    <div className="col-lg-3">
+                    <div className="col-lg-3 mb-4">
                         <Select
                             onChange={this.handleCityChange}
                             value={city}
@@ -175,8 +182,8 @@ class App extends React.Component {
                             key="city"
                         />
                     </div>
-                    <div className="col-lg-3">
-                        <SelectLazy
+                    <div className="col-lg-3 mb-4">
+                        <SelectLazyOptions
                             onChange={this.handleCourseChange}
                             value={course}
                             name="course"
@@ -188,17 +195,17 @@ class App extends React.Component {
                             ref={this.CourseSelect}
                         />
                     </div>
-                    <div className="col-lg-3">
-                        <div className="ui checkbox-group inline">
-                            <label className="custom-checkbox fill-checkbox">
+                    <div className="col-lg-3 mb-4">
+                        <div className="grouped inline">
+                            <label className="ui option checkbox">
                                 <input type="checkbox"
-                                       className="fill-control-input"
+                                       className="control__input"
                                        checked={!this.state.recentOnly}
                                        onChange={this.handleRecentCheckboxChange}
                                        value=""
                                 />
-                                <span className="fill-control-indicator" />
-                                <span className="fill-control-description">Ранее преподавали</span>
+                                <span className="control__indicator" />
+                                <span className="control__description">Ранее преподавали</span>
                             </label>
                         </div>
                     </div>

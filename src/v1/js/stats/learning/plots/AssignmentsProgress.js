@@ -46,7 +46,7 @@ class AssignmentsProgress extends mix(PlotOptions).with(AssignmentsFilterMixin) 
                 titles.push(assignment.title);
                 let _passed = 0,
                     _participants = 0;
-                assignment.assigned_to
+                assignment.students
                     .filter((sa) => this.matchFilters(sa, "student_assignment"))
                     .forEach((sa) => {
                        _participants += 1;
@@ -135,7 +135,7 @@ class AssignmentsProgress extends mix(PlotOptions).with(AssignmentsFilterMixin) 
                 }
             },
             // Filter by curriculum year
-            this.filterDataCurriculumYear(),  // can return null
+            this.filterDataCurriculumYear(),  // could return null
             this.filterByStudentGroup(),
             // Submit button
             {

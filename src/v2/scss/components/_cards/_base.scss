@@ -22,139 +22,95 @@ $card-bg: $white !default;
   font-size: $font-size-base;
   border: $card-border-width solid $card-border-color;
   @include border-radius($card-border-radius);
+  overflow: hidden;
+  padding: 0;
 
-  &._inversed {
+  &._inverted {
     background-color: $gray-lighter;
-    padding: spacer("4x");
 
-    .card-img {
-      margin-bottom: spacer("4x");
-    }
-
-    .card-body {
-      padding: 0;
+    .card__header {
+      background-color: $gray-dark;
+      color: $white;
     }
   }
 
-  > hr {
-    margin-right: 0;
-    margin-left: 0;
-  }
+  &._no-border {
+    border: none;
 
-  > .list-group:first-child {
-    .list-group-item:first-child {
-      @include border-top-radius($card-border-radius);
+    .card__content {
+      padding-left: 0;
+      padding-right: 0;
     }
-  }
 
-  > .list-group:last-child {
-    .list-group-item:last-child {
-      @include border-bottom-radius($card-border-radius);
+    .card__img {
+      @include border-radius($card-border-radius);
+      overflow: hidden;
     }
   }
 }
 
-.card-body {
+.card__content,
+.card__header {
   // Enable `flex-grow: 1` for decks and groups so that card blocks take up
   // as much space as possible, ensuring footers are aligned to the bottom.
   flex: 1 1 auto;
   padding: spacer("4x");
 
-  // FIXME: rename to `small-text`
-  &._small {
-    font-size: $font-size-sm;
+  &._middle {
+    padding: spacer("6x");
+  }
+
+  &._big {
+    padding: spacer("8x");
+  }
+
+  :last-child {
+    margin-bottom: 0;
   }
 }
 
-.card-title {
-  margin-bottom: spacer("3x");
+.card__title {
+  margin-bottom: spacer("1x");
+  font-size: $font-size-lg;
+  line-height: $line-height-sm;
 }
 
+.card__img { //this wrapper need for IE
+  position: relative;
+  flex: 0 0 auto;
 
-.card-text:last-child {
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    text-align: center;
+  }
+
+  &._darken::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba($gray-darker, .3);
+    transition: .3s;
+  }
+}
+
+.card {
+  &:hover {
+    .card__img {
+      &::before {
+        background-color: rgba($gray-darker, .1);
+      }
+    }
+  }
+}
+
+.card__subtitle {
+  color: $gray-dark;
+  font-size: $font-size-sm;
   margin-bottom: 0;
+  margin-top: auto;
 }
-
-.card-link {
-  @include hover {
-    text-decoration: none;
-  }
-
-  + .card-link {
-    margin-left: spacer("4x");
-  }
-}
-
-//
-// Optional textual caps
-//
-// FIXME: Let's comment it, mb it will be useful really soon
-//.card-header {
-//  padding: $card-spacer-y $card-spacer-x;
-//  margin-bottom: 0; // Removes the default margin-bottom of <hN>
-//  background-color: $card-cap-bg;
-//  border-bottom: $card-border-width solid $card-border-color;
-//
-//  &:first-child {
-//    @include border-radius($card-inner-border-radius $card-inner-border-radius 0 0);
-//  }
-//
-//  + .list-group {
-//    .list-group-item:first-child {
-//      border-top: 0;
-//    }
-//  }
-//}
-//
-//.card-footer {
-//  padding: $card-spacer-y $card-spacer-x;
-//  background-color: $card-cap-bg;
-//  border-top: $card-border-width solid $card-border-color;
-//
-//  &:last-child {
-//    @include border-radius(0 0 $card-inner-border-radius $card-inner-border-radius);
-//  }
-//}
-
-
-//
-// Header navs
-//
-
-//.card-header-tabs {
-//  margin-right: -($card-spacer-x / 2);
-//  margin-bottom: -$card-spacer-y;
-//  margin-left: -($card-spacer-x / 2);
-//  border-bottom: 0;
-//}
-//
-//.card-header-pills {
-//  margin-right: -($card-spacer-x / 2);
-//  margin-left: -($card-spacer-x / 2);
-//}
-
-// Card image
-.card-img-overlay {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: spacer("4x");
-}
-
-.card-img {
-  width: 100%; // Required because we use flexbox and this inherently applies align-self: stretch
-}
-
-// Card image caps
-.card-img-top {
-  width: 100%; // Required because we use flexbox and this inherently applies align-self: stretch
-  @include border-top-radius($card-inner-border-radius);
-}
-
-.card-img-bottom {
-  width: 100%; // Required because we use flexbox and this inherently applies align-self: stretch
-  @include border-bottom-radius($card-inner-border-radius);
-}
-

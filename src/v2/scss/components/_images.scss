@@ -4,7 +4,7 @@ $figure-caption-color:              $gray-dark;
 
 .img-rounded {
   border-radius: 50%;
-  border: 3px solid #fff;
+  border: 3px solid $white;
   box-shadow: 0 0 4px #ddd;
 }
 
@@ -18,7 +18,8 @@ $figure-caption-color:              $gray-dark;
 
 .figure {
   // Ensures the caption's text aligns with the image.
-  display: inline-block;
+  display: inline-table;
+  vertical-align: top;
 }
 
 .figure-img {
@@ -27,6 +28,8 @@ $figure-caption-color:              $gray-dark;
 }
 
 .figure-caption {
+  display: table-caption;
+  caption-side: bottom;
   font-size: $figure-caption-font-size;
   color: $figure-caption-color;
 }

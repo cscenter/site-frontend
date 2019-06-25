@@ -62,7 +62,7 @@ let AssignmentsFilterMixin = (superclass) => class extends superclass {
     calculateFilterProps = (rawJSON) => {
         const curriculumYearChoices = new Set();
         rawJSON.forEach(function (assignment) {
-            assignment.assigned_to.forEach(function(sa) {
+            assignment.students.forEach(function(sa) {
                 curriculumYearChoices.add(sa.student.curriculum_year);
             });
         });
@@ -74,7 +74,15 @@ let AssignmentsFilterMixin = (superclass) => class extends superclass {
         if (this.filters.choices.curriculumYear.size === 0) {
             return;
         }
-        let choices = [...this.filters.choices.curriculumYear].sort();
+        let choices = [];
+        let years = Array.from(this.filters.choices.curriculumYear).sort();
+        years.forEach((year) => {
+            if (year === null) {
+                choices.push({value: "unknown", label: "Не известно"});
+            } else {
+                choices.push({value: year, label: year});
+            }
+        });
         let self = this;
         return {
             options: {
@@ -85,8 +93,11 @@ let AssignmentsFilterMixin = (superclass) => class extends superclass {
             onRendered: function () {
                 $(`#${this.options.id}`).selectpicker('render')
                     .on('changed.bs.select', function () {
-                        self.filters.state["student.curriculum_year"] =
-                            (this.value !== "") ? parseInt(this.value) : this.value;
+                        let newState = parseInt(this.value);
+                        if (isNaN(newState)) {
+                            newState = this.value === "unknown" ? null : "";
+                        }
+                        self.filters.state["student.curriculum_year"] = newState;
                     });
             }
         };

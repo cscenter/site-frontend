@@ -2,6 +2,7 @@
 @import "../sprites/index";
 @import "../sprites/achievements";
 @import "../sprites/ui";
+@import "../sprites/faq";  // FIXME: merge with other sprite?
 
 // svg sprite dimensions base cls
 .sprite-img {
@@ -52,4 +53,14 @@
   &:hover {
     fill: #f00;
   }
+}
+
+.sprite-img._telegram {
+  &:hover {
+    fill: #0088cc;
+  }
+}
+
+.sprite-img._cross {
+  fill: $gray-dark;
 }

@@ -1,52 +1,29 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="utf-8">
-    <title>{% block title %}Computer Science Center{% endblock title %}</title>
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description"
-          content="Computer Science Center — объединённая инициатива Школы анализа данных, Computer Science клуба и JetBrains.">
-    <meta name="google-site-verification" content="pBs4x-E9VGlX-gA7WxCNEqcYB0TYJCSmcZtSeLBpEgk"/>
+{% extends "v2/layouts/inner.jinja2" %}
 
-    <link rel="shortcut icon" type="image/png" href="{{ static("v2/img/favicon.png") }}">
-    <link href="{{ static("v2/dist/css/main.css") }}" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,400&amp;subset=cyrillic" rel="stylesheet">
+{% set menu_theme="__transparent-theme" %}
+{% set is_admission_active = True %}
 
-    {% block stylesheets %} {% endblock stylesheets %}
+{% block sprites %}
     <script type="text/javascript">
-        window.__CSC__ = {
-            notifications: {{ messages(request)|tojson }},
-            sprites: ["{{ static("v2/dist/img/sprites/common.svg") }}"]
-        };
+        window.__CSC__.sprites.push("{{ static("v2/dist/img/sprites/index.svg") }}");
     </script>
-</head>
+{% endblock sprites %}
 
-{% import "v2/_macros.jinja2" as macros %}
-{% import "v2/components/menu/_macros.jinja2" as top_menu %}
-
-<body>
-
-<div class="svg-inline">
-    {% include "sprites/index.svg" %}
-</div>
-
-<div class="cover cover-index-page">
-    {{ top_menu.render(show_submenu=False, theme_class="__transparent-theme") }}
-
+{% block before_navbar_container %}<div class="cover cover-index-page">{% endblock before_navbar_container %}
+{% block after_navbar_container %}
     <div class="container">
         <h1 class="cover__title">Знания, востребованные в&nbsp;науке и&nbsp;индустрии</h1>
-        <p class="cover__text">Двух- или трёхлетние очные вечерние курсы в Санкт-Петербурге и в Новосибирске по трём
-            направлениям: Computer Science, Data Science, Software Engineering.</p>
-        <div class="cover__btns">
-            <a href="#offline-courses" class="btn btn--big btn--green _m-wide">Смотреть программы</a>
-            <a class="btn btn--big btn--white _m-wide" href="/v2/pages/about/">Узнать о центре</a>
+        <p class="cover__text">Очные вечерние курсы в Санкт-Петербурге и в Новосибирске по трём направлениям: Computer Science, Data Science, Software Engineering. Заочное обучение для жителей других городов.</p>
+        <div class="buttons">
+            <a href="#study-areas" class="btn _big _primary _m-wide">Смотреть программы</a>
+            <a href="/v2/pages/about/" class="btn _big _white _opacity-10 _m-wide">Узнать о центре</a>
         </div>
     </div>
-</div>
+</div> {# -- div.cover #}
+{% endblock after_navbar_container %}
 
-
-<div class="csc-offline-courses" id="offline-courses">
+{% block content %}
+<div class="csc-study-areas" id="study-areas">
     <div class="container">
         <h2 class="m-center">Очные курсы центра</h2>
         <p class="card-offline-course__text">
@@ -54,28 +31,26 @@
             специальностей пройти двух- или трёхлетние курсы по направлениям:
         </p>
 
-        <div class="card-deck">
-            <a href="#" class="card card-offline-course">
-                <div class="card-block">
+        <div class="card-deck _three">
+            <a href="#" class="card _study-area">
+                <div class="card__content">
                     <div class="card-offline-course__icon">{{ macros.svg_inline('se') }}</div>
-                    <h3 class="card-offline-course__card-title">Software Engineering</h3>
-                    <p class="card-offline-course__card-text">Разработка программного обеспечения</p>
+                    <h3 class="card__title">Software Engineering</h3>
+                    <p class="card__subtitle">Разработка программного обеспечения</p>
                 </div>
             </a>
-
-            <a href="#" class="card card-offline-course">
-                <div class="card-block">
+            <a href="#" class="card _study-area">
+                <div class="card__content">
                     <div class="card-offline-course__icon">{{ macros.svg_inline('ds') }}</div>
-                    <h3 class="card-offline-course__card-title">Data Science</h3>
-                    <p class="card-offline-course__card-text">Анализ данных</p>
+                    <h3 class="card__title">Data Science</h3>
+                    <p class="card__subtitle">Анализ данных</p>
                 </div>
             </a>
-
-            <a href="#" class="card card-offline-course">
-                <div class="card-block">
+            <a href="#" class="card _study-area">
+                <div class="card__content">
                     <div class="card-offline-course__icon">{{ macros.svg_inline('cs') }}</div>
-                    <h3 class="card-offline-course__card-title">Computer Science</h3>
-                    <p class="card-offline-course__card-text">Современная информатика</p>
+                    <h3 class="card__title">Computer Science</h3>
+                    <p class="card__subtitle">Современная информатика</p>
                 </div>
             </a>
         </div>
@@ -100,7 +75,7 @@
                     развиваться в&nbsp;интересном им&nbsp;направлении.
                 </p>
             </div>
-            <a class="btn btn--big btn--green about-csc_btn" href="/about/">Подробнее</a>
+            <a class="btn _big _primary about-csc_btn" href="/about/">Подробнее</a>
         </div>
         <div class="about-csc__organizers">
             <h3>Организаторы</h3>
@@ -119,83 +94,70 @@
     <div class="container">
         <h2 class="text-center">Онлайн-образование</h2>
 
-        <div class="card-deck">
+        <div class="card-deck _online-education">
 
-            <a class="responsive-card" href="#">
-                <div class="card-img-wrapper">
+            <a class="card _no-border" href="#">
+                <div class="card__img _darken">
                     <img src="/static/v2/img/pages/index/online_programs/algo.jpg" alt="Card image cap">
                 </div>
-                <div class="card-block">
-                    <h4 class="csc-online-education__card-title">Алгоритмы и эффективные вычисления</h4>
-                    <p class="csc-online-education__card-text">
-                        <small class="text-muted">Онлайн-программа</small>
-                    </p>
+                <div class="card__content">
+                    <h4 class="card__title">Алгоритмы и эффективные вычисления</h4>
+                    <div class="card__subtitle">Онлайн-программа</div>
                 </div>
             </a>
 
-            <a class="responsive-card" href="#">
-                <div class="card-img-wrapper">
+            <a class="card _no-border" href="#">
+                <div class="card__img _darken">
                     <img src="/static/v2/img/pages/index/online_programs/math.jpg" alt="Card image cap">
                 </div>
-                <div class="card-block">
-                    <h4 class="csc-online-education__card-title">Математика для разработчика</h4>
-                    <p class="csc-online-education__card-text">
-                        <small class="text-muted">Онлайн-программа</small>
-                    </p>
+                <div class="card__content">
+                    <h4 class="card__title">Математика для разработчика</h4>
+                    <small class="card__subtitle">Онлайн-программа</small>
                 </div>
             </a>
 
-            <a class="responsive-card" href="#">
-                <div class="card-img-wrapper">
+            <a class="card _no-border" href="#">
+                <div class="card__img _darken">
                     <img src="/static/v2/img/pages/index/online_programs/dev.jpg" alt="Card image cap">
                 </div>
-                <div class="card-block">
-                    <h4 class="csc-online-education__card-title">Разработка на C++, Java и Haskell</h4>
-                    <p class="csc-online-education__card-text">
-                        <small class="text-muted">Онлайн-программа</small>
-                    </p>
+                <div class="card__content">
+                    <h4 class="card__title">Разработка на C++, Java и Haskell</h4>
+                    <div class="card__subtitle">Онлайн-программа</div>
                 </div>
             </a>
 
-            <a class="responsive-card" href="#">
-                <div class="card-img-wrapper">
+            <a class="card _no-border" href="#">
+                <div class="card__img _darken">
                     <img src="/media/online_courses/15b5d7fa0dc91619222db27e7f671064.png" alt="Card image cap">
                 </div>
-                <div class="card-block">
-                    <h4 class="csc-online-education__card-title">Программирование на Java
-                        Script</h4>
-                    <p class="csc-online-education__card-text">
-                        <small class="text-muted">Онлайн-курс</small>
-                    </p>
+                <div class="card__content">
+                    <h4 class="card__title">Программирование на Java Script</h4>
+                    <div class="card__subtitle">Онлайн-курс</div>
                 </div>
             </a>
 
-            <a class="responsive-card" href="#">
-                <div class="card-img-wrapper">
+            <a class="card _no-border" href="#">
+                <div class="card__img _darken">
                     <img src="/media/online_courses/python-yandex-2_1.png" alt="Card image cap">
                 </div>
-                <div class="card-block">
-                    <h4 class="csc-online-education__card-title">Основы программирования</h4>
-                    <p class="csc-online-education__card-text">
-                        <small class="text-muted">Онлайн-программа</small>
-                    </p>
+                <div class="card__content">
+                    <h4 class="card__title">Основы программирования</h4>
+                    <div class="card__subtitle">Онлайн-программа</div>
                 </div>
             </a>
 
-            <a class="responsive-card" href="#">
-                <div class="card-img-wrapper">
+            <a class="card _no-border" href="#">
+                <div class="card__img _darken">
                     <img src="/media/online_courses/HlrWMsXhcgA.jpg" alt="Card image cap">
                 </div>
-                <div class="card-block">
-                    <h4 class="csc-online-education__card-title">Основы программирования</h4>
-                    <p class="csc-online-education__card-text">
-                        <small class="text-muted">Онлайн-программа</small>
-                    </p>
+                <div class="card__content">
+                    <h4 class="card__title">Основы программирования</h4>
+                    <div class="card__subtitle">Онлайн-программа</div>
                 </div>
             </a>
         </div>
         <div class="text-center">
-            <a href="" class="btn btn--small btn--outline_gray">Все материалы</a>
+            <a href="" class="btn _small _rounded _outline _gray">Все материалы</a>
         </div>
     </div>
 </div>
@@ -241,64 +203,89 @@
         <h2 class="text-center">Отзывы студентов</h2>
         <div class="card-columns _testimonials">
             <div class="card">
-                <div class="testimonial">
-                    <img class="img-rounded" width="74" height="74" src="/media/pages/index/student.png" alt="">
-                    <div class="testimonial__details">
-                        <div class="testimonial__author">
+                <div class="card__content _middle">
+                    <div class="author _testimonial">
+                        <img class="author__img" width="74" height="74" src="/media/pages/index/student.png" alt="">
+                        <div class="author__details">
+                                <h4>Евгений Игоревич Викулов</h4>
+                                <span>Выпуск 2017, Разработка ПО</span>
+                        </div>
+                        <div class="author__testimonial">
+                            <p>CS центр — это место, где сбываются мечты. Настоящая кладовая
+                                знаний, где каждому
+                                открыт
+                                путь к желаемым знаниям и умениям. Интересные курсы, увлекательные практики,
+                                живое
+                                общение и обсуждение – здесь каждый найдет себе занятие по душе. Преподаватели,
+                                руководители практик, кураторы, студенты – благодаря всем им в CS центре
+                                образуется
+                                невероятная атмосфера, настраивающая на позитивный лад и продуктивное обучение.
+                                Здесь
+                                очень круто и увлекательно!
+                                <ul>
+                                    <li>огромный выбор направлений, в которых интересно развиваться,</li>
+                                    <li>преподаватели, на пары к которым действительно хочется ходить,</li>
+                                    <li>интересные темы практик (последняя переросла в мой диплом),</li>
+                                    <li>умнейшие люди, общаясь с которыми, хочется идти и развиваться дальше.</li>
+
+                                </ul>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card__content _middle">
+                    <div class="author _testimonial">
+                        <img class="author__img" src="/media/pages/index/student.png" alt="">
+                        <div class="author__details">
                             <h4>Евгений Игоревич Викулов</h4>
                             <span>Выпуск 2017, Разработка ПО</span>
                         </div>
-                        <div class="testimonial__text">CS центр — это место, где сбываются мечты. Настоящая кладовая
-                            знаний, где каждому
-                            открыт
-                            путь к желаемым знаниям и умениям. Интересные курсы, увлекательные практики,
-                            живое
-                            общение и обсуждение – здесь каждый найдет себе занятие по душе. Преподаватели,
-                            руководители практик, кураторы, студенты – благодаря всем им в CS центре
-                            образуется
-                            невероятная атмосфера, настраивающая на позитивный лад и продуктивное обучение.
-                            Здесь
-                            очень круто и увлекательно!
-                            <ul>
-                                <li>огромный выбор направлений, в которых интересно развиваться,</li>
-                                <li>преподаватели, на пары к которым действительно хочется ходить,</li>
-                                <li>интересные темы практик (последняя переросла в мой диплом),</li>
-                                <li>умнейшие люди, общаясь с которыми, хочется идти и развиваться дальше.</li>
-
-                            </ul>
+                        <div class="author__testimonial">
+                            <p>CS центр — это место, где сбываются мечты. Настоящая кладовая
+                                знаний, где каждому
+                                открыт
+                                путь к желаемым знаниям и умениям. Интересные курсы, увлекательные практики,
+                                живое
+                                общение и обсуждение – здесь каждый найдет себе занятие по душе. Преподаватели,
+                                руководители практик, кураторы, студенты – благодаря всем им в CS центре
+                                образуется
+                                невероятная атмосфера, настраивающая на позитивный лад и продуктивное обучение.
+                                Здесь
+                                очень круто и увлекательно!</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="card">
-                <div class="testimonial">
-                    <img class="img-rounded" width="74" height="74" src="/media/pages/index/student.png" alt="">
-                    <div class="testimonial__details">
-                        <h4 class="testimonial__author">Евгений Игоревич Викулов</h4>
-                        <span>Выпуск 2017, Разработка ПО</span>
-                        <p class="testimonial__text">CS центр — это место, где сбываются мечты. Настоящая кладовая
-                            знаний, где каждому
-                            открыт
-                            путь к желаемым знаниям и умениям. Интересные курсы, увлекательные практики,
-                            живое
-                            общение и обсуждение – здесь каждый найдет себе занятие по душе. Преподаватели,
-                            руководители практик, кураторы, студенты – благодаря всем им в CS центре
-                            образуется
-                            невероятная атмосфера, настраивающая на позитивный лад и продуктивное обучение.
-                            Здесь
-                            очень круто и увлекательно!</p>
+                <div class="card__content _middle">
+                    <div class="author _testimonial">
+                        <img class="author__img" src="/media/pages/index/student.png" alt="">
+                        <div class="author__details">
+                            <h4>Евгений Игоревич Викулов</h4>
+                            <span>Выпуск 2017, Разработка ПО</span>
+                        </div>
+                        <div class="author__testimonial">
+                            И даже в трудный час, когда уж неизбежен крах,
+                            Твой взор серьезный скажет, чтобы плечи я расправил.
+                            Мне сил и воли придает лишь твое имя на устах,
+                            Лишь ты меня ведёшь вперёд, лишь ты - Грудинин Павел.
+                        </div>
                     </div>
                 </div>
             </div>
-
             <div class="card">
-                <div class="testimonial">
-                    <img class="img-rounded" width="74" height="74" src="/media/pages/index/student.png" alt="">
-                    <div class="testimonial__details">
-                        <h4 class="testimonial__author">Евгений Игоревич Викулов</h4>
-                        <span>Выпуск 2017, Разработка ПО</span>
-                        <div class="testimonial__text">
+                <div class="card__content _middle">
+                    <div class="author _testimonial">
+                        <img class="author__img" src="/media/pages/index/student.png" alt="">
+                        <div class="author__details">
+                            <h4>Евгений Игоревич Викулов</h4>
+                            <span>Выпуск 2017, Разработка ПО</span>
+                        </div>
+                        <div class="author__testimonial">
                             И даже в трудный час, когда уж неизбежен крах,
                             Твой взор серьезный скажет, чтобы плечи я расправил.
                             Мне сил и воли придает лишь твое имя на устах,
@@ -308,30 +295,10 @@
                 </div>
             </div>
 
-            <div class="card">
-                <div class="testimonial">
-                    <img class="img-rounded" width="74" height="74" src="/media/pages/index/student.png" alt="">
-                    <div class="testimonial__details">
-                        <h4 class="testimonial__author">Евгений Игоревич Викулов</h4>
-                        <span>Выпуск 2017, Разработка ПО</span>
-                        <p class="testimonial__text">CS центр — это место, где сбываются мечты. Настоящая кладовая
-                            знаний, где каждому открыт
-                            путь к желаемым знаниям и умениям. Интересные курсы, увлекательные практики,
-                            живое общение и обсуждение – здесь каждый найдет себе занятие по душе. Преподаватели,
-                            руководители практик, кураторы, студенты – благодаря всем им в CS центре
-                            образуется
-                            невероятная атмосфера, настраивающая на позитивный лад и продуктивное обучение.
-                            Здесь очень круто и увлекательно!<br>
-                            Я на выборы обычно не хожу, но в этот раз пойду голосовать за Грудинина. Кандидат от народа!
-                        </p>
-                    </div>
-                </div>
-            </div>
-
 
         </div>
         <div class="text-center">
-            <a href="" class="btn btn--small btn--outline_gray">Все отзывы</a>
+            <a href="" class="btn _small _rounded _outline _gray">Все отзывы</a>
         </div>
     </div>
 </div>
@@ -397,27 +364,4 @@
     </div>
 </div>
 
-<footer class="footer">
-    <div class="container">
-        <span class="footer__copyright">&copy; Computer Science Center, 2018</span>
-        <div class="footer__contacts">
-            <a href="" class="footer__email">
-                info@compscicenter.ru
-            </a>
-            <div class="footer__social-media-icons">
-                <a href="#">{{ macros.svg_inline('vk') }}</a>
-                <a href="#">{{ macros.svg_inline('instagram') }}</a>
-                <a href="#">{{ macros.svg_inline('twitter') }}</a>
-                <a href="#">{{ macros.svg_inline('facebook') }}</a>
-                <a href="#">{{ macros.svg_inline('youtube') }}</a>
-            </div>
-        </div>
-    </div>
-</footer>
-
-
-{{ render_bundle('common', config='V2') }}
-{{ render_bundle('main', config='V2') }}
-
-</body>
-</html>
+{% endblock content %}

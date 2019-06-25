@@ -8,7 +8,7 @@ import React from 'react';
 import _debounce from 'lodash-es/debounce';
 
 import Pagination from 'components/Pagination';
-import Testimonial from 'components/Testimonial';
+import TestimonialCard from 'components/TestimonialCard';
 import {MOBILE_VIEWPORT_MAX, showErrorNotification, showBodyPreloader,
     hideBodyPreloader} from 'utils';
 
@@ -139,7 +139,9 @@ class App extends React.Component {
                     {this.state.items.map(item =>
                         <div className="grid-item" key={item.id}>
                             <div className="card mb-2" >
-                                <Testimonial {...item} />
+                                <div className="card__content">
+                                    <TestimonialCard {...item} />
+                                </div>
                             </div>
                         </div>
                     )}

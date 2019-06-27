@@ -1,5 +1,11 @@
 {% extends "v2/layouts/inner.jinja2" %}
 
+{% block sprites %}
+    <script type="text/javascript">
+        (window.__CSC__.sprites = window.__CSC__.sprites || []).push("{{ static("v2/dist/img/sprites/ui.svg")  }}");
+    </script>
+{% endblock sprites %}
+
 
 {% block content %}
     <div class="container page-content">
@@ -457,7 +463,7 @@
                 </div>
             </div>
         </div>
-        <h1>With sidebar</h1>
+        <h1 class="mt-10">With sidebar</h1>
         <div class="row">
             <div class="col-lg-8">
                 <h2>Three cards</h2>
@@ -556,6 +562,120 @@
                             Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
                             живой интерес к учебе,
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container mb-10">
+        <h1>Horizontal</h1>
+        <div class="card _announcement">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="card__img">
+                        <img src="/static/v2/img/pages/index/cscenter_meetup-1056.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="col-md-7 d-flex">
+                    <div class="card__content">
+                        <div class="ui labels circular">
+                            <span class="ui label _blue" href="#">Курс</span>
+                            <span class="ui label _gray" href="#">Бесплатно</span>
+                        </div>
+                        <h3>Введение в трансфинитные методы</h3>
+                        <div class="announcement__description">
+                            <p class="announcement__text">Лекция носит теоретический характер и&nbsp;ориентирована
+                                на&nbsp;студентов
+                                младших курсов и&nbsp;не
+                                боящихся трудностей школьников. Для понимания доклада нужно представлять, что такое
+                                многочлен,
+                                корень многочлена, поле комплексных чисел, равномощные множества и&nbsp;мощность
+                                континуума.</p>
+                            <div class="announcement__details">
+                                <div class="announcement__location">
+                                    {{ macros.svg_inline('location') }}<span>Санкт-Петербург, БЦ «Таймс»</span>
+                                </div>
+                                <div class="announcement__time">
+                                    {{ macros.svg_inline('calendar') }}<span>21 сентября в 20:00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn _big _primary _m-wide">Записаться</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-10">
+        <div class="card _horizontal _dark">
+            <div class="row no-gutters">
+                <div class="col-md-5">
+                    <div class="card__img">
+                        <img src="/static/v2/img/pages/index/cscenter_meetup-1056.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="col-md-7 d-flex">
+                    <div class="card__content">
+                        <div class="ui labels circular">
+                            <span class="ui label _blue" href="#">Курс</span>
+                            <span class="ui label _gray" href="#">Бесплатно</span>
+                        </div>
+                        <div class="card__title">
+                            <h3>Введение в трансфинитные методы</h3>
+                        </div>
+                        <div class="announcement__description">
+                            <p class="announcement__text">Лекция носит теоретический характер и&nbsp;ориентирована
+                                на&nbsp;студентов
+                                младших курсов и&nbsp;не
+                                боящихся трудностей школьников. Для понимания доклада нужно представлять, что такое
+                                многочлен,
+                                корень многочлена, поле комплексных чисел, равномощные множества и&nbsp;мощность
+                                континуума.</p>
+                            <div class="announcement__details">
+                                <div class="announcement__location">
+                                    {{ macros.svg_inline('location') }}<span>Санкт-Петербург, БЦ «Таймс»</span>
+                                </div>
+                                <div class="announcement__time">
+                                    {{ macros.svg_inline('calendar') }}<span>21 сентября в 20:00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn _big _primary _m-wide">Записаться</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-10">
+        <div class="card _horizontal _dark">
+            <div class="row no-gutters">
+                <div class="col-md-5">
+                    <div class="card__img">
+                        <img src="/static/v2/img/pages/index/cscenter_meetup-1056.jpg" alt="">
+                    </div>
+                </div>
+                <div class="col-md-7 d-flex">
+                    <div class="card__content">
+                        Любой контент
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-10">
+        <div class="card _horizontal _dark">
+            <div class="row no-gutters">
+                <div class="col-md-2" style="background-image:url('/static/v2/img/pages/index/cscenter_meetup-1056.jpg')"></div>
+                <div class="col-md-6 d-flex">
+                    <div class="card__content">
+                        Лекция носит теоретический характер и ориентирована на студентов младших курсов и не боящихся трудностей школьников. Для понимания доклада нужно представлять, что такое многочлен, корень многочлена, поле комплексных чисел, равномощные множества и мощность континуума.Лекция носит теоретический характер и ориентирована на студентов младших курсов и не боящихся трудностей школьников. Для понимания доклада нужно представлять, что такое многочлен, корень многочлена, поле комплексных чисел, равномощные множества и мощность континуума.Лекция носит теоретический характер и ориентирована на студентов младших курсов и не боящихся трудностей школьников. Для понимания доклада нужно представлять, что такое многочлен, корень многочлена, поле комплексных чисел, равномощные множества и мощность континуума.Лекция носит теоретический характер и ориентирована на студентов младших курсов и не боящихся трудностей школьников. Для понимания доклада нужно представлять, что такое многочлен, корень многочлена, поле комплексных чисел, равномощные множества и мощность континуума.Лекция носит теоретический характер и ориентирована на студентов младших курсов и не боящихся трудностей школьников. Для понимания доклада нужно представлять, что такое многочлен, корень многочлена, поле комплексных чисел, равномощные множества и мощность континуума.
                     </div>
                 </div>
             </div>

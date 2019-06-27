@@ -69,3 +69,17 @@ a.ui.label {
     border: none;
     border-radius: 2rem;
 }
+
+.ui.label._no-border {
+  border: none;
+  padding: 0;
+  margin-right: spacer("4x");
+
+  .sprite-img {
+    fill: $gray-dark;
+    margin-right: spacer("1x");
+  }
+  span {
+    vertical-align: middle;
+  }
+}

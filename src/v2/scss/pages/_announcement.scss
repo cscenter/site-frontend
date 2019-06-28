@@ -6,7 +6,10 @@
   .sprite-img {
     fill: $gray-light;
     margin-right: spacer("1x");
-    float: left;
+    flex-shrink: 0;
+  }
+  span {
+    line-height: 0.689;
   }
 }
 

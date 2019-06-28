@@ -1,17 +1,23 @@
 .announcement__detail {
-  display: flex;
-  align-items: center;
   margin-right: spacer("4x");
 
   .sprite-img {
     fill: $gray-light;
     margin-right: spacer("1x");
+    position: relative;
+    top: 0.08em;
     float: left;
+    width: 1em;
+    height: 1em;
+  }
+
+  span {
+    display: flex;
   }
 }
 
 .grouped .announcement__detail {
-  display: inline-flex;
+  display: inline-block;
 }
 
 .announcement {

@@ -170,20 +170,19 @@ $card-bg: $white !default;
     }
   }
 
-  .announcement__details {
-    margin-bottom: spacer("6x");
+  .announcement__detail {
+    display: flex;
+    align-items: center;
+    margin-right: spacer("4x");
 
-    .announcement__location,
-    .announcement__time {
-      display: inline-block;
-      margin: 0 spacer("4x") 0 0;
-
-      .sprite-img {
-        vertical-align: baseline;
-        fill: $gray-light;
-        margin-right: spacer("1x");
-      }
+    .sprite-img {
+      fill: $gray-light;
+      margin-right: spacer("1x");
     }
+  }
+
+  .grouped .announcement__detail {
+    display: inline-flex;
   }
 }
 

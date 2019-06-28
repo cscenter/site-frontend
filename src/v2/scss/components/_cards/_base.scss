@@ -115,96 +115,27 @@ $card-bg: $white !default;
   margin-top: auto;
 }
 
-
-.card._announcement {
-  .card__img {
-    overflow: hidden;
-    height: 160px;
-    background-color: $gray-darker;
-    @include media-breakpoint-up(md) {
-      height: calc(440px - #{$border-width*2});
-    }
-
-    img {
-      position: relative;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      @include media-breakpoint-up(md) {
-        height: calc(440px - #{$border-width*2});
-        width: auto;
-      }
-    }
-  }
-
-  .card__content {
-    align-self: center;
-    padding: spacer("8x");
-    width: 100%; //For IE
-
-    @include media-breakpoint-up(md) {
-      padding: spacer("8x") spacer("8x") spacer("8x") spacer("6x");
-    }
-
-    .announcement__text {
-      max-height: 96px;
-      overflow: hidden;
-      position: relative;
-      text-align: left;
-      @include media-breakpoint-up(md) {
-        max-height: 120px;
-      }
-      @include media-breakpoint-up(lg) {
-        max-height: 168px;
-      }
-
-      &::after {
-        content: "";
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        width: 150px;
-        height: 28px;
-        background: linear-gradient(to right, rgba(255, 255, 255, 0.2), #fff);
-      }
-    }
-  }
-
-  .announcement__detail {
-    display: flex;
-    align-items: center;
-    margin-right: spacer("4x");
-
-    .sprite-img {
-      fill: $gray-light;
-      margin-right: spacer("1x");
-    }
-  }
-
-  .grouped .announcement__detail {
-    display: inline-flex;
-  }
-}
-
-
 .card._horizontal {
-  //.card__img {
-  //  overflow: hidden;
-  //  height: 160px;
-  //  background-color: $gray-darker;
-  //  @include media-breakpoint-up(md) {
-  //    height: calc(440px - #{$border-width*2});
-  //  }
-  //
-  //  img {
-  //    position: relative;
-  //    top: 50%;
-  //    left: 50%;
-  //    transform: translate(-50%, -50%);
-  //    @include media-breakpoint-up(md) {
-  //      height: calc(440px - #{$border-width * 2});
-  //      width: auto;
-  //    }
-  //  }
-  //}
+  .card__content {
+    padding: spacer("6x") spacer("4x");
+    align-self: center;
+    @include media-breakpoint-up(md) {
+      padding: spacer("8x") spacer("10x") spacer("8x") spacer("8x");
+    }
+
+    .announcement__detail {
+      display: flex;
+      align-items: center;
+      margin-right: spacer("4x");
+
+      .sprite-img {
+        fill: $gray-light;
+        margin-right: spacer("1x");
+      }
+    }
+
+    .grouped .announcement__detail {
+      display: inline-flex;
+    }
+  }
 }

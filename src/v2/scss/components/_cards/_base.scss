@@ -47,6 +47,15 @@ $card-bg: $white !default;
       overflow: hidden;
     }
   }
+
+  &._big {
+    .card__content {
+      padding: spacer("6x");
+      &._meta {
+        padding-top: 0;
+      }
+    }
+  }
 }
 
 .card__content,
@@ -130,4 +139,10 @@ $card-bg: $white !default;
       padding: spacer("8x") spacer("10x") spacer("8x") spacer("8x");
     }
   }
+
+  &._compact {
+    padding: spacer("6x") spacer("4x");
+    align-self: center;
+  }
 }
+

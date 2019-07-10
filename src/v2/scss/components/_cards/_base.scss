@@ -47,15 +47,6 @@ $card-bg: $white !default;
       overflow: hidden;
     }
   }
-
-  &._big {
-    .card__content {
-      padding: spacer("6x");
-      &._meta {
-        padding-top: 0;
-      }
-    }
-  }
 }
 
 .card__content,
@@ -65,17 +56,17 @@ $card-bg: $white !default;
   flex: 1 1 auto;
   padding: spacer("4x");
 
-  &._middle {
-    padding: spacer("6x");
-  }
-
-  &._big {
-    padding: spacer("8x");
-  }
-
   > :last-child {
     margin-bottom: 0;
   }
+}
+
+.card._big .card__content{
+  padding: spacer("8x");
+}
+
+.card._middle .card__content{
+    padding: spacer("6x");
 }
 
 .card__title {
@@ -138,11 +129,6 @@ $card-bg: $white !default;
     @include media-breakpoint-up(md) {
       padding: spacer("8x") spacer("10x") spacer("8x") spacer("8x");
     }
-  }
-
-  &._compact {
-    padding: spacer("6x") spacer("4x");
-    align-self: center;
   }
 }
 

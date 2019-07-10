@@ -23,8 +23,11 @@
   }
 
   ._meta {
-    padding-top: 0;
     color: $gray-dark;
+  }
+
+  .card__content._meta {
+    padding-top: 0;
     flex-grow: 0;
   }
 }

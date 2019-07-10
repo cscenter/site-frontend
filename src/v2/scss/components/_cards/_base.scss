@@ -56,17 +56,17 @@ $card-bg: $white !default;
   flex: 1 1 auto;
   padding: spacer("4x");
 
-  &._middle {
-    padding: spacer("6x");
-  }
-
-  &._big {
-    padding: spacer("8x");
-  }
-
   > :last-child {
     margin-bottom: 0;
   }
+}
+
+.card._big .card__content{
+  padding: spacer("8x");
+}
+
+.card._middle .card__content{
+    padding: spacer("6x");
 }
 
 .card__title {
@@ -131,3 +131,4 @@ $card-bg: $white !default;
     }
   }
 }
+

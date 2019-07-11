@@ -8,18 +8,18 @@
     </div>
     <div class="container page-content p-8">
         <h1>Sizes</h1>
-        <div class="btn _big _teal">
+        <div class="btn _big _primary">
             Promo block big btn
         </div>
-        <div class="btn _teal">
+        <div class="btn _primary">
             Accept default
         </div>
-        <div class="btn _small _teal">
+        <div class="btn _small _primary">
             Accept small
         </div>
 
         <h1 class="mt-10">Styles</h1>
-        <div class="btn _teal">
+        <div class="btn _primary">
             Accept
         </div>
         <div class="btn _outline _gray">
@@ -28,22 +28,22 @@
         <div class="btn _outline _small _gray">
             More info
         </div>
-        <div class="btn _green">
+        <div class="btn _success">
             Create new
         </div>
-        <div class="btn _red">
+        <div class="btn _danger">
             Delete
         </div>
     </div>
 
     <div class="container p-8" style="background-color: #1b181b">
         <h1 class="text-white">On black</h1>
-        <div class="btn _teal">
+        <div class="btn _primary">
             Accept
         </div>
-        <div class="btn _outline _light">
+        <div class="btn _light">
             {{ macros.svg_inline('user-sign') }}
-            Select user
+            <span>Add new user</span>
         </div>
         <div class="btn _white _white-opacity-10">
             Secondary block
@@ -54,14 +54,14 @@
         <h1 class="">WIth icon</h1>
         <div class="btn _light">
             {{ macros.svg_inline('user-sign') }}
-            Add new user
+            <span>Add new user</span>
         </div>
-        <div class="btn  _red">
-            Delete immediately!
+        <div class="btn _danger">
+            <span>Delete immediately!</span>
             {{ macros.svg_inline('cross') }}
         </div>
         <div class="btn _small _gray">
-            Delete selected
+            <span>Delete selected</span>
             {{ macros.svg_inline('cross') }}
         </div>
     </div>

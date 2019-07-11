@@ -80,12 +80,10 @@ $button-fill: solid;
   border-radius: $border-radius;
 }
 
-
 .btn {
   display: inline-block;
   font-weight: $btn-font-weight;
   text-align: center;
-  //vertical-align: middle;
   user-select: none;
   border: $btn-border-width solid transparent;
   overflow: hidden;

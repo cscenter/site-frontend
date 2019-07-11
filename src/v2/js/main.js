@@ -1,10 +1,15 @@
-import Raven from 'raven-js';
+// FIXME:  https://babeljs.io/docs/en/next/babel-plugin-syntax-dynamic-import#working-with-webpack-and-babel-preset-env
+import 'core-js/modules/es.array.iterator';
+import "core-js/modules/es.promise";
+// Sentry needs Object.assign
+import "core-js/modules/es.object.assign";
+import * as Sentry from '@sentry/browser';
 import $ from 'jquery';
-import '@babel/polyfill';
 import 'bootstrap/js/src/collapse';
 import 'bootstrap/js/src/dropdown';
 
-import ravenOptions from './raven_conf';
+import sentryOptions from './sentry_conf';
+import i18n from './i18n';
 import {
     showComponentError,
     getSections,
@@ -12,19 +17,21 @@ import {
     showErrorNotification
 } from 'utils';
 
-// Configure `raven-js`
-Raven
-    .config('https://8e585e0a766b4a8786870813ed7a4be4@app.getsentry.com/13763',
-            ravenOptions)
-    .install();
-let authenticatedUser = $("#userMenuButton").data('id');
-if (authenticatedUser !== undefined && !isNaN(parseInt(authenticatedUser))) {
-    Raven.setUserContext({
-        id: authenticatedUser
+// Configure Sentry SDK
+Sentry.init({
+    dsn: "https://f2a254aefeae4aeaa09657771205672f@sentry.io/13763",
+    ...sentryOptions
+});
+let uid = $("#userMenuButton").data('id');
+if (uid !== undefined && !isNaN(parseInt(uid))) {
+    Sentry.configureScope(scope => {
+        scope.setUser({id: uid});
     });
 }
 
+
 $(function () {
+    i18n.changeLanguage('ru');
     let navbarContainer = document.getElementsByClassName("navbar-container")[0];
     let navbarToggler = $(".navbar-toggler");
     let menuRightBlock = document.getElementsByClassName("dropdown-user-menu")[0] ||
@@ -63,7 +70,7 @@ $(function () {
         });
 
     // Click `Show Programs' on index page
-    $('a[href="#offline-courses"]').click(function (e) {
+    $('a[href="#study-areas"]').click(function (e) {
         e.preventDefault();
         let scrollTo = $(this).attr('href');
         // Adjustment for top navbar height on small screens
@@ -100,7 +107,21 @@ $(function () {
             .then(module => { module.launch(); })
             .catch(error => showComponentError(error));
     }
-
+    if (sections.includes("collapsible")) {
+        import(/* webpackChunkName: "collapsible" */ 'apps/collapsible')
+            .then(module => { module.launch(); })
+            .catch(error => showComponentError(error));
+    }
+    if (sections.includes("scrollspy")) {
+        import(/* webpackChunkName: "scrollspy" */ 'apps/scrollspy')
+            .then(module => { module.launch(); })
+            .catch(error => showComponentError(error));
+    }
+    if (sections.includes("tabs")) {
+        import(/* webpackChunkName: "tabs" */ 'apps/tabs')
+            .then(module => { module.launch(); })
+            .catch(error => showComponentError(error));
+    }
     let reactApps = document.querySelectorAll('.__react-root');
     if (reactApps.length > 0) {
         import(/* webpackChunkName: "react" */ 'react_app')

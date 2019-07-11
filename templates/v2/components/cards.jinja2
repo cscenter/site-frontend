@@ -1,5 +1,11 @@
 {% extends "v2/layouts/inner.jinja2" %}
 
+{% block sprites %}
+    <script type="text/javascript">
+        (window.__CSC__.sprites = window.__CSC__.sprites || []).push("{{ static("v2/dist/img/sprites/ui.svg")  }}");
+    </script>
+{% endblock sprites %}
+
 
 {% block content %}
     <div class="container page-content">
@@ -56,9 +62,11 @@
         </div>
         <h3 class="mt-10">Top Image Support</h3>
         <div class="row">
-            <div class="col-lg-3">
+            <div class="col-md-3">
                 <div class="card">
-                    <img class="card__img" src="/media/pages/text-page/info-card-image.jpg" alt="">
+                    <div class="card__img">
+                        <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                    </div>
                     <div class="card__content">
                         <div class="card__title">
                             Default
@@ -70,12 +78,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
-                <div class="card _inverted">
-                    <img class="card__img" src="/media/pages/text-page/info-card-image.jpg" alt="">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card__img">
+                        <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                    </div>
                     <div class="card__content">
                         <div class="card__title">
-                            Inverted
+                            Default
                         </div>
                         Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
                         живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
@@ -84,12 +94,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
-                <div class="card _no-border">
-                    <img class="card__img" src="/media/pages/text-page/info-card-image.jpg" alt="">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card__img">
+                        <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                    </div>
                     <div class="card__content">
                         <div class="card__title">
-                            Without border
+                            Default
                         </div>
                         Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
                         живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
@@ -98,19 +110,21 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-md-3">
                 <div class="card _inverted">
-                    <img class="card__img" src="/media/online_courses/c_bd.png" alt="">
-                    <div class="card__content _small">
+                    <div class="card__img">
+                        <img src="/media/online_courses/c_bd.png" alt="">
+                    </div>
+                    <div class="card__content text-small">
                         Untitled (+ small text)<br>
                         Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
-                        живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по будним вечерам и
+                        живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по будним
+                        вечерам и
                         выходным.
                     </div>
                 </div>
             </div>
         </div>
-
         <h3 class="mt-10">Header Support</h3>
         <div class="row">
             <div class="col-lg-3">
@@ -118,7 +132,9 @@
                     <div class="card__header">
                         Default
                     </div>
-                    <img class="card__img" src="/media/pages/text-page/info-card-image.jpg" alt="">
+                    <div class="card__img">
+                        <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                    </div>
                     <div class="card__content">
                         <div class="card__title">
                             Default
@@ -150,8 +166,717 @@
 
         <h1 class="mt-10">Card decks</h1>
         <div class="row">
-            <div class="col-lg-3">
-                TODO
+            <div class="col-12">
+                <h2>Six cards</h2>
+                <div class="card-deck _six">
+                    <div class="card">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Главное – живой интерес к учебе, готовность развиваться в выбранном направлении и делать это
+                            по
+                            будним вечерам и выходным.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Напишите здесь о том, что вы делаете на работе, и о своей нынешней дипломной или курсовой
+                            работе.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Заголоовк чуть большей длины
+                            </div>
+                            Вы проходили какие-нибудь онлайн-курсы?
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Вы сейчас работаете?
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Вы сейчас работаете?!
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
+                            будним вечерам и
+                            выходным.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
+                            будним вечерам и
+                            выходным.
+                        </div>
+                    </div>
+                </div>
+                <h2>Four cards</h2>
+                <div class="card-deck _four">
+                    <div class="card">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
+                            будним вечерам и
+                            выходным.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
+                            будним вечерам и
+                            выходным.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
+                            будним вечерам и
+                            выходным.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
+                            будним вечерам и
+                            выходным.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
+                            будним вечерам и
+                            выходным.
+                        </div>
+                    </div>
+                </div>
+                <h2>Three cards</h2>
+                <div class="card-deck _three">
+                    <div class="card _inverted">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
+                            будним вечерам и
+                            выходным.
+                        </div>
+                    </div>
+                    <div class="card _inverted">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
+                            будним вечерам и
+                            выходным.
+                        </div>
+                    </div>
+                    <div class="card _inverted">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
+                            будним вечерам и
+                            выходным.
+                        </div>
+                    </div>
+                    <div class="card _inverted">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
+                            будним вечерам и
+                            выходным.
+                        </div>
+                    </div>
+                    <div class="card _inverted">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
+                            будним вечерам и
+                            выходным.
+                        </div>
+                    </div>
+                </div>
+                <h2>Two cards</h2>
+                <div class="card-deck _two">
+                    <div class="card _inverted">
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            живой интерес к учебе
+                        </div>
+                    </div>
+                    <div class="card _inverted">
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            будним вечерам и
+                            выходным.
+                        </div>
+                    </div>
+                    <div class="card _inverted">
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
+                            выходным.
+                        </div>
+                    </div>
+                    <div class="card _inverted">
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
+                            будним вечерам и
+                            выходным.
+                        </div>
+                    </div>
+                    <div class="card _inverted">
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
+                            будним вечерам и
+                            выходным.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h1 class="mt-10">With sidebar</h1>
+        <div class="row">
+            <div class="col-lg-8">
+                <h2>Three cards</h2>
+                <div class="card-deck _three">
+                    <div class="card">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
+                            будним вечерам и
+                            выходным.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
+                            будним вечерам и
+                            выходным.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
+                            будним вечерам и
+                            выходным.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
+                            будним вечерам и
+                            выходным.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
+                            будним вечерам и
+                            выходным.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 offset-md-1">
+                <h2>One card</h2>
+                <div class="card-deck">
+                    <div class="card">
+                        <div class="card__content">
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            живой интерес к учебе, готовность развиваться в выбранном направлении и делать это по
+                            будним вечерам и
+                            выходным.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__img">
+                            <img src="/media/pages/text-page/info-card-image.jpg" alt="">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">
+                                Default
+                            </div>
+                            Учиться в центре могут студенты вузов, аспиранты и молодые специалисты. Главное –
+                            живой интерес к учебе,
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container mb-10">
+        <h1>Horizontal Card</h1>
+        <div class="card _horizontal">
+            <div class="row no-gutters">
+                <div class="col-md-5"
+                     style="background-image:url('/static/v2/img/pages/index/cscenter_meetup-1056.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat; min-height: 196px">
+                </div>
+                <div class="col-md-7 d-flex">
+                    <div class="card__content">
+                        <div class="announcement">
+                            <div class="ui labels _circular mb-2">
+                                <span class="ui label _blue" href="#">Курс</span>
+                                <span class="ui label _gray" href="#">Бесплатно</span>
+                            </div>
+                            <h3>Введение в трансфинитные методы</h3>
+                            <p>Лекция носит теоретический характер и&nbsp;ориентирована на&nbsp;студентов младших курсов
+                                и&nbsp;не&nbsp;боящихся
+                                трудностей школьников. Для понимания доклада нужно представлять, что&nbspтакое
+                                многочлен, корень
+                                многочлена, поле комплексных чисел, равномощные множества и&nbsp;мощность
+                                континуума.</p>
+                            <div class="grouped mb-4">
+                                <div class="announcement__detail">
+                                    {{ macros.svg_inline('location') }}<span>Санкт-Петербург, БЦ «Таймс»</span>
+                                </div>
+                                <div class="announcement__detail">
+                                    {{ macros.svg_inline('calendar') }}<span>21 сентября в 20:00</span>
+                                </div>
+                                <div class="announcement__detail">
+                                    {{ macros.svg_inline('calendar') }}<span>21 сентября в 20:00 21 сентября в 20:00 21 сентября в 20:00 21 сентября в 20:00 21 сентября в 20:00 21 сентября в 20:00</span>
+                                </div>
+                                <div class="announcement__detail">
+                                    {{ macros.svg_inline('calendar') }}<span>21 сентября в 20:00</span>
+                                </div>
+                            </div>
+                            <a href="#" class="btn _big _primary _m-wide">Записаться</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-10">
+        <div class="card _horizontal">
+            <div class="row no-gutters">
+                <div class="col-md-4"
+                     style="background-image:url('/static/v2/img/pages/index/cscenter_meetup-1056.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat; min-height: 196px">
+                </div>
+                <div class="col-md-8 d-flex">
+                    <div class="card__content">
+                        <div class="announcement">
+                            <h3>Введение в трансфинитные методы</h3>
+                            <p>Лекция носит теоретический характер и&nbsp;ориентирована на&nbsp;студентов младших
+                                курсов </p>
+                            <a href="#" class="btn _big _primary _m-wide">Записаться</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-10">
+        <div class="card _horizontal">
+            <div class="row no-gutters">
+                <div class="col-4"
+                     style="background-image:url('/static/v2/img/pages/index/cscenter_meetup-1056.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat; min-height: 160px">
+                </div>
+                <div class="col-8 d-flex">
+                    <div class="card__content">
+                        <div class="announcement">
+                            <h3>Введение в трансфинитные методы</h3>
+                            <p>Лекция носит теоретический характер</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-10">
+        <div class="card _horizontal">
+            <div class="row no-gutters">
+                <div class="col-md-5"
+                     style="background-image:url('/static/v2/img/pages/index/cscenter_meetup-1056.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat; min-height: 196px">
+                </div>
+                <div class="col-md-7 d-flex">
+                    <div class="card__content">
+                        <div class="ui labels _circular mb-2">
+                            <span class="ui label _blue" href="#">Курс</span>
+                            <span class="ui label _gray" href="#">Бесплатно</span>
+                        </div>
+                        <div class="announcement">
+                            <h3>Business Intelligence, Big Data и человеческое чутье: как строить системы
+                                бизнес-аналитики</h3>
+                            <p>Лекция носит теоретический характер и&nbsp;ориентирована на&nbsp;студентов младших курсов
+                                и&nbsp;не&nbsp;боящихся
+                                трудностей школьников. Для понимания доклада нужно представлять, что&nbspтакое
+                                многочлен,
+                                корень
+                                многочлена, поле комплексных чисел, равномощные множества и&nbsp;мощность континуума.
+                                Лекция
+                                носит теоретический характер и&nbsp;ориентирована на&nbsp;студентов младших курсов и&nbsp;не&nbsp;боящихся
+                                трудностей школьников. Для понимания доклада нужно представлять, что&nbspтакое
+                                многочлен,
+                                корень
+                                многочлена, поле комплексных чисел, равномощные множества и&nbsp;мощность континуума.
+                                Лекция
+                                носит теоретический характер и&nbsp;ориентирована на&nbsp;студентов младших курсов и&nbsp;не&nbsp;боящихся
+                                трудностей школьников. Для понимания доклада нужно представлять, что&nbspтакое
+                                многочлен,
+                                корень
+                                многочлена, поле комплексных чисел, равномощные множества и&nbsp;мощность
+                                континуума.</p>
+                            <div class="grouped mb-4">
+                                <div class="announcement__detail">
+                                    {{ macros.svg_inline('location') }}<span>Санкт-Петербург, БЦ «Таймс»</span>
+                                </div>
+                                <div class="announcement__detail">
+                                    {{ macros.svg_inline('calendar') }}<span>21 сентября в 20:00</span>
+                                </div>
+                            </div>
+                            <a href="#" class="btn _big _primary _m-wide">Записаться</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-10">
+        <h2>With vertical img background</h2>
+        <div class="card _horizontal">
+            <div class="row no-gutters">
+                <div class="col-md-3"
+                     style="background-image:url('/static/v2/img/placeholder/boy.png'); background-position: center; background-size: cover; background-repeat: no-repeat; min-height: 196px">
+                </div>
+                <div class="col-md-9 d-flex">
+                    <div class="card__content">
+                        <div class="announcement">
+                            <h3>Введение в трансфинитные методы</h3>
+                            <p>Лекция носит теоретический характер и&nbsp;ориентирована на&nbsp;студентов младших
+                                курсов </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-10">
+    <h2 class="text-center mb-6">Announcements</h2>
+        <div class="card-deck _two">
+            <div class="card _dark">
+                <div class="w-100"
+                     style="background-image:url('/static/v2/img/pages/index/cscenter_meetup-1056.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat; min-height: 196px">
+                </div>
+                <div class="card__content _big">
+                    <div class="announcement">
+                        <div class="ui labels _circular mb-2">
+                            <span class="ui label _gray" href="#">Бакалавриат</span>
+                            <span class="ui label _gray" href="#">Абитуриентам</span>
+                        </div>
+                        <h3>Набор в бакалавриат ВШЭ «Прикладная математика и информатика»</h3>
+                        <p>До&nbsp;26&nbsp;июля идёт набор в&nbsp;бакалавриат ВШЭ <a
+                                href="https://spb.hse.ru/ba/appmath" target="_blank">«Прикладная математика и&nbsp;информатика»</a>.
+                            Программа создана при участии JetBrains и&nbsp;Computer Science центра. Готовит специалистов
+                            в&nbsp;области разработки&nbsp;ПО, языков программирования, анализа данных и&nbsp;машинного
+                            обучения.</p>
+                        <p>Бюджетных мест&nbsp;— 40, коммерческих&nbsp;— 20. Студенты, которые учатся без троек,
+                            получают стипендии от&nbsp;компании JetBrains от&nbsp;9&nbsp;000 до&nbsp;15&nbsp;000&nbsp;рублей.</p>
+                        <div class="grouped">
+                            <div class="announcement__detail">
+                                {{ macros.svg_inline('location') }}<span>Санкт-Петербург, ул. Кантемировская, 3 корп. 1, лит. А 	</span>
+                            </div>
+                            <div class="announcement__detail">
+                                {{ macros.svg_inline('calendar') }}<span>20 июня 2019 — 26 июля 2019</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card__content _big _meta">
+                    <a href="#" class="btn _outline _gray _m-wide">Записаться</a>
+                </div>
+            </div>
+
+            <div class="card _dark">
+                <div class="w-100"
+                     style="background-image:url('/static/v2/img/pages/index/bg-main-page.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat; min-height: 196px">
+                </div>
+                <div class="card__content _big">
+                    <div class="announcement">
+                        <div class="ui labels _circular mb-2">
+                            <span class="ui label _gray" href="#">Бакалавриат</span>
+                            <span class="ui label _gray" href="#">Абитуриентам</span>
+                        </div>
+                        <h3>Набор на факультет математики и компьютерных наук в СПбГУ</h3>
+                        <p>В&nbsp;сентябре 2019 года СПбГУ открывает факультет математики и&nbsp;компьютерных наук. До&nbsp;26&nbsp;июля
+                            идёт набор в&nbsp;бакалавриат на&nbsp;три направления: «Математика», «Математика, алгоритмы
+                            и&nbsp;анализ данных» и&nbsp;«Современное программирование». Программы созданы коллективом
+                            Лаборатории им. П.Л. Чебышёва вместе с&nbsp;ПОМИ РАН, Computer Science центром, компаниями
+                            Газпромнефть, JetBrains и&nbsp;Яндекс.</p>
+                        <div class="grouped">
+                            <div class="announcement__detail">
+                                {{ macros.svg_inline('location') }}<span>Санкт-Петербург, Университетская набережная, 7−9−11</span>
+                            </div>
+                            <div class="announcement__detail">
+                                {{ macros.svg_inline('calendar') }}<span>20 июня 2019 — 26 июля 2019</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card__content _big _meta">
+                    <a href="#" class="btn _outline _gray _m-wide">Записаться</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-10">
+        <div class="card-deck _three">
+            <div class="card _dark">
+                <div class="w-100"
+                     style="background-image:url('/static/v2/img/pages/index/cscenter_meetup-1056.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat; min-height: 196px">
+                </div>
+                <div class="card__content _big">
+                    <div class="announcement">
+                        <div class="ui labels _circular mb-2">
+                            <span class="ui label _gray" href="#">Бакалавриат</span>
+                            <span class="ui label _gray" href="#">Абитуриентам</span>
+                        </div>
+                        <h3>Набор в бакалавриат ВШЭ «Прикладная математика и информатика»</h3>
+                        <p>До&nbsp;26&nbsp;июля идёт набор в&nbsp;бакалавриат ВШЭ <a
+                                href="https://spb.hse.ru/ba/appmath" target="_blank">«Прикладная математика и&nbsp;информатика»</a>.
+                            Программа создана при участии JetBrains и&nbsp;Computer Science центра. Готовит специалистов
+                            в&nbsp;области разработки&nbsp;ПО, языков программирования, анализа данных и&nbsp;машинного
+                            обучения.</p>
+                        <p>Бюджетных мест&nbsp;— 40, коммерческих&nbsp;— 20. Студенты, которые учатся без троек,
+                            получают стипендии от&nbsp;компании JetBrains от&nbsp;9&nbsp;000 до&nbsp;15&nbsp;000&nbsp;рублей.</p>
+                        <div class="grouped">
+                            <div class="announcement__detail">
+                                {{ macros.svg_inline('location') }}<span>Санкт-Петербург, ул. Кантемировская, 3 корп. 1, лит. А 	</span>
+                            </div>
+                            <div class="announcement__detail">
+                                {{ macros.svg_inline('calendar') }}<span>20 июня 2019 — 26 июля 2019</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card__content _big _meta">
+                    <a href="#" class="btn _outline _gray w-100">Записаться</a>
+                </div>
+            </div>
+
+            <div class="card _dark">
+                <div class="w-100"
+                     style="background-image:url('/static/v2/img/pages/index/bg-main-page.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat; min-height: 196px">
+                </div>
+                <div class="card__content _big">
+                    <div class="announcement">
+                        <div class="ui labels _circular mb-2">
+                            <span class="ui label _gray" href="#">Бакалавриат</span>
+                            <span class="ui label _gray" href="#">Абитуриентам</span>
+                        </div>
+                        <h3>Набор на факультет математики и компьютерных наук в СПбГУ</h3>
+                        <p>В&nbsp;сентябре 2019 года СПбГУ открывает факультет математики и&nbsp;компьютерных наук. До&nbsp;26&nbsp;июля
+                            идёт набор в&nbsp;бакалавриат на&nbsp;три направления: «Математика», «Математика, алгоритмы
+                            и&nbsp;анализ данных» и&nbsp;«Современное программирование». Программы созданы коллективом
+                            Лаборатории им. П.Л. Чебышёва вместе с&nbsp;ПОМИ РАН, Computer Science центром, компаниями
+                            Газпромнефть, JetBrains и&nbsp;Яндекс.</p>
+                        <div class="grouped">
+                            <div class="announcement__detail">
+                                {{ macros.svg_inline('location') }}<span>Санкт-Петербург, Университетская набережная, 7−9−11</span>
+                            </div>
+                            <div class="announcement__detail">
+                                {{ macros.svg_inline('calendar') }}<span>20 июня 2019 — 26 июля 2019</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card__content _big _meta">
+                    <a href="#" class="btn _outline _gray w-100">Записаться</a>
+                </div>
+            </div>
+            <div class="card _dark">
+                <div class="w-100"
+                     style="background-image:url('/static/v2/img/pages/index/online-program.svg'); background-position: center; background-size: cover; background-repeat: no-repeat; min-height: 196px">
+                </div>
+                <div class="card__content _big">
+                    <div class="announcement">
+                        <p class="text-muted mb-0">Новая лекция в CS центре</p>
+                        <h3>Введение в трансфинитные методы</h3>
+                        <p>Лекция носит теоретический характер и&nbsp;ориентирована на&nbsp;студентов
+                            младших
+                            курсов</p>
+                        <div class="grouped">
+                            <div class="announcement__detail">
+                                {{ macros.svg_inline('location') }}<span>Санкт-Петербург, БЦ «Таймс»</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="card__content _big _meta">
+                        <a href="#" class="btn _outline _gray w-100">Подробнее</a>
+                    </div>
             </div>
         </div>
     </div>

@@ -1,28 +1,7 @@
 @import "_cards/base";
-@import "_cards/card_group";
-@import "_cards/testimonials";
+@import "_cards/collections";
 @import "_cards/users";
-
-
-// FIXME: class name is too generic, since css below hardcoded for 6 columns on desktop, rename it to more appropriate name
-.responsive-card {
-  color: $gray-darker;
-  float: left; //For old browsers
-  //position: relative;
-  @include make-col-ready();
-
-  @include media-breakpoint-up(sm) {
-    @include make-col(6);
-  }
-
-  @include media-breakpoint-up(md) {
-    @include make-col(4);
-  }
-
-  @include media-breakpoint-up(lg) {
-    @include make-col(2);
-  }
-}
+@import "_cards/label";
 
 // Note: Can be easily replaced with `div.card>div.card__content._small>a.h4+p`. Let's leave this one for now.
 .text-note {

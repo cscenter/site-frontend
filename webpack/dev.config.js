@@ -6,7 +6,7 @@ module.exports = {
     devtool: "cheap-eval-source-map",
 
     output: {
-        publicPath: 'http://localhost:8081/static/',
+        publicPath: 'http://csc.test:8081/static/',
     },
 
     plugins: [
@@ -28,6 +28,10 @@ module.exports = {
     devServer: {
         port: 8081,
         hot: true,
-        headers: { "Access-Control-Allow-Origin": "*" }
+        host: '0.0.0.0',
+        headers: { "Access-Control-Allow-Origin": "*" },
+        allowedHosts: [
+            '.csc.test',
+        ]
     },
 };

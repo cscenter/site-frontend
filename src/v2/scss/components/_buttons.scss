@@ -78,6 +78,12 @@ $button-fill: solid;
   font-size: $font-size;
   line-height: $line-height;
   border-radius: $border-radius;
+
+  svg {
+    height: $line-height !important;
+    width: $line-height !important;
+  }
+
 }
 
 .btn {
@@ -104,11 +110,37 @@ $button-fill: solid;
     @include button-size(spacer("3x"), spacer("4x"), $font-size-base, calculate-input-line-height(40px, spacer("3x")), $btn-border-radius-sm);
   }
 
+  &._extra-small {
+    font-size: $font-size-sm;
+      @include button-size(spacer("2x"), spacer("4x"), $font-size-base, calculate-input-line-height(32px, spacer("2x")), $btn-border-radius-sm);
+  }
+
   &._rounded {
     border-radius: 2rem;
+
     .sprite-img {
       width: calculate-input-line-height(40px, spacer("3x"));
       height: calculate-input-line-height(40px, spacer("3x"));
+    }
+  }
+
+  &._m-collapse {
+    &._extra-small {
+      @include button-size(spacer("2x"), spacer("2x"), $font-size-base, calculate-input-line-height(32px, spacer("2x")), $btn-border-radius-sm);
+      @include media-breakpoint-up(md) {
+        @include button-size(spacer("2x"), spacer("4x"), $font-size-base, calculate-input-line-height(32px, spacer("2x")), $btn-border-radius-sm);
+      }
+    }
+
+    &._rounded {
+      border-radius: 2rem;
+    }
+
+    span {
+      display: none;
+      @include media-breakpoint-up(md) {
+        display: inline-block;
+      }
     }
   }
 }

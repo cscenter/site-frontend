@@ -103,6 +103,11 @@ $button-fill: solid;
     @include button-size(spacer("3x"), spacer("4x"), $font-size-base, calculate-input-line-height(40px, spacer("3x")), $btn-border-radius-sm);
   }
 
+  &._extra-small {
+    @include button-size(spacer("2x"), spacer("3x"), $font-size-base, calculate-input-line-height(32px, spacer("2x")), $btn-border-radius-sm);
+    font-size: $font-size-sm;
+  }
+
   &._rounded {
     border-radius: 2rem;
   }

@@ -33,6 +33,16 @@ $card-bg: $white !default;
     }
   }
 
+  &._m-wide {
+    @include media-breakpoint-down(sm) {
+      border: none;
+      border-radius: 0;
+      .card__content {
+        padding: spacer("6x");
+      }
+    }
+  }
+
   &._inverted {
     background-color: $gray-lighter;
 
@@ -97,6 +107,32 @@ $card-bg: $white !default;
   margin-bottom: spacer("1x");
   font-size: $font-size-lg;
   line-height: $line-height-sm;
+
+  .cover {
+    min-height: 320px;
+    padding: 80px spacer("10x") 48px;
+    background: $gray-darker;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 0;
+    position: relative;
+
+    .navbar {
+      position: absolute;
+      top: 1rem;
+      left: 0;
+      right: 1rem;
+      background: transparent;
+      width: 100%;
+
+      > .container {
+        justify-content: space-between;
+        flex-flow: nowrap;
+        width: 100%;
+      }
+    }
+  }
 }
 
 .card__img { //this wrapper need for IE

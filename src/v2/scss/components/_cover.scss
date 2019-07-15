@@ -12,6 +12,20 @@
 
   nav {
     z-index: 5;
+
+    &.navbar {
+      position: absolute;
+      top: 1rem;
+      left: 0;
+      background: transparent;
+      width: 100%;
+
+      > .container {
+        justify-content: space-between;
+        flex-flow: nowrap;
+        width: 100%;
+      }
+    }
   }
 }
 

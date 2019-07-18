@@ -212,8 +212,19 @@ $button-fill: solid;
 
 .buttons {
   .btn {
-    margin-right: 1rem;
-    margin-bottom: 1rem;
+    margin: 0 spacer("3x") spacer("3x") 0;
+
+    &._big {
+      margin: 0 spacer("4x") spacer("4x") 0;
+    }
+
+    &._small {
+      margin: 0 spacer("2x") spacer("2x") 0;
+    }
+
+    &._extra-small {
+      margin: 0 spacer("1x") spacer("1x") 0;
+    }
 
     &:last-child {
       margin-right: 0;

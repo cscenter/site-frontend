@@ -91,11 +91,13 @@ $card-bg: $white !default;
     padding-top: 0;
     flex-grow: 0;
   }
+}
 
-  &.cover {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.card__header.cover {
+  padding: 0;
+
+  .cover__content {
+    @extend .card__content;
   }
 }
 

@@ -95,10 +95,6 @@ $card-bg: $white !default;
 
 .card__header.cover {
   padding: 0;
-
-  .cover__content {
-    @extend .card__content;
-  }
 }
 
 .card__title {

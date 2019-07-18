@@ -32,6 +32,28 @@
   &._blue {
     @include label-color($blue);
   }
+
+  &._info {
+    display: inline-table;
+    margin: 0 spacer("2x") spacer("2x") 0;
+    border: none;
+    padding: 0;
+    color: $black;
+
+    .sprite-img {
+      fill: $gray-light;
+      margin-right: spacer("1x");
+      width: 1.2em;
+      height: 1.2em;
+      display: table-cell;
+      vertical-align: top; //For Safari and IE
+    }
+
+    span {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
 }
 
 .ui.labels a.label,

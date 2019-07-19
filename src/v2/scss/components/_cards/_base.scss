@@ -98,6 +98,13 @@ $card-bg: $white !default;
 
   .cover__content {
     @extend .card__content;
+
+    &._big {
+      padding: 80px spacer("4x");
+      @include media-breakpoint-up(md) {
+      padding: 80px spacer("10x");
+      }
+    }
   }
 }
 

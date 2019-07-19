@@ -1,5 +1,4 @@
 .cover {
-  position: relative;
   background: linear-gradient(to right, $gray-dark, $gray-darker);
   background-size: cover;
   color: $white;
@@ -11,8 +10,10 @@
   }
 
   &._img {
+    position: relative;
     z-index: 1;
     background-position: center;
+
     &::before {
       content: "";
       z-index: -1;
@@ -28,6 +29,14 @@
 
   nav {
     z-index: 5;
+
+    &.cover__content {
+      width: 100%;
+      position: absolute;
+      padding: 0;
+      top: 0;
+      left: 0;
+    }
   }
 }
 
@@ -36,11 +45,6 @@
 
   > :last-child {
     margin-bottom: 0;
-  }
-
-  &._actions {
-    padding: spacer("4x") 0;
-    text-align: left;
   }
 }
 

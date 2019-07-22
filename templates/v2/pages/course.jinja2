@@ -5,6 +5,7 @@
     <script type="text/javascript">
         window.__CSC__.sprites.push("{{ static("v2/dist/img/sprites/index.svg") }}");
         window.__CSC__.sprites.push("{{ static("v2/dist/img/sprites/ui.svg") }}");
+        window.__CSC__.sprites.push("{{ static("v2/dist/img/sprites/common.svg") }}");
     </script>
 {% endblock sprites %}
 {% block content %}
@@ -37,7 +38,7 @@
                         в&nbsp;частности,
                         механизм классов типов.</p>
                     <h2 class="mt-8">Прочтения курса</h2>
-                    <ul class="ui nav-tabs">
+                    <ul class="ui nav-tabs mb-2">
                         <li class="nav-item">
                             <a class="nav-link active" href="#">Санкт-Петербург</a>
                         </li>
@@ -45,6 +46,9 @@
                             <a class="nav-link" href="#">Новосибирск</a>
                         </li>
                     </ul>
+                    <div class="message _warning mb-6">
+                        <p>Базовый курс для направлений <a href="#">Computer Science</a> и <a href="#">Data Science</a></p>
+                    </div>
                     <div class="card-deck _three">
                         <a href="#" class="card">
                             <div class="card__content mb-8">
@@ -59,7 +63,7 @@
                                         {{ macros.svg_inline('video') }}<span>123</span>
                                     </div>
                                     <div class="ui label _icon mb-0">
-                                        {{ macros.svg_inline('graduate') }}<span>43</span>
+                                        {{ macros.svg_inline('user') }}<span>123</span>
                                     </div>
                                 </div>
                             </div>
@@ -77,7 +81,7 @@
                                         {{ macros.svg_inline('video') }}<span>123</span>
                                     </div>
                                     <div class="ui label _icon mb-0">
-                                        {{ macros.svg_inline('graduate') }}<span>43</span>
+                                        {{ macros.svg_inline('user') }}<span>123</span>
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +99,7 @@
                                         {{ macros.svg_inline('video') }}<span>123</span>
                                     </div>
                                     <div class="ui label _icon mb-0">
-                                        {{ macros.svg_inline('graduate') }}<span>43</span>
+                                        {{ macros.svg_inline('user') }}<span>123</span>
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +117,7 @@
                                         {{ macros.svg_inline('video') }}<span>123</span>
                                     </div>
                                     <div class="ui label _icon mb-0">
-                                        {{ macros.svg_inline('graduate') }}<span>43</span>
+                                        {{ macros.svg_inline('user') }}<span>123</span>
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +135,7 @@
                                         {{ macros.svg_inline('video') }}<span>123</span>
                                     </div>
                                     <div class="ui label _icon mb-0">
-                                        {{ macros.svg_inline('graduate') }}<span>43</span>
+                                        {{ macros.svg_inline('user') }}<span>123</span>
                                     </div>
                                 </div>
                             </div>

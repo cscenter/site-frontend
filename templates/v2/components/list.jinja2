@@ -1,0 +1,108 @@
+{% extends "v2/layouts/inner.jinja2" %}
+
+{% block sprites %}
+    <script type="text/javascript">
+        (window.__CSC__.sprites = window.__CSC__.sprites || []).push("{{ static("v2/dist/img/sprites/ui.svg")  }}");
+        (window.__CSC__.sprites = window.__CSC__.sprites || []).push("{{ static("v2/dist/img/sprites/common.svg")  }}");
+    </script>
+{% endblock sprites %}
+
+{% block content %}
+    <div class="container page-content">
+        <div class="row">
+            <div class="col-lg-8">
+                <h2>List of lectures</h2>
+                <ol class="list ui">
+                    <li>
+                        <a href="#" class="list__item">
+                            <div class="item__title">
+                                <p class="item__text">
+                                    <span class="item__rank">1.</span>Утечки ресурсов и как их избежать. RAII
+                                </p>
+                            </div>
+                            {{ macros.svg_inline('video') }}
+                            {{ macros.svg_inline('slides') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a class="list__item">
+                            <div class="item__title">
+                                <p class="item__text">
+                                    <span class="item__rank">2.</span>Удобные возможности новых стандартов.Удобные
+                                    возможности новых стандартов.Удобные возможности новых стандартов
+                                </p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="list__item">
+                            <div class="item__title">
+                                <p class="item__text">
+                                    <span class="item__rank">3.</span>Геометрическая вероятность и общее определение
+                                    вероятности. Геометрическая вероятность и общее определение
+                                    вероятности
+                                </p>
+                            </div>
+                            {{ macros.svg_inline('video') }}
+                        </a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="row mt-10">
+            <div class="col-lg-4">
+                <h2>Playlist</h2>
+                <ol class="list ui _playlist">
+                    <li>
+                        <a href="#" class="list__item">
+                            {{ macros.svg_inline('play') }}
+                            {{ macros.svg_inline('pause') }}
+                            <div class="item__title">
+                                <p class="item__text">
+                                    <span class="item__rank">1.</span>Утечки ресурсов и как их избежать. RAII
+                                </p>
+                            </div>
+                            <div class="list__duration">1:44:20</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="list__item _active">
+                            {{ macros.svg_inline('play') }}
+                            {{ macros.svg_inline('pause') }}
+                            <div class="item__title">
+                                <p class="item__text">
+                                    <span class="item__rank">2.</span>Удобные возможности новых стандартов
+                                </p>
+                            </div>
+                            <div class="list__duration">58:26</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="list__item">
+                            {{ macros.svg_inline('play') }}
+                            {{ macros.svg_inline('pause') }}
+                            <div class="item__title">
+                                <p class="item__text">
+                                    <span class="item__rank">3.</span>Программирование освещения. Модель Фонга
+                                </p>
+                            </div>
+                            <div class="list__duration">57:56</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="list__item">
+                            {{ macros.svg_inline('play') }}
+                            {{ macros.svg_inline('pause') }}
+                            <div class="item__title">
+                                <p class="item__text">
+                                    <span class="item__rank">4.</span>Программирование освещения. Часть 2
+                                </p>
+                            </div>
+                            <div class="list__duration">1:07:02</div>
+                        </a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -9,13 +9,6 @@
   @include media-breakpoint-up(sm) {
     padding: 0;
   }
-  &::-webkit-scrollbar {
-    height: 4px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: $gray-light;
-    border-radius: 4px;
-  }
 
   .nav-item {
     margin-left: -$border-width;

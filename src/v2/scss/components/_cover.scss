@@ -4,13 +4,17 @@
   color: $white;
   @include font-smoothing();
   text-align: center;
+  position: relative;
+
+  > .container {
+    position: relative;
+  }
 
   &._green-gradient {
     background: linear-gradient(to right, $teal, $blue);
   }
 
   &._img {
-    position: relative;
     z-index: 1;
     background-position: center;
 
@@ -28,14 +32,15 @@
   }
 
   nav {
-    z-index: 5;
-
     &.cover__content {
       width: 100%;
       position: absolute;
-      padding: 0;
+      padding: 1rem;
       top: 0;
       left: 0;
+      @include media-breakpoint-up(sm) {
+        padding: .5rem;
+      }
     }
   }
 }

@@ -7,11 +7,13 @@
   overflow-x: scroll;
   overflow-y: hidden;
   @include media-breakpoint-up(sm) {
+    flex-wrap: wrap;
+    overflow-x: visible;
     padding: 0;
   }
 
   .nav-item {
-    margin-left: -$border-width;
+    margin-right: -$border-width;
     &:first-child {
       margin-left: 0;
       border-top-left-radius: $border-radius;

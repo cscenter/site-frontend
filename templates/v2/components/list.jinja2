@@ -9,7 +9,7 @@
 
 {% block content %}
     <div class="container page-content">
-        <div class="row">
+        <div class="row no-gutters">
             <div class="col-lg-8">
                 <h2>List of lectures</h2>
                 <ol class="list ui">
@@ -20,8 +20,10 @@
                                     <span class="item__rank">1.</span>Утечки ресурсов и как их избежать. RAII
                                 </p>
                             </div>
-                            {{ macros.svg_inline('video') }}
-                            {{ macros.svg_inline('slides') }}
+                            <div class="list__icons">
+                                {{ macros.svg_inline('video') }}
+                                {{ macros.svg_inline('slides') }}
+                            </div>
                         </a>
                     </li>
                     <li>
@@ -43,13 +45,15 @@
                                     вероятности
                                 </p>
                             </div>
-                            {{ macros.svg_inline('video') }}
+                            <div class="list__icons">
+                                {{ macros.svg_inline('video') }}
+                            </div>
                         </a>
                     </li>
                 </ol>
             </div>
         </div>
-        <div class="row mt-10">
+        <div class="row mt-10 no-gutters">
             <div class="col-lg-4">
                 <h2>Playlist</h2>
                 <ol class="list ui _playlist">

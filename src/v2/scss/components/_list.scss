@@ -12,24 +12,33 @@
 
   .list__item {
     display: flex;
+    position: relative;
     align-items: center;
-    padding: spacer("4x") spacer("2x");
+    padding: spacer("3x") spacer("4x");
     font-size: $font-size-base;
+
+    @include media-breakpoint-up(sm) {
+      padding: spacer("4x") spacer("2x");
+    }
 
     &:hover {
       background-color: $gray-lighter;
     }
 
     .sprite-img {
-      margin-right: spacer("3x");
+      margin-right: spacer("2x");
       fill: $gray-light;
+
+      &:last-child {
+        margin-right: 0;
+      }
     }
 
     .item__title {
       flex-grow: 1;
       flex-shrink: 1;
       flex-basis: 0;
-      margin-right: spacer("4x");
+      margin-right: 60px;
       overflow: hidden;
     }
 
@@ -45,6 +54,14 @@
     .item__rank {
       margin-right: spacer("1x");
       color: $gray-light;
+    }
+
+    .list__icons {
+      position: absolute;
+      right: spacer("4x");
+      @include media-breakpoint-up(sm) {
+        right: spacer("3x");
+      }
     }
   }
 }

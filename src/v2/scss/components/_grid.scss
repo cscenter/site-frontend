@@ -32,3 +32,14 @@
 .content-center {
   justify-content: center;
 }
+
+.container, .container.page-content {
+  &._m-wide {
+    padding: 0;
+
+    .card {
+      border: none;
+      border-radius: 0;
+    }
+  }
+}

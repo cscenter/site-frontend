@@ -6,6 +6,10 @@ from django.utils.encoding import smart_text
 
 class PermissionMixin:
     @property
+    def roles(self):
+        return set()
+
+    @property
     def is_student(self):
         return True
 
@@ -46,7 +50,6 @@ class ExtAnonymousUser(PermissionMixin, AnonymousUser):
     group = []
     city_code = None
     index_redirect = None
-    roles = set()
 
     def __str__(self):
         return 'ExtAnonymousUser'

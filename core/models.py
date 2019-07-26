@@ -24,15 +24,12 @@ class AcademicRoles(DjangoChoices):
 class PermissionMixin:
 
     @property
-    def _cached_groups(self):
+    def roles(self):
         return set()
-
-    def get_cached_groups(self):
-        return self._cached_groups
 
     @property
     def is_student(self):
-        student_in_center = AcademicRoles.STUDENT_CENTER in self._cached_groups
+        student_in_center = AcademicRoles.STUDENT_CENTER in self.roles
         return student_in_center or self.is_volunteer
 
     @property
@@ -45,19 +42,19 @@ class PermissionMixin:
 
     @property
     def is_teacher_club(self):
-        return AcademicRoles.TEACHER_CLUB in self._cached_groups
+        return AcademicRoles.TEACHER_CLUB in self.roles
 
     @property
     def is_teacher_center(self):
-        return AcademicRoles.TEACHER_CENTER in self._cached_groups
+        return AcademicRoles.TEACHER_CENTER in self.roles
 
     @property
     def is_graduate(self):
-        return AcademicRoles.GRADUATE_CENTER in self._cached_groups
+        return AcademicRoles.GRADUATE_CENTER in self.roles
 
     @property
     def is_volunteer(self):
-        return AcademicRoles.VOLUNTEER in self._cached_groups
+        return AcademicRoles.VOLUNTEER in self.roles
 
     @property
     def is_curator(self):
@@ -65,21 +62,22 @@ class PermissionMixin:
 
     @property
     def is_curator_of_projects(self):
-        return AcademicRoles.CURATOR_PROJECTS in self._cached_groups
+        return AcademicRoles.CURATOR_PROJECTS in self.roles
 
     @property
     def is_interviewer(self):
-        return AcademicRoles.INTERVIEWER in self._cached_groups
+        return AcademicRoles.INTERVIEWER in self.roles
 
     @property
     def is_project_reviewer(self):
-        return AcademicRoles.PROJECT_REVIEWER in self._cached_groups
+        return AcademicRoles.PROJECT_REVIEWER in self.roles
 
 
-class ExtendedAnonymousUser(PermissionMixin, AnonymousUser):
+class ExtAnonymousUser(PermissionMixin, AnonymousUser):
     group = []
     city_code = None
     index_redirect = None
+    roles = set()
 
     def __str__(self):
         return 'ExtendedAnonymousUser'

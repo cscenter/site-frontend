@@ -34,12 +34,15 @@
 }
 
 .container, .container.page-content {
-  &._m-wide {
-    padding: 0;
 
-    .card {
-      border: none;
-      border-radius: 0;
+  &._m-wide {
+    @include media-breakpoint-down(xs) {
+      padding: 0;
+
+      .card {
+        border: none;
+        border-radius: 0;
+      }
     }
   }
 }

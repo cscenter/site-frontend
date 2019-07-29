@@ -12,21 +12,6 @@
   padding-top: spacer("10x");
   padding-bottom: spacer("10x");
 
-  &._survey {
-    @include media-breakpoint-down(xs) {
-      max-width: 100%;
-      padding: $navbar-mobile-height 0 spacer("8x");
-
-      .survey {
-        border: none;
-        border-radius: 0;
-
-        .card__content {
-          padding: 0 spacer("4x");
-        }
-      }
-    }
-  }
 }
 
 .content-center {
@@ -35,7 +20,7 @@
 
 .container, .container.page-content {
 
-  &._m-wide {
+  &._m-full {
     @include media-breakpoint-down(xs) {
       padding: 0;
 

@@ -1,18 +1,16 @@
-.ui.option {
-  &.checkbox {
-    .control__input {
-      &:checked ~ .control__indicator {
-        background: $control-checked-bg url("/static/v2/img/icons/checkmark.svg") no-repeat center;
-        background-size: 135%;
-      }
-    }
+.ui.option.checkbox {
 
-    &.disabled {
-      .control__input {
-        &:checked ~ .control__indicator {
-          background: $control-disabled-bg url("/static/v2/img/icons/checkmark.svg") no-repeat center;
-        }
-      }
+  .control__indicator::after {
+    transform: translateY(-4px);
+    top: 0;
+  }
+
+  .control__input {
+    &:checked ~ .control__indicator::after {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23FFF' d='M6.92501468,10.2334083 L4.80005885,7.40013385 C4.468688,6.95830605 3.84188665,6.868763 3.40005885,7.20013385 C2.95823105,7.5315047 2.868688,8.15830605 3.20005885,8.60013385 L6.20005885,12.6001339 C6.62151523,13.1620757 7.47577143,13.12579 7.84805716,12.5301328 L12.8480572,4.53013279 C13.1407675,4.06179626 12.9983943,3.44484588 12.5300578,3.15213555 C12.0617213,2.85942522 11.4447709,3.00179838 11.1520605,3.47013491 L6.92501468,10.2334083 Z'/%3E%3C/svg%3E%0A");
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      transform: translateY(0);
     }
   }
 }

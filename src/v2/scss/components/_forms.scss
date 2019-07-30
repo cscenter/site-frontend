@@ -24,12 +24,12 @@ $input-plaintext-color: $body-color !default;
 
 $control-bg: $white;
 $control-bg-hover: $input-border-color-hover;
-$control-checked-bg: $gray-dark;
-$control-disabled-bg: $gray-light;
+$control-checked-bg: $teal;
+$control-disabled-bg: $gray-disabled;
 $control-color: $black;
-$control-border-width: 2px;
+$control-border-width: 1px;
 $control-border-color: $input-border-color;
-$control-size: 24px;
+$control-size: 20px;
 
 $input-height-border: $input-border-width * 2 !default;
 
@@ -46,14 +46,10 @@ $form-feedback-invalid-color: $red;
 @import "_forms/inputs";
 @import "_forms/select"; // FIXME: move to options?
 
-
-
 .ui.form {
   label {
     display: block;
     font-size: $font-size-content-base;
-    font-weight: $font-weight-normal;
-    vertical-align: top;
   }
 }
 
@@ -147,7 +143,7 @@ fieldset {
 }
 
 .title-label {
-  font-size: $font-size-content-base;
+  font-size: $font-size-base;
   margin-bottom: spacer("4x");
 }
 

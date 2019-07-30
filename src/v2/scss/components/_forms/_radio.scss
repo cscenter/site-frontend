@@ -1,23 +1,24 @@
-.ui.option {
-  &.radio {
-    .control__input {
-      &:checked ~ .control__indicator::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: $white;
-      }
-    }
+.ui.option.radio {
 
-    .control__indicator {
+  .control__input {
+    &:checked ~ .control__indicator::after {
+      left: 6px;
+      top: 6px;
+      width: 8px;
+      height: 8px;
+      background-color: #fff;
       border-radius: 50%;
+      transform: scale(1);
     }
+  }
+
+  .control__indicator::before {
+    border-radius: 50%;
+  }
+
+  .control__indicator::after {
+    transform: scale(.5);
+    background-image: none;
+    transition: opacity .075s ease-in-out, transform .125s ease-in-out;
   }
 }

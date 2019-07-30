@@ -1,0 +1,98 @@
+{% extends "v2/layouts/inner.jinja2" %}
+
+{% block content %}
+    <div class="_dark py-10">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <a href="/v2/pages/projects/" class="text-small text-muted">Видеозаписи /</a>
+                    <h2>Современный С++: новые возможности и лучшие методологии (часть 1)</h2>
+                </div>
+            </div>
+            <div class="row no-gutters">
+                <div class="col-lg-8 order-0">
+                    {{ macros.video_iframe(url="https://www.youtube.com/embed/A3SomwRa5iw") }}
+                </div>
+                <div class="col-lg-4 pl-lg-10 mt-8 mt-lg-0 order-2">
+                    <p>Лекции курса:</p>
+                    <div class="playlist-wrapper">
+                        <ul>
+                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi aspernatur ex
+                                inventore, laboriosam nesciunt odio omnis quam quasi reiciendis reprehenderit, saepe,
+                                veritatis voluptates. Cum cumque doloremque id ipsam voluptates.
+                            </li>
+                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti expedita explicabo
+                                iste laudantium modi obcaecati pariatur perferendis quam sunt tenetur! Accusamus at
+                                atque ea facilis iusto minima modi quo velit?
+                            </li>
+                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, aspernatur
+                                blanditiis consectetur dicta earum eveniet expedita illum itaque libero nulla obcaecati
+                                optio, perspiciatis praesentium totam ullam unde velit veniam voluptas!
+                            </li>
+                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, amet aspernatur
+                                dolorum eveniet facilis ipsum iste nam odit, officiis provident qui repellendus
+                                reprehenderit repudiandae, saepe sequi tempora voluptas! Eaque, optio.
+                            </li>
+                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci alias delectus
+                                deserunt distinctio enim explicabo illo maiores molestiae nesciunt, officiis placeat,
+                                reprehenderit voluptates. Est laboriosam magnam quam veritatis vitae.
+                            </li>
+                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab ducimus in molestias
+                                ratione repellendus unde voluptas! Cum dolores in modi quaerat sed? Accusamus
+                                dignissimos harum nisi odit quidem vel vitae!
+                            </li>
+                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, necessitatibus, quas.
+                                Accusamus cum dignissimos doloremque, enim exercitationem illum inventore molestiae non
+                                officiis optio porro repudiandae sed velit, vero voluptas voluptatibus?
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="external-links mt-4 order-1 order-lg-3">
+                    <a href="#" target="_blank"
+                       rel="noopener">{{ macros.svg_inline('slides') }}<span>Слайды с лекции</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container page-content">
+        <div class="row">
+            <div class="col-lg-9">
+                <section class="content-block">
+                    <h3>Лектор</h3>
+                    <div class="row mb-3">
+                        <div class="col-lg-4">
+                            <div class="author _project">
+                                <img class="author__img" width="48" height="48" src="/media/pages/index/student.png"
+                                     alt="">
+                                <div class="author__details">
+                                    <h4>Валерий Лесин</h4>
+                                    <span>SimLabs, СПб АУ РАН</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Валерий Лесин — технический директор СимЛабс, преподаватель С++, а также руководитель НИРов в CS
+                        центре и
+                        Академическом университете.
+                    </p>
+                </section>
+                <section class="content-block">
+                    <h3>Описание</h3>
+                    <p>Программы на С++ ценят за их эффективность в использовании ресурсов. Но это же становится и
+                        проблемой,
+                        поскольку сложность перекладывается на программиста, который должен сам следить за их
+                        своевременным
+                        освобождением. Если добавить еще и неожиданно вылетающие исключения, то программирование вообще
+                        может
+                        превратиться в хождение по минному полю. В первой части/лекции будут рассмотрены несколько
+                        приемов,
+                        позволяющие существенно упростить жизнь и, наконец, избавиться от головной боли, как и когда
+                        освобождать
+                        ресурсы, а также как их эффективно передавать: от идиомы RAII до move-семантики и rvalue ссылок.
+                    </p>
+                </section>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

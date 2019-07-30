@@ -20,7 +20,7 @@
 
 .container, .container.page-content {
 
-  &._m-full {
+  &.p-xs-0 {
     @include media-breakpoint-down(xs) {
       padding: 0;
 

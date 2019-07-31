@@ -1,3 +1,12 @@
+.tab-content {
+  > .tab-pane {
+    display: none;
+  }
+  > .active {
+    display: block;
+  }
+}
+
 //TODO: Create mobile view
 .nav-tabs {
   display: flex;
@@ -60,4 +69,3 @@
     //@include border-top-radius(0);
   }
 }
-

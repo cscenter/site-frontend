@@ -1,0 +1,57 @@
+{% extends "v2/layouts/inner.jinja2" %}
+
+{% block sprites %}
+    <script type="text/javascript">
+        (window.__CSC__.sprites = window.__CSC__.sprites || []).push("{{ static("v2/dist/img/sprites/ui.svg")  }}");
+        (window.__CSC__.sprites = window.__CSC__.sprites || []).push("{{ static("v2/dist/img/sprites/common.svg")  }}");
+    </script>
+{% endblock sprites %}
+
+{% block content %}
+    <div class="container page-content">
+        <div class="row no-gutters">
+            <div class="col-lg-8">
+                <h2>List of lectures</h2>
+                <ol class="ui items">
+                    <li>
+                        <a href="#" class="item">
+                            <div class="item__title">
+                                <p class="item__text">
+                                    <span class="item__rank">1.</span>Утечки ресурсов и как их избежать. RAII
+                                </p>
+                            </div>
+                            <div class="item__icons">
+                                {{ macros.svg_inline('video') }}
+                                {{ macros.svg_inline('slides') }}
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="item">
+                            <div class="item__title">
+                                <p class="item__text">
+                                    <span class="item__rank">2.</span>Удобные возможности новых стандартов.Удобные
+                                    возможности новых стандартов.Удобные возможности новых стандартов
+                                </p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="item">
+                            <div class="item__title">
+                                <p class="item__text">
+                                    <span class="item__rank">3.</span>Геометрическая вероятность и общее определение
+                                    вероятности. Геометрическая вероятность и общее определение
+                                    вероятности
+                                </p>
+                            </div>
+                            <div class="item__icons">
+                                {{ macros.svg_inline('video') }}
+                            </div>
+                        </a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

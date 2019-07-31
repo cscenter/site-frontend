@@ -6,10 +6,6 @@
     border-bottom: $border-width solid $gray-lighter;
   }
 
-  @include media-breakpoint-up(sm) {
-    padding: spacer("4x") spacer("2x");
-  }
-
   .item {
     display: flex;
     position: relative;

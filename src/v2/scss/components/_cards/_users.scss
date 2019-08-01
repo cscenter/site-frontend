@@ -42,18 +42,8 @@
 }
 
 
-.card-deck {
-  &._users._four {
-    .card {
-      @include card-width(2);
-      @include media-breakpoint-up(iphone6plus, $mobile-breakpoints) {
-        @include card-width(3);
-      }
-    }
-  }
-
-  &._users._six {
-    .card {
+.card-deck._users {
+  .card {
       @include card-width(2);
       @include media-breakpoint-up(iphone6plus, $mobile-breakpoints) {
         @include card-width(3);
@@ -70,8 +60,13 @@
       @include media-breakpoint-up(lg) {
         @include card-width(6);
       }
+  }
+  // Utils
+  &.cards-lg-4 {
+    .card {
+      @include media-breakpoint-up(lg) {
+        @include card-width(4);
+      }
     }
   }
-
 }
-

@@ -111,13 +111,6 @@ $card-bg: $white !default;
   }
 }
 
-.card__title {
-  margin-bottom: spacer("1x");
-  font-size: $font-size-lg;
-  line-height: $line-height-sm;
-  word-wrap: normal;
-}
-
 .card__img { //this wrapper need for IE
   position: relative;
   flex: 0 0 auto;
@@ -141,7 +134,15 @@ $card-bg: $white !default;
   }
 }
 
+.card__title {
+  margin-bottom: spacer("1x");
+  font-size: $font-size-lg;
+  line-height: $line-height-sm;
+  word-wrap: normal;
+}
+
 .card__subtitle {
+  word-wrap: normal;
   color: $gray-dark;
   line-height: $line-height-sm;
   font-size: $font-size-sm;

@@ -24,10 +24,6 @@ $user-card-gutter-width: $grid-gutter-width / 2;
   }
 }
 
-
-
-
-
 .user-cards {
   display: flex;
   flex-wrap: wrap;
@@ -125,5 +121,46 @@ $user-card-gutter-width: $grid-gutter-width / 2;
   }
 }
 
+.card._user {
+  border-radius: $border-radius-sm;
+  border: none;
 
+  .card__img {
+    position: relative;
+    padding-bottom: 139.75%;
+    margin-bottom: spacer("2x");
+    overflow: hidden;
+    background: $gray-lighter;
+    background-size: cover;
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+    }
+
+    &._b {
+      background-image: url("/static/v2/img/placeholder/boy.png");
+    }
+
+    &._m {
+      background-image: url("/static/v2/img/placeholder/man.png");
+    }
+
+    &._g {
+      background-image: url("/static/v2/img/placeholder/girl.png");
+    }
+
+    &._w {
+      background-image: url("/static/v2/img/placeholder/woman.png");
+    }
+  }
+
+  .card__title {
+    font-size: $font-size-content-base;
+  }
+}
 

@@ -1,7 +1,7 @@
 @import "bootstrap/scss/functions";
 @import "variables";
 @import "bootstrap/scss/mixins";
-@import "bootstrap/scss/reboot";
+@import "reboot";
 @import "bootstrap/scss/transitions";
 @import "bootstrap/scss/utilities/display";
 @import "bootstrap/scss/utilities/text"; // TODO: what exactly we use from here right now? Mb inline?
@@ -30,7 +30,6 @@
 @import "components/dropdown";
 @import "components/grid";
 @import "components/tooltips";
-@import "components/misc";
 @import "components/pagination";
 @import "components/preloader";
 @import "components/tabs";
@@ -40,9 +39,10 @@
 @import "components/message";
 @import "components/video";
 @import "components/cover";
-@import "components/items";
+@import "components/list";
 
 @import "pages/index";
+@import "pages/alumni";
 @import "pages/team";
 @import "pages/syllabus_programs";
 @import "pages/syllabus_program";

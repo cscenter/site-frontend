@@ -1,10 +1,18 @@
 $user-card-gutter-width: $grid-gutter-width / 2;
 
 .card-deck {
-  &._users {
+  &._users._four {
     .card {
       @include card-width(2);
+      @include media-breakpoint-up(iphone6plus, $mobile-breakpoints) {
+        @include card-width(3);
+      }
+    }
+  }
 
+  &._users._six {
+    .card {
+      @include card-width(2);
       @include media-breakpoint-up(iphone6plus, $mobile-breakpoints) {
         @include card-width(3);
       }

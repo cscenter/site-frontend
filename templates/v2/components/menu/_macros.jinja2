@@ -63,7 +63,7 @@
 
                 {% if show_login_button %}
                     <a class="btn _outline _gray menu-btn-reg" href="#">
-                        {{ macros.svg_image('user-sign') }} Войти
+                        {{ macros.svg_inline('user') }} Войти
                     </a>
                 {% else %}
                     <div class="dropdown dropdown-user-menu">
@@ -72,7 +72,7 @@
                             <span>Святослав Михайлов</span>{%- if has_avatar -%}
                                 <img class="user-menu-img" src="/media/pages/index/student.png" width="32" height="32" alt="">
                             {%- else -%}
-                                {{ macros.svg_icon('user-sign') }}
+                                {{ macros.svg_inline('user') }}
                             {%- endif -%}
                         </button>
                         <div class="dropdown-menu _arrow-right _user-menu" aria-labelledby="userMenuButton">

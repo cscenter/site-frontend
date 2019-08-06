@@ -8,10 +8,14 @@ $top-banner-height: 64px;
   height: $top-banner-height;
   padding: 0;
 
-  svg {
+  img {
     display: none;
     @include media-breakpoint-up(lg) {
       display: inline-block;
+      //hack
+      margin-right: 5px;
+      position: relative;
+      bottom: -6px;
     }
   }
 }
@@ -44,11 +48,4 @@ $top-banner-height: 64px;
   @include media-breakpoint-up(lg) {
     height: 0;
   }
-}
-
-// hack
-._top-banner-kids {
-  margin-right: 5px;
-  position: relative;
-  bottom: -6px;
 }

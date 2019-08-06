@@ -36,7 +36,7 @@
 
         {% if not request.user.is_authenticated %}
             <a class="btn _outline _gray menu-btn-reg" href="{{ url('login') }}?next=/{% if not request.path.startswith("/login") %}?next={{ request.get_full_path()|urlencode}}{% endif %}">
-                {{ macros.svg_inline('user') }} Войти
+                {{ macros.svg_icon('user') }} Войти
             </a>
         {% else %}
             <div class="dropdown dropdown-user-menu">
@@ -46,7 +46,7 @@
                         {%- if im -%}
                             <img class="user-menu-img" src="{{ im.url }}" width="32" height="32" alt="{{ request.user.get_full_name() }}">
                         {%- else -%}
-                            {{ macros.svg_inline('user') }}
+                            {{ macros.svg_icon('user') }}
                         {%- endif -%}
                     {%- endwith %}
                 </button>

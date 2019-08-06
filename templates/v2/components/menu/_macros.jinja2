@@ -7,7 +7,7 @@
         <div class="top-banner">
             <div class="container">
                 <div class="top-banner__text">
-                    {{ macros.svg_inline('top-banner-kids') }} До 14 апреля открыт <a class="top-banner__link" href="/application/">приём заявок</a> на очное обучение в центре
+                    {{ macros.svg_image('top-banner-kids') }} До 14 апреля открыт <a class="top-banner__link" href="/application/">приём заявок</a> на очное обучение в центре
                 </div>
             </div>
         </div>
@@ -21,7 +21,7 @@
                     <span class="hamburger-box"><span class="hamburger-inner"></span></span>
                 </button>
 
-                <a class="navbar-logo" href="/v2/pages/">{{ macros.svg_inline('logo-csc') }}</a>
+                <a class="navbar-logo" href="/v2/pages/">{{ macros.svg_image('logo-csc') }}</a>
 
                 <div class="menu-desktop-wrapper">
                     <ul class="ui navbar-nav">
@@ -63,7 +63,7 @@
 
                 {% if show_login_button %}
                     <a class="btn _outline _gray menu-btn-reg" href="#">
-                        {{ macros.svg_inline('user-sign') }} Войти
+                        {{ macros.svg_image('user-sign') }} Войти
                     </a>
                 {% else %}
                     <div class="dropdown dropdown-user-menu">
@@ -72,7 +72,7 @@
                             <span>Святослав Михайлов</span>{%- if has_avatar -%}
                                 <img class="user-menu-img" src="/media/pages/index/student.png" width="32" height="32" alt="">
                             {%- else -%}
-                                {{ macros.svg_inline('user-sign') }}
+                                {{ macros.svg_icon('user-sign') }}
                             {%- endif -%}
                         </button>
                         <div class="dropdown-menu _arrow-right _user-menu" aria-labelledby="userMenuButton">
@@ -93,7 +93,7 @@
                         <a class="nav-link _active" data-toggle="collapse" aria-expanded="true"
                            data-target="#top-menu-item-1"
                            aria-controls="top-menu-item-1">
-                            <span>О центре</span> {{ macros.svg_inline('arrow-bottom') }}
+                            <span>О центре</span> {{ macros.svg_icon('arrow-bottom') }}
                         </a>
                         <div class="mobile-submenu collapse show" id="top-menu-item-1">
                             <a class="mobile-submenu__item _active" href="/v2/pages/about/">Цели и история</a>
@@ -107,7 +107,7 @@
                         <a class="nav-link" data-toggle="collapse" aria-expanded="false"
                            data-target="#top-menu-item-2"
                            aria-controls="top-menu-item-2">
-                            <span>Программы</span> {{ macros.svg_inline('arrow-bottom') }}
+                            <span>Программы</span> {{ macros.svg_icon('arrow-bottom') }}
                         </a>
                         <div class="mobile-submenu collapse" id="top-menu-item-2">
                             <a class="mobile-submenu__item" href="#">Software engineering</a>
@@ -122,7 +122,7 @@
                         <a class="nav-link" data-toggle="collapse" aria-expanded="false"
                            data-target="#top-menu-item-3"
                            aria-controls="top-menu-item-3">
-                            <span>Онлайн</span> {{ macros.svg_inline('arrow-bottom') }}
+                            <span>Онлайн</span> {{ macros.svg_icon('arrow-bottom') }}
                         </a>
                         <div class="mobile-submenu collapse" id="top-menu-item-3">
                             <a class="mobile-submenu__item" href="/v2/pages/online_courses/">Онлайн-курсы</a>

@@ -10,6 +10,13 @@
   vertical-align: middle;
 }
 
+.svg-icon {
+  position: relative;
+  top: -0.08em;
+  width: 1.2em !important;
+  height: 1.2em !important;
+}
+
 .svg-inline {
   position: absolute;
   z-index: -999;
@@ -59,8 +66,4 @@
   &:hover {
     fill: #0088cc;
   }
-}
-
-.sprite-img._cross {
-  fill: $gray-dark;
 }

@@ -1,11 +1,12 @@
 {% extends "v2/layouts/inner.jinja2" %}
 
+{% block sprites %}
+    <script type="text/javascript">
+        window.__CSC__.sprites.push("{{ static("v2/dist/img/sprites/ui.svg") }}");
+    </script>
+{% endblock sprites %}
+
 {% block content %}
-    <div class="svg-inline">
-        {% include "sprites/common.svg" %}
-        {% include "sprites/index.svg" %}
-        {% include "sprites/ui.svg" %}
-    </div>
     <div class="container page-content p-8">
         <h1>Btn sizes</h1>
         <div class="btn _big _primary">

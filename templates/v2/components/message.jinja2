@@ -2,13 +2,14 @@
 
 {% block body_attrs %}class="_nofooter"{% endblock body_attrs %}
 
-{% block sprites %}{% include "sprites/achievements.svg" %}{% endblock sprites %}
+{% block sprites %}
+    <script type="text/javascript">
+        window.__CSC__.sprites.push("{{ static("v2/dist/img/sprites/achievements.svg") }}");
+        window.__CSC__.sprites.push("{{ static("v2/dist/img/sprites/ui.svg") }}");
+    </script>
+{% endblock sprites %}
 
 {% block content %}
-    <div class="svg-inline">
-        {% include "sprites/common.svg" %}
-        {% include "sprites/ui.svg" %}
-    </div>
     <div class="container page-content">
         <div class="row">
             <div class="col-12">

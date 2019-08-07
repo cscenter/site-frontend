@@ -1,8 +1,4 @@
-@import "../sprites/common";
 @import "../sprites/index";
-@import "../sprites/achievements";
-@import "../sprites/ui";
-@import "../sprites/faq";  // FIXME: merge with other sprite?
 
 // svg sprite dimensions base cls
 .sprite-img {
@@ -13,8 +9,8 @@
 .svg-icon {
   position: relative;
   top: -0.08em;
-  width: 1.2em !important;
-  height: 1.2em !important;
+  width: 1.2em;
+  height: 1.2em;
 }
 
 .svg-inline {
@@ -32,8 +28,6 @@
 }
 
 .sprite-img._instagram {
-  width: 24px;
-  height: 24px;
   &:hover {
     fill: #de194c;
   }

@@ -43,8 +43,8 @@
     .sprite-img {
       fill: $gray-light;
       margin-right: spacer("1x");
-      display: table-cell;
-      vertical-align: top; //For Safari and IE
+      width: 1.2em;
+      height: 1.2em;
     }
 
     span {

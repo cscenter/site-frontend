@@ -331,6 +331,10 @@ body {
       line-height: $nav-link-line-height;
     }
 
+    .svg-icon {
+      fill: $gray-dark;
+    }
+
     &:focus {
       box-shadow: none;
       .user-menu-img {

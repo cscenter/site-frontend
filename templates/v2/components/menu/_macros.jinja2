@@ -67,10 +67,10 @@
                         {{ macros.svg_icon('user') }} Войти
                     </a>
                 {% else %}
+                    <a class="members-area" href="#">Личный кабинет</a>
                     <div class="dropdown dropdown-user-menu">
-                        <button class="btn" type="button" id="userMenuButton" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                            <span>Святослав Михайлов</span>{%- if has_avatar -%}
+                        <button class="btn" type="button" id="userMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {%- if has_avatar -%}
                                 <img class="user-menu-img" src="/media/pages/index/student.png" width="32" height="32" alt="">
                             {%- else -%}
                                 {{ macros.svg_icon('user') }}

@@ -2,17 +2,22 @@ $top-banner-height: 64px;
 
 .top-banner {
   background-color: darken($gray-darker, 10%);
+  width: 100%;
+  padding: 0;
+}
+
+.top-banner-wrapper {
+  height: $top-banner-height;
   display: flex;
   align-items: center;
-  width: 100%;
-  height: $top-banner-height;
-  padding: 0;
+  justify-content: center;
+}
 
-  svg {
-    display: none;
-    @include media-breakpoint-up(lg) {
-      display: inline-block;
-    }
+.top-banner_image {
+  display: none;
+  @include media-breakpoint-up(lg) {
+    display: inline-block;
+    margin-right: spacer("2x");
   }
 }
 
@@ -44,11 +49,4 @@ $top-banner-height: 64px;
   @include media-breakpoint-up(lg) {
     height: 0;
   }
-}
-
-// hack
-._top-banner-kids {
-  margin-right: 5px;
-  position: relative;
-  bottom: -6px;
 }

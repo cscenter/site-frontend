@@ -169,6 +169,7 @@ body {
 
   .sprite-img._arrow-bottom {
     fill: $white;
+    top: 0;
   }
 
   ul {
@@ -186,6 +187,7 @@ body {
     li {
       border-bottom: 1px solid $gray-dark;
       font-size: $font-size-lg;
+      margin: 0;
       &:last-child {
         border-bottom: 0;
       }

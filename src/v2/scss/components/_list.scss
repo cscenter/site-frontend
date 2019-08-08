@@ -11,7 +11,41 @@
     list-style: none;
 
     .list__item {
+      display: flex;
       margin: 0;
+
+      &:hover {
+        background-color: $gray-lighter;
+      }
+
+      .item__text {
+        flex-shrink: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-right: spacer("2x");
+      }
+
+      .item__ordinal {
+        margin-right: spacer("1x");
+        color: $gray-light;
+      }
+
+      .item__icons {
+        flex-shrink: 0;
+        min-width: 48px;
+        margin-left: auto;
+        text-align: right;
+      }
+
+      .sprite-img {
+        margin-right: spacer("2x");
+        fill: $gray-light;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
     }
 
     &._divided {
@@ -30,8 +64,8 @@
   margin-bottom: spacer("2x");
 }
 
-ul,
-ol {
+ul:not(.ui),
+ol:not(.ui) {
   @extend .list;
 
   li {
@@ -56,6 +90,7 @@ ul:not(.ui) {
     float: left;
     margin-left: -#{spacer("6x")};
   }
+
   > li ul > li::before {
     content: "\2022";
     margin-left: -#{spacer("4x")};

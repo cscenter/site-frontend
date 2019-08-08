@@ -16,6 +16,7 @@
   list-style: none;
   overflow-x: scroll;
   overflow-y: hidden;
+  -ms-overflow-style: -ms-autohiding-scrollbar; //For all IE
   &::-webkit-scrollbar {
     height: 4px;
   }

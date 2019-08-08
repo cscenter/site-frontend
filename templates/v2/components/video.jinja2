@@ -1,5 +1,10 @@
 {% extends "v2/layouts/inner.jinja2" %}
-
+{% block sprites %}
+    <script type="text/javascript">
+        (window.__CSC__.sprites = window.__CSC__.sprites || []).push("{{ static("v2/dist/img/sprites/ui.svg")  }}");
+    </script>
+{% endblock sprites %}
+{% block body_attrs %}class="_dark"{% endblock body_attrs %}
 {% block content %}
     <div class="container page-content">
 
@@ -9,6 +14,131 @@
                 <section class="content-block">
                     {{ macros.video_iframe() }}
                 </section>
+            </div>
+        </div>
+
+    </div>
+    <div class="container p-xs-0 pb-10">
+        <div class="row">
+            <div class="col-lg-7">
+                <h2 class="px-4 px-sm-0">Программирование для освещения. Часть 2</h2>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-lg-7 pr-lg-6 px-6 px-sm-2">
+                {{ macros.video_iframe() }}
+            </div>
+            <div class="col-lg-5">
+                <p class="px-4 px-sm-0 mt-8 mt-lg-0">Список тем</p>
+                <div class="playlist-wrapper p-xs-0">
+                    <ol class="ui list _divided _playlist p-0">
+                        <a href="#" class="list__item">
+                            <div class="list__icons">
+                                {{ macros.svg_icon('play') }}
+                                {{ macros.svg_icon('pause') }}
+                            </div>
+                            <div class="item__ordinal">1.</div>
+                            <div class="item__text">
+                                Утечки ресурсов и как их избежать.
+                                RAII
+                            </div>
+                            <div class="item__duration">1:44:20</div>
+                        </a>
+                        <a href="#" class="list__item _active">
+                            <div class="list__icons">
+                                {{ macros.svg_icon('play') }}
+                                {{ macros.svg_icon('pause') }}
+                            </div>
+                            <div class="item__ordinal">2.</div>
+                            <div class="item__text">
+                                Мосты, точки сочленения, компоненты сильной связности
+                            </div>
+                            <div class="item__duration">1:44:20</div>
+                        </a>
+                        <a href="#" class="list__item">
+                            <div class="list__icons">
+                                {{ macros.svg_icon('play') }}
+                                {{ macros.svg_icon('pause') }}
+                            </div>
+                            <div class="item__ordinal">3.</div>
+                            <div class="item__text">
+                                Heavy-Light декомпозиция, Link-cut дерево
+                            </div>
+                            <div class="item__duration">9:28</div>
+                        </a>
+                        <a href="#" class="list__item">
+                            <div class="list__icons">
+                                {{ macros.svg_icon('play') }}
+                                {{ macros.svg_icon('pause') }}
+                            </div>
+                            <div class="item__ordinal">4.</div>
+                            <div class="item__text">
+                                Комбинаторная оптимизация и потоковые задачи
+                            </div>
+                            <div class="item__duration">44:20</div>
+                        </a>
+                        <a href="#" class="list__item">
+                            <div class="list__icons">
+                                {{ macros.svg_icon('play') }}
+                                {{ macros.svg_icon('pause') }}
+                            </div>
+                            <div class="item__ordinal">4.</div>
+                            <div class="item__text">
+                                Утечки ресурсов и как их избежать.
+                                RAII
+                            </div>
+                            <div class="item__duration">1:44:20</div>
+                        </a>
+                        <a href="#" class="list__item">
+                            <div class="list__icons">
+                                {{ macros.svg_icon('play') }}
+                                {{ macros.svg_icon('pause') }}
+                            </div>
+                            <div class="item__ordinal">5.</div>
+                            <div class="item__text">
+                                Утечки ресурсов и как их избежать.
+                                RAII
+                            </div>
+                            <div class="item__duration">1:44:20</div>
+                        </a>
+                        <a href="#" class="list__item">
+                            <div class="list__icons">
+                                {{ macros.svg_icon('play') }}
+                                {{ macros.svg_icon('pause') }}
+                            </div>
+                            <div class="item__ordinal">6.</div>
+                            <div class="item__text">
+                                Утечки ресурсов и как их избежать.
+                                RAII
+                            </div>
+                            <div class="item__duration">1:44:20</div>
+                        </a>
+                        <a href="#" class="list__item">
+                            <div class="list__icons">
+                                {{ macros.svg_icon('play') }}
+                                {{ macros.svg_icon('pause') }}
+                            </div>
+                            <div class="item__ordinal">7.</div>
+                            <div class="item__text">
+                                Утечки ресурсов и как их избежать.
+                                RAII
+                            </div>
+                            <div class="item__duration">1:44:20</div>
+                        </a>
+                        <a href="#" class="list__item">
+                            <div class="list__icons">
+                                {{ macros.svg_icon('play') }}
+                                {{ macros.svg_icon('pause') }}
+                            </div>
+                            <div class="item__ordinal">8.</div>
+                            <div class="item__text">
+                                Утечки ресурсов и как их избежать.
+                                RAII
+                            </div>
+                            <div class="item__duration">1:44:20</div>
+                        </a>
+                    </ol>
+                </div>
             </div>
         </div>
     </div>

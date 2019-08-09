@@ -12,3 +12,58 @@
     height: 100%;
   }
 }
+
+.playlist-wrapper {
+  right: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  position: relative;
+  @include media-breakpoint-up(lg) {
+    position: absolute;
+    top: 40px;
+  }
+
+  .list._playlist {
+
+    .list__item {
+      color: $gray-darker;
+
+      .list__icons {
+        .svg-icon {
+          fill: $gray-darker;
+          margin-right: spacer("2x");
+
+          &._pause {
+            display: none;
+          }
+        }
+      }
+
+      .item__duration {
+        margin-left: auto;
+        text-align: right;
+        min-width: 60px;
+      }
+
+      &._active {
+        background-color: $gray-dark;
+        border: none;
+        color: $white;
+
+        .svg-icon {
+          fill: $white;
+
+          &._play {
+            display: none;
+          }
+
+          &._pause {
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+}

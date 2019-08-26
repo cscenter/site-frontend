@@ -1,0 +1,13 @@
+._m-display {
+  display: block;
+  @include media-breakpoint-up(lg) {
+    display: none;
+  }
+}
+
+._m-hidden {
+  display: none;
+  @include media-breakpoint-up(lg) {
+    display: block;
+  }
+}

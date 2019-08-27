@@ -1,0 +1,11 @@
+{% extends "v2/layouts/inner.jinja2" %}
+
+{% block sprites %}
+    <script type="text/javascript">
+        window.__CSC__.sprites.push("{{ static("v2/dist/img/sprites/ui.svg") }}");
+    </script>
+{% endblock sprites %}
+
+{% block menu %}
+    {{ top_menu.render(show_notification=False, show_login_button=False, mobile_filter=True) }}
+{% endblock menu %}

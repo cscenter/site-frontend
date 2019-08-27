@@ -1,6 +1,6 @@
 {% import "v2/_macros.jinja2" as macros %}
 
-{% macro render(show_submenu=True, show_notification=True, show_login_button=False, has_avatar=True, theme_class='') -%}
+{% macro render(show_submenu=True, show_notification=True, mobile_filter=False, show_login_button=False, has_avatar=True, theme_class='') -%}
 
     <div class="navbar-container">
         {% if show_notification %}
@@ -16,6 +16,19 @@
 
         <nav class="navbar navbar-main{% if theme_class %} {{ theme_class }}{% endif %}">
             <div class="container">
+
+                {% if mobile_filter %}
+                    <div class="navbar-inner-page">
+                        <button class="navbar-cross" type="button">
+                            {{ macros.svg_icon('cross') }}
+                        </button>
+                        <span class="navbar-inner-page__title">
+                            Фильтры
+                        </span>
+                    </div>
+                    <div class="btn _white _outline _rounded _extra-small ml-auto">Сбросить</div>
+                {% else %}
+
                 <button class="navbar-toggler hamburger hamburger--vortex" type="button"
                         data-toggle="collapse" data-target="#top-menu-mobile" aria-controls="top-menu-mobile"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -145,8 +158,8 @@
                         <a class="nav-link" href="#">Поступление</a>
                     </li>
                 </ul>
+                {% endif %}
             </div>
-
         </nav>
 
         {% if show_submenu %}

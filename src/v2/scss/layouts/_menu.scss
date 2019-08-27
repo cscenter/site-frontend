@@ -85,7 +85,6 @@ body {
   @include media-breakpoint-up(lg) {
     display: none;
   }
-
 }
 
 .nav-link {
@@ -358,4 +357,24 @@ body {
 
 .user-menu-img {
   border-radius: 50%;
+}
+
+.navbar-inner-page {
+  color: white;
+
+  .navbar-cross {
+    margin-left: -$navbar-toggler-padding-x;
+    background-color: transparent;
+    border: none;
+
+    .svg-icon {
+      fill: $white;
+      width: 1.5em;
+      height: 1.5em;
+    }
+  }
+
+  .navbar-inner-page__title {
+    font-size: $font-size-lg;
+  }
 }

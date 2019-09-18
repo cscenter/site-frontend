@@ -1,7 +1,5 @@
-$modal-dialog-margin: spacer("4x");
+$modal-margin: spacer("4x");
 
-$modal-wrapper-border-width: $border-width;
-$modal-wrapper-border-radius: $border-radius-lg;
 $modal-wrapper-padding: spacer("8x");
 
 $modal-backdrop-bg: $gray-darker;
@@ -11,186 +9,145 @@ $modal-lg: 960px;
 $modal-md: 600px;
 $modal-sm: 400px;
 
-$modal-fade-transform: translate(0, 20px);
-$modal-show-transform: none;
-$modal-transition: all .15s ease-in-out;
+//TODO: Реализовать анимацию
+//$modal-fade-transform: translate(0, 20px);
+//$modal-show-transform: none;
+//$modal-transition: all .15s ease-in-out;
 
-.modal {
-  position: absolute;
+.page-dimmer {
+  position: fixed;
   top: 0;
   left: 0;
-  z-index: $zindex-modal;
+  z-index: $zindex-modal-backdrop;
   display: none;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
   width: 100%;
   height: 100%;
   outline: 0;
-  overflow: scroll;
+  overflow: auto;
+  background-color: rgba($modal-backdrop-bg, $modal-backdrop-opacity);
+
+  &.visible {
+    display: flex;
+  }
+
+  &.scrolling {
+    justify-content: flex-start;
+  }
 }
 
-.modal-dialog {
+.modal {
   position: relative;
-  max-width: $modal-md;
-  width: auto;
-  margin: $modal-dialog-margin;
-  display: flex;
-  align-items: center;
-  min-height: calc(100% - #{$modal-dialog-margin * 2});
-  // allow clicks to pass through for custom click handling to close modal
-  pointer-events: none;
-
-  @include media-breakpoint-up(sm) {
-    margin: $modal-dialog-margin auto;
-  }
-
-  // When fading in the modal, animate it to slide down
-  .modal.fade & {
-    @include transition($modal-transition);
-    transform: $modal-fade-transform;
-  }
-
-  .modal.show & {
-    transform: $modal-show-transform;
+  background-color: $white;
+  border-radius: $border-radius;
+  margin: $modal-margin;
+  width: 90%; //For all IE
+  @include media-breakpoint-up(lg) {
+    width: 100%;
+    max-width: $modal-md;
   }
 }
 
-.modal-dialog._small {
+.modal._small {
   max-width: 100%;
   @include media-breakpoint-up(sm) {
     max-width: $modal-sm;
   }
 }
 
-.modal-dialog._large {
+.modal._large {
   max-width: $modal-lg;
 }
 
-// Actual modal
-.modal-dialog__content {
-  position: relative;
-  width: 100%;
-  color: $black;
-  pointer-events: auto;
-  background-color: $white;
-  background-clip: padding-box;
-  border-radius: $border-radius-lg;
-  overflow: hidden;
-  // Remove focus outline from opened modal
-  outline: 0;
+.modal .close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: spacer("3x");
+  z-index: $zindex-close;
+  line-height: 1;
 
-  .close {
-    position: absolute;
-    right: 0;
-    top: 0;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: spacer("3x");
-    z-index: $zindex-close;
-    line-height: 1;
+  &:hover .sprite-img {
+    fill: $gray-darker;
+  }
 
-    &:hover .sprite-img {
-      fill: $gray-darker;
-    }
-
-    &:focus {
-      outline: none;
-
-      .sprite-img {
-        fill: $gray-darker;
-      }
-    }
+  &:focus {
+    outline: none;
 
     .sprite-img {
-      fill: $gray-light;
-      transition: $transition-base;
+      fill: $gray-darker;
     }
+  }
 
-    &._white {
-      .sprite-img {
-        fill: $white;
-        opacity: .6;
-      }
-    }
+  .sprite-img {
+    fill: $gray-light;
+    transition: $transition-base;
+  }
 
-    &:hover .sprite-img {
-      opacity: 1;
+  &._white {
+    .sprite-img {
+      fill: $white;
+      opacity: .6;
     }
+  }
+
+  &:hover .sprite-img {
+    opacity: 1;
   }
 }
 
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: $zindex-modal-backdrop;
-  width: 100vw;
-  height: 100vh;
-  background-color: $modal-backdrop-bg;
-
-  &.fade {
-    opacity: 0;
-  }
-
-  &.show {
-    opacity: $modal-backdrop-opacity;
-  }
+.modal__content {
+  padding: $modal-wrapper-padding;
 }
 
-.modal-dialog__title {
+.modal__title {
   @extend .h1;
   margin-bottom: spacer("2x");
 }
 
-.modal-dialog__header {
+.modal__header {
   padding: $modal-wrapper-padding;
   border-bottom: $border-width solid $gray-lighter;
+  border-radius: $border-radius $border-radius 0 0;
+  overflow: hidden;
 
-  .modal-dialog__title {
+  .modal__title {
     margin: 0;
   }
 }
 
-.modal-dialog__body {
-  padding: $modal-wrapper-padding;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
+.modal__content._scrollable {
+  max-height: 240px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: $gray-lighter;
 }
 
-.modal-dialog__body._scrollable {
-  max-height: 300px;
-  overflow: scroll;
-}
-
-.modal-dialog__footer {
+.modal__footer {
   padding: $modal-wrapper-padding;
   border-top: $border-width solid $gray-lighter;
-
-  :not(:last-child) {
-    margin-right: spacer("2x");
-  }
 }
 
-._modal-dialog-cover {
+.modal._modal-cover {
+  width: 100%;
   max-width: 100%;
   height: 100vh;
   margin: 0;
   border-radius: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: absolute;
 
-  .modal-dialog__content {
+  .modal__content {
     border-radius: 0;
     border: none;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-  }
-
-  .modal-dialog__header {
-    padding: 0;
+    padding: $modal-wrapper-padding 0;
   }
 }

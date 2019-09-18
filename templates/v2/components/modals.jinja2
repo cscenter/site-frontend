@@ -31,56 +31,60 @@
             Скролл
         </button>
 
-        <div class="modal scrollable fade" id="exampleModalBasic" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalBasic" aria-hidden="true">
-            <div class="modal-dialog _modal-dialog-sm" role="document">
-                <div class="modal-dialog__content p-10">
+        <p>TODO: не придумал как нормально назвать затемнение, назвал пока <code>.page-dimmer</code></p>
+        <p>Посмотреть всплывающее окно <code>.page-dimmer.visible</code></p>
+        <p>Если окно не помещается в экран по высоте, использовать <code>.page-dimmer.scrolling</code> по примеру <a
+                href="https://semantic-ui.com/modules/modal.html" target="_blank">semantic-ui</a></p>
+        <div class="page-dimmer">
+            <div class="modal" id="exampleModalBasic" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalBasic" aria-hidden="true">
+                <div class="modal__content _modal-dialog-sm" role="document">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">{{ macros.svg_icon('cross') }}</span>
                     </button>
-                    <div class="modal-dialog__title">Модальное окно</div>
+                    <div class="modal__title">Модальное окно</div>
                     <p>Мы вас оповещаем, что что-то произошло. Извините, но никаких вариантов, кроме как закрыть это
                         окно у вас нет :(</p>
                 </div>
             </div>
         </div>
 
-        <div class="modal fade" id="exampleModalComplex" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalComplex" aria-hidden="true">
-            <div class="modal-dialog _modal-dialog-lg" role="document">
-                <div class="modal-dialog__content">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">{{ macros.svg_icon('cross') }}</span>
-                    </button>
-                    <div class="modal-dialog__header">
-                        <h1 class="modal-dialog__title mb-4">Импортировать баллы по stepik.org ID</h1>
-                        <p class="m-0">Будьте внимательны, изменения нельзя будет отменить</p>
-                    </div>
-                    <div class="modal-dialog__body">
-                        <form class="form ui form__transparent">
-                            <div class="field">
-                                <div class="ui input">
-                                    <label>Выбрать задание</label>
-                                    <input type="text" placeholder="Логин">
-                                </div>
-                                <div class="help-text">
-                                    Оценки будут импортированы для выбранного задания
-                                </div>
-                            </div>
-                            <div class="field">
+        <div class="page-dimmer">
+            <div class="modal" id="exampleModalComplex" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalComplex" aria-hidden="true">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">{{ macros.svg_icon('cross') }}</span>
+                </button>
+                <div class="modal__header">
+                    <h1 class="modal__title mb-4">Импортировать баллы по stepik.org ID</h1>
+                    <p class="m-0">Будьте внимательны, изменения нельзя будет отменить</p>
+                </div>
+                <div class="modal__content">
+                    <form class="form ui form__transparent">
+                        <div class="field">
+                            <div class="ui input">
                                 <label>Выбрать задание</label>
-                                <div class="ui input custom-file">
-                                    <input type="file" class="custom-file-input" id="customFile" multiple>
-                                    <label class="custom-file-label" for="customFile">Загрузить файл</label>
-                                </div>
-                                <p class="help-text">
-                                    Значения должны быть разделены запятой. Первая строка - заголовки
-                                </p>
+                                <input type="text" placeholder="Логин">
                             </div>
-                            <p><code>stepic_id,total  </br>1,7</code></p>
-                        </form>
-                    </div>
-                    <div class="modal-dialog__footer">
+                            <div class="help-text">
+                                Оценки будут импортированы для выбранного задания
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Выбрать задание</label>
+                            <div class="ui input custom-file">
+                                <input type="file" class="custom-file-input" id="customFile" multiple>
+                                <label class="custom-file-label" for="customFile">Загрузить файл</label>
+                            </div>
+                            <p class="help-text">
+                                Значения должны быть разделены запятой. Первая строка - заголовки
+                            </p>
+                        </div>
+                        <p><code>stepic_id,total  </br>1,7</code></p>
+                    </form>
+                </div>
+                <div class="modal__footer">
+                    <div class="buttons">
                         <button type="button" class="btn _gray _outline" data-dismiss="modal">
                             Отменить
                         </button>
@@ -91,136 +95,136 @@
             </div>
         </div>
 
-        <div class="modal fade" id="exampleModalImage" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalImage" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-dialog__content">
-                    <button type="button" class="close _white" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">{{ macros.svg_icon('cross') }}</span>
-                    </button>
-                    <div class="modal-dialog__header cover _green-gradient">
-                        <div class="cover__content">
-                            <h1 class="mb-2">Поздравляем!</h1>
-                        </div>
+        <div class="page-dimmer">
+            <div class="modal" id="exampleModalImage" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalImage" aria-hidden="true">
+                <button type="button" class="close _white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">{{ macros.svg_icon('cross') }}</span>
+                </button>
+                <div class="modal__header cover _green-gradient">
+                    <div class="cover__content">
+                        <h1 class="mb-2">Поздравляем!</h1>
                     </div>
-                    <div class="modal-dialog__body text-center">
-                        <p>Вы сделали что-то крутое или может быть достигли каких-то успехов, с чем мы вас и
-                            поздравляем.</p>
-                    </div>
+                </div>
+                <div class="modal__content text-center">
+                    <p>Вы сделали что-то крутое или может быть достигли каких-то успехов, с чем мы вас и
+                        поздравляем.</p>
                 </div>
             </div>
         </div>
 
-        <div class="modal fade" id="exampleModalCover" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalCover" aria-hidden="true">
-            <div class="modal-dialog _modal-dialog-cover" role="document">
-                <div class="modal-dialog__content pt-10">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">{{ macros.svg_icon('cross') }}</span>
-                    </button>
+        <div class="page-dimmer">
+            <div class="modal _modal-cover" id="exampleModalCover" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCover" aria-hidden="true">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">{{ macros.svg_icon('cross') }}</span>
+                </button>
+                <div class="modal__content">
                     <div class="container">
-                        <h1 class="modal-dialog__title">Что-то произошло</h1>
+                        <h1 class="modal__title">Что-то произошло</h1>
                         <p>Мы вас оповещаем, что что-то произошло. Извините, но никаких вариантов, кроме как закрыть
-                            это
-                            окно у вас нет :(</p>
+                            это окно у вас нет(</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="modal fade" id="exampleModalLoad" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalLoad" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-dialog__content _loading">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">{{ macros.svg_icon('cross') }}</span>
+        <div class="page-dimmer">
+            <div class="modal _loading" id="exampleModalLoad" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalLoad" aria-hidden="true">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">{{ macros.svg_icon('cross') }}</span>
+                </button>
+                <div class="modal__content">
+                    <h1 class="modal__title" id="exampleModalLongTitle">Запрос на удаление</h1>
+                    Вы уверены, что хотите удалить «Лекция 1 Нейронные сети. Теоретические основания»?
+                </div>
+                <div class="modal__footer">
+                    <button type="button" class="btn _gray _outline" data-dismiss="modal">
+                        Отменить
                     </button>
-                    <div class="modal-dialog__body">
-                        <h1 class="modal-dialog__title" id="exampleModalLongTitle">Запрос на удаление</h1>
-                        Вы уверены, что хотите удалить «Лекция 1 Нейронные сети. Теоретические основания»?
-                    </div>
-                    <div class="modal-dialog__footer">
-                        <button type="button" class="btn _gray _outline" data-dismiss="modal">
-                            Отменить
-                        </button>
-                        <button type="button" class="btn _danger">Удалить</button>
-                    </div>
+                    <button type="button" class="btn _danger">Удалить</button>
                 </div>
             </div>
         </div>
 
-        <div class="modal fade" id="exampleModalBasicSm" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalBasicSm" aria-hidden="true">
-            <div class="modal-dialog _small" role="document">
-                <div class="modal-dialog__content p-10">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">{{ macros.svg_icon('cross') }}</span>
-                    </button>
-                    <div class="modal-dialog__title">Модальное окно</div>
+        <div class="page-dimmer">
+            <div class="modal _small" id="exampleModalBasicSm" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalBasicSm" aria-hidden="true">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">{{ macros.svg_icon('cross') }}</span>
+                </button>
+                <div class="modal__content p-10">
+                    <div class="modal__title">Модальное окно</div>
                     <p>Мы вас оповещаем, что что-то произошло. Извините, но никаких вариантов, кроме как закрыть это
                         окно у вас нет :(</p>
                 </div>
             </div>
         </div>
 
-        <div class="modal fade" id="exampleModalBasicLg" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalBasicLg" aria-hidden="true">
-            <div class="modal-dialog _large" role="document">
-                <div class="modal-dialog__content p-10">
+        <div class="page-dimmer scrolling">
+            <div class="modal _large" id="exampleModalBasicLg" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalBasicLg" aria-hidden="true">
+                <div class="modal__content">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">{{ macros.svg_icon('cross') }}</span>
                     </button>
-                    <div class="modal-dialog__title">Модальное окно</div>
+                    <div class="modal__title">Модальное окно</div>
                     <p>Мы вас оповещаем, что что-то произошло. Извините, но никаких вариантов, кроме как закрыть это
                         окно у вас нет :(</p>
-                    <img class="img-fluid" src="/media/pages/graduates-2019/joint-photo-2.jpg" alt="">
+                    <figure>
+                        <img class="img-fluid" src="/media/pages/graduates-2019/joint-photo-2.jpg" alt="">
+                    </figure>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aspernatur commodi deserunt enim
+                        inventore ipsa iste itaque iusto libero, minima, obcaecati qui quis suscipit tenetur vel vitae
+                        voluptate? Consequuntur, sapiente.</p>
                 </div>
             </div>
         </div>
 
-        <div class="modal fade" id="exampleModalScroll" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-dialog__content">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">{{ macros.svg_icon('cross') }}</span>
-                    </button>
-                    <div class="modal-dialog__header">
-                        <div class="modal-dialog__title">Модальное окно</div>
-                    </div>
-                    <div class="modal-dialog__body _scrollable">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur doloribus est ex
-                            maiores officia? A ea laboriosam repellat voluptas. Assumenda autem beatae, doloribus error
-                            expedita modi ratione soluta veniam? Hic?Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit. Consequuntur doloribus est ex
-                            maiores officia? A ea laboriosam repellat voluptas. Assumenda autem beatae, doloribus error
-                            expedita modi ratione soluta veniam? Hic?</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur doloribus est ex
-                            maiores officia? A ea laboriosam repellat voluptas. Assumenda autem beatae, doloribus error
-                            expedita modi ratione soluta veniam? Hic?Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit. Consequuntur doloribus est ex
-                            maiores officia? A ea laboriosam repellat voluptas. Assumenda autem beatae, doloribus error
-                            expedita modi ratione soluta veniam? Hic?</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur doloribus est ex
-                            maiores officia? A ea laboriosam repellat voluptas. Assumenda autem beatae, doloribus error
-                            expedita modi ratione soluta veniam? Hic?Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit. Consequuntur doloribus est ex
-                            maiores officia? A ea laboriosam repellat voluptas. Assumenda autem beatae, doloribus error
-                            expedita modi ratione soluta veniam? Hic?</p>
-                    </div>
-                    <div class="modal-dialog__footer">
-                        <p>Согласитесь с условиями обучения в CS центре</p>
-                        <button class="btn _success">Согласен на все условия</button>
-                    </div>
+        <div class="page-dimmer">
+            <div class="modal" id="exampleModalScroll" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">{{ macros.svg_icon('cross') }}</span>
+                </button>
+                <div class="modal__header">
+                    <div class="modal__title">Модальное окно</div>
+                </div>
+                <div class="modal__content _scrollable">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur doloribus est ex
+                        maiores officia? A ea laboriosam repellat voluptas. Assumenda autem beatae, doloribus
+                        error
+                        expedita modi ratione soluta veniam? Hic?Lorem ipsum dolor sit amet, consectetur
+                        adipisicing
+                        elit. Consequuntur doloribus est ex
+                        maiores officia? A ea laboriosam repellat voluptas. Assumenda autem beatae, doloribus
+                        error
+                        expedita modi ratione soluta veniam? Hic?</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur doloribus est ex
+                        maiores officia? A ea laboriosam repellat voluptas. Assumenda autem beatae, doloribus
+                        error
+                        expedita modi ratione soluta veniam? Hic?Lorem ipsum dolor sit amet, consectetur
+                        adipisicing
+                        elit. Consequuntur doloribus est ex
+                        maiores officia? A ea laboriosam repellat voluptas. Assumenda autem beatae, doloribus
+                        error
+                        expedita modi ratione soluta veniam? Hic?</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur doloribus est ex
+                        maiores officia? A ea laboriosam repellat voluptas. Assumenda autem beatae, doloribus
+                        error
+                        expedita modi ratione soluta veniam? Hic?Lorem ipsum dolor sit amet, consectetur
+                        adipisicing
+                        elit. Consequuntur doloribus est ex
+                        maiores officia? A ea laboriosam repellat voluptas. Assumenda autem beatae, doloribus
+                        error
+                        expedita modi ratione soluta veniam? Hic?</p>
+                </div>
+                <div class="modal__footer">
+                    <p>Согласитесь с условиями обучения в CS центре</p>
+                    <button class="btn _success">Согласен на все условия</button>
                 </div>
             </div>
         </div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
 {% endblock content %}

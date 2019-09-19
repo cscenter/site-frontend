@@ -21,7 +21,7 @@ $modal-sm: 400px;
   z-index: $zindex-modal-backdrop;
   display: none;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-flow: column;
   width: 100%;
   height: 100%;
@@ -29,12 +29,12 @@ $modal-sm: 400px;
   overflow: auto;
   background-color: rgba($modal-backdrop-bg, $modal-backdrop-opacity);
 
-  &.visible {
+  &.show {
     display: flex;
   }
 
-  &.scrolling {
-    justify-content: flex-start;
+  &._center {
+    justify-content: center;
   }
 }
 
@@ -44,6 +44,8 @@ $modal-sm: 400px;
   border-radius: $border-radius;
   margin: $modal-margin;
   width: 90%; //For all IE
+  flex: 0 0 auto;
+
   @include media-breakpoint-up(lg) {
     width: 100%;
     max-width: $modal-md;
@@ -96,6 +98,10 @@ $modal-sm: 400px;
     }
   }
 
+  &._left {
+    left: 0;
+  }
+
   &:hover .sprite-img {
     opacity: 1;
   }
@@ -121,19 +127,12 @@ $modal-sm: 400px;
   }
 }
 
-.modal__content._scrollable {
-  max-height: 240px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  background-color: $gray-lighter;
-}
-
 .modal__footer {
   padding: $modal-wrapper-padding;
   border-top: $border-width solid $gray-lighter;
 }
 
-.modal._modal-cover {
+.modal._fullscreen {
   width: 100%;
   max-width: 100%;
   height: 100vh;
@@ -149,5 +148,24 @@ $modal-sm: 400px;
     border-radius: 0;
     border: none;
     padding: $modal-wrapper-padding 0;
+  }
+}
+
+.modal-menu {
+  color: $white;
+
+  > .container {
+    align-items: center;
+  }
+
+  .modal__close {
+    @extend .navbar-toggler;
+    @include media-breakpoint-up(lg) {
+      display: flex;
+    }
+
+    .svg-icon {
+      fill: $white;
+    }
   }
 }

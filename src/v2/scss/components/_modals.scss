@@ -143,6 +143,7 @@ $modal-sm: 400px;
   top: 0;
   bottom: 0;
   position: absolute;
+  overflow-y: scroll;
 
   .modal__content {
     border-radius: 0;

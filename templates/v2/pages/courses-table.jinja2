@@ -171,13 +171,19 @@
                 </form>
             </div>
         </div>
-        <div class="modal" id="exampleModalFilter" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalComplex" aria-hidden="true">
-            <div class="modal-dialog _modal-dialog-cover" role="document">
-                <div class="modal-dialog__content mt-10">
-                    {{ top_menu.render(show_notification=False, show_login_button=False, mobile_filter=True) }}
-                    <div class="container mt-10">
-                        <h1 class="modal-dialog__title mb-4">Фильтры по курсам</h1>
+        <div class="page-dimmer">
+            <div class="modal _fullscreen" id="exampleModalCover" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-menu navbar navbar-main">
+                    <div class="container">
+                        <button type="button" class="modal__close" data-dismiss="modal" aria-label="Close">
+                            {{ macros.svg_icon('cross') }}
+                        </button>
+                        <span>Фильтры</span>
+                        <button class="btn _white _outline _rounded _extra-small ml-auto">Сбросить</button>
+                    </div>
+                </div>
+                <div class="modal__content">
+                    <div class="container">
                         <form class="ui form __no-border" action="">
                             <div class="field mb-6">
                                 <div class="ui input">
@@ -216,16 +222,12 @@
                                     <span class="control__description">Computer Science</span>
                                 </label>
                             </div>
+                            <button type="button" class="btn _primary _m-wide">Показать результаты</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
+
 {% endblock content %}

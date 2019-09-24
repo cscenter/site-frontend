@@ -246,6 +246,7 @@ a.card {
     margin: spacer("4x") 0;
     overflow: hidden;
     width: 100%; //fix for IE
+    max-height: 336px;
 
     &--dark {
       color: $gray-darker;

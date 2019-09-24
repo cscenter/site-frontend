@@ -13,7 +13,7 @@
         <div class="row no-gutters">
             <div class="col-lg-9">
                 <div class="card pt-2">
-                    <div class="card__content pb-0 px-lg-10 py-lg-6">
+                    <div class="card__content p-4 p-md-8">
                         <h1>Курсы центра</h1>
                         <form action="">
                             <div class="row">
@@ -23,7 +23,7 @@
                                         <i class="_search icon">{{ macros.svg_icon('search') }}</i>
                                     </div>
                                 </div>
-                                <div class="buttons col-12 d-md-none mb-4">
+                                <div class="buttons col-12 d-lg-none mb-4">
                                     <a href="#"
                                        class="btn _light _extra-small">Санкт-Петербург {{ macros.svg_icon('arrow-bottom') }}</a>
                                     <button type="button" class="btn _light _extra-small" data-toggle="modal"
@@ -35,84 +35,80 @@
                         </form>
                     </div>
                     <div class="card__content p-0">
-                        <table class="table _courses">
-                            <thead>
-                            <tr>
-                                <th>Название</th>
-                                <th>Преподаватели</th>
-                                <th>Материалы</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td><a href="https://compscicenter.ru/courses/csseminar/2019-spring/"
+                        <div class="table _mobile _courses">
+                            <div class="table__row _head">
+                                <div class="table__cell">Название</div>
+                                <div class="table__cell">Преподаватели</div>
+                                <div class="table__cell">Материалы</div>
+                            </div>
+                            <div class="table__row">
+                                <div class="table__cell"><a href="https://compscicenter.ru/courses/csseminar/2019-spring/"
                                        class="__course">Computer
-                                    Science семинар</a></td>
-                                <td>
+                                    Science семинар</a></div>
+                                <div class="table__cell">
                                     <a href="https://compscicenter.ru/teachers/5545/">A.&nbsp;Lubotzky</a>,
                                     <a href="https://compscicenter.ru/teachers/5442/">Y.&nbsp;Dodis</a>,
                                     <a href="https://compscicenter.ru/teachers/5198/">А.&nbsp;Крайнов</a>
-                                </td>
-                                <td>
+                                </div>
+                                <div class="table__cell">
                                     {{ macros.svg_icon('video') }}
                                     {{ macros.svg_icon('video') }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a
+                                </div>
+                            </div>
+                            <div class="table__row">
+                                <div class="table__cell"><a
                                         href="https://compscicenter.ru/courses/deep-learning-simplified/nsk/2019-spring/"
-                                        class="__course">Deep Learning на пальцах</a></td>
-                                <td>
+                                        class="__course">Deep Learning на пальцах</a></div>
+                                <div class="table__cell">
                                     <a href="https://compscicenter.ru/teachers/5228/">С.&nbsp;М.&nbsp;Козлов</a>,
                                     <a href="https://compscicenter.ru/teachers/3297/">К.&nbsp;В.&nbsp;Бродт</a>,
                                     <a href="https://compscicenter.ru/teachers/3402/">М.&nbsp;И.&nbsp;Вахрушев</a>
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="https://compscicenter.ru/courses/algorithms-2/2019-spring/">Алгоритмы
-                                    и структуры данных, часть 2</a></td>
-                                <td>
+                                </div>
+                                <div class="table__cell">
+                                </div>
+                            </div>
+                            <div class="table__row">
+                                <div class="table__cell"><a href="https://compscicenter.ru/courses/algorithms-2/2019-spring/">Алгоритмы
+                                    и структуры данных, часть 2</a></div>
+                                <div class="table__cell">
                                     <a href="https://compscicenter.ru/teachers/5506/">А.&nbsp;Мишунин</a>,
                                     <a href="https://compscicenter.ru/teachers/560/">С.&nbsp;И.&nbsp;Грязнов</a>,
                                     <a href="https://compscicenter.ru/teachers/4050/">А.&nbsp;В.&nbsp;Гардер</a>,
                                     <a href="https://compscicenter.ru/teachers/1645/">М.&nbsp;Д.&nbsp;Кормышов</a>,
                                     <a href="https://compscicenter.ru/teachers/32/">А.&nbsp;В.&nbsp;Смаль</a>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td><a
+                                </div>
+                                <div class="table__cell"></div>
+                            </div>
+                            <div class="table__row">
+                                <div class="table__cell"><a
                                         href="https://compscicenter.ru/courses/fourie-analysis/2019-spring/">Анализ
-                                    булевых функций</a></td>
-                                <td>
+                                    булевых функций</a></div>
+                                <div class="table__cell">
                                     <a href="https://compscicenter.ru/teachers/818/">В.&nbsp;В.&nbsp;Подольский</a>
-                                </td>
-                                <td>
+                                </div>
+                                <div class="table__cell">
                                     {{ macros.svg_icon('video') }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a
+                                </div>
+                            </div>
+                            <div class="table__row">
+                                <div class="table__cell"><a
                                         href="https://compscicenter.ru/courses/data-mining-python/2019-spring/">Анализ
                                     данных на Python в примерах и задачах. Часть&nbsp;1</a>
-                                </td>
-                                <td>
+                                </div>
+                                <div class="table__cell">
                                     <a href="https://compscicenter.ru/teachers/1716/">И.&nbsp;А.&nbsp;Рябцев</a>,
                                     <a href="https://compscicenter.ru/teachers/618/">В.&nbsp;Л.&nbsp;Аббакумов</a>
-                                </td>
-                                <td>
+                                </div>
+                                <div class="table__cell">
                                     {{ macros.svg_icon('video') }}
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 pl-6 mt-10">
-                <form class="ui form __no-border _right-side-filter _m-hidden" action="">
+                <form class="ui form __no-border _right-side-filter d-none d-lg-block" action="">
                     <div class="grouped mb-6">
                         <h4>Направление обучения</h4>
                         <label class="ui option checkbox">

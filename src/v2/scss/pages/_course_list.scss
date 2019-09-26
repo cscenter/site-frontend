@@ -4,6 +4,13 @@
   .table__row {
     .table__cell {
       padding-left: spacer("4x");
+
+      &._teacher {
+        a {
+          color: $black;
+          font-size: $font-size-sm;
+        }
+      }
     }
   }
 

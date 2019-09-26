@@ -29,6 +29,11 @@
   line-height: $line-height-sm;
   font-size: $font-size-base;
   font-weight: $font-weight-base;
+  &:first-child {
+    @include media-breakpoint-up(md) {
+      min-width: 380px;
+    }
+  }
 
   .sprite-img.svg-icon {
     fill: $gray-light;

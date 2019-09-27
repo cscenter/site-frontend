@@ -1,16 +1,15 @@
 .ui.option {
+
+  .control__indicator::after {
+    top: 0;
+  }
+
   &.checkbox {
     .control__input {
-      &:checked ~ .control__indicator {
-        background: $control-checked-bg url("/static/v2/img/icons/checkmark.svg") no-repeat center;
-      }
-    }
-
-    &.disabled {
-      .control__input {
-        &:checked ~ .control__indicator {
-          background: $control-disabled-bg url("/static/v2/img/icons/checkmark.svg") no-repeat center;
-        }
+      &:checked ~ .control__indicator::after {
+        background-image: url("/static/v2/img/icons/checkmark.svg");
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
       }
     }
   }

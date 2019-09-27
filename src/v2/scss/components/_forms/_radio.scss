@@ -8,6 +8,7 @@
         height: 8px;
         background-color: #fff;
         border-radius: 50%;
+        transform: scale(1);
       }
     }
 
@@ -17,6 +18,8 @@
 
     .control__indicator::after {
       background-image: none;
+      transform: scale(.5);
+      transition: opacity .075s ease-in-out, transform .125s ease-in-out;
     }
   }
 }

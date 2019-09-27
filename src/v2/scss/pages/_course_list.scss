@@ -5,6 +5,12 @@
     .table__cell {
       padding-left: spacer("4x");
 
+      &:first-child {
+        @include media-breakpoint-up(md) {
+          min-width: 380px;
+        }
+      }
+
       &._teacher {
         a {
           color: $black;

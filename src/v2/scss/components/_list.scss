@@ -4,34 +4,14 @@
   @include media-breakpoint-up(md) {
     margin: spacer("2x") 0 spacer("6x") 3.5rem;
   }
-
-  &.ui {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-
-    .list__item {
-      margin: 0;
-    }
-
-    &._divided {
-      margin: 0;
-      border-bottom: $border-width solid $gray-lighter;
-
-      .list__item {
-        padding: spacer("3x") spacer("4x");
-        border-top: $border-width solid $gray-lighter;
-      }
-    }
-  }
 }
 
 .list__item {
   margin-bottom: spacer("2x");
 }
 
-ul,
-ol {
+ul:not(.ui),
+ol:not(.ui) {
   @extend .list;
 
   li {
@@ -39,11 +19,10 @@ ol {
   }
 }
 
-dl {
-  dt {
-    font-size: $h3-font-size;
-    font-weight: $font-weight-normal;
-  }
+ul.ui,
+ol.ui {
+  margin: 0;
+  padding: 0;
 }
 
 // `:not(.ui)` helps to avoid unnecessary pseudo elements before li tag.
@@ -56,8 +35,109 @@ ul:not(.ui) {
     float: left;
     margin-left: -#{spacer("6x")};
   }
+
   > li ul > li::before {
     content: "\2022";
     margin-left: -#{spacer("4x")};
   }
 }
+
+dl {
+  dt {
+    font-size: $h3-font-size;
+    font-weight: $font-weight-normal;
+  }
+}
+
+.list.ui {
+  margin: 0;
+  list-style: none;
+
+  .list__item {
+    display: flex;
+    margin: 0;
+
+    &:hover {
+      background-color: $gray-lighter;
+    }
+
+    .item__text {
+      flex-shrink: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-right: spacer("2x");
+    }
+
+    .item__ordinal {
+      margin-right: spacer("1x");
+      color: $gray-light;
+    }
+
+    .item__icons {
+      flex-shrink: 0;
+      min-width: 48px;
+      margin-left: auto;
+      text-align: right;
+    }
+
+    .item__duration {
+      margin-left: auto;
+    }
+
+    .sprite-img {
+      margin-right: spacer("2x");
+      fill: $gray-light;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+.list.ui._divided {
+  border-bottom: $border-width solid $gray-lighter;
+
+  .list__item {
+    padding: spacer("3x") spacer("4x");
+    border-top: $border-width solid $gray-lighter;
+  }
+}
+
+.list.ui._playlist {
+
+  .list__item {
+    color: $gray-darker;
+
+    .list__icons {
+      .svg-icon {
+        fill: $gray-darker;
+        margin-right: spacer("2x");
+
+        &._pause {
+          display: none;
+        }
+      }
+    }
+
+    &._active {
+      background-color: $gray-darker;
+      border: none;
+      color: $white;
+
+      .svg-icon {
+        fill: $white;
+
+        &._play {
+          display: none;
+        }
+
+        &._pause {
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
+

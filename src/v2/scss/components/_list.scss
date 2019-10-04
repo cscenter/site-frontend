@@ -50,8 +50,13 @@ ul:not(.ui) {
   @extend ._bulleted;
 }
 
-ul.ui:not(.list) {
+ul.ui {
+  padding: 0;
   margin: 0;
+
+  > li {
+    margin: 0;
+  }
 }
 
 div.list.ui._bulleted {

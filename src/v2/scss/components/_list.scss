@@ -1,41 +1,66 @@
-.list {
+.list.ui {
   padding: 0;
   margin: spacer("2x") 0 spacer("6x") spacer("6x");
   @include media-breakpoint-up(md) {
     margin: spacer("2x") 0 spacer("6x") 3.5rem;
   }
-
-  &.ui {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-
-    .list__item {
-      margin: 0;
-    }
-
-    &._divided {
-      margin: 0;
-      border-bottom: $border-width solid $gray-lighter;
-
-      .list__item {
-        padding: spacer("3x") spacer("4x");
-        border-top: $border-width solid $gray-lighter;
-      }
-    }
-  }
 }
 
 .list__item {
   margin-bottom: spacer("2x");
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
-ul,
-ol {
-  @extend .list;
+ol, ul {
+  @extend .list.ui;
 
   li {
     @extend .list__item;
+  }
+}
+
+._bulleted {
+  list-style: none;
+
+  > li::before {
+    @include list-bullet("\2014");
+  }
+
+  > li ul > li::before {
+    @include list-bullet("\2022");
+  }
+
+}
+
+.ui.list._divided {
+  border-bottom: $border-width solid $gray-lighter;
+  margin: 0;
+
+  .list__item {
+    padding: spacer("3x") spacer("4x");
+    border-top: $border-width solid $gray-lighter;
+    margin: 0;
+  }
+}
+
+ul:not(.ui) {
+  @extend ._bulleted;
+}
+
+ul.ui:not(.list) {
+  margin: 0;
+}
+
+div.list.ui._bulleted {
+  > .list__item::before {
+    @include list-bullet("\2014");
+  }
+
+  > .list__item .list.ui > .list__item::before {
+    @include list-bullet("\2022");
   }
 }
 
@@ -43,21 +68,5 @@ dl {
   dt {
     font-size: $h3-font-size;
     font-weight: $font-weight-normal;
-  }
-}
-
-// `:not(.ui)` helps to avoid unnecessary pseudo elements before li tag.
-ul:not(.ui) {
-  list-style: none;
-
-  > li::before {
-    content: "\2014";
-    color: $gray-light;
-    float: left;
-    margin-left: -#{spacer("6x")};
-  }
-  > li ul > li::before {
-    content: "\2022";
-    margin-left: -#{spacer("4x")};
   }
 }

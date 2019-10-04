@@ -32,3 +32,10 @@
   $lineHeight: calc(#{calc-rem($input-height-px)} - #{$spacer} * 2 - #{calc-rem($border-width)} * 2);
   @return #{$lineHeight};
 }
+
+@mixin list-bullet($code) {
+  content: $code;
+  color: $gray-light;
+  float: left;
+  margin-left: -#{spacer("6x")};
+}

@@ -1,3 +1,22 @@
+@mixin list-item-marker($code) {
+  content: $code;
+  color: $gray-light;
+  float: left;
+  margin-left: -#{spacer("6x")};
+}
+
+@mixin list-dashed($container, $element) {
+  list-style: none;
+
+  > #{$element}::before {
+    @include list-item-marker("\2014");  // EM DASH
+  }
+
+  > #{$element} #{$container} > #{$element}::before {
+    @include list-item-marker("\2022");  // BULLET
+  }
+}
+
 .list.ui {
   padding: 0;
   margin: spacer("2x") 0 spacer("6x") spacer("6x");
@@ -14,7 +33,8 @@
   }
 }
 
-ol, ul {
+ol,
+ul {
   @extend .list.ui;
 
   li {
@@ -22,18 +42,14 @@ ol, ul {
   }
 }
 
-._bulleted {
-  list-style: none;
-
-  > li::before {
-    @include list-bullet("\2014");
-  }
-
-  > li ul > li::before {
-    @include list-bullet("\2022");
-  }
-
+ul:not(.ui) {
+  @include list-dashed("ul", "li");
 }
+
+.ui.list._dashed {
+  @include list-dashed(".ui.list", ".list__item");
+}
+
 
 .ui.list._divided {
   border-bottom: $border-width solid $gray-lighter;
@@ -46,10 +62,7 @@ ol, ul {
   }
 }
 
-ul:not(.ui) {
-  @extend ._bulleted;
-}
-
+//noinspection Stylelint
 ul.ui {
   padding: 0;
   margin: 0;
@@ -59,15 +72,6 @@ ul.ui {
   }
 }
 
-div.list.ui._bulleted {
-  > .list__item::before {
-    @include list-bullet("\2014");
-  }
-
-  > .list__item .list.ui > .list__item::before {
-    @include list-bullet("\2022");
-  }
-}
 
 dl {
   dt {

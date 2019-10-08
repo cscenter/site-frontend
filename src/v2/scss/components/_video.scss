@@ -19,6 +19,7 @@
     display: flex;
     position: relative;
     align-items: center;
+    color: $black;
 
     &:hover {
       background-color: $gray-lighter;
@@ -37,6 +38,10 @@
       color: $gray-light;
     }
 
+    .item__duration {
+      margin-left: auto;
+    }
+
     .item__icons {
       flex-shrink: 0;
       min-width: 48px;
@@ -47,9 +52,47 @@
     .sprite-img {
       margin-right: spacer("2x");
       fill: $gray-light;
+
       &:last-child {
         margin-right: 0;
       }
+    }
+  }
+  .list__item._active {
+    color: $white;
+    background-color: $gray-dark;
+  }
+}
+
+.playlist-wrapper {
+  right: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  position: relative;
+  margin-left: -16px;
+  margin-right: -16px;
+  margin-top: spacer("6x");
+
+  @include media-breakpoint-up(sm) {
+    margin: 0;
+    margin-top: spacer("6x");
+  }
+
+  @include media-breakpoint-up(lg) {
+    position: absolute;
+    top: 0;
+    margin-left: spacer("6x");
+    margin-right: 0;
+    margin-top: 0;
+  }
+
+  .playlist-wrapper__title {
+    margin: 0;
+    margin-left: spacer("4x");
+    @include media-breakpoint-up(md) {
+      margin-left: 0;
     }
   }
 }

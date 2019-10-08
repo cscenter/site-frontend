@@ -18,14 +18,18 @@
     font-size: $font-size-base;
     display: flex;
     position: relative;
-    align-items: center;
-
+    flex-flow: column;
     &:hover {
       background-color: $gray-lighter;
     }
 
+    .list-wrapper {
+      display: flex;
+      max-width: 100%;
+    }
+
     .item__text {
-      flex-shrink: 1;
+      font-size: $font-size-content-base;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;

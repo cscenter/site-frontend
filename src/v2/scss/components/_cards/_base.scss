@@ -70,9 +70,6 @@ $card-bg: $white !default;
 .card__content,
 .card__header,
 .card__footer {
-  // Enable `flex-grow: 1` for decks and groups so that card blocks take up
-  // as much space as possible, ensuring footers are aligned to the bottom.
-  flex: 1 1 auto;
   padding: spacer("4x");
 
   > :last-child {
@@ -95,11 +92,6 @@ $card-bg: $white !default;
     padding-top: 0;
     flex-grow: 0;
   }
-}
-
-.card__header,
-.card__footer {
-  flex-grow: 0;
 }
 
 .card__header.cover {

@@ -29,10 +29,10 @@
                     </div>
                 </div>
                 <div class="row mt-6">
-                    <div class="col-lg-7">
+                    <div class="col-lg-7 order-0">
                         {{ macros.video_iframe() }}
                     </div>
-                    <div class="col-lg-5">
+                    <div class="col-lg-5 order-2 order-lg-1">
                         <div class="ui playlist">
                             <div class="playlist__summary">Список тем / 14 записей</div>
                             <ol class="ui list _divided _selection">
@@ -126,7 +126,18 @@
                             </ol>
                         </div>
                     </div>
+                    <div class="col-12 order-1 order-lg-2">
+                        <div class="external-links _inline my-6 mb-lg-0">
+                            <a href="#" target="_blank"
+                               rel="noopener">{{ macros.svg_icon('slides') }}Слайды с лекции
+                            </a>
+                            <a href="#" target="_blank"
+                               rel="noopener">{{ macros.svg_icon('files') }}Материалы
+                            </a>
+                        </div>
+                    </div>
                 </div>
+
         </div>
     </div>
     <div class="container page-content">

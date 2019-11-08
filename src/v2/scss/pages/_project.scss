@@ -1,21 +1,24 @@
 .external-links {
+  display: flex;
+  flex-wrap: wrap;
 
-  svg + span {
-    display: none; //FixMe: не скрывать ссылку на мобильной версии
-    @include media-breakpoint-up(md) {
-      display: inline;
-      vertical-align: middle;
-    }
-  }
-
-  svg {
+  .sprite-img {
+    margin-right: spacer("1x");
     fill: $gray-light;
     &:hover {
       fill: $blue;
     }
   }
 
-  .sprite-img {
-    margin-right: spacer("1x");
+  a {
+    flex-basis: 100%;
+    margin-bottom: spacer("2x");
+  }
+
+  &._inline {
+    a {
+      flex-basis: auto;
+      margin: 0 spacer("3x") 0 0;
+    }
   }
 }

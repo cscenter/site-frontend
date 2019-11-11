@@ -9,3 +9,10 @@
 .text-small {
   font-size: $font-size-sm;
 }
+
+@mixin text-overflow-ellipsis() {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 100%;
+}

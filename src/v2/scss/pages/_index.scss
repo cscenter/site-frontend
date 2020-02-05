@@ -110,24 +110,35 @@ a.card {
     margin-top: 2rem;
 
     @include media-breakpoint-up(lg) {
-      background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.50) 50%, rgba(0, 0, 0, 0.70) 100%);
+      background-image: linear-gradient(0deg, rgba($black, 0.6) 0%, rgba($black, 0) 38%, rgba($black, 0) 48%, rgba($black, .9) 100%);
       display: flex;
       flex-direction: column;
       position: absolute;
       top: 0;
-      left: 0;
       right: 0;
+      bottom: 0;
+      left: 0;
       margin: 0;
       color: $white;
+    }
 
-      p {
-        z-index: $zindex-cover;
-        padding: 0 120px 60px;
+    .about-csc__subtitle {
+      margin: 0;
+      @include media-breakpoint-up(lg) {
+        margin: 56px 0 spacer("2x") 0;
       }
+    }
 
-      h1 {
-        z-index: $zindex-cover;
-        margin-top: 3rem;
+    .about-csc__link {
+      transition: $transition-base;
+      border-bottom: 1px solid rgba($link-color, .5);
+
+      @include media-breakpoint-up(lg) {
+        color: $white;
+        border-bottom: 1px solid rgba($white, .4);
+        &:hover {
+          color: $teal;
+        }
       }
     }
   }

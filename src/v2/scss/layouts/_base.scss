@@ -1,5 +1,5 @@
 $footer-mobile-height: 208px;
-$footer-tablet-height: 144px;
+$footer-tablet-height: 96px;
 $footer-height: 288px;
 
 @mixin append-hr-to-container() {
@@ -40,8 +40,10 @@ body {
   padding-top: spacer("10x");
   @include media-breakpoint-up(md) {
     height: $footer-tablet-height;
+    padding-top: spacer("4x");
   }
   @include media-breakpoint-up(lg) {
+    padding-top: spacer("10x");
     height: $footer-height;
   }
 

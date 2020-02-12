@@ -48,6 +48,10 @@
     background-color: $teal;
     transition: .2s;
 
+    .card__title {
+      color: $black;
+    }
+
     .card__subtitle {
       color: rgba($black, .7);
     }

@@ -24,16 +24,14 @@
                     </p>
                     <div class="card _horizontal mb-10">
                         <div class="row no-gutters">
-                            <div class="col-md-4"
-                                 style="background-image:url('/static/v2/img/pages/enrollment/enrollment-openday.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat; min-height: 196px">
+                            <div class="col-md-4 card__background"
+                                 style="min-height: 196px; background-image:url('/static/v2/img/pages/application/open_day.jpg');">
                             </div>
                             <div class="col-md-8 d-flex">
                                 <div class="card__content">
                                     <div class="announcement">
                                         <h3>Дни открытых дверей онлайн</h3>
-                                        <p>Узнайте больше о&nbsp;поступлении
-                                            и&nbsp;задайте все волнующие вопросы.
-                                        </p>
+                                        <p>Узнайте больше о&nbsp;поступлении и&nbsp;задайте все волнующие вопросы:</p>
                                         <div class="grouped mb-4">
                                             <div class="ui label _icon mb-2">
                                                 {{ macros.svg_icon('location') }}<span>Санкт-Петербург, 27&nbsp;марта в&nbsp;18:00</span>
@@ -42,7 +40,7 @@
                                                 {{ macros.svg_icon('location') }}<span>Новосибирск, 26&nbsp;марта в&nbsp;16:00</span>
                                             </div>
                                         </div>
-                                        <a href="https://vk.cc/arpyo5" target="_blank" class="btn _light">Зарегистрироватся</a>
+                                        <a href="https://vk.cc/arpyo5" target="_blank" rel="noopener" class="btn _light">Зарегистрироваться</a>
                                     </div>
                                 </div>
                             </div>
@@ -65,7 +63,7 @@
             <div class="col-md-3 offset-md-1">
                 <div class="card mb-4">
                     <div class="card__img">
-                        <img src="{{ static('v2/img/pages/enrollment/telegram.svg') }}" alt="Наш телеграм-канал">
+                        <img src="{{ static('v2/img/pages/application/telegram.svg') }}" alt="Наш телеграм-канал">
                     </div>
                     <div class="card__content">
                         <div class="card__title"><a href="https://tele.click/cscenter2020" target="_blank">Телеграм-канал для поступающих</a></div>
@@ -74,7 +72,7 @@
                 </div>
                 <div class="card mb-4">
                     <div class="card__img">
-                        <img src="{{ static('v2/img/pages/enrollment/note.svg') }}" alt="Памятка для поступающих">
+                        <img src="{{ static('v2/img/pages/application/note.svg') }}" alt="Памятка для поступающих">
                     </div>
                     <div class="card__content">
                         <div class="card__title"><a href="/enrollment/" target="_blank">Памятка для поступающих</a></div>

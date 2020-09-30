@@ -201,6 +201,7 @@ export default class UberEditor {
         });
         $(window.__CSC__.config.uberEditors).each(function(i, editor) {
             if ($.inArray(editor._instanceId, editorIDs) !== -1) {
+                editor.reflow('width');
                 editor.emit('__update');
             }
         });

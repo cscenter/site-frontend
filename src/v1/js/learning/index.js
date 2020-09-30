@@ -33,6 +33,8 @@ const fn = {
         });
         $(window.__CSC__.config.uberEditors).each(function(i, editor) {
             if ($.inArray(editor._instanceId, editorIDs) !== -1) {
+                editor.reflow('width');
+                // Calls autogrow that handle minimum height logic
                 editor.emit('__update');
             }
         });

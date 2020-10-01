@@ -49,8 +49,13 @@
   }
 
   .__edit {
-    color: $color-gray-20;
     line-height: 1.1;
+  }
+
+  .ubertext {
+    > p:last-child {
+      margin-bottom: 0;
+    }
   }
 }
 

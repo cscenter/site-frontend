@@ -1,10 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');  // merge webpack configs
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');  // clean build dir before building
 const Dotenv = require('dotenv-webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
 
 const DEBUG = (process.env.NODE_ENV !== "production");
 const LOCAL_BUILD = (process.env.LOCAL_BUILD === "1");
@@ -192,10 +190,6 @@ const common = {
         new Dotenv({
             path: path.join(__dirname, '.env'),
             silent: true,
-        }),
-        new CleanWebpackPlugin({
-            verbose: true,
-            cleanOnceBeforeBuildPatterns: ['**/*', '!.gitattributes'],
         }),
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output

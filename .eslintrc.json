@@ -52,7 +52,6 @@
     "import/resolver": {
       "node": {
         "paths": [
-          "src/v1/js",
           "src/v2/js"
         ],
         "extensions": [
@@ -62,7 +61,6 @@
       // uses 'eslint-import-resolver-webpack'
       "webpack": {
         "paths": [
-          "src/v1/js",
           "src/v2/js"
         ]
       }

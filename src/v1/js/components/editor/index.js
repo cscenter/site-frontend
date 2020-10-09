@@ -192,9 +192,13 @@ export default class UberEditor {
         }]);
     }
 
-    static reflowOnTabToggle (e) {
+    static reflowOnTabToggle(e) {
         const activeTab = $($(e.target).attr('href'));
-        const editorIframes = activeTab.find('iframe[id^=epiceditor-]');
+        UberEditor.reflowEditor(activeTab);
+    }
+
+    static reflowEditor(editorWrapper) {
+        const editorIframes = editorWrapper.find('iframe[id^=epiceditor-]');
         let editorIDs = [];
         editorIframes.each(function(i, iframe) {
             editorIDs.push($(iframe).attr('id'));
@@ -202,6 +206,7 @@ export default class UberEditor {
         $(window.__CSC__.config.uberEditors).each(function(i, editor) {
             if ($.inArray(editor._instanceId, editorIDs) !== -1) {
                 editor.reflow('width');
+                // Calls autogrow that handle minimum height logic
                 editor.emit('__update');
             }
         });

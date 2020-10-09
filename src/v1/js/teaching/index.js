@@ -20,7 +20,15 @@ $(document).ready(function () {
     if (sections.includes("selectpickers")) {
         import('components/forms')
             .then(m => {
-                m.initMultiSelectPickers();
+                m.initSelectPickers();
+            })
+            .catch(error => showComponentError(error));
+    }
+    if (sections.includes("studentAssignment")) {
+        import(/* webpackChunkName: "gradebook" */ 'teaching/studentAssignment')
+            .then(module => {
+                const component = module.default;
+                component.launch();
             })
             .catch(error => showComponentError(error));
     }

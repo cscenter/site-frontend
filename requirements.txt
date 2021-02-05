@@ -8,3 +8,4 @@ django-vanilla-views==1.0.5
 sorl-thumbnail==12.3
 git+https://github.com/pacahon/django-treemenus.git
 django-choices==1.6.1
+django-environ==0.4.5

@@ -1,9 +1,12 @@
-"""
-https://docs.djangoproject.com/en/2.2/topics/settings/
-https://docs.djangoproject.com/en/2.2/ref/settings/
-"""
-
+import environ
 from pathlib import Path
+
+env = environ.Env()
+# Try to read .env file, if it's not present, assume that application
+# is deployed to production and skip reading the file
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore")
+    environ.Env.read_env(env_file=env.str('ENV_FILE', default=None))
 
 ROOT_DIR = Path(__file__).parents[1]
 APP_DIR = Path(__file__).parent
@@ -142,14 +145,14 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+WEBPACK_ENVIRONMENT = env.str('WEBPACK_ENVIRONMENT', default="local")
 WEBPACK_LOADER = {
     'V1': {
-        'BUNDLE_DIR_NAME': 'v1/dist/.local/',  # relative to the ASSETS_ROOT
-        'STATS_FILE': str(ASSETS_ROOT / "v1" / "dist" / "local" / "webpack-stats-v1.json"),
+        'BUNDLE_DIR_NAME': f'v1/dist/{WEBPACK_ENVIRONMENT}/',  # relative to the ASSETS_ROOT
+        'STATS_FILE': str(ASSETS_ROOT / "v1" / "dist" / WEBPACK_ENVIRONMENT / "webpack-stats-v1.json"),
     },
     'V2': {
-        'BUNDLE_DIR_NAME': 'v2/dist/.local/',  # relative to the ASSETS_ROOT
-        'STATS_FILE': str(ASSETS_ROOT / "v2" / "dist" / "local" / "webpack-stats-v2.json"),
+        'BUNDLE_DIR_NAME': f'v2/dist/{WEBPACK_ENVIRONMENT}/',  # relative to the ASSETS_ROOT
+        'STATS_FILE': str(ASSETS_ROOT / "v2" / "dist" / WEBPACK_ENVIRONMENT / "webpack-stats-v2.json"),
     }
 }

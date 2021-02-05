@@ -10,7 +10,6 @@ const DeleteSourceMapWebpackPlugin = require('delete-sourcemap-webpack-plugin');
 const APP_VERSION = process.env.APP_VERSION || "v1";
 const LOCAL_BUILD = (process.env.LOCAL_BUILD === "1");
 
-const __rootdir = path.join(__dirname, '..');
 let __outputdir = path.join(__dirname, `../assets/${APP_VERSION}/dist/prod`);
 
 // TODO: add css minimization
@@ -74,7 +73,7 @@ const prodConfiguration = {
 if (!LOCAL_BUILD) {
     prodConfiguration.plugins.push(
         new BundleTracker({
-            path: path.join(__rootdir, '..'),
+            path: __outputdir,
             filename: `webpack-stats-${APP_VERSION}.json`,
         })
     );

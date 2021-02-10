@@ -1,12 +1,12 @@
 import React from 'react';
-import {ErrorMessage as BaseErrorMessage} from "react-hook-form";
+import { ErrorMessage as BaseErrorMessage } from '@hookform/error-message';
 import PropTypes from 'prop-types';
 
 
 function ErrorMessage({className = '', ...rest}) {
     return (
-        <BaseErrorMessage {...rest}>
-            {({messages, message}) => {
+        <BaseErrorMessage
+            render={({messages, message}) => {
                 let errors = message ? [message] : messages;
                 return (
                     errors &&
@@ -17,7 +17,8 @@ function ErrorMessage({className = '', ...rest}) {
                     </p>
                 );
             }}
-        </BaseErrorMessage>
+            {...rest}
+        />
     );
 }
 

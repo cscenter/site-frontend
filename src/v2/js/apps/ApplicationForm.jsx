@@ -96,7 +96,7 @@ function ApplicationForm({
     const reducer = (state, newState) => ({ ...state, ...newState });
     const [state, setState] = useReducer(reducer, initial);
     const {isPending, run: runSubmit} = useAsync({deferFn: submitForm});
-    const {register, handleSubmit, setValue, triggerValidation, errors, watch} = useForm({
+    const {register, handleSubmit, setValue, trigger, errors, watch} = useForm({
         mode: 'onBlur',
         defaultValues: {agreement: false},
     });
@@ -139,7 +139,7 @@ function ApplicationForm({
 
     function handleSelectChange(option, name) {
         setValue(name, option);
-        triggerValidation(name);
+        trigger(name);
     }
 
     useEffect(() => {
@@ -254,7 +254,7 @@ function ApplicationForm({
                                 openMenuOnFocus={true}
                                 isClearable={true}
                                 onChange={handleSelectChange}
-                                onBlur={e => triggerValidation("university")}
+                                onBlur={e => trigger("university")}
                                 name="university"
                                 placeholder=""
                                 options={universities}
@@ -277,7 +277,7 @@ function ApplicationForm({
                             <label htmlFor="">Курс</label>
                             <Select
                                 onChange={handleSelectChange}
-                                onBlur={e => triggerValidation("course")}
+                                onBlur={e => trigger("course")}
                                 name="course"
                                 isClearable={false}
                                 placeholder="Выберите из списка"

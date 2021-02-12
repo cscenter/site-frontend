@@ -1,4 +1,5 @@
 import environ
+import warnings
 from pathlib import Path
 
 env = environ.Env()
@@ -28,7 +29,6 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = str(ROOT_DIR / "media")
 MEDIA_URL = "/media/"
 
-
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.auth',
@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sessions',
     'django_jinja',
-    'treemenus',  # v1 menu
     'menu',  # v2 menu support
     'core',
 ]
@@ -104,7 +103,8 @@ TEMPLATES = [
         'APP_DIRS': False,
         'DIRS': [
             str(ROOT_DIR / "templates"),
-            str(ROOT_DIR / "assets" / "v2" / "dist" / "img"),  # svg inline support
+            str(ROOT_DIR / "assets" / "v2" / "dist" / "img"),
+            # svg inline support
         ],
         'OPTIONS': {
             'loaders': [
@@ -131,7 +131,6 @@ LOGOUT_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -148,11 +147,15 @@ USE_TZ = True
 WEBPACK_ENVIRONMENT = env.str('WEBPACK_ENVIRONMENT', default="local")
 WEBPACK_LOADER = {
     'V1': {
-        'BUNDLE_DIR_NAME': f'v1/dist/{WEBPACK_ENVIRONMENT}/',  # relative to the ASSETS_ROOT
-        'STATS_FILE': str(ASSETS_ROOT / "v1" / "dist" / WEBPACK_ENVIRONMENT / "webpack-stats-v1.json"),
+        'BUNDLE_DIR_NAME': f'v1/dist/{WEBPACK_ENVIRONMENT}/',
+        # relative to the ASSETS_ROOT
+        'STATS_FILE': str(
+            ASSETS_ROOT / "v1" / "dist" / WEBPACK_ENVIRONMENT / "webpack-stats-v1.json"),
     },
     'V2': {
-        'BUNDLE_DIR_NAME': f'v2/dist/{WEBPACK_ENVIRONMENT}/',  # relative to the ASSETS_ROOT
-        'STATS_FILE': str(ASSETS_ROOT / "v2" / "dist" / WEBPACK_ENVIRONMENT / "webpack-stats-v2.json"),
+        'BUNDLE_DIR_NAME': f'v2/dist/{WEBPACK_ENVIRONMENT}/',
+        # relative to the ASSETS_ROOT
+        'STATS_FILE': str(
+            ASSETS_ROOT / "v2" / "dist" / WEBPACK_ENVIRONMENT / "webpack-stats-v2.json"),
     }
 }

@@ -17,9 +17,7 @@ class MessagesExtension(Extension):
 
 
 def csc_menu(request, menu_name, root_id=False):
-    from treemenus.models import MenuItem, Menu
     tree_menu = [
-        MenuItem(caption='Проекты', url='/v1/pages/projects/')
     ]
     for i in tree_menu:
         i.extension = MockExtension()

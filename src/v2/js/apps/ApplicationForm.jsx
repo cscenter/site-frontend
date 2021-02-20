@@ -204,7 +204,7 @@ function ApplicationForm({
             <fieldset>
                 <h3>Личная информация</h3>
                 <div className="row">
-                    <InputField name="surname" label={"Фамилия"} inputRef={register({required: msgRequired})} wrapperClass="col-lg-4" errors={errors} />
+                    <InputField name="last_name" label={"Фамилия"} inputRef={register({required: msgRequired})} wrapperClass="col-lg-4" errors={errors} />
                     <InputField name="first_name" label={"Имя"} inputRef={register({required: msgRequired})} wrapperClass="col-lg-4" errors={errors} />
                     <InputField name="patronymic" label={"Отчество"} onChange={handleInputChange} wrapperClass="col-lg-4" errors={errors} />
                     <InputField name="email" type="email" label={"Электронная почта"} inputRef={register({required: msgRequired})} wrapperClass="col-lg-4" errors={errors} />

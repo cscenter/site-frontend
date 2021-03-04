@@ -26,6 +26,33 @@
 {% endblock after_navbar_container %}
 
 {% block content %}
+
+    <div class="container-fluid _grey">
+        <div class="container py-10">
+            <h2 class="text-left text-sm-center py-10 mb-4">Обучение в&nbsp;CS&nbsp;центре</h2>
+            <div class="row">
+                <div class="col-sm-6 col-lg-4 pr-sm-8 mb-8">
+                    {{ macros.svg_image('icon-graduate') }}
+                    <h3 class="mt-4">Направления обучения</h3>
+                    <p>Студенты могут выпуститься из&nbsp;CS&nbsp;центра по&nbsp;одному из&nbsp;трёх направлений: Data
+                        Science, Software Enginering, Computer Science</p>
+                </div>
+                <div class="col-sm-6 col-lg-4 pr-sm-8 mb-8">
+                    {{ macros.svg_image('icon-courses') }}
+                    <h3 class="mt-4">Большой выбор курсов</h3>
+                    <p>Для выпуска нужно сдать двенадцать курсов за&nbsp;два или три года. Несколько обязательных для
+                        выбранного направления и&nbsp;минимум пять на&nbsp;выбор из&nbsp;всех остальных.</p>
+                </div>
+                <div class="col-sm-6 col-lg-4 pr-sm-8 mb-8">
+                    {{ macros.svg_image('icon-practice') }}
+                    <h3 class="mt-4">Практика или научная работа </h3>
+                    <p>За&nbsp;время обучения студенты три семестра выполняют практику или научно-исследовательскую
+                        работу под руководством опытного наставника.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <div class="csc-study-areas" id="study-areas">
     <div class="container">
         <h2 class="m-center">Очные курсы центра</h2>

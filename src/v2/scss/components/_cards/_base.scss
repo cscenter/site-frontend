@@ -191,3 +191,8 @@ a.card {
 
   }
 }
+
+.card.dark-bg {
+  background: map_get($theme-colors, "dark");
+  color: $white;
+}

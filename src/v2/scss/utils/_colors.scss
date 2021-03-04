@@ -7,8 +7,9 @@
   background: map_get($theme-colors, "light");
 }
 
-._dark {
+.dark-bg {
   background: map_get($theme-colors, "dark");
+  color: $white;
 }
 
 .text-warning {

@@ -11,6 +11,10 @@
   background: map_get($theme-colors, "dark");
 }
 
+._transparent {
+  background: transparent;
+}
+
 .text-warning {
   color: $orange;
 }

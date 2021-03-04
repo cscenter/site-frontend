@@ -88,37 +88,78 @@
     </div>
 </div>
 
-<div class="about-csc">
-    <div class="container">
-        <div class="about-csc__cover">
-            <div class="lazy-wrapper">
-                <img src="" data-src="{{ static("v2/img/pages/index/cscenter_meetup-1136.jpg") }}"
-                     data-srcset="{{ static("v2/img/pages/index/cscenter_meetup-1056.jpg") }} 1056w,
-                             {{ static("v2/img/pages/index/cscenter_meetup-1408.jpg") }} 1408w,
-                             {{ static("v2/img/pages/index/cscenter_meetup-1136@2x.jpg") }} 2272w"
-                     alt="">
-            </div>
-            <div class="about-csc__description">
-                <h1>О центре</h1>
-                <p>
-                    Computer Science Center&nbsp;существует, чтобы дать возможность талантливым студентам и&nbsp;выпускникам
-                    развиваться в&nbsp;интересном им&nbsp;направлении.
-                </p>
-            </div>
-            <a class="btn _big _primary about-csc_btn" href="/about/">Подробнее</a>
-        </div>
-        <div class="about-csc__organizers">
-            <h3>Организаторы</h3>
-            <p>CS Center — это совместная инициатива Школы анализа данных, Computer Science клуба и JetBrains.</p>
-            <div class="col-12">
-                <a target="_blank" rel="noopener" href="https://jetbrains.ru/students" title="JetBrains">{{ macros.svg_image('logo-jetbrains') }}</a>
-                <a target="_blank" rel="noopener" href="https://yandexdataschool.ru/" title="Яндекс ШАД">{{ macros.svg_image('logo-shad') }}</a>
-                <a target="_blank" rel="noopener" href="http://239.ru/" title="ФМЛ №239">{{ macros.svg_image('logo-fml239') }}</a>
-                <a target="_blank" rel="noopener" href="https://compsciclub.ru/" title="Computer Science Club">{{ macros.svg_image('logo-csclub') }}</a>
+    <div class="container-fluid dark-bg py-10">
+        <div class="container">
+            <h2 class="h1 py-10">Очное обучение в центре</h2>
+            <div class="row">
+                <div class="col-sm-5 mb-8">
+                    <div class="card _no-border dark-bg">
+                        <div class="card__img">
+                            <img class="img-fluid" src="{{ static("v2/img/pages/index/about-csc/curators.jpg") }}"
+                                 alt="Кураторы центра">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title mb-4">Заботливые кураторы</div>
+                            Команда CS&nbsp;центра чутко следит за&nbsp;процессом обучения и&nbsp;всегда готова помочь
+                            каждому студенту
+                        </div>
+                        <div class="card__content">
+                            <a href="https://compscicenter.ru/team/" target="_blank" class="btn _small _rounded _outline _gray">Команда центра</a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-5 mb-8 offset-sm-1">
+                    <div class=" card _no-border dark-bg">
+                        <div class="card__img">
+                            <img class="img-fluid" src="{{ static("v2/img/pages/index/about-csc/teachers.jpg") }}"
+                                 alt="Преподаватель на лекции">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title mb-4">Увлечённые преподаватели</div>
+                            Мы ценим наших преподавателей — заслуженных деятелей науки и&nbsp;успешных специалистов в&nbsp;области.
+                            Им действительно важно научить
+                        </div>
+                        <div class="card__content">
+                            <a href="https://compscicenter.ru/teachers/" target="_blank"class="btn _small _rounded _outline _gray">Преподаватели</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5 mb-8">
+                    <div class=" card _no-border dark-bg">
+                        <div class="card__img">
+                            <img class="img-fluid" src="{{ static("v2/img/pages/index/about-csc/holidays.jpg") }}"
+                                 alt="Студенческий праздник в центре">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title mb-4">Студенческие мероприятия</div>
+                            В центре получают не&nbsp;только знания, но и&nbsp;знакомятся с&nbsp;людьми, близкими по&nbsp;духу
+                            и&nbsp;увлечениям.
+                        </div>
+                        <div class="card__content">
+                            <a href="https://www.instagram.com/compscicenter/" rel="nofollow noopener" target="_blank"class="btn _small _rounded _outline _gray">Наш инстаграм</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5 mb-8 offset-sm-1">
+                    <div class=" card _no-border dark-bg">
+                        <div class="card__img">
+                            <img class="img-fluid" src="{{ static("v2/img/pages/index/about-csc/graduation.jpg") }}"
+                                 alt="Выпускной в центре">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title mb-4">Выпускной</div>
+                            Ежегодный выпускной — праздник для студентов, преподавателей и&nbsp;организаторов.
+                            Подводим итоги года в&nbsp;неучебной обстановке
+                        </div>
+                        <div class="card__content">
+                            <a href="https://compscicenter.ru/alumni/" target="_blank"class="btn _small _rounded _outline _gray">Выпускники</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <div class="container mb-10">
     <h2 class="text-center mb-6">Мероприятия</h2>

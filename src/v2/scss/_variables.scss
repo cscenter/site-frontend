@@ -47,12 +47,13 @@ $colors: (
 );
 
 // Themes. Used in:
-// * components/grid.scss
+// * utils/_colors.scss
 // * bootstrap/scss/utilities/_text.scss
-$dark-bg:       #f8fafc;
+$grey-bg:       #f8fafc;
 $theme-colors: (
   "light":      $white,
-  "dark":       $dark-bg
+  "grey":       $grey-bg,
+  "dark":       $gray-darker
 );
 
 // Btns

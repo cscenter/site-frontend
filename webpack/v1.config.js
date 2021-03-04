@@ -61,7 +61,7 @@ const common = {
 
     externals: {
         jquery: 'jQuery',
-        // Note: EpicEditor is an old dead shit without correct support.
+        // Note: EpicEditor is a dead library.
         EpicEditor: 'EpicEditor',
     },
 

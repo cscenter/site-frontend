@@ -24,52 +24,6 @@
   }
 }
 
-// 2 - screen `Study Areas`
-
-.csc-study-areas {
-  padding: spacer("10x") 0 0;
-  @include append-hr-to-container;
-}
-
-.card._study-area {
-  background-color: $gray-lighter;
-  text-align: center;
-  margin-bottom: spacer("4x");
-
-  @include media-breakpoint-up(lg) {
-    margin-bottom: 0;
-  }
-
-  .card__content {
-    padding: spacer("10x") spacer("4x");
-  }
-
-  &:hover {
-    background-color: $teal;
-    transition: .2s;
-
-    .card__title {
-      color: $black;
-    }
-
-    .card__subtitle {
-      color: rgba($black, .7);
-    }
-  }
-
-  .card__title {
-    color: $black;
-    margin-bottom: spacer("1x");
-    letter-spacing: -.01rem;
-  }
-}
-
-
-.card-offline-course__icon {
-  height: 72px;
-  margin-bottom: spacer("4x");
-}
-
 //3-screen about-csc
 
 .about-csc {

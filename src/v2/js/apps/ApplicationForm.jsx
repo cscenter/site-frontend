@@ -23,8 +23,8 @@ import {showErrorNotification, showNotification} from "utils";
 // TODO: потестить isPending. Есть какой-то devtools для react-async
 
 
-const YandexAccessTooltip = () => (
-    <Tooltip title="Вступительный тест организован в системе Яндекс.Контест. Чтобы выдать права участника и затем сопоставить результаты с анкетами, нам нужно знать ваш логин на Яндексе без ошибок, учитывая все особенности, например, вход через социальные сети. Чтобы всё сработало, поделитесь с нами доступом к некоторым данным из вашего Яндекс.Паспорта: логин и ФИО.">
+const Hint = ({...options}) => (
+    <Tooltip {...options}>
         <span className="tooltip__icon _rounded">?</span>
     </Tooltip>
 );
@@ -181,12 +181,6 @@ function ApplicationForm({
         isYandexPassportAccessAllowed,
         isFormSubmitted,
     } = state;
-    let filteredStudyPrograms = studyProgramOptions.filter((program) => {
-        if (selectedCampaign && selectedCampaign === "nsk") {
-            return program.value !== "cs";
-        }
-        return true;
-    });
 
     if (isFormSubmitted) {
         return (
@@ -210,6 +204,8 @@ function ApplicationForm({
                     <InputField name="email" type="email" label={"Электронная почта"} inputRef={register({required: msgRequired})} wrapperClass="col-lg-4" errors={errors} />
                     <InputField name="phone" label={"Контактный телефон"} inputRef={register({required: msgRequired})} wrapperClass="col-lg-4" errors={errors}
                                 placeholder="+7 (999) 1234567"/>
+                    <InputField name="living_place" label={"В каком городе вы живёте?"} inputRef={register({required: msgRequired})} wrapperClass="col-lg-4" errors={errors}
+                                placeholder=""/>
                 </div>
             </fieldset>
             <fieldset>
@@ -226,7 +222,7 @@ function ApplicationForm({
                                 helpText={"https://github.com/xxxx, логин — это xxxx"}
                                 placeholder="ХХХХ"/>
                     <div className="field col-lg-4 mb-2">
-                        <label>Доступ к данным на Яндексе&nbsp;<YandexAccessTooltip/></label>
+                        <label>Доступ к данным на Яндексе&nbsp;<Hint text={"Вступительный тест организован в системе Яндекс.Контест. Чтобы выдать права участника и затем сопоставить результаты с анкетами, нам нужно знать ваш логин на Яндексе без ошибок, учитывая все особенности, например, вход через социальные сети. Чтобы всё сработало, поделитесь с нами доступом к некоторым данным из вашего Яндекс.Паспорта: логин и ФИО."}/></label>
                         <div className="grouped inline">
                             <Checkbox
                                 required
@@ -331,7 +327,21 @@ function ApplicationForm({
                 <h3>CS центр</h3>
                 <div className="row">
                     <div className="field col-lg-12">
-                        <label>Выберите отделение, в котором собираетесь учиться</label>
+                        <label>Выберите отделение, в котором собираетесь
+                            учиться&nbsp;<Hint interactive={true} html={(
+                                <>
+                                    <p>Если вы живёте в Санкт-Петербурге или
+                                        Новосибирске, мы рассмотрим вашу анкету в
+                                        конкурсе на очное обучение.</p>
+                                    <p>Жителям Екатеринбурга, Минска, Москвы и
+                                        Нижнего Новгорода рекомендуем поступать
+                                        в <a href='https://yandexdataschool.ru/'
+                                             target='_blank' style={{color: '#07c39f'}}
+                                             rel='noreferrer noopener nofollow'>ШАД
+                                            Яндекса</a> — в этих городах есть
+                                        филиалы с очными занятиями.</p>
+                                </>
+                                )} /></label>
                         <RadioGroup required name="campaign" className="inline pt-0" onChange={handleInputChange}>
                             {campaigns.map((branch) =>
                                 <RadioOption  key={branch.id} id={`campaign-${branch.value}`} value={branch.id}>
@@ -342,7 +352,7 @@ function ApplicationForm({
                     </div>
                 </div>
                 {
-                    selectedCampaign && (selectedCampaign === "spb" || selectedCampaign === "nsk") &&
+                    selectedCampaign &&
                     <Fragment>
                         <div className="row">
                             <div className="field col-lg-8">
@@ -351,7 +361,7 @@ function ApplicationForm({
                                     Мы не просим поступающих сразу определиться с направлением обучения. Вам предстоит сделать этот выбор через год-полтора после поступления. Сейчас мы предлагаем указать одно или несколько направлений, которые кажутся вам интересными.
                                 </p>
                                 <div className="grouped">
-                                    {filteredStudyPrograms.map((option) =>
+                                    {studyProgramOptions.map((option) =>
                                         <Checkbox
                                             className={errors && errors.preferred_study_programs ? 'error' : ''}
                                             name="preferred_study_programs"
@@ -402,14 +412,6 @@ function ApplicationForm({
                             </div>
                         }
                     </Fragment>
-                }
-                {
-                    selectedCampaign && selectedCampaign === "distance" &&
-                    <div className="row">
-                        <div className="field col-lg-5">
-                            <Input required name="living_place" id="living_place" placeholder="В каком городе вы живёте?" ref={register({required: msgRequired})} />
-                        </div>
-                    </div>
                 }
 
                 <div className="row">
@@ -489,8 +491,7 @@ ApplicationForm.propTypes = {
     sourceOptions: PropTypes.arrayOf(optionStrType).isRequired,
     universities: PropTypes.arrayOf(PropTypes.shape({
         value: PropTypes.number.isRequired,
-        label: PropTypes.string.isRequired,
-        branch_id: PropTypes.number.isRequired
+        label: PropTypes.string.isRequired
     })).isRequired,
     educationLevelOptions: PropTypes.arrayOf(optionStrType).isRequired,
     studyProgramOptions: PropTypes.arrayOf(optionStrType).isRequired

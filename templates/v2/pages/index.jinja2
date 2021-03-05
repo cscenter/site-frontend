@@ -3,6 +3,18 @@
 {% set menu_theme="__transparent-theme" %}
 {% set is_admission_active = True %}
 
+{% macro meta_course_card(course_title, course_link, image_url, image_title) -%}
+    <a href="{{ course_link }}"
+       class="card _horizontal-mobile _no-border _shadowed p-3 text-center">
+        <div class="card__img">
+            <img src="{{ static(image_url) }}" alt="{{ image_title}}">
+        </div>
+        <div class="card__content">
+            {{ course_title|safe }}
+        </div>
+    </a>
+{%- endmacro %}
+
 {% block sprites %}
     <script type="text/javascript">
         window.__CSC__.sprites.push("{{ static("v2/dist/img/sprites/index.svg") }}");
@@ -52,132 +64,91 @@
             </div>
         </div>
     </div>
+
+
+    {% set courses = [
+        {
+            "course_title": "Алгоритмы и&nbsp;структуры данных",
+            "course_link": "https://compscicenter.ru/courses/algorithms-1/",
+            "image_url": "v2/img/pages/index/offline-courses/algorithms-and-data-structures-default.jpg",
+            "image_title": "Алгоритмы и структуры данных",
+        },
+        {
+            "course_title": "Анализ изображений и&nbsp;видео",
+            "course_link": "https://compscicenter.ru/courses/images-and-video-1/",
+            "image_url": "v2/img/pages/index/offline-courses/analyzing-images-and-videos-default.jpg",
+            "image_title": "Анализ изображений и видео",
+        },
+        {
+            "course_title": "Асимптотический анализ и&nbsp;теория вероятности",
+            "course_link": "https://compscicenter.ru/courses/prob-theory/",
+            "image_url": "v2/img/pages/index/offline-courses/asymptotic-analysis-and-probability-theory.jpg",
+            "image_title": "Асимптотический анализ и теория вероятности",
+        },
+        {
+            "course_title": "Вычисления на&nbsp;видеокартах",
+            "course_link": "https://compscicenter.ru/courses/video_cards_computation/",
+            "image_url": "v2/img/pages/index/offline-courses/screensaver.jpg",
+            "image_title": "Вычисления на видеокартах",
+        },
+        {
+            "course_title": "Машинное обучение",
+            "course_link": "https://compscicenter.ru/courses/machine-learning-1/",
+            "image_url": "v2/img/pages/index/offline-courses/screensaver.jpg",
+            "image_title": "Машинное обучение",
+        },
+        {
+            "course_title": "Основы дискретной математики",
+            "course_link": "https://compscicenter.ru/courses/discrete-math/",
+            "image_url": "v2/img/pages/index/offline-courses/screensaver.jpg",
+            "image_title": "Основы дискретной математики",
+        },
+        {
+            "course_title": "Параллельное программирование",
+            "course_link": "https://compscicenter.ru/courses/hp-course/",
+            "image_url": "v2/img/pages/index/offline-courses/screensaver.jpg",
+            "image_title": "Параллельное программирование",
+        },
+        {
+            "course_title": "Программирование на&nbsp;C++",
+            "course_link": "https://compscicenter.ru/courses/cpp-1/",
+            "image_url": "v2/img/pages/index/offline-courses/c-plus-programming-default.jpg",
+            "image_title": "Программирование на C++",
+        },
+        {
+            "course_title": "Программирование на&nbsp;Java",
+            "course_link": "https://compscicenter.ru/courses/java/",
+            "image_url": "v2/img/pages/index/offline-courses/java-programming.jpg",
+            "image_title": "Программирование на Java",
+        },
+        {
+            "course_title": "Программирование на&nbsp;Kotlin",
+            "course_link": "https://compscicenter.ru/courses/kotlinprogramming/",
+            "image_url": "v2/img/pages/index/offline-courses/kotlin-programming.jpg",
+            "image_title": "Программирование на Kotlin",
+        },
+        {
+            "course_title": "Программирование на&nbsp;Python",
+            "course_link": "https://compscicenter.ru/courses/python/",
+            "image_url": "v2/img/pages/index/offline-courses/python-programming.jpg",
+            "image_title": "Программирование на Python",
+        },
+        {
+            "course_title": "Функциональное программирование",
+            "course_link": "https://compscicenter.ru/courses/func-prog/",
+            "image_url": "v2/img/pages/index/offline-courses/screensaver.jpg",
+            "image_title": "Функциональное программирование",
+        }
+    ] %}
     <div class="container-fluid py-10">
         <div class="container py-10">
             <h2 class="text-left text-sm-center mb-8">Очные курсы центра</h2>
             <div class="row">
                 <div class="col-12">
                     <div class="card-deck _six">
-                        <a href="https://compscicenter.ru/courses/algorithms-1/"
-                           class="card _horizontal-mobile _no-border _shadowed p-3 text-center">
-                            <div class="card__img">
-                                <img src="{{ static("v2/img/pages/index/offline-courses/algorithms-and-data-structures-default.jpg") }}"
-                                     alt="Алгоритмы и структуры данных">
-                            </div>
-                            <div class="card__content">
-                                Алгоритмы и&nbsp;структуры данных
-                            </div>
-                        </a>
-                        <a href="https://compscicenter.ru/courses/images-and-video-1/"
-                           class="card _horizontal-mobile _no-border _shadowed p-3 text-center">
-                            <div class="card__img">
-                                <img src="{{ static("v2/img/pages/index/offline-courses/analyzing-images-and-videos-default.jpg") }}"
-                                     alt="Анализ изображений и видео">
-                            </div>
-                            <div class="card__content">
-                                Анализ изображений и&nbsp;видео
-                            </div>
-                        </a>
-                        <a href="https://compscicenter.ru/courses/prob-theory/"
-                           class="card _horizontal-mobile _no-border _shadowed p-3 text-center">
-                            <div class="card__img">
-                                <img src="{{ static("v2/img/pages/index/offline-courses/asymptotic-analysis-and-probability-theory.jpg") }}"
-                                     alt="Асимптотический анализ и теория вероятности">
-                            </div>
-                            <div class="card__content">
-                                Асимптотический анализ и&nbsp;теория вероятности
-                            </div>
-                        </a>
-                        <a href="https://compscicenter.ru/courses/video_cards_computation/"
-                           class="card _horizontal-mobile _no-border _shadowed p-3 text-center">
-                            <div class="card__img">
-                                <img src="{{ static("v2/img/pages/index/offline-courses/screensaver.jpg") }}"
-                                     alt="Вычисления на видеокартах">
-                            </div>
-                            <div class="card__content">
-                                Вычисления на&nbsp;видеокартах
-                            </div>
-                        </a>
-                        <a href="https://compscicenter.ru/courses/machine-learning-1/"
-                           class="card _horizontal-mobile _no-border _shadowed p-3 text-center">
-                            <div class="card__img">
-                                <img src="{{ static("v2/img/pages/index/offline-courses/screensaver.jpg") }}"
-                                     alt="Машинное обучение">
-                            </div>
-                            <div class="card__content">
-                                Машинное обучение
-                            </div>
-                        </a>
-                        <a href="https://compscicenter.ru/courses/discrete-math/"
-                           class="card _horizontal-mobile _no-border _shadowed p-3 text-center">
-                            <div class="card__img">
-                                <img src="{{ static("v2/img/pages/index/offline-courses/screensaver.jpg") }}"
-                                     alt="Основы дискретной математики">
-                            </div>
-                            <div class="card__content">
-                                Основы дискретной математики
-                            </div>
-                        </a>
-                        <a href="https://compscicenter.ru/courses/hp-course/"
-                           class="card _horizontal-mobile _no-border _shadowed p-3 text-center">
-                            <div class="card__img">
-                                <img src="{{ static("v2/img/pages/index/offline-courses/screensaver.jpg") }}"
-                                     alt="Параллельное программирование">
-                            </div>
-                            <div class="card__content">
-                                Параллельное программирование
-                            </div>
-                        </a>
-                        <a href="https://compscicenter.ru/courses/cpp-1/"
-                           class="card _horizontal-mobile _no-border _shadowed p-3 text-center">
-                            <div class="card__img">
-                                <img src="{{ static("v2/img/pages/index/offline-courses/c-plus-programming-default.jpg") }}"
-                                     alt="Программирование на C++">
-                            </div>
-                            <div class="card__content">
-                                Программирование на&nbsp;C++
-                            </div>
-                        </a>
-                        <a href="https://compscicenter.ru/courses/java/"
-                           class="card _horizontal-mobile _no-border _shadowed p-3 text-center">
-                            <div class="card__img">
-                                <img src="{{ static("v2/img/pages/index/offline-courses/java-programming.jpg") }}"
-                                     alt="Программирование на Java">
-                            </div>
-                            <div class="card__content">
-                                Программирование на&nbsp;Java
-                            </div>
-                        </a>
-                        <a href="https://compscicenter.ru/courses/kotlinprogramming/"
-                           class="card _horizontal-mobile _no-border _shadowed p-3 text-center">
-                            <div class="card__img">
-                                <img src="{{ static("v2/img/pages/index/offline-courses/kotlin-programming.jpg") }}"
-                                     alt="Программирование на Kotlin">
-                            </div>
-                            <div class="card__content">
-                                Программирование на&nbsp;Kotlin
-                            </div>
-                        </a>
-                        <a href="https://compscicenter.ru/courses/python/"
-                           class="card _horizontal-mobile _no-border _shadowed p-3 text-center">
-                            <div class="card__img">
-                                <img src="{{ static("v2/img/pages/index/offline-courses/python-programming.jpg") }}"
-                                     alt="Программирование на Python">
-                            </div>
-                            <div class="card__content">
-                                Программирование на&nbsp;Python
-                            </div>
-                        </a>
-                        <a href="https://compscicenter.ru/courses/func-prog/"
-                           class="card _horizontal-mobile _no-border _shadowed p-3 text-center">
-                            <div class="card__img">
-                                <img src="{{ static("v2/img/pages/index/offline-courses/screensaver.jpg") }}"
-                                     alt="Функциональное программирование">
-                            </div>
-                            <div class="card__content">
-                                Функциональное программирование
-                            </div>
-                        </a>
+                        {% for row in courses %}
+                            {{ meta_course_card(row["course_title"], row["course_link"], row["image_url"], row["image_title"]) }}
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="col-12 text-center mt-4">

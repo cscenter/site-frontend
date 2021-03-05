@@ -34,6 +34,10 @@ h6,
   font-weight: $headings-font-weight;
   line-height: $headings-line-height;
   color: $headings-color;
+
+  &.theme-dark {
+    color: $white;
+  }
 }
 
 h1,

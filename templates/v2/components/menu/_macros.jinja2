@@ -36,9 +36,14 @@
                         <li class="nav-item">
                             <a class="nav-link _active" href="/v2/pages/about/">О центре</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/v2/pages/programs/">Программы</a>
-                        </li>
+                      <li class="nav-item dropdown theme-dark">
+                         <a class="nav-link">Программы {{ macros.svg_icon('arrow-bottom') }}</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Computer science</a>
+                            <a class="dropdown-item" href="#">Data science</a>
+                            <a class="dropdown-item" href="#">Software engeneering</a>
+                        </div>
+                      </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Курсы</a>
                         </li>

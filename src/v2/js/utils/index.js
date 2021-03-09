@@ -28,7 +28,8 @@ export function polyfillElementMatches() {
  **/
 export function loadFetchPolyfill() {
     if (typeof window === 'object' && (!window.fetch || !window.AbortController)) {
-        return import(/* webpackChunkName: "fetch-polyfill" */ 'polyfills/fetch');
+        return import(/* webpackChunkName: "fetch-polyfill" */ 'polyfills/fetch')
+          .then(module => module.shim());
     }
 }
 

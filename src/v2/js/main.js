@@ -13,6 +13,7 @@ import {
     onReady,
     loadFetchPolyfill,
     polyfillElementMatches,
+    loadBootstrapNativePolyfill,
     showComponentError,
     getSections,
     showNotification,
@@ -39,7 +40,11 @@ onReady(async () => {
     initTopMenu();
     displayNotifications();
     // Global polyfills
-    await Promise.all([loadFetchPolyfill(), polyfillElementMatches()]);
+    await Promise.all([
+      loadFetchPolyfill(),
+      polyfillElementMatches(),
+      loadBootstrapNativePolyfill()
+    ]);
 
     // TODO: section or component-based approach. What to choose?
     let sections = getSections();

@@ -32,6 +32,15 @@ export function loadFetchPolyfill() {
     }
 }
 
+/**
+ * Polyfill API used by bootstrap.native for browsers without native support.
+ **/
+export function loadBootstrapNativePolyfill() {
+    if (typeof window === 'object' && typeof window.CustomEvent !== "function") {
+        return import(/* webpackChunkName: "bootstrap-native-polyfill" */ 'polyfills/bootstrap-native');
+    }
+}
+
 
 /**
  * Do feature detection, to figure out if polyfill needs to be imported.

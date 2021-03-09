@@ -70,26 +70,17 @@
 }
 
 .about-csc__organizers {
-  border-top: $border-width solid $border-color;
   padding-top: spacer("8x");
-  @include media-breakpoint-up(lg) {
-    border-top: none;
-  }
 
   .sprite-img {
+    margin: 0 spacer("3x") spacer("4x") 0;
     @include media-breakpoint-up(md) {
-      width: 112px;
-      height: 88px;
-      margin: 0 .5rem;
+      margin: 0 spacer("3x") spacer("10x") 0;
     }
   }
 
   h3 {
-    margin-bottom: .5rem;
-  }
-
-  p {
-    font-size: $font-size-sm;
+    margin-bottom: spacer("4x");
   }
 }
 

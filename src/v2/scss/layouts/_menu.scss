@@ -167,7 +167,7 @@ body {
     display: none;
   }
 
-  .sprite-img._arrow-bottom {
+  .sprite-img._icon-arrow-bottom {
     fill: $white;
     top: 0;
     width: 1em;
@@ -205,7 +205,7 @@ body {
       }
 
       &[aria-expanded="true"] {
-        ._arrow-bottom {
+        ._icon-arrow-bottom {
           transform: rotate(180deg);
         }
       }
@@ -215,7 +215,7 @@ body {
         opacity: 1;
       }
 
-      ._arrow-bottom {
+      ._icon-arrow-bottom {
         transition: all .25s;
       }
     }

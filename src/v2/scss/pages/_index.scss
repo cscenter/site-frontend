@@ -74,6 +74,9 @@
 
   .sprite-img {
     margin: 0 spacer("3x") spacer("4x") 0;
+    @include media-breakpoint-up(md) {
+      margin: 0 spacer("10x") spacer("4x") 0;
+    }
   }
 
   h3 {
@@ -86,6 +89,8 @@
 
 .csc-online-education {
   text-align: center;
+  border-top: 1px solid $gray-lighter;
+
   @include media-breakpoint-up(md) {
     text-align: left;
   }

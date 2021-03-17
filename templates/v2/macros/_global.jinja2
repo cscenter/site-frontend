@@ -32,25 +32,19 @@
     <div class="scrollable{% if modifiers %} {{ modifiers }}{% endif %}">{{ caller() }}</div>
 {%- endmacro %}
 
-
-{% macro meta_course_card(course_title, course_slug, image_url='', image_title='') %}
-    {%  if image_url %}
-      {%- set icon_url = image_url -%}
-    {% else -%}
-      {%- set icon_url = "v2/img/pages/index/offline-courses/" + course_slug + ".jpg" -%}
-    {% endif -%}
-    {% if image_title != '' %}
-      {%- set image_alt = image_title -%}
-    {% else -%}
-      {%- set image_alt = course_title.replace("&nbsp;", " ") -%}
-    {% endif -%}
-    <a href="https://compscicenter.ru/courses/{{ course_slug }}/"
-       class="card _horizontal-mobile _no-border _shadowed p-3 text-center">
-        <div class="card__img">
-            <img src="{{ static(icon_url) }}" alt="{{ image_alt }}">
-        </div>
+{% macro collapsible_block(title, id, open=false) %}
+  <div class="collapsible">
+    <div class="card _qa mb-4">
+      <button class="btn card__header" id="collapsible-block-{{ id }}"
+              aria-expanded="{% if open %}true{% else %}false{% endif %}" href="#collapsible-block-{{ id }}__inner">
+        {{ svg_icon('border-arrow-right') }}{{ title|safe }}
+      </button>
+      <div class="{% if not open %}collapse{% endif %} pb-4" id="collapsible-block-{{ id }}__inner"
+           aria-expanded="{% if open %}true{% else %}false{% endif %}">
         <div class="card__content">
-            {{ course_title|safe }}
+          {{ caller() }}
         </div>
-    </a>
+      </div>
+    </div>
+  </div>
 {%- endmacro %}

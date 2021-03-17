@@ -1,32 +1,11 @@
 {% extends "v2/layouts/inner.jinja2" %}
 
+{% from "v2/pages/syllabus/on-campus/_macros.jinja2" import collapsible_meta_course %}
+
 {% block title %}{{ super() }}{% endblock title %}
 
 {% block body_attrs %}data-init-sections="tabs,collapsible"{% endblock body_attrs %}
 
-{% macro collapsible_block(title, id, open=false) %}
-  <div class="collapsible">
-    <div class="card _qa mb-4">
-      <button class="btn card__header" id="collapsible-block-{{ id }}"
-              aria-expanded="{% if open %}true{% else %}false{% endif %}" href="#collapsible-block-{{ id }}__inner">
-        {{ macros.svg_icon('border-arrow-right') }}{{ title|safe }}
-      </button>
-      <div class="{% if not open %}collapse{% endif %} pb-4" id="collapsible-block-{{ id }}__inner"
-           aria-expanded="{% if open %}true{% else %}false{% endif %}">
-        <div class="card__content">
-          {{ caller() }}
-        </div>
-      </div>
-    </div>
-  </div>
-{%- endmacro %}
-
-{% macro collapsible_meta_course(title, course_slug, description, base_url='https://compscicenter.ru') %}
-  {% call collapsible_block(title, course_slug) %}
-    {{ description|safe }}
-    <a href="{{ base_url }}/courses/{{ course_slug }}/" class="btn _outline _gray _small" target="_blank">Страница курса</a>
-  {% endcall %}
-{%- endmacro %}
 {% block content %}
 
   <div class="container py-10 text-left">

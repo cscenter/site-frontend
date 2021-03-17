@@ -1,32 +1,11 @@
 {% extends "v2/layouts/inner.jinja2" %}
 
+{% from "v2/pages/syllabus/on-campus/_macros.jinja2" import collapsible_meta_course, collapsible_meta_course_alt %}
+
 {% block title %}{{ super() }}{% endblock title %}
 
 {% block body_attrs %}data-init-sections="tabs,collapsible"{% endblock body_attrs %}
 
-{% macro collapsible_block(title, id, open=false) %}
-  <div class="collapsible">
-    <div class="card _qa mb-4">
-      <button class="btn card__header" id="collapsible-block-{{ id }}"
-              aria-expanded="{% if open %}true{% else %}false{% endif %}" href="#collapsible-block-{{ id }}__inner">
-        {{ macros.svg_icon('border-arrow-right') }}{{ title|safe }}
-      </button>
-      <div class="{% if not open %}collapse{% endif %} pb-4" id="collapsible-block-{{ id }}__inner"
-           aria-expanded="{% if open %}true{% else %}false{% endif %}">
-        <div class="card__content">
-          {{ caller() }}
-        </div>
-      </div>
-    </div>
-  </div>
-{%- endmacro %}
-
-{% macro collapsible_meta_course(title, course_slug, description, base_url='https://compscicenter.ru') %}
-  {% call collapsible_block(title, course_slug) %}
-    {{ description|safe }}
-    <a href="{{ base_url }}/courses/{{ course_slug }}/" class="btn _outline _gray _small" target="_blank">Страница курса</a>
-  {% endcall %}
-{%- endmacro %}
 {% block content %}
 
   <div class="container py-10 text-left">
@@ -95,9 +74,9 @@
                    aria-labelledby="tab__{{ tab.target }}">
                 <h2>Обязательные курсы</h2>
                 <h3 class="mt-10">Алгоритмы</h3>
-                {{ collapsible_meta_course('Алгоритмы и структуры данных, часть 1', 'algorithms-1', '<p>Курс знакомит слушателей с базовыми алгоритмическими приёмами и структурами данных.
-
-</p>') }}
+                {% call collapsible_meta_course_alt(title='Алгоритмы и структуры данных, часть 1', course_slug='algorithms-1') %}
+                  <p>Курс знакомит слушателей с базовыми алгоритмическими приёмами и структурами данных.</p>
+                {% endcall %}
                 {{ collapsible_meta_course('Алгоритмы и структуры данных, часть 2', 'algorithms-2', '<p>Продолжение изучения базовых алгоритмов</p>') }}
                 <p class="text-muted">или</p>
                 {{ collapsible_meta_course('Дополнительные главы алгоритмов, часть 1', 'advanced-algo', '<p>Курс рассчитан на студентов, сдавших базовые курсы по алгоритмам, предлагаемые в CS центре, и желающих применить свои знания для более сложных задач.</p>') }}

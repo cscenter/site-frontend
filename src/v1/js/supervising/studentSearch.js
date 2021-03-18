@@ -4,6 +4,7 @@ const ENTRY_POINT = $('.user-search #ajax-uri').val();
 let queryName = "";
 let branches = {};
 let curriculumYears = {};
+let admissionYears = {};
 let studentTypes = {};
 let status = {};
 let passedCoursesTotal = {};
@@ -17,7 +18,8 @@ function makeQuery() {
   let filters = {
     name: queryName,
     branches: getSelectedValues(branches),
-    curriculum_year: getSelectedValues(curriculumYears),
+    year_of_curriculum: getSelectedValues(curriculumYears),
+    year_of_admission: getSelectedValues(admissionYears),
     types: getSelectedValues(studentTypes),
     status: getSelectedValues(status),
     cnt_enrollments: getSelectedValues(passedCoursesTotal),
@@ -41,9 +43,9 @@ function makeQuery() {
     }
     $("#user-num-container").html(found).show();
     let h = "<table class='table table-condensed'>";
-    data.results.map((user) => {
+    data.results.map((studentProfile) => {
       h += `<tr><td>`;
-      h += `<a href="/users/${user.user_id}/">${user.short_name}</a>`;
+      h += `<a href="/users/${studentProfile.user_id}/">${studentProfile.short_name}</a>`;
       h += "</td></tr>";
     });
     h += "</table>";
@@ -57,11 +59,6 @@ function makeQuery() {
 const fn = {
   launch: function () {
     const query = _debounce(makeQuery, 200);
-
-    $('.user-search[name="curriculum_year_cb"]')
-      .each(function (idx, obj) {
-        curriculumYears[$(obj).val()] = false;
-      });
 
     $('.user-search')
       .on("keydown", function (e) {
@@ -78,8 +75,12 @@ const fn = {
         branches[$(this).val()] = this.checked;
         query();
       })
-      .on('change', '[name="curriculum_year_cb"]', function (e) {
+      .on('change', '[name="year_of_curriculum"]', function (e) {
         curriculumYears[$(this).val()] = this.checked;
+        query();
+      })
+      .on('change', '[name="year_of_admission"]', function (e) {
+        admissionYears[$(this).val()] = this.checked;
         query();
       })
       .on('change', '[name="type"]', function (e) {

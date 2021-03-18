@@ -1,4 +1,4 @@
-import './student_search';
+import './studentSearch';
 import './diplomas_tex';
 import unreadNotifications from './course_offering';
 

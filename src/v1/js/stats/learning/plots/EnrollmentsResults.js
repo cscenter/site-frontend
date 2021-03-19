@@ -50,7 +50,6 @@ class EnrollmentsResults {
             return;
         }
 
-        // Let's generate here, a lot of troubles with c3.load method right now
         this.plot = c3.generate({
             bindto: this.id,
             data: {

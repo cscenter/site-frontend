@@ -1,7 +1,7 @@
 import { select as d3Select } from 'd3-selection';
 import c3 from "c3";
 import $ from 'jquery';
-import {GROUPS, URLS} from 'stats/utils';
+import {StudentRoles, URLS} from 'stats/utils';
 import i18n from 'stats/i18n';
 
 class ParticipantsGroup {
@@ -9,8 +9,7 @@ class ParticipantsGroup {
 
     constructor(id, options) {
         this.id = `#${id}`;
-        this.groups = GROUPS;
-
+        this.student_types = StudentRoles;
         this.state = {
             data: {
                 type: 'pie',
@@ -47,7 +46,7 @@ class ParticipantsGroup {
     convertData = (rawJSON) => {
         let columns = [];
         rawJSON.forEach((e) => {
-            columns.push([this.groups[e.group], e.students]);
+            columns.push([this.student_types[e.type], e.count]);
         });
         this.state.data.columns = columns;
         return rawJSON;
@@ -61,7 +60,7 @@ class ParticipantsGroup {
     appendParticipantsInfo = (rawJSON) => {
         let total = 0;
         rawJSON.forEach((e) => {
-            total += e.students;
+            total += e.count;
         });
         d3Select(this.id).insert('div', ":first-child")
             .attr('class', 'info')

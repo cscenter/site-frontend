@@ -35,9 +35,7 @@ let courseFilterForm = $('#courses-filter-form');
     new AssignmentsDeadline('plot-assignments-deadline', options);
     new AssignmentsResults('plot-assignments-results', options);
     new AssignmentsMeanScore('plot-assignments-score', options);
-    // Enrollments
-    new EnrollmentsResults('plot-enrollments-results',
-        courseSessionId);
+    new EnrollmentsResults('plot-enrollments-results', courseSessionId);
 }
 
 function initFilter() {

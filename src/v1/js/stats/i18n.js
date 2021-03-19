@@ -5,6 +5,11 @@ const i18n = {
     total_participants: "Всего слушателей курса",
     people_suffix: "&nbsp;чел.",
     score_suffix: "&nbsp;бал.",
+    studentTypes: {
+      REGULAR: 'Студент',
+      INVITED: 'Приглашенный студент',
+      GRADUATE: 'Выпускник',
+    },
     groups: {
         STUDENT_CENTER: "Студент центра",
         VOLUNTEER: "Вольнослушатель",

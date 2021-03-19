@@ -8,6 +8,11 @@ export const GROUPS = {
     3: i18n.groups.GRADUATE_CENTER
 };
 
+export const StudentRoles = {
+    regular: i18n.studentTypes.REGULAR,
+    invited: i18n.studentTypes.INVITED,
+};
+
 export const COLOR_PALETTE = [
     '#5cb85c',
     '#f96868',

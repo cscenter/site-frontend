@@ -4,9 +4,10 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:import/errors",
-    "plugin:import/warnings"
+    "plugin:import/warnings",
+    "prettier"  // turns off some ESLint rules that conflict with Prettier
   ],
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
@@ -14,7 +15,8 @@
       "experimentalObjectRestSpread": true,
       "modules": true,
       "jsx": true
-    }
+    },
+    "requireConfigFile": false
   },
   "env": {
     "es6": true,
@@ -23,7 +25,8 @@
     "jquery": true
   },
   "plugins": [
-    "react-hooks"
+    "react-hooks",
+    "prettier"
   ],
   "rules": {
     "quotes": 0,
@@ -41,28 +44,36 @@
       "always"
     ],
     "no-trailing-spaces": 0,
-    "eol-last": 0,
+    "eol-last": ["error", "always"],
     "no-underscore-dangle": 0,
     "no-alert": 0,
     "no-lone-blocks": 0,
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "trailingComma": "none",
+        "arrowParens": "avoid"
+      }
+    ],
+    // prefer-arrow-callback fix conflicting with prettier fix https://github.com/prettier/eslint-plugin-prettier/issues/65
+    "arrow-body-style": "off",
+    "prefer-arrow-callback": "off"
   },
   "settings": {
     "import/resolver": {
       "node": {
         "paths": [
-          "src/v2/js"
+          "src/v2/js",
+          "src/v1/js"
         ],
-        "extensions": [
-          ".js", ".jsx"
-        ]
+        "extensions": [".js", ".jsx"]
       },
       // uses 'eslint-import-resolver-webpack'
       "webpack": {
-        "paths": [
-          "src/v2/js"
-        ]
+        "paths": ["src/v2/js"]
       }
     },
     "react": {

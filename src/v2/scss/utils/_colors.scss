@@ -11,6 +11,18 @@
   background: map_get($theme-colors, "dark");
 }
 
+.darken-bg {
+  background: darken($gray-darker, 10%);
+}
+
+.orange-bg {
+  background: $orange;
+}
+
+.green-bg {
+  background: $green;
+}
+
 .text-warning {
   color: $orange;
 }

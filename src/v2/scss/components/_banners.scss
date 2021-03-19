@@ -1,7 +1,13 @@
 $top-banner-height: 64px;
 
 .top-banner-wrapper {
-  background-color: darken($gray-darker, 10%);
+  display: block;
+}
+
+a.top-banner-wrapper {
+  &:hover {
+    filter: brightness(0.95);;
+  }
 }
 
 .top-banner {
@@ -14,19 +20,7 @@ $top-banner-height: 64px;
   font-size: $font-size-sm;
   text-transform: uppercase;
   @include media-breakpoint-up(lg) {
-    font-weight: $font-weight-normal;
     letter-spacing: 2px;
-  }
-
-  a {
-    color: $white;
-    padding-bottom: 1px;
-    border-bottom: 1px solid transparentize($white, .5);
-    font-weight: $font-weight-normal;
-    &:hover {
-      border-bottom: 1px solid transparentize($teal, .5);
-      color: lighten($teal, 20%);
-    }
   }
 }
 

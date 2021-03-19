@@ -65,11 +65,11 @@ class ParticipantsYear {
         let columns = [];
         let years = [];
         rawJSON.forEach(function (e, i) {
-            const year = e.curriculum_year.toString();
+            const year = e.year_of_admission.toString();
             years.push(year);
             let row = new Array(rawJSON.length + 1).fill(0);
             row[0] = year;
-            row[i + 1] = e.students;
+            row[i + 1] = e.count;
             columns.push(row);
         });
         columns.push(["x"].concat(years));

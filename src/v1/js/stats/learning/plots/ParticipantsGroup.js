@@ -1,10 +1,10 @@
 import { select as d3Select } from 'd3-selection';
 import c3 from 'c3';
 import $ from 'jquery';
-import { StudentRoles, URLS } from 'stats/utils';
+import { getStudentType, StudentTypes, URLS } from 'stats/utils';
 import i18n from 'stats/i18n';
 
-class ParticipantsGroup {
+class CourseStudentsByType {
   static ENDPOINT_URI = 'stats-api:stats_learning_participants_group';
 
   constructor(id, options) {
@@ -29,8 +29,7 @@ class ParticipantsGroup {
       data: this.state.data
     });
 
-    let promise =
-      options.apiRequest || this.getStats(options.course_session_id);
+    let promise = this.getStats(options.course_session_id);
     promise
       .then(this.convertData)
       .then(this.render)
@@ -45,9 +44,7 @@ class ParticipantsGroup {
   convertData = rawJSON => {
     let columns = [];
     rawJSON.forEach(e => {
-      const label = Object.prototype.hasOwnProperty.call(StudentRoles, e.type)
-        ? StudentRoles[e.type]
-        : 'Unknown Type';
+      const { label } = getStudentType(e);
       columns.push([label, e.count]);
     });
     this.state.data.columns = columns;
@@ -75,4 +72,4 @@ class ParticipantsGroup {
   };
 }
 
-export default ParticipantsGroup;
+export default CourseStudentsByType;

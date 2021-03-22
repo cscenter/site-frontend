@@ -106,7 +106,7 @@ class Testimonials extends React.Component {
 
   getRequestPayload(state) {
     let { page } = state;
-    return { page, pageSize: this.props.pageSize };
+    return { page, page_size: this.props.pageSize };
   }
 
   fetch = payload => {

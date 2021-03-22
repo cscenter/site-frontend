@@ -10,7 +10,11 @@ const MILLISECONDS_MULTIPLIER = 1000;
 const TRANSITION_END = 'transitionend';
 
 // Shoutout AngusCroll (https://goo.gl/pxwQGp)
-const toType = obj => ({}.toString.call(obj).match(/\s([a-z]+)/i)[1].toLowerCase());
+const toType = obj =>
+  ({}.toString
+    .call(obj)
+    .match(/\s([a-z]+)/i)[1]
+    .toLowerCase());
 
 /**
  * --------------------------------------------------------------------------
@@ -60,10 +64,7 @@ const getTransitionDurationFromElement = element => {
   }
 
   // Get transition-duration of the element
-  let {
-    transitionDuration,
-    transitionDelay
-  } = window.getComputedStyle(element);
+  let { transitionDuration, transitionDelay } = window.getComputedStyle(element);
 
   const floatTransitionDuration = parseFloat(transitionDuration);
   const floatTransitionDelay = parseFloat(transitionDelay);
@@ -107,21 +108,19 @@ const emulateTransitionEnd = (element, duration) => {
 };
 
 const typeCheckConfig = (componentName, config, configTypes) => {
-  Object.keys(configTypes)
-    .forEach(property => {
-      const expectedTypes = configTypes[property];
-      const value = config[property];
-      const valueType = value && isElement(value) ?
-        'element' :
-        toType(value);
+  Object.keys(configTypes).forEach(property => {
+    const expectedTypes = configTypes[property];
+    const value = config[property];
+    const valueType = value && isElement(value) ? 'element' : toType(value);
 
-      if (!new RegExp(expectedTypes).test(valueType)) {
-        throw new Error(
-          `${componentName.toUpperCase()}: ` +
+    if (!new RegExp(expectedTypes).test(valueType)) {
+      throw new Error(
+        `${componentName.toUpperCase()}: ` +
           `Option "${property}" provided type "${valueType}" ` +
-          `but expected type "${expectedTypes}".`);
-      }
-    });
+          `but expected type "${expectedTypes}".`
+      );
+    }
+  });
 };
 
 const makeArray = nodeList => {
@@ -141,9 +140,11 @@ const isVisible = element => {
     const elementStyle = getComputedStyle(element);
     const parentNodeStyle = getComputedStyle(element.parentNode);
 
-    return elementStyle.display !== 'none' &&
+    return (
+      elementStyle.display !== 'none' &&
       parentNodeStyle.display !== 'none' &&
-      elementStyle.visibility !== 'hidden';
+      elementStyle.visibility !== 'hidden'
+    );
   }
 
   return false;

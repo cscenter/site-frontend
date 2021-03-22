@@ -8,13 +8,10 @@
  * * Create global configuration `babel.config.js` (could affect on gulp/v1 configuration)
  * * Mock them
  * * Customize babel-jest and directly pass in global options
-**/
+ **/
 
 const babelOptions = {
-    plugins: [
-        "@babel/plugin-proposal-object-rest-spread",
-        "@babel/plugin-transform-modules-commonjs",
-    ]
+  plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/plugin-transform-modules-commonjs']
 };
 
 module.exports = require('babel-jest').createTransformer(babelOptions);

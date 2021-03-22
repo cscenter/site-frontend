@@ -116,7 +116,7 @@ function bootstrapDelegationHandler(element, selector, fn) {
     const domElements = element.querySelectorAll(selector);
 
     for (let { target } = event; target && target !== this; target = target.parentNode) {
-      for (let i = domElements.length; i--;) {
+      for (let i = domElements.length; i--; ) {
         if (domElements[i] === target) {
           fixEvent(event, target);
 
@@ -179,7 +179,11 @@ function addHandler(element, originalTypeEvent, handler, delegationFn, oneOff) {
     delegationFn = null;
   }
 
-  const [delegation, originalHandler, typeEvent] = normalizeParams(originalTypeEvent, handler, delegationFn);
+  const [delegation, originalHandler, typeEvent] = normalizeParams(
+    originalTypeEvent,
+    handler,
+    delegationFn
+  );
   const events = getEvent(element);
   const handlers = events[typeEvent] || (events[typeEvent] = {});
   const previousFn = findHandler(handlers, originalHandler, delegation ? handler : null);
@@ -191,9 +195,9 @@ function addHandler(element, originalTypeEvent, handler, delegationFn, oneOff) {
   }
 
   const uid = getUidEvent(originalHandler, originalTypeEvent.replace(namespaceRegex, ''));
-  const fn = delegation ?
-    bootstrapDelegationHandler(element, handler, delegationFn) :
-    bootstrapHandler(element, handler);
+  const fn = delegation
+    ? bootstrapDelegationHandler(element, handler, delegationFn)
+    : bootstrapHandler(element, handler);
 
   fn.delegationSelector = delegation ? handler : null;
   fn.originalHandler = originalHandler;
@@ -218,14 +222,13 @@ function removeHandler(element, events, typeEvent, handler, delegationSelector) 
 function removeNamespacedHandlers(element, events, typeEvent, namespace) {
   const storeElementEvent = events[typeEvent] || {};
 
-  Object.keys(storeElementEvent)
-    .forEach(handlerKey => {
-      if (handlerKey.indexOf(namespace) > -1) {
-        const event = storeElementEvent[handlerKey];
+  Object.keys(storeElementEvent).forEach(handlerKey => {
+    if (handlerKey.indexOf(namespace) > -1) {
+      const event = storeElementEvent[handlerKey];
 
-        removeHandler(element, events, typeEvent, event.originalHandler, event.delegationSelector);
-      }
-    });
+      removeHandler(element, events, typeEvent, event.originalHandler, event.delegationSelector);
+    }
+  });
 }
 
 const EventHandler = {
@@ -242,7 +245,11 @@ const EventHandler = {
       return;
     }
 
-    const [delegation, originalHandler, typeEvent] = normalizeParams(originalTypeEvent, handler, delegationFn);
+    const [delegation, originalHandler, typeEvent] = normalizeParams(
+      originalTypeEvent,
+      handler,
+      delegationFn
+    );
     const inNamespace = typeEvent !== originalTypeEvent;
     const events = getEvent(element);
     const isNamespace = originalTypeEvent.charAt(0) === '.';
@@ -258,23 +265,21 @@ const EventHandler = {
     }
 
     if (isNamespace) {
-      Object.keys(events)
-        .forEach(elementEvent => {
-          removeNamespacedHandlers(element, events, elementEvent, originalTypeEvent.slice(1));
-        });
+      Object.keys(events).forEach(elementEvent => {
+        removeNamespacedHandlers(element, events, elementEvent, originalTypeEvent.slice(1));
+      });
     }
 
     const storeElementEvent = events[typeEvent] || {};
-    Object.keys(storeElementEvent)
-      .forEach(keyHandlers => {
-        const handlerKey = keyHandlers.replace(stripUidRegex, '');
+    Object.keys(storeElementEvent).forEach(keyHandlers => {
+      const handlerKey = keyHandlers.replace(stripUidRegex, '');
 
-        if (!inNamespace || originalTypeEvent.indexOf(handlerKey) > -1) {
-          const event = storeElementEvent[keyHandlers];
+      if (!inNamespace || originalTypeEvent.indexOf(handlerKey) > -1) {
+        const event = storeElementEvent[keyHandlers];
 
-          removeHandler(element, events, typeEvent, event.originalHandler, event.delegationSelector);
-        }
-      });
+        removeHandler(element, events, typeEvent, event.originalHandler, event.delegationSelector);
+      }
+    });
   },
 
   trigger(element, event, args) {
@@ -302,14 +307,13 @@ const EventHandler = {
 
     // merge custom informations in our event
     if (typeof args !== 'undefined') {
-      Object.keys(args)
-        .forEach(key => {
-          Object.defineProperty(evt, key, {
-            get() {
-              return args[key];
-            }
-          });
+      Object.keys(args).forEach(key => {
+        Object.defineProperty(evt, key, {
+          get() {
+            return args[key];
+          }
         });
+      });
     }
 
     if (defaultPrevented) {

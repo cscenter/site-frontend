@@ -1,10 +1,10 @@
 // source: https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
-(function() {
-  if (typeof window.CustomEvent === "function") return false;
+(function () {
+  if (typeof window.CustomEvent === 'function') return false;
 
   function CustomEvent(event, params) {
     params = params || { bubbles: false, cancelable: false, detail: undefined };
-    let evt = document.createEvent("CustomEvent");
+    let evt = document.createEvent('CustomEvent');
     evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
     return evt;
   }

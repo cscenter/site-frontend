@@ -142,11 +142,4 @@ if (!supportScopeQuery) {
   };
 }
 
-export {
-  createCustomEvent,
-  find,
-  findOne,
-  matches,
-  closest,
-  defaultPreventedPreservedOnDispatch
-};
+export { createCustomEvent, find, findOne, matches, closest, defaultPreventedPreservedOnDispatch };

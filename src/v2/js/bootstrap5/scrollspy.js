@@ -4,12 +4,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * --------------------------------------------------------------------------
  */
-import {
-    getSelectorFromElement,
-    getUID,
-    makeArray,
-    typeCheckConfig
-} from './util/index';
+import { getSelectorFromElement, getUID, makeArray, typeCheckConfig } from './util/index';
 import Data from './dom/data';
 import EventHandler from './dom/event-handler';
 import Manipulator from './dom/manipulator';
@@ -76,9 +71,10 @@ class ScrollSpy {
     this._element = element;
     this._scrollElement = element.tagName === 'BODY' ? window : element;
     this._config = this._getConfig(config);
-    this._selector = `${this._config.target} ${Selector.NAV_LINKS},` +
-                          `${this._config.target} ${Selector.LIST_ITEMS},` +
-                          `${this._config.target} .${ClassName.DROPDOWN_ITEM}`;
+    this._selector =
+      `${this._config.target} ${Selector.NAV_LINKS},` +
+      `${this._config.target} ${Selector.LIST_ITEMS},` +
+      `${this._config.target} .${ClassName.DROPDOWN_ITEM}`;
     this._offsets = [];
     this._targets = [];
     this._activeTarget = null;
@@ -105,17 +101,14 @@ class ScrollSpy {
   // Public
 
   refresh() {
-    const autoMethod = this._scrollElement === this._scrollElement.window ?
-      OffsetMethod.OFFSET :
-      OffsetMethod.POSITION;
+    const autoMethod =
+      this._scrollElement === this._scrollElement.window
+        ? OffsetMethod.OFFSET
+        : OffsetMethod.POSITION;
 
-    const offsetMethod = this._config.method === 'auto' ?
-      autoMethod :
-      this._config.method;
+    const offsetMethod = this._config.method === 'auto' ? autoMethod : this._config.method;
 
-    const offsetBase = offsetMethod === OffsetMethod.POSITION ?
-      this._getScrollTop() :
-      0;
+    const offsetBase = offsetMethod === OffsetMethod.POSITION ? this._getScrollTop() : 0;
 
     this._offsets = [];
     this._targets = [];
@@ -136,10 +129,7 @@ class ScrollSpy {
         if (target) {
           const targetBCR = target.getBoundingClientRect();
           if (targetBCR.width || targetBCR.height) {
-            return [
-              Manipulator[offsetMethod](target).top + offsetBase,
-              targetSelector
-            ];
+            return [Manipulator[offsetMethod](target).top + offsetBase, targetSelector];
           }
         }
 
@@ -172,7 +162,7 @@ class ScrollSpy {
   _getConfig(config) {
     config = {
       ...Default,
-      ...typeof config === 'object' && config ? config : {}
+      ...(typeof config === 'object' && config ? config : {})
     };
 
     if (typeof config.target !== 'string') {
@@ -191,30 +181,28 @@ class ScrollSpy {
   }
 
   _getScrollTop() {
-    return this._scrollElement === window ?
-      this._scrollElement.pageYOffset :
-      this._scrollElement.scrollTop;
+    return this._scrollElement === window
+      ? this._scrollElement.pageYOffset
+      : this._scrollElement.scrollTop;
   }
 
   _getScrollHeight() {
-    return this._scrollElement.scrollHeight || Math.max(
-      document.body.scrollHeight,
-      document.documentElement.scrollHeight
+    return (
+      this._scrollElement.scrollHeight ||
+      Math.max(document.body.scrollHeight, document.documentElement.scrollHeight)
     );
   }
 
   _getOffsetHeight() {
-    return this._scrollElement === window ?
-      window.innerHeight :
-      this._scrollElement.getBoundingClientRect().height;
+    return this._scrollElement === window
+      ? window.innerHeight
+      : this._scrollElement.getBoundingClientRect().height;
   }
 
   _process() {
     const scrollTop = this._getScrollTop() + this._config.offset;
     const scrollHeight = this._getScrollHeight();
-    const maxScroll = this._config.offset +
-      scrollHeight -
-      this._getOffsetHeight();
+    const maxScroll = this._config.offset + scrollHeight - this._getOffsetHeight();
 
     if (this._scrollHeight !== scrollHeight) {
       this.refresh();
@@ -237,11 +225,11 @@ class ScrollSpy {
     }
 
     const offsetLength = this._offsets.length;
-    for (let i = offsetLength; i--;) {
-      const isActiveTarget = this._activeTarget !== this._targets[i] &&
-          scrollTop >= this._offsets[i] &&
-          (typeof this._offsets[i + 1] === 'undefined' ||
-              scrollTop < this._offsets[i + 1]);
+    for (let i = offsetLength; i--; ) {
+      const isActiveTarget =
+        this._activeTarget !== this._targets[i] &&
+        scrollTop >= this._offsets[i] &&
+        (typeof this._offsets[i + 1] === 'undefined' || scrollTop < this._offsets[i + 1]);
 
       if (isActiveTarget) {
         this._activate(this._targets[i]);
@@ -254,36 +242,38 @@ class ScrollSpy {
 
     this._clear();
 
-    const queries = this._selector.split(',')
+    const queries = this._selector
+      .split(',')
       .map(selector => `${selector}[data-target="${target}"],${selector}[href="${target}"]`);
 
     const link = SelectorEngine.findOne(queries.join(','));
 
     if (link.classList.contains(ClassName.DROPDOWN_ITEM)) {
-      SelectorEngine
-        .findOne(Selector.DROPDOWN_TOGGLE, SelectorEngine.closest(link, Selector.DROPDOWN))
-        .classList.add(ClassName.ACTIVE);
+      SelectorEngine.findOne(
+        Selector.DROPDOWN_TOGGLE,
+        SelectorEngine.closest(link, Selector.DROPDOWN)
+      ).classList.add(ClassName.ACTIVE);
 
       link.classList.add(ClassName.ACTIVE);
     } else {
       // Set triggered link as active
       link.classList.add(ClassName.ACTIVE);
 
-      SelectorEngine
-        .parents(link, Selector.NAV_LIST_GROUP)
-        .forEach(listGroup => {
-          // Set triggered links parents as active
-          // With both <ul> and <nav> markup a parent is the previous sibling of any nav ancestor
-          SelectorEngine.prev(listGroup, `${Selector.NAV_LINKS}, ${Selector.LIST_ITEMS}`)
-            .forEach(item => item.classList.add(ClassName.ACTIVE));
+      SelectorEngine.parents(link, Selector.NAV_LIST_GROUP).forEach(listGroup => {
+        // Set triggered links parents as active
+        // With both <ul> and <nav> markup a parent is the previous sibling of any nav ancestor
+        SelectorEngine.prev(
+          listGroup,
+          `${Selector.NAV_LINKS}, ${Selector.LIST_ITEMS}`
+        ).forEach(item => item.classList.add(ClassName.ACTIVE));
 
-          // Handle special case when .nav-link is inside .nav-item
-          SelectorEngine.prev(listGroup, Selector.NAV_ITEMS)
-            .forEach(navItem => {
-              SelectorEngine.children(navItem, Selector.NAV_LINKS)
-                .forEach(item => item.classList.add(ClassName.ACTIVE));
-            });
+        // Handle special case when .nav-link is inside .nav-item
+        SelectorEngine.prev(listGroup, Selector.NAV_ITEMS).forEach(navItem => {
+          SelectorEngine.children(navItem, Selector.NAV_LINKS).forEach(item =>
+            item.classList.add(ClassName.ACTIVE)
+          );
         });
+      });
     }
 
     EventHandler.trigger(this._scrollElement, Event.ACTIVATE, {
@@ -311,9 +301,9 @@ class ScrollSpy {
  */
 
 EventHandler.on(window, Event.LOAD_DATA_API, () => {
-  makeArray(SelectorEngine.find(Selector.DATA_SPY))
-    .forEach(spy => new ScrollSpy(spy, Manipulator.getDataAttributes(spy)));
+  makeArray(SelectorEngine.find(Selector.DATA_SPY)).forEach(
+    spy => new ScrollSpy(spy, Manipulator.getDataAttributes(spy))
+  );
 });
-
 
 export default ScrollSpy;

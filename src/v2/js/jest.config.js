@@ -58,16 +58,13 @@ module.exports = {
   // globals: {},
 
   // An array of directory names to be searched recursively up from the requiring module's location
-  moduleDirectories: [
-      "node_modules",
-      "<rootDir>"
-  ],
+  moduleDirectories: ['node_modules', '<rootDir>'],
 
   // An array of file extensions your modules use
   moduleFileExtensions: [
-    "js",
+    'js',
     // "json",
-    "jsx"
+    'jsx'
     // "node"
   ],
 
@@ -139,7 +136,7 @@ module.exports = {
 
   // The glob patterns Jest uses to detect test files
   testMatch: [
-    "**/__tests__/**/*.js?(x)",
+    '**/__tests__/**/*.js?(x)'
     // "**/?(*.)+(spec|test).js?(x)"
   ],
 
@@ -168,15 +165,13 @@ module.exports = {
   //   '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
   //     '<rootDir>/fileTransformer.js'
   // }
-  "transform": {
+  transform: {
     // "^.+\\.jsx?$": "babel-jest"
-      "^.+\\.jsx?$": '<rootDir>/jest.transform.js'
+    '^.+\\.jsx?$': '<rootDir>/jest.transform.js'
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  transformIgnorePatterns: [
-    "node_modules/(?!(bootstrap|lodash-es)/)"
-  ],
+  transformIgnorePatterns: ['node_modules/(?!(bootstrap|lodash-es)/)']
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,

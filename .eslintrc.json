@@ -43,7 +43,24 @@
       "warn",
       "always"
     ],
-    "no-trailing-spaces": 0,
+    // specify the maximum length of a line in your program
+    // https://eslint.org/docs/rules/max-len
+    "max-len": [
+      "error", 100, 2, {
+      "ignoreUrls": true,
+      "ignoreComments": true,
+      "ignoreRegExpLiterals": true,
+      "ignoreStrings": true,
+      "ignoreTemplateLiterals": true
+    }],
+    // enforces new line after each method call in the chain
+    // https://eslint.org/docs/rules/newline-per-chained-call
+    "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 4 }],
+    // disallow trailing whitespace at the end of lines
+    "no-trailing-spaces": ["error", {
+      "skipBlankLines": false,
+      "ignoreComments": false
+    }],
     "eol-last": ["error", "always"],
     "no-underscore-dangle": 0,
     "no-alert": 0,

@@ -86,11 +86,8 @@ $card-columns-count: 2;
   }
 }
 
-.card-deck._six .card._horizontal-mobile,
-.card-deck._four .card._horizontal-mobile,
-.card-deck._three .card._horizontal-mobile,
-.card-deck._two .card._horizontal-mobile {
-  @include media-breakpoint-down(sm) {
+.card-deck._sm-one .card {
+  @include media-breakpoint-only(sm) {
     @include card-width(1);
   }
 }

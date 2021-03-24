@@ -1,10 +1,7 @@
 $top-banner-height: 64px;
 
-.top-banner-wrapper {
-  display: block;
-}
-
 a.top-banner-wrapper {
+  display: block;
   &:hover {
     filter: brightness(0.95);;
   }

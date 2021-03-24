@@ -1,27 +1,8 @@
 {% import "v2/macros/_global.jinja2" as macros %}
 
-{% macro render(show_submenu=True, show_notification=True, show_login_button=False, has_avatar=True, theme_class='') -%}
+{% macro render(show_submenu=True, show_login_button=False, has_avatar=True, theme_class='') -%}
 
     <div class="navbar-container">
-        {% if show_notification %}
-            <a href="#" class="top-banner-wrapper darken-bg">
-                <div class="container">
-                    <div class="top-banner">
-                        <img class="mr-2 d-none d-lg-inline-block" src="/static/v2/img/icons/top-banner-kids.svg" alt="csc-kids">
-                        <div>До 14 апреля открыт приём заявок на очное обучение в центре</div>
-                    </div>
-                </div>
-            </a>
-            <a href="#" class="top-banner-wrapper green-bg">
-              <div class="container">
-                <div class="top-banner">
-                  <img class="mr-2 d-none d-lg-inline-block" src="/static/v2/img/icons/top-banner-robotics.svg" alt="Направление роботы">
-                  <div>Открылось новое направление обучения – Robotics</div>
-                </div>
-              </div>
-            </a>
-        {% endif %}
-
         <nav class="navbar navbar-main{% if theme_class %} {{ theme_class }}{% endif %}">
             <div class="container">
                 <button class="navbar-toggler hamburger hamburger--vortex" type="button"

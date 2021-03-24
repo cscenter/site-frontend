@@ -171,16 +171,16 @@ a.card {
     margin-bottom: spacer("4x");
     .card__img {
       display: flex;
-      flex: 0 0 30%;
+      flex: 0 0 33%;
       align-items: flex-start;
     }
 
     .card__content {
       display: flex;
-      flex: 0 0 70%;
+      flex: 0 0 67%;
       flex-direction: column;
       justify-content: center;
-      padding: 0 0 0 spacer("4x");
+      padding: 0 spacer("3x");
     }
 
     .card__content,

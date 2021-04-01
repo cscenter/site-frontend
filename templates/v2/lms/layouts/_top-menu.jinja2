@@ -1,0 +1,77 @@
+{% import "v2/macros/_global.jinja2" as macros %}
+
+{% macro render(show_submenu=True, show_notification=True, show_login_button=False, has_avatar=True, theme_class='') -%}
+    <div class="navbar-container_lms">
+      {% if show_notification %}
+        <div class="top-banner-wrapper">
+          <div class="container">
+            <div class="top-banner">
+              <img class="mr-2 d-none d-lg-inline-block" src="/static/v2/img/icons/top-banner-kids.svg" alt="csc-kids">
+              <div>До 14 апреля открыт <a href="#">приём заявок</a> на очное обучение в центре</div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      <nav class="navbar navbar-main {% if theme_class %} {{ theme_class }}{% endif %}">
+        <div class="container">
+          <a href="" class="btn _extra-small _gray _outline _rounded navbar-lms__btn-back">
+            {{ macros.svg_icon('arrow-left') }}
+            <span>Все курсы</span>
+          </a>
+          <div class="navbar__title">
+            <p class="navbar__course" title="Дополнительные главы алгоритмов главы алгоритмов, часть 1">Дополнительные главы алгоритмов главы алгоритмов, часть 1</p>
+            <span class="navbar__meta">Санкт-Петербург / весна 2020</span>
+          </div>
+          {% if show_login_button %}
+            <a class="btn _outline menu-btn-reg" href="#">
+              {{ macros.svg_icon('user') }} Войти
+            </a>
+          {% else %}
+            <p class="members-area" href="#">Константинов В.К.</p>
+            <div class="dropdown dropdown-user-menu">
+              <button class="btn" type="button" id="userMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {%- if has_avatar -%}
+                  <img class="user-menu-img" src="/media/pages/index/student.png" width="32" height="32" alt="">
+                {%- else -%}
+                  {{ macros.svg_icon('user') }}
+                {%- endif -%}
+              </button>
+              <div class="dropdown-menu _arrow-right _user-menu" aria-labelledby="userMenuButton">
+                <a class="dropdown-item" href="#">Профиль</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Выйти</a>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </nav>
+
+      {% if show_submenu %}
+        <nav class="navbar navbar-submenu">
+          <div class="container">
+            <ul class="ui navbar-nav">
+              <li class="nav-item _active">
+                <a class="nav-link" href="#">Занятия</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Задания</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Новости</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Описание курса</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Ведомость</a>
+              </li>
+            </ul>
+
+          </div>
+        </nav>
+
+      {% endif %}
+    </div>
+    {% if show_notification %}<div class="top-banner-spacer"></div>{% endif %}
+{%- endmacro %}

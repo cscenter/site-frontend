@@ -558,6 +558,25 @@ function ApplicationForm({
                 </div>
               </div>
             )}
+            {selectedStudyPrograms &&
+              selectedStudyPrograms.includes('robotics') && (
+                <div className="row">
+                  <div className="field col-lg-8">
+                    <div className="ui input">
+                      <label htmlFor="preferred_study_programs_se_note">
+                        Какие направления применения роботов вы считаете
+                        наиболее перспективными?
+                      </label>
+                      <textarea
+                        id="preferred_study_programs_robotics_note"
+                        name="preferred_study_programs_robotics_note"
+                        rows="6"
+                        ref={register}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
           </Fragment>
         )}
 

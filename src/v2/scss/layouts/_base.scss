@@ -17,9 +17,9 @@ html {
 }
 
 body {
-  margin-bottom: $footer-mobile-height;
+  padding-bottom: $footer-mobile-height;
   @include media-breakpoint-up(lg) {
-    margin-bottom: $footer-height;
+    padding-bottom: $footer-height;
   }
 }
 

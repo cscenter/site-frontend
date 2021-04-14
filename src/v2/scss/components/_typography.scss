@@ -1,6 +1,6 @@
 $headings-font-family: inherit !default;
-$headings-font-weight: $font-weight-normal;
-$headings-line-height: 1.2;
+$headings-font-weight: $font-weight-bold;
+$headings-line-height: 1.1;
 $headings-color: inherit !default;
 
 $blockquote-small-color: $gray-disabled;
@@ -20,16 +20,12 @@ h1,
 h2,
 h3,
 h4,
-h5,
-h6,
 .h1,
 .h2,
 .h3,
 .h4,
-.h5,
-.h6 {
+.super-title {
   display: block;
-  margin-bottom: spacer("4x");
   font-family: $headings-font-family;
   font-weight: $headings-font-weight;
   line-height: $headings-line-height;
@@ -40,25 +36,29 @@ h6,
   }
 }
 
+.super-title {
+  font-size: 4.5rem;
+  letter-spacing: -.15rem;
+    @include media-breakpoint-down(md) {
+    font-size: 2.5rem;
+  }
+}
+
 h1,
 .h1 {
   font-size: $h1-font-size;
-  margin-bottom: spacer("6x");
   letter-spacing: -.04rem;
-  font-weight: $font-weight-light;
   @include media-breakpoint-down(md) {
-    font-size: 1.75rem;
+    font-size: 2rem;
   }
 }
 
 h2,
 .h2 {
   font-size: $h2-font-size;
-  font-weight: $font-weight-light;
-  margin-bottom: spacer("4x");
   letter-spacing: -.04rem;
   @include media-breakpoint-down(md) {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
   }
 }
 
@@ -66,7 +66,7 @@ h3,
 .h3 {
   font-size: $h3-font-size;
   @include media-breakpoint-down(md) {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
   }
 }
 
@@ -75,14 +75,67 @@ h4,
   font-size: $h4-font-size;
 }
 
-h5,
-.h5 {
-  font-size: $h5-font-size;
+p,
+.text {
+  &._big {
+    font-size: $font-size-lg;
+  }
+
+  &._small {
+    font-size: $font-size-sm;
+  }
+
+  &._extra-small {
+    font-size: $font-size-extra-sm;
+  }
+  &._pale {
+    color: $gray-dark;
+  }
 }
 
-h6,
-.h6 {
-  font-size: $h6-font-size;
+.article {
+  h1,
+  .h1 {
+    margin-top: spacer("20x");
+    @include media-breakpoint-down(md) {
+      margin-top: spacer("10x");
+    }
+  }
+
+  h2,
+  .h2 {
+    margin-top: spacer("10x");
+    @include media-breakpoint-down(md) {
+      margin-top: spacer("6x");
+    }
+  }
+
+  h3,
+  .h3,
+  h4,
+  .h4 {
+    margin-top: spacer("8x");
+    @include media-breakpoint-down(md) {
+      margin-top: spacer("4x");
+    }
+  }
+
+  p,
+  .text,
+  table,
+  .table,
+  ul,
+  ol,
+  .list,
+  code,
+  blockquote,
+  .blockquote,
+  dl {
+    margin-top: spacer("4x");
+    @include media-breakpoint-down(md) {
+      margin-top: spacer("3x");
+    }
+  }
 }
 
 // Blockquotes

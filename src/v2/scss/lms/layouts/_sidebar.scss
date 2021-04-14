@@ -1,0 +1,43 @@
+$sidebar-width: 230px;
+
+.sidebar {
+  width: $sidebar-width;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background-color: $gray-darker;
+  z-index: $zindex-sidebar;
+
+  .sidebar__logo {
+    margin: spacer("6x") spacer("4x") spacer("2x");
+  }
+
+  .sidebar__menu {
+    margin: spacer("6x") 0;
+
+    .ui.label._icon {
+      color: $white;
+    }
+
+    .list__item {
+      cursor: pointer;
+      &:hover {
+        background-color: $black;
+        color: $white;
+
+        a.ui.label._icon {
+          color: $white;
+
+          .sprite-img {
+            fill: $white;
+          }
+        }
+      }
+    }
+
+    a.ui.label._icon {
+      padding: spacer("2x") spacer("4x");
+    }
+  }
+}

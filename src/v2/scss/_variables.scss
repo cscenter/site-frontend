@@ -154,7 +154,8 @@ $grid-breakpoints: (
   sm: 576px,
   md: 768px,
   lg: 992px, // XXX: Keep in sync with values from `v2/js/utils.js`
-  xl: 1260px
+  xl: 1260px,
+  lms: 1222px // $grid-breakpoints(lg) + $sidebar-width
 );
 
 // Custom breakpoints for more control, used on user cards page
@@ -295,12 +296,13 @@ $zindex-dropdown:                   1000 !default;
 $zindex-sticky:                     1020 !default;
 $zindex-cover:                      1030 !default;
 $zindex-menu:                       1040;
-$zindex-preloader:                  1050;
-$zindex-modal-backdrop:             1060;
-$zindex-modal:                      1070;
-$zindex-popover:                    1080;
-$zindex-tooltip:                    1090;
-$zindex-close:                      1100;
+$zindex-sidebar:                    1050;
+$zindex-preloader:                  1060;
+$zindex-modal-backdrop:             1070;
+$zindex-modal:                      1080;
+$zindex-popover:                    1090;
+$zindex-tooltip:                    1100;
+$zindex-close:                      1110;
 
 
 // Utilities

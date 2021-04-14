@@ -1,0 +1,194 @@
+$navbar-submenu-height: 40px;
+$navbar-main-height: 60px;
+$navbar-padding-y: 16px;
+$header-height: $navbar-main-height + $navbar-submenu-height + $navbar-padding-y * 2;
+
+$nav-link-padding-x: spacer("2x");
+$nav-link-padding-y: spacer("2x");
+
+$nav-link-border-height: spacer("1x");
+$nav-link-with-border-padding-y: $nav-link-padding-y - $nav-link-border-height;
+
+$nav-link-expected-line-height: 24px;
+$__blinking-effect-fix: 4px;
+$nav-link-line-height: $nav-link-expected-line-height - $__blinking-effect-fix;
+$nav-link-margin: $__blinking-effect-fix / 2;
+
+$menu-desktop-wrapper-margin: 2px;
+
+$navbar-toggler-padding-y: $grid-gutter-width / 2 - 1; // humburger size is 18px, to fit in 8pt grid, remove px here
+$navbar-toggler-padding-x: $grid-gutter-width / 2;
+$navbar-toggler-font-size: $font-size-lg;
+$navbar-toggler-border-radius: $border-radius;
+
+//Body attribute for fix header & sidebar
+._lms {
+  min-width: map-get($grid-breakpoints, lms);
+
+  @include media-breakpoint-up(lms) {
+    padding: $header-height 0 0 $sidebar-width;
+  }
+  padding: 0 0 0 $sidebar-width;
+  margin-bottom: 0;
+
+  .container {
+    min-width: map-get($grid-breakpoints, lg);
+    max-width: map-get($grid-breakpoints, xl);
+    padding: 0 spacer("10x");
+  }
+}
+
+.navbar-container_lms {
+  width: 100%;
+  @include media-breakpoint-up(lms) {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding-left: $sidebar-width;
+    z-index: $zindex-menu;
+  }
+
+  .navbar.navbar-main {
+    background-color: $white;
+    border-bottom: 1px solid $gray-light;
+    padding: $navbar-padding-y 0;
+
+    .container {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: flex-start;
+      height: $navbar-main-height;
+    }
+
+    .navbar__title {
+      width: 100%;
+      overflow: hidden;
+      padding-right: spacer("10x");
+      margin-top: spacer("3x");
+      line-height: $nav-link-line-height;
+    }
+
+    .navbar__course {
+      overflow: hidden;
+      margin: 0;
+      font-size: 18px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .navbar__meta {
+      font-size: 12px;
+      color: $gray-dark;
+    }
+
+    .navbar-lms__btn-back {
+      flex-shrink: 0;
+      margin: spacer("2x") spacer("4x") 0 0;
+    }
+  }
+
+  .navbar.navbar-submenu {
+    display: flex;
+    background-color: $white;
+    border-bottom: 1px solid $gray-light;
+    font-size: $font-size-base;
+
+    .navbar-nav {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0;
+    }
+
+    .nav-item {
+      margin-right: spacer("4x");
+
+      &._active {
+        .nav-link {
+          padding: $nav-link-padding-y 0 $nav-link-with-border-padding-y;
+          opacity: 1;
+          border-bottom: $nav-link-border-height solid $teal;
+        }
+      }
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        opacity: .5;
+        white-space: nowrap;
+        padding: $nav-link-padding-y 0;
+        color: $black;
+
+        &:hover {
+          opacity: 1;
+        }
+
+        svg {
+          margin-left: auto;
+        }
+      }
+    }
+  }
+
+  .members-area {
+    display: flex;
+    flex-shrink: 0;
+    padding: $nav-link-padding-y $nav-link-padding-x;
+    margin: ($nav-link-margin + $menu-desktop-wrapper-margin) 0 ($nav-link-margin + $menu-desktop-wrapper-margin) auto;
+    line-height: $nav-link-line-height;
+    color: $black;
+  }
+
+  .dropdown-user-menu {
+    margin-left: auto;
+    margin-right: -$navbar-toggler-padding-x;
+
+    ._user {
+      margin-right: 4px;
+    }
+
+    &.show {
+      .btn {
+        box-shadow: none;
+
+        .user-menu-img {
+          box-shadow: 0 0 0 4px transparentize($gray-dark, .6);
+        }
+      }
+    }
+
+    .dropdown-menu {
+      font-size: $font-size-content-base;
+      right: $navbar-toggler-padding-x;
+      left: auto;
+    }
+
+    .btn {
+      color: $white;
+      border: 0;
+      background-color: rgba(0, 0, 0, 0);
+      padding: $nav-link-padding-y $nav-link-padding-x;
+      line-height: 30px;
+
+      .svg-icon {
+        fill: $gray-light;
+      }
+
+      &:focus {
+        box-shadow: none;
+
+        .user-menu-img {
+          box-shadow: 0 0 0 4px transparentize($gray-dark, .6);
+        }
+      }
+
+      span {
+        margin-right: spacer("3x");
+      }
+    }
+  }
+
+  .user-menu-img {
+    border-radius: 50%;
+  }
+}

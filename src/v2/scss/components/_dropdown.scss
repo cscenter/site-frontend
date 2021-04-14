@@ -9,9 +9,7 @@ $dropdown-box-shadow: 0 0 1rem rgba($black, .175);
 $dropdown-color: $body-color;
 $dropdown-divider-bg: $gray-lighter;
 $dropdown-divider-margin-y: $nav-divider-margin-y;
-// FIXME: font-size-content?
-$dropdown-font-size: $font-size-base;
-
+$dropdown-font-size: $font-size-content-base;
 $dropdown-link-color: $black;
 $dropdown-link-hover-color: $black;
 $dropdown-link-hover-bg: $gray-lighter;
@@ -20,11 +18,11 @@ $dropdown-link-active-color: $component-active-color;
 $dropdown-link-active-bg: $component-active-bg;
 $dropdown-link-disabled-color: $gray-disabled;
 
-$dropdown-item-padding-y: spacer("1x");
-$dropdown-item-padding-x: spacer("3x");
+$dropdown-item-padding-y: spacer("2x");
+$dropdown-item-padding-x: spacer("2x");
 
 $dropdown-header-color: $gray-disabled;
-$dropdown-border-radius: 4px;
+$dropdown-border-radius: 0;
 
 $caret-width: 0;
 $caret-vertical-align:        $caret-width * .85 !default;
@@ -33,9 +31,55 @@ $caret-spacing:               $caret-width * .85 !default;
 // Imports
 @import "bootstrap/scss/dropdown";
 
+.dropdown.theme-dark {
+  color: $white;
+
+  .dropdown-menu {
+    background-color: lighten($gray-darker, 5);
+    box-shadow: none;
+    padding-bottom: 0;
+  }
+
+  .dropdown-item {
+    color: $white;
+    &:hover {
+      background-color: $gray-dark;
+    }
+  }
+
+  .svg-icon {
+    width: 1em;
+    height: 1em;
+    margin-left: 4px;
+    fill: $white;
+  }
+
+  ._arrow-right {
+    &::after {
+      border-bottom: 6px solid lighten($gray-darker, 5);
+    }
+  }
+
+  .dropdown-divider {
+    border-top-color: $gray-dark;
+  }
+}
+
+.nav-item.dropdown:hover {
+  .nav-link {
+    opacity: 1;
+    background-color: lighten($gray-darker, 5);
+  }
+
+  > .dropdown-menu {
+    display: block;
+  }
+}
+
 .dropdown-menu {
   border: none;
   box-shadow: $dropdown-box-shadow;
+  margin: -$nav-link-margin 0 0 $nav-link-margin;
 }
 
 ._arrow-right {

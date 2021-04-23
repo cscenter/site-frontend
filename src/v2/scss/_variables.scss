@@ -115,7 +115,8 @@ $spacers: (
   "4x": ($spacer * 4),
   "6x": ($spacer * 6),
   "8x": ($spacer * 8),
-  "10x": ($spacer * 10)
+  "10x": ($spacer * 10),
+  "20x": ($spacer * 20)
 );
 
 // This variable affects the `.h-*` and `.w-*` classes.
@@ -245,8 +246,6 @@ $h1-font-size:                $font-size-base * 3 !default;
 $h2-font-size:                $font-size-base * 2.25 !default;
 $h3-font-size:                $font-size-base * 1.5 !default;
 $h4-font-size:                $font-size-content-base;
-$h5-font-size:                $font-size-base !default;
-$h6-font-size:                $font-size-base !default;
 
 $text-muted:                  $gray-dark;
 

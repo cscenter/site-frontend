@@ -262,10 +262,9 @@ class ScrollSpy {
       SelectorEngine.parents(link, Selector.NAV_LIST_GROUP).forEach(listGroup => {
         // Set triggered links parents as active
         // With both <ul> and <nav> markup a parent is the previous sibling of any nav ancestor
-        SelectorEngine.prev(
-          listGroup,
-          `${Selector.NAV_LINKS}, ${Selector.LIST_ITEMS}`
-        ).forEach(item => item.classList.add(ClassName.ACTIVE));
+        SelectorEngine.prev(listGroup, `${Selector.NAV_LINKS}, ${Selector.LIST_ITEMS}`).forEach(
+          item => item.classList.add(ClassName.ACTIVE)
+        );
 
         // Handle special case when .nav-link is inside .nav-item
         SelectorEngine.prev(listGroup, Selector.NAV_ITEMS).forEach(navItem => {

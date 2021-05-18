@@ -33,8 +33,8 @@ export function launch() {
       };
 
       tabList.onDelegate('[data-toggle="tab"]', 'click', function (event) {
-        if (window.history && history.pushState) {
-          history.pushState(
+        if (window.history && window.history.pushState) {
+          window.history.pushState(
             { tabTarget: this.getAttribute('data-target') },
             '',
             this.getAttribute('href')

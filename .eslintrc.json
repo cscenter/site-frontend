@@ -1,83 +1,24 @@
 {
   "root": true,
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings",
-    "prettier"  // turns off some ESLint rules that conflict with Prettier
-  ],
   "parser": "@babel/eslint-parser",
   "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true,
-      "modules": true,
-      "jsx": true
-    },
-    "requireConfigFile": false
+    "requireConfigFile": false,
+    "babelOptions": {
+      "envName": "eslint"
+    }
   },
+  "extends": [
+    "@cscenter/eslint-config",
+    "@cscenter/eslint-config/jest"
+  ],
   "env": {
-    "es6": true,
     "browser": true,
+    "es6": true,
     "node": true,
     "jquery": true
   },
-  "plugins": [
-    "react-hooks",
-    "prettier"
-  ],
-  "rules": {
-    "quotes": 0,
-    "no-console": [
-      "warn",
-      // console.debug will be stripped out by webpack
-      { "allow": ["debug"] }
-    ],
-    "no-debugger": 1,
-    "no-var": 1,
-    // Disable checking function arguments
-    "no-unused-vars": ["error", { "args": "none" }],
-    "semi": [
-      "warn",
-      "always"
-    ],
-    // specify the maximum length of a line in your program
-    // https://eslint.org/docs/rules/max-len
-    "max-len": [
-      "error", 100, 2, {
-      "ignoreUrls": true,
-      "ignoreComments": true,
-      "ignoreRegExpLiterals": true,
-      "ignoreStrings": true,
-      "ignoreTemplateLiterals": true
-    }],
-    // enforces new line after each method call in the chain
-    // https://eslint.org/docs/rules/newline-per-chained-call
-    "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 4 }],
-    // disallow trailing whitespace at the end of lines
-    "no-trailing-spaces": ["error", {
-      "skipBlankLines": false,
-      "ignoreComments": false
-    }],
-    "eol-last": ["error", "always"],
-    "no-underscore-dangle": 0,
-    "no-alert": 0,
-    "no-lone-blocks": 0,
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
-    "prettier/prettier": [
-      "error",
-      {
-        "singleQuote": true,
-        "trailingComma": "none",
-        "arrowParens": "avoid"
-      }
-    ],
-    // prefer-arrow-callback fix conflicting with prettier fix https://github.com/prettier/eslint-plugin-prettier/issues/65
-    "arrow-body-style": "off",
-    "prefer-arrow-callback": "off"
+  "globals": {
+    "$": true
   },
   "settings": {
     "import/resolver": {
@@ -101,8 +42,5 @@
       "pragma": "React",
       "version": "detect"
     }
-  },
-  "globals": {
-    "$": true
   }
 }

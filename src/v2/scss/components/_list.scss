@@ -42,7 +42,7 @@ ul {
   }
 }
 
-ul:not(.ui) {
+ul:not(.ui):not(.DayPicker_weekHeader_ul) {
   @include list-dashed("ul", "li");
 }
 

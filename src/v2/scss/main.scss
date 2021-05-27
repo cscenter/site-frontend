@@ -21,6 +21,7 @@
 
 @import "components/typography";  // After: reboot
 @import "components/forms";
+@import "components/datepicker";
 @import "components/labels";
 @import "components/notifications";
 @import "components/images";
@@ -45,6 +46,7 @@
 @import "components/breadcrumb";
 
 @import "pages/index";
+@import "pages/appointment";
 @import "pages/alumni";
 @import "pages/team";
 @import "pages/syllabus_programs";

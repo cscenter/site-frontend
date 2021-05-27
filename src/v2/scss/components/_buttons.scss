@@ -138,6 +138,13 @@ $button-fill: solid;
   }
 }
 
+.btn input[type="radio"],
+.btn input[type="checkbox"]{
+  pointer-events:none;
+  clip: rect(0, 0, 0, 0);
+  position: absolute;
+}
+
 //
 // Alternate buttons
 //

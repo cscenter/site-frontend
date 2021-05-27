@@ -81,6 +81,12 @@ $card-bg: $white !default;
     @include media-breakpoint-up(md) {
       padding: spacer("8x");
     }
+    hr {
+      margin: 0 -#{spacer("4x")};
+      @include media-breakpoint-up(md) {
+        margin: 0 -#{spacer("8x")};
+      }
+    }
   }
 
   // FIXME: middle bigger than default styles. Is it OK?
@@ -91,6 +97,13 @@ $card-bg: $white !default;
   &._meta {
     padding-top: 0;
     flex-grow: 0;
+  }
+
+  hr {
+    background-color: $gray-light;
+    height: $border-width;
+    border: 0;
+    margin: 0 -#{spacer("4x")};
   }
 }
 

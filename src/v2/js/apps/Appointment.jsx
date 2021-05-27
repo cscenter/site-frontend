@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import 'react-dates/initialize';
+import '@cscenter/react-dates/initialize';
 import PropTypes from 'prop-types';
 import useFetch from 'use-http';
 import {
   SingleDatePicker,
   isInclusivelyAfterDay,
   isSameDay
-} from 'react-dates';
+} from '@cscenter/react-dates';
 import _uniqWith from 'lodash-es/uniqWith';
-import { ICON_AFTER_POSITION } from 'react-dates/lib/constants';
-import 'react-dates/lib/css/_datepicker.css';
+import { ICON_AFTER_POSITION } from '@cscenter/react-dates/lib/constants';
+import '@cscenter/react-dates/lib/css/_datepicker.css';
 import moment from 'moment';
 import cn from 'classnames';
 import { showNotification, showErrorNotification } from '../utils';
@@ -98,6 +98,8 @@ function Appointment({ endpoint, invitationDeadline, csrfToken, days }) {
           <SingleDatePicker
             id="date_input"
             date={date}
+            minDate={firstDay}
+            maxDate={lastDay}
             isOutsideRange={day =>
               // !isInclusivelyAfterDay(day, firstDay) ||
               // isInclusivelyAfterDay(day, nextAfterLastDay)

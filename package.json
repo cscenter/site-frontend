@@ -33,6 +33,7 @@
   "author": "",
   "dependencies": {
     "@babel/runtime": "^7.12.13",
+    "@cscenter/react-dates": "^21.9.0",
     "@drivy/dom-query": "^1.0.5",
     "@hookform/error-message": "0.0.5",
     "@sentry/browser": "^6.1.0",
@@ -80,7 +81,6 @@
     "raven-js": "^3.27.2",
     "react": "^16.13.1",
     "react-async": "^10.0.1",
-    "react-dates": "^21.8.0",
     "react-dom": "^16.13.1",
     "react-hook-form": "^6.15.1",
     "react-i18next": "^11.8.6",

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import 'react-dates/initialize';
 import PropTypes from 'prop-types';
 import useFetch from 'use-http';
@@ -18,7 +18,7 @@ moment.locale('ru');
 
 const dateFormat = 'YYYY-MM-DD';
 
-function Appointment({ endpoint, csrfToken, days }) {
+function Appointment({ endpoint, invitationDeadline, csrfToken, days }) {
   const [state, setState] = useState({
     date: null,
     slot: null,
@@ -28,14 +28,20 @@ function Appointment({ endpoint, csrfToken, days }) {
   const [focusedInput, setFocusedInput] = useState(false);
   const options = {
     onError: ({ error }) => {
-      const messages = response.data.errors.map(error => error.message);
-      showErrorNotification(messages.join('<br/>'));
+      if (response.status >= 500 && response.status < 600) {
+        showErrorNotification(`${response.statusText}. Try again later.`);
+      } else {
+        const messages = response.data.errors.map(error => error.message);
+        showErrorNotification(messages.join('<br/>'));
+      }
     },
+    cacheLife: 0,
+    cachePolicy: 'no-cache',
     headers: {
       'X-CSRFToken': csrfToken
     }
   };
-  const { post, error, response } = useFetch('', options);
+  const { post, loading, error, response } = useFetch('', options);
   const { date, slot } = state;
 
   const handleDateChange = date => {
@@ -85,7 +91,8 @@ function Appointment({ endpoint, csrfToken, days }) {
           <h2 className="mb-2">Приглашаем вас на собеседование</h2>
           Выберите дату и время из доступных вариантов.
           <br />
-          Место проведения может зависеть от формата собеседования.
+          Приглашение будет актуально до {invitationDeadline} по московскому
+          времени.
         </div>
         <div className="card__content _big">
           <SingleDatePicker
@@ -174,7 +181,7 @@ function Appointment({ endpoint, csrfToken, days }) {
           <button
             disabled={!canSubmit}
             className="btn _big _primary"
-            onClick={takeSlot}
+            onClick={() => {!loading && takeSlot()}}
           >
             Записаться
           </button>
@@ -186,6 +193,7 @@ function Appointment({ endpoint, csrfToken, days }) {
 
 Appointment.propTypes = {
   endpoint: PropTypes.string.isRequired,
+  invitationDeadline: PropTypes.string.isRequired,
   csrfToken: PropTypes.string.isRequired,
   days: PropTypes.arrayOf(
     PropTypes.shape({

@@ -1,38 +1,37 @@
 {% extends "v2/layouts/inner.jinja2" %}
 
-{% macro person_card(name, work, job, image_url='', page_url='' ) %}
-    {% if page_url != '' %}
-      <a href="{{ page_url }}/" target="_blank" rel="noopener"
-         class="card _user mb-6" itemscope itemtype="https://schema.org/Person">
-    {% else -%}
-      <div class="card _user mb-6" itemscope itemtype="https://schema.org/Person">
-    {% endif -%}
-    <div class="card__img">
-        <img src="{{ static(image_url) }}" alt="{{ name }}" itemprop="image">
+{% macro person_card(name, member_of, position, image_url='', page_url='' ) %}
+  {% if page_url %}
+    <a href="{{ page_url }}" target="_blank" rel="noopener" class="card _user mb-6" itemscope itemtype="https://schema.org/Person">
+  {% else -%}
+    <div class="card _user mb-6" itemscope itemtype="https://schema.org/Person">
+  {% endif -%}
+  <div class="card__img">
+    <img src="{{ static(image_url) }}" alt="{{ name }}" itemprop="image">
+  </div>
+  <div class="card__title" itemprop="name">
+    {{ name }}
+  </div>
+  {% if member_of %}
+    <div class="card__subtitle" itemprop="memberOf">
+      {{ member_of }}
     </div>
-    <div class="card__title" itemprop="name">
-      {{ name }}
+  {% endif -%}
+  {% if position %}
+    <div class="card__subtitle" itemprop="jobTitle">
+      {{ position }}
     </div>
-    {% if work %}
-      <div class="card__subtitle" itemprop="memberOf">
-        {{ work }}
-      </div>
-    {% endif -%}
-    {% if job %}
-      <div class="card__subtitle" itemprop="jobTitle">
-        {{ job }}
-      </div>
-    {% endif -%}
-    {% if page_url %}
-      </a>
-    {% else -%}
-      </div>
-    {% endif -%}
+  {% endif -%}
+  {% if page_url %}
+    </a>
+  {% else -%}
+    </div>
+  {% endif -%}
 {%- endmacro %}
 
 {% block content %}
 
-      {% set stackholders = [
+{% set council = [
         {
           "name": "Андрей Иванов",
           "member_of": "JetBrains",
@@ -51,7 +50,7 @@
         }
       ] %}
 
-      {% set employees_spb = [
+{% set employees_spb = [
         {
           "name": "Александр Авдюшенко",
           "image_url": "v2/img/pages/team/avdushenko_a.jpg",
@@ -109,7 +108,7 @@
         }
     ] %}
 
-      {% set employees_nsk = [
+{% set employees_nsk = [
         {
           "name": "Анастасия Волошина",
           "image_url": "v2/img/pages/team/voloshina_a.jpg",
@@ -138,38 +137,38 @@
     ] %}
 
 <div class="container page-content">
-    <div class="row content-center">
-      <div class="team__title col-sm-10">
-        <h1>Совет центра</h1>
-        <p>Совет отвечает за содержание учебного процесса и развитие центра. Цель Совета — сделать
-          так, чтобы каждому студенту центра было полезно и интересно учиться, а ряды преподавателей и выпускников
-          пополнялись из года  в год. Совет активно занимается онлайн-образованием и
-          расширением деятельности  CS центра за пределы Санкт-Петербурга.</p>
-      </div>
+  <div class="row content-center">
+    <div class="team__title col-sm-10">
+      <h1>Совет центра</h1>
+      <p>Совет отвечает за содержание учебного процесса и развитие центра. Цель Совета — сделать
+        так, чтобы каждому студенту центра было полезно и интересно учиться, а ряды преподавателей и выпускников
+        пополнялись из года  в год. Совет активно занимается онлайн-образованием и
+        расширением деятельности  CS центра за пределы Санкт-Петербурга.</p>
+    </div>
 
-      <div class="col-lg-12">
-        <div class="card-deck _team">
-          {% for row in stackholders -%}
-            {{ person_card(row["name"], row["member_of"], row.get("job", ""), row["image_url"], row.get("page_url", "")) }}
-          {% endfor -%}
-        </div>
-        <div class="team__title mt-8">
-          <h2>Санкт-Петербург</h2>
-        </div>
-        <div class="card-deck _team">
-          {% for row in employees_spb -%}
-            {{ person_card(row["name"], row.get("work", ""), row["job_title"], row["image_url"], row.get("page_url", "")) }}
-          {% endfor -%}
-        </div>
-        <div class="team__title mt-8">
-          <h2>Новосибирск</h2>
-        </div>
-        <div class="card-deck _team">
-          {% for row in employees_nsk -%}
-            {{ person_card(row["name"], row.get("work", ""), row["job_title"], row["image_url"], row.get("page_url", "")) }}
-          {% endfor -%}
-        </div>
+    <div class="col-lg-12">
+      <div class="card-deck _team">
+        {% for row in council -%}
+        {{ person_card(row["name"], row["member_of"], row.get("job", ""), row["image_url"], row.get("page_url", "")) }}
+        {% endfor -%}
+      </div>
+      <div class="team__title mt-8">
+        <h2>Санкт-Петербург</h2>
+      </div>
+      <div class="card-deck _team">
+        {% for row in employees_spb -%}
+        {{ person_card(row["name"], row.get("work", ""), row["job_title"], row["image_url"], row.get("page_url", "")) }}
+        {% endfor -%}
+      </div>
+      <div class="team__title mt-8">
+        <h2>Новосибирск</h2>
+      </div>
+      <div class="card-deck _team">
+        {% for row in employees_nsk -%}
+        {{ person_card(row["name"], row.get("work", ""), row["job_title"], row["image_url"], row.get("page_url", "")) }}
+        {% endfor -%}
       </div>
     </div>
+  </div>
 </div>
 {% endblock content %}

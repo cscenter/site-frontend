@@ -32,109 +32,109 @@
 {% block content %}
 
 {% set council = [
-        {
-          "name": "Андрей Иванов",
-          "member_of": "JetBrains",
-          "image_url": "v2/img/pages/team/ivanov_a.jpg"
-        },
-        {
-          "name": "Александр Куликов",
-          "member_of": "ПОМИ РАН, CS клуб",
-          "image_url": "v2/img/pages/team/kylikov_a.jpg",
-          "page_url": "http://logic.pdmi.ras.ru/~kulikov/"
-        },
-        {
-          "name": "Евгения Куликова",
-          "member_of": "Яндекс",
-          "image_url": "v2/img/pages/team/kylikova_e.jpg"
-        }
-      ] %}
+  {
+    "name": "Андрей Иванов",
+    "member_of": "JetBrains",
+    "image_url": "v2/img/pages/team/ivanov_a.jpg"
+  },
+  {
+    "name": "Александр Куликов",
+    "member_of": "ПОМИ РАН, CS клуб",
+    "image_url": "v2/img/pages/team/kylikov_a.jpg",
+    "page_url": "http://logic.pdmi.ras.ru/~kulikov/"
+  },
+  {
+    "name": "Евгения Куликова",
+    "member_of": "Яндекс",
+    "image_url": "v2/img/pages/team/kylikova_e.jpg"
+  }
+] %}
 
 {% set employees_spb = [
-        {
-          "name": "Александр Авдюшенко",
-          "image_url": "v2/img/pages/team/avdushenko_a.jpg",
-          "job_title": "Куратор"
-        },
-        {
-          "name": "Екатерина Артамонова",
-          "image_url": "v2/img/pages/team/artamonova_e.jpg",
-          "job_title": "Куратор"
-        },
-        {
-          "name": "Алексей Белозёров",
-          "image_url": "v2/img/pages/team/belozerov_a.jpg",
-          "job_title": "Оператор и монтажёр"
-        },
-        {
-          "name": "Сергей Жеревчук",
-          "image_url": "v2/img/pages/team/zherevchuk_sv.jpg",
-          "job_title": "Разработчик"
-        },
-        {
-          "name": "Андрей Комендантов",
-          "image_url": "v2/img/pages/team/komendantov_a.jpg",
-          "job_title": "Разработчик"
-        },
-        {
-          "name": "Екатерина Лебедева",
-          "image_url": "v2/img/pages/team/lebedeva_ekaterina.jpg",
-          "job_title": "Куратор"
-        },
-        {
-          "name": "Святослав Михайлов",
-          "image_url": "v2/img/pages/team/mikhaylov_s.jpg",
-          "job_title": "Дизайнер"
-        },
-        {
-          "name": "Екатерина Михайлова",
-          "image_url": "v2/img/pages/team/mikhaylova_e.jpg",
-          "job_title": "Дизайнер"
-        },
-        {
-          "name": "Альбина Нуртдинова",
-          "image_url": "v2/img/pages/team/nurtdinova_a.jpg",
-          "job_title": "Куратор"
-        },
-        {
-          "name": "Кристина Смольникова",
-          "image_url": "v2/img/pages/team/smolnikova_k.jpg",
-          "job_title": "Куратор"
-        },
-        {
-          "name": "Екатерина Широкова",
-          "image_url": "v2/img/pages/team/shirokova_e.jpg",
-          "job_title": "Куратор"
-        }
-    ] %}
+  {
+    "name": "Александр Авдюшенко",
+    "image_url": "v2/img/pages/team/avdushenko_a.jpg",
+    "job_title": "Куратор"
+  },
+  {
+    "name": "Екатерина Артамонова",
+    "image_url": "v2/img/pages/team/artamonova_e.jpg",
+    "job_title": "Куратор"
+  },
+  {
+    "name": "Алексей Белозёров",
+    "image_url": "v2/img/pages/team/belozerov_a.jpg",
+    "job_title": "Оператор и монтажёр"
+  },
+  {
+    "name": "Сергей Жеревчук",
+    "image_url": "v2/img/pages/team/zherevchuk_sv.jpg",
+    "job_title": "Разработчик"
+  },
+  {
+    "name": "Андрей Комендантов",
+    "image_url": "v2/img/pages/team/komendantov_a.jpg",
+    "job_title": "Разработчик"
+  },
+  {
+    "name": "Екатерина Лебедева",
+    "image_url": "v2/img/pages/team/lebedeva_ekaterina.jpg",
+    "job_title": "Куратор"
+  },
+  {
+    "name": "Святослав Михайлов",
+    "image_url": "v2/img/pages/team/mikhaylov_s.jpg",
+    "job_title": "Дизайнер"
+  },
+  {
+    "name": "Екатерина Михайлова",
+    "image_url": "v2/img/pages/team/mikhaylova_e.jpg",
+    "job_title": "Дизайнер"
+  },
+  {
+    "name": "Альбина Нуртдинова",
+    "image_url": "v2/img/pages/team/nurtdinova_a.jpg",
+    "job_title": "Куратор"
+  },
+  {
+    "name": "Кристина Смольникова",
+    "image_url": "v2/img/pages/team/smolnikova_k.jpg",
+    "job_title": "Куратор"
+  },
+  {
+    "name": "Екатерина Широкова",
+    "image_url": "v2/img/pages/team/shirokova_e.jpg",
+    "job_title": "Куратор"
+  }
+] %}
 
 {% set employees_nsk = [
-        {
-          "name": "Анастасия Волошина",
-          "image_url": "v2/img/pages/team/voloshina_a.jpg",
-          "job_title": "Куратор"
-        },
-        {
-          "name": "Алина Комиссарова",
-          "image_url": "v2/img/pages/team/komissarova_a.jpg",
-          "job_title": "Куратор"
-        },
-        {
-          "name": "Елена Лебедева",
-          "image_url": "v2/img/pages/team/lebedeva_elena.jpg",
-          "job_title": "Куратор"
-        },
-        {
-          "name": "Александра Михайлова",
-          "image_url": "v2/img/pages/team/mikhaylova_a.jpg",
-          "job_title": "Оператор и монтажёр"
-        },
-        {
-          "name": "Павел Наумов",
-          "image_url": "v2/img/pages/team/naumov_p.jpg",
-          "job_title": "Оператор и монтажёр"
-        }
-    ] %}
+  {
+    "name": "Анастасия Волошина",
+    "image_url": "v2/img/pages/team/voloshina_a.jpg",
+    "job_title": "Куратор"
+  },
+  {
+    "name": "Алина Комиссарова",
+    "image_url": "v2/img/pages/team/komissarova_a.jpg",
+    "job_title": "Куратор"
+  },
+  {
+    "name": "Елена Лебедева",
+    "image_url": "v2/img/pages/team/lebedeva_elena.jpg",
+    "job_title": "Куратор"
+  },
+  {
+    "name": "Александра Михайлова",
+    "image_url": "v2/img/pages/team/mikhaylova_a.jpg",
+    "job_title": "Оператор и монтажёр"
+  },
+  {
+    "name": "Павел Наумов",
+    "image_url": "v2/img/pages/team/naumov_p.jpg",
+    "job_title": "Оператор и монтажёр"
+  }
+] %}
 
 <div class="container page-content">
   <div class="row content-center">

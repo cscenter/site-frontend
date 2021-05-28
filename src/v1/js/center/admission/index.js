@@ -1,6 +1,7 @@
 import initApplicantDetailSection from './applicant_detail';
 import initApplicantListSection from './applicant_list';
 import initInterviewSection from './interview';
+import initInterviewStreamInvitationSection from './send_interview_invitations';
 import { showComponentError, getSections } from 'utils';
 
 $(document).ready(function () {
@@ -14,6 +15,9 @@ $(document).ready(function () {
   if (sections.includes('interview')) {
     initInterviewSection();
   }
+  if (sections.includes("send_interview_invitations")) {
+        initInterviewStreamInvitationSection();
+    }
 });
 
 $(document).ready(function () {

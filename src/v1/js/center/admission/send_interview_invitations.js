@@ -15,16 +15,19 @@ function streamSelectChanged(event) {
 export default function initInterviewStreamInvitationSection() {
     restoreTabFromHash();
 
-    // let testButtonSelect = $('button[name="click_me"]');
-    //
-    // testButtonSelect.on("click", function() {
-    //    console.log("Нажимаем кнопку");
-    //    alert( "Hello " );
-    // });
+    let checkAllStudents = $('#checkAllStudent');
+    $('#checkAllStudent').click(function(){
+      if(checkAllStudents.prop('checked') === true) {
+        $('#checkStudent input').prop('checked', true);
+      }
+      else {
+        $('#checkStudent input').prop('checked', false);
+      }
+
+    });
 
     import('components/forms')
         .then(_ => {
-
             let streamSelect = $("select[name=interview_stream_invitation-streams]");
             streamSelect.selectpicker({
                 actionsBox: true,

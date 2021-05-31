@@ -2,15 +2,12 @@ import React, { useState } from 'react';
 import '@cscenter/react-dates/initialize';
 import PropTypes from 'prop-types';
 import useFetch from 'use-http';
-import {
-  SingleDatePicker,
-  isInclusivelyAfterDay,
-  isSameDay
-} from '@cscenter/react-dates';
+import { SingleDatePicker, isSameDay } from '@cscenter/react-dates';
 import _uniqWith from 'lodash-es/uniqWith';
 import { ICON_AFTER_POSITION } from '@cscenter/react-dates/lib/constants';
 import '@cscenter/react-dates/lib/css/_datepicker.css';
 import moment from 'moment';
+import 'moment/locale/ru';
 import cn from 'classnames';
 import { showNotification, showErrorNotification } from '../utils';
 
@@ -18,13 +15,21 @@ moment.locale('ru');
 
 const dateFormat = 'YYYY-MM-DD';
 
-function Appointment({ endpoint, invitationDeadline, csrfToken, days }) {
+function Appointment({
+  endpointSlotOccupation,
+  endpointDeclineInvitation,
+  invitationDeadline,
+  csrfToken,
+  days
+}) {
   const [state, setState] = useState({
     date: null,
     slot: null,
     venue: null,
-    isInvitationAccepted: false
+    isInvitationAccepted: false,
+    isInvitationDeclined: false
   });
+  const [showDeclineInvitation, setShowDeclineInvitation] = useState(false);
   const [focusedInput, setFocusedInput] = useState(false);
   const options = {
     onError: ({ error }) => {
@@ -39,9 +44,11 @@ function Appointment({ endpoint, invitationDeadline, csrfToken, days }) {
     cachePolicy: 'no-cache',
     headers: {
       'X-CSRFToken': csrfToken
-    }
+    },
+    timeout: 5000
   };
-  const { post, loading, error, response } = useFetch('', options);
+  // FIXME: Right now we use the same hook for accepting/declining invitation. Better design would be to implement separated components for this actions
+  const { request, response } = useFetch('', options);
   const { date, slot } = state;
 
   const handleDateChange = date => {
@@ -49,10 +56,18 @@ function Appointment({ endpoint, invitationDeadline, csrfToken, days }) {
   };
 
   const takeSlot = async () => {
-    const data = await post(endpoint.replace('{slotId}', slot.value));
+    await request.post(endpointSlotOccupation.replace('{slotId}', slot.value));
     if (response.ok) {
       showNotification('Приглашение успешно принято.', { type: 'success' });
       setState(prevState => ({ ...prevState, isInvitationAccepted: true }));
+    }
+  };
+
+  const declineInvitation = async () => {
+    request.abort();
+    await request.put(endpointDeclineInvitation);
+    if (response.ok) {
+      setState(prevState => ({ ...prevState, isInvitationDeclined: true }));
     }
   };
 
@@ -64,7 +79,6 @@ function Appointment({ endpoint, invitationDeadline, csrfToken, days }) {
   const lastDay = highlightedDays.reduce((acc, current) => {
     return acc.isAfter(current) ? acc : current;
   });
-  const nextAfterLastDay = moment(lastDay).add(1, 'days');
 
   const dateFormatted = date && date.format(dateFormat);
   const selectedDays = days.filter(({ date }) => date === dateFormatted);
@@ -84,6 +98,47 @@ function Appointment({ endpoint, invitationDeadline, csrfToken, days }) {
     );
   }
 
+  if (showDeclineInvitation) {
+    return (
+      <>
+        <div id={'appointment__card'} className="card border-xs-0 grey-bg">
+          <div className="card__header _big">
+            {!state.isInvitationDeclined && (
+              <>
+                <p>
+                  Соообщите нам о том, что вам не подходит ни один из
+                  предложенных дней. Позже мы пришлём вам новое приглашение,
+                  либо свяжемся любым из доступных способов для согласования
+                  времени.
+                </p>
+                <button
+                  className="btn _big _primary"
+                  onClick={() => {
+                    !request.loading && declineInvitation();
+                  }}
+                >
+                  Отклонить
+                </button>
+                <button
+                  className="btn _big"
+                  onClick={() => {
+                    request.abort();
+                    setShowDeclineInvitation(false);
+                  }}
+                >
+                  Отмена
+                </button>
+              </>
+            )}
+            {state.isInvitationDeclined && (
+              <h2 className="mb-0">Приглашение отклонено</h2>
+            )}
+          </div>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <div id={'appointment__card'} className="card border-xs-0 grey-bg">
@@ -100,9 +155,8 @@ function Appointment({ endpoint, invitationDeadline, csrfToken, days }) {
             date={date}
             minDate={firstDay}
             maxDate={lastDay}
+            initialVisibleMonth={() => firstDay}
             isOutsideRange={day =>
-              // !isInclusivelyAfterDay(day, firstDay) ||
-              // isInclusivelyAfterDay(day, nextAfterLastDay)
               !highlightedDays.some(day2 => {
                 return isSameDay(day, day2);
               })
@@ -123,6 +177,17 @@ function Appointment({ endpoint, invitationDeadline, csrfToken, days }) {
             displayFormat={() => moment.localeData().longDateFormat('LL')}
             transitionDuration={0}
           />
+          <br />
+          <a
+            href="#"
+            className="_dashed d-inline-block mt-1"
+            onClick={() => {
+              request.abort();
+              setShowDeclineInvitation(true);
+            }}
+          >
+            Нет подходящего времени?
+          </a>
           {selectedDays.length > 0 && (
             <>
               {selectedDays.map(selectedDay => (
@@ -140,7 +205,7 @@ function Appointment({ endpoint, invitationDeadline, csrfToken, days }) {
                       return (
                         <label
                           className={cn({
-                            'btn _small _outline _gray slot': true,
+                            'btn _small _outline slot': true,
                             slot__disabled: !s.available,
                             slot__selected: slot && slot.value === s.value
                           })}
@@ -183,7 +248,9 @@ function Appointment({ endpoint, invitationDeadline, csrfToken, days }) {
           <button
             disabled={!canSubmit}
             className="btn _big _primary"
-            onClick={() => {!loading && takeSlot()}}
+            onClick={() => {
+              !request.loading && takeSlot();
+            }}
           >
             Записаться
           </button>
@@ -194,7 +261,8 @@ function Appointment({ endpoint, invitationDeadline, csrfToken, days }) {
 }
 
 Appointment.propTypes = {
-  endpoint: PropTypes.string.isRequired,
+  endpointSlotOccupation: PropTypes.string.isRequired,
+  endpointDeclineInvitation: PropTypes.string.isRequired,
   invitationDeadline: PropTypes.string.isRequired,
   csrfToken: PropTypes.string.isRequired,
   days: PropTypes.arrayOf(

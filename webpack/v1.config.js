@@ -172,9 +172,6 @@ const common = {
       path: path.join(__dirname, '.env'),
       silent: true
     }),
-    // Fixes warning in moment-with-locales.min.js
-    //   Module not found: Error: Can't resolve './locale' in ...
-    new webpack.IgnorePlugin(/^\.\/locale$/),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional

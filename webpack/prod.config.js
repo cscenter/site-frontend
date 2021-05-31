@@ -63,7 +63,9 @@ const prodConfiguration = {
       'process.env': {
         NODE_ENV: '"production"'
       }
-    })
+    }),
+    // Ignore all locale files of moment.js
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
     // Need this plugin for deterministic hashing
     // until this issue is resolved: https://github.com/webpack/webpack/issues/1315
     //new webpack.HashedModuleIdsPlugin(),

@@ -1,6 +1,7 @@
 import {restoreTabFromHash} from './utils';
 import {createNotification} from 'utils';
 import _groupBy from 'lodash-es/groupBy';
+import $ from "jquery";
 
 function streamSelectChanged(event) {
     const streamSelect = event.target;
@@ -23,7 +24,46 @@ export default function initInterviewStreamInvitationSection() {
       else {
         $('#checkStudent input').prop('checked', false);
       }
+    });
 
+    let url_params = window
+    .location
+    .search
+    .replace('?','')
+    .split('&')
+    .reduce(
+        function(p,e){
+            var a = e.split('=');
+            p[ decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+            return p;
+        },
+        {}
+    );
+
+    $("#submit-id-create-invitation").click(function(event){
+      event.preventDefault();
+      let select_streams = $("select[name=interview_stream_invitation-streams]").val();
+      let searchIDs = $("#checkStudent input:checkbox:checked").map(function(){
+        return $(this).val();
+      }).get();
+      console.log(searchIDs);
+      console.log(select_streams);
+
+      $.ajax({
+        url:"#",
+        method: "POST",
+        data: {
+          campaign: url_params['campaign'],
+          section: url_params['section'],
+          ids:searchIDs,
+          streams:select_streams
+        },
+        success:function(response){},
+        complete:function(){},
+        error:function (xhr, textStatus, thrownError){
+            alert("error doing something");
+        }
+      });
     });
 
     import('components/forms')

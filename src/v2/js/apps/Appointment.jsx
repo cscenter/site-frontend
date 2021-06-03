@@ -92,7 +92,7 @@ function Appointment({
           <h2 className="mb-2">Ждём вас на собеседование</h2>
           <b>Дата и время</b>: {date.format('DD MMMM, dddd')} в {slot.label}
           <br />
-          <b>Место проведения</b>: {state.venue.name}
+          <b>Место проведения</b>: {state.venue.address}
         </div>
       </div>
     );
@@ -106,10 +106,10 @@ function Appointment({
             {!state.isInvitationDeclined && (
               <>
                 <p>
-                  Соообщите нам о том, что вам не подходит ни один из
-                  предложенных дней. Позже мы пришлём вам новое приглашение,
-                  либо свяжемся любым из доступных способов для согласования
-                  времени.
+                  Вы уверены, что ни один из выбранных слотов вам не подходит?
+                  Если уверены, нажмите «Отклонить приглашение» — мы выберем
+                  новые даты и пригласим вас ещё раз. Чтобы посмотреть варианты
+                  времени ещё раз, нажмите «Назад».
                 </p>
                 <button
                   className="btn _big _primary"
@@ -117,7 +117,7 @@ function Appointment({
                     !request.loading && declineInvitation();
                   }}
                 >
-                  Отклонить
+                  Отклонить приглашение
                 </button>
                 <button
                   className="btn _big"
@@ -126,7 +126,7 @@ function Appointment({
                     setShowDeclineInvitation(false);
                   }}
                 >
-                  Отмена
+                  Назад
                 </button>
               </>
             )}
@@ -193,7 +193,7 @@ function Appointment({
               {selectedDays.map(selectedDay => (
                 <div className="mt-8" key={`day_${selectedDay.id}`}>
                   <h4>
-                    <b>Место проведения</b>: {selectedDay.venue.name}
+                    <b>Место проведения</b>: {selectedDay.venue.address}
                   </h4>
                   {selectedDay.section.value !== 'all_in_1' && (
                     <h4>
@@ -240,7 +240,7 @@ function Appointment({
               <h3>Проверьте данные</h3>
               <b>Дата и время</b>: {date.format('DD MMMM, dddd')} в {slot.label}
               <br />
-              <b>Место проведения</b>: {state.venue.name}
+              <b>Место проведения</b>: {state.venue.address}
             </>
           )}
         </div>
@@ -276,6 +276,7 @@ Appointment.propTypes = {
       }),
       venue: PropTypes.shape({
         name: PropTypes.string.isRequired,
+        address: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired
       }),
       slots: PropTypes.arrayOf(

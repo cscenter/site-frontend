@@ -3,6 +3,7 @@ import 'bootstrap-select/js/i18n/defaults-ru_RU';
 import moment from 'moment';
 import 'moment/locale/ru';
 import 'eonasdan-bootstrap-datetimepicker';
+
 import(
   /* webpackChunkName: "bootstrap-datetimepicker" */ 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
 );
@@ -80,5 +81,9 @@ export function initSelectPickers() {
       iconBase: 'fa',
       tickIcon: 'fa-check'
     });
+  });
+
+  $('.multiple-select.bs-select-hidden').on('loaded.bs.select', function (e) {
+    $(e.target).selectpicker('setStyle', 'btn-default');
   });
 }

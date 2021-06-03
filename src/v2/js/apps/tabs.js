@@ -2,7 +2,8 @@ import { toEnhancedHTMLElement } from '@drivy/dom-query';
 import Tab from 'bootstrap5/tab';
 
 export function launch() {
-  document.getElementsByClassName('nav-tabs').forEach(function (item) {
+  const tabs = document.getElementsByClassName('nav-tabs');
+  Array.from(tabs).forEach(function (item) {
     const tabList = toEnhancedHTMLElement(item);
     // Selected tab on page loading
     let defaultTab = tabList.query('.nav-item .active[data-toggle="tab"]');

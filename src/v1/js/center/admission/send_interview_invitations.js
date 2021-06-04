@@ -40,17 +40,17 @@ export default function initInterviewStreamInvitationSection() {
         {}
     );
 
+    let url_link = window.location.href;
+
     $("#submit-id-create-invitation").click(function(event){
       event.preventDefault();
       let select_streams = $("select[name=interview_stream_invitation-streams]").val();
       let searchIDs = $("#checkStudent input:checkbox:checked").map(function(){
         return $(this).val();
       }).get();
-      console.log(searchIDs);
-      console.log(select_streams);
 
       $.ajax({
-        url:"#",
+        url:url_link,
         method: "POST",
         data: {
           campaign: url_params['campaign'],
@@ -58,10 +58,12 @@ export default function initInterviewStreamInvitationSection() {
           ids:searchIDs,
           streams:select_streams
         },
-        success:function(response){},
+        success:function(response){
+          $(location).attr('href', url_link);
+        },
         complete:function(){},
         error:function (xhr, textStatus, thrownError){
-            alert("error doing something");
+            // alert("");
         }
       });
     });

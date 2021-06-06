@@ -15,9 +15,9 @@ $(document).ready(function () {
   if (sections.includes('interview')) {
     initInterviewSection();
   }
-  if (sections.includes("send_interview_invitations")) {
-        initInterviewStreamInvitationSection();
-    }
+  if (sections.includes('send_interview_invitations')) {
+    initInterviewStreamInvitationSection();
+  }
 });
 
 $(document).ready(function () {

@@ -123,37 +123,6 @@
     }
   }
 
-  .members {
-    width: 35%;
-    position: relative;
-    ul {
-      margin: 0;
-      padding: 0;
-      li {
-        display: inline-block;
-        float: left;
-
-        img {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          margin: 0 4px 4px 0;
-        }
-
-        div.square {
-          margin: 0 4px 4px 0;
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          line-height: 40px;
-          text-align: center;
-          background-color: $state-info-bg;
-          color: #333;
-        }
-      }
-    }
-  }
-
   .actions {
     padding: 20px 0 !important;
     button {
@@ -403,3 +372,31 @@
 }
 
 
+ul.members {
+  position: relative;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: inline-block;
+    float: left;
+
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin: 0 4px 4px 0;
+    }
+
+    div.square {
+      margin: 0 4px 4px 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      line-height: 40px;
+      text-align: center;
+      background-color: $state-info-bg;
+      color: #333;
+    }
+  }
+}

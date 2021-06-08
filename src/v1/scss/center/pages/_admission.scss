@@ -252,9 +252,11 @@
       width: 80%;
     }
 
-    .comment {
+    .score-info + .comment {
       margin-right: 130px;
+    }
 
+    .comment {
       img {
         width: 50px;
         height: 50px;
@@ -323,6 +325,16 @@
 
   select[name="assignments"] {
     min-height: 300px;
+  }
+
+  .comment {
+    padding: 20px;
+    background: $background-grey;
+    border: 1px solid $color-gray-90;
+  }
+
+  .interview .comment:last-child {
+    padding-bottom: 20px;
   }
 }
 

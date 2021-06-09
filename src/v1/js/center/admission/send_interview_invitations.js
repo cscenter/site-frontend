@@ -49,23 +49,32 @@ export default function initInterviewStreamInvitationSection() {
         return $(this).val();
       }).get();
 
-      $.ajax({
-        url:url_link,
-        method: "POST",
-        data: {
-          campaign: url_params['campaign'],
-          section: url_params['section'],
-          ids:searchIDs,
-          streams:select_streams
-        },
-        success:function(response){
-          $(location).attr('href', url_link);
-        },
-        complete:function(){},
-        error:function (xhr, textStatus, thrownError){
-            // alert("");
-        }
-      });
+      if (searchIDs != '' && select_streams!= '') {
+          $(this).attr('disabled', true);
+          $(this).attr('value', 'Идёт отправка, подождите...');
+
+          $.ajax({
+            url:url_link,
+            method: "POST",
+            data: {
+              campaign: url_params['campaign'],
+              section: url_params['section'],
+              ids:searchIDs,
+              streams:select_streams
+            },
+            success:function(response){
+              $(location).attr('href', url_link);
+            },
+            complete:function(){},
+            error:function (xhr, textStatus, thrownError){
+                // alert("");
+            }
+          });
+      }
+      else if (searchIDs != ''){
+        $('#checkAllStudent').parent().class('btn-danger');
+      }
+      else $('#checkAllStudent').parent().css('color', 'red');
     });
 
     import('components/forms')

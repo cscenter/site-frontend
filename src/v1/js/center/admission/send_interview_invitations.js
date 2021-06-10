@@ -16,13 +16,13 @@ function streamSelectChanged(event) {
 export default function initInterviewStreamInvitationSection() {
     restoreTabFromHash();
 
-    let checkAllStudents = $('#checkAllStudent');
-    $('#checkAllStudent').click(function(){
+    let checkAllStudents = $('#check-all-student');
+    $('#check-all-student').click(function(){
       if(checkAllStudents.prop('checked') === true) {
-        $('#checkStudent input').prop('checked', true);
+        $('#check-student input').prop('checked', true);
       }
       else {
-        $('#checkStudent input').prop('checked', false);
+        $('#check-student input').prop('checked', false);
       }
     });
 
@@ -45,7 +45,7 @@ export default function initInterviewStreamInvitationSection() {
     $("#submit-id-create-invitation").click(function(event){
       event.preventDefault();
       let select_streams = $("select[name=interview_stream_invitation-streams]").val();
-      let searchIDs = $("#checkStudent input:checkbox:checked").map(function(){
+      let searchIDs = $("#check-student input:checkbox:checked").map(function(){
         return $(this).val();
       }).get();
 
@@ -62,19 +62,19 @@ export default function initInterviewStreamInvitationSection() {
               ids:searchIDs,
               streams:select_streams
             },
-            success:function(response){
+            success:function(response){},
+            complete:function(){
               $(location).attr('href', url_link);
             },
-            complete:function(){},
             error:function (xhr, textStatus, thrownError){
-                // alert("");
+              $(location).attr('href', url_link);
             }
           });
       }
       else if (searchIDs != ''){
-        $('#checkAllStudent').parent().class('btn-danger');
+        $('#check-all-student').parent().class('btn-danger');
       }
-      else $('#checkAllStudent').parent().css('color', 'red');
+      else $('#check-all-student').parent().css('color', 'red');
     });
 
     import('components/forms')

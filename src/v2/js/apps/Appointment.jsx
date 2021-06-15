@@ -90,7 +90,7 @@ function Appointment({
       <div id={'appointment__card'} className="card border-xs-0 grey-bg">
         <div className="card__header _big">
           <h2 className="mb-2">Ждём вас на собеседование</h2>
-          <b>Дата и время</b>: {date.format('DD MMMM, dddd')} в {slot.label}
+          <b>Дата и время</b>: {date.format('DD MMMM, dddd')}, в {slot.label}
           <br />
           <b>Место проведения</b>: {state.venue.address}
         </div>
@@ -238,7 +238,7 @@ function Appointment({
             <>
               <hr className="my-8" />
               <h3>Проверьте данные</h3>
-              <b>Дата и время</b>: {date.format('DD MMMM, dddd')} в {slot.label}
+              <b>Дата и время</b>: {date.format('DD MMMM, dddd')}, в {slot.label}
               <br />
               <b>Место проведения</b>: {state.venue.address}
             </>

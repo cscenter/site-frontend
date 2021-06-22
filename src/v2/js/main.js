@@ -78,6 +78,22 @@ onReady(async () => {
       })
       .catch(error => showComponentError(error));
   }
+
+  if (sections.includes('endowment')) {
+    import(/* webpackChunkName: "endowment" */ 'apps/endowment')
+      .then(module => {
+        module.launch();
+      })
+      .catch(error => showComponentError(error));
+  }
+
+  loadReactApplications();
+  loadSVGSprites();
+  loadLazyImages();
+  renderLatex();
+});
+
+function loadReactApplications() {
   let reactApps = document.querySelectorAll('.__react-root');
   if (reactApps.length > 0) {
     import(/* webpackChunkName: "react" */ 'react_app')
@@ -86,11 +102,7 @@ onReady(async () => {
       })
       .catch(error => showComponentError(error));
   }
-
-  loadSVGSprites();
-  loadLazyImages();
-  renderLatex();
-});
+}
 
 function initTopMenu() {
   let navbarContainer = document.querySelector('.navbar-container');

@@ -1,0 +1,279 @@
+{% extends "v2/layouts/inner.jinja2" %}
+{% from "v2/pages/team.jinja2" import person_card with context %}
+
+{% block title %}Эндаумент-фонд Computer Science центра{% endblock title %}
+
+{% block body_attrs %}data-init-sections="collapsible"{% endblock body_attrs %}
+
+{% block content %}
+  <div class="py-10">
+    <div class="container pb-10 text-left">
+      <div class="row text-center text-md-left">
+        <div class="col-md-7 order-1 order-md-0 d-md-flex" style="align-items: center">
+          <div>
+            <h1>Эндаумент-фонд Computer Science центра</h1>
+            <p class="mb-10">Возможность поучаствовать в&nbsp;развитии дополнительного образования и&nbsp;поддержке профессионального
+              сообщества</p>
+            <a href="https://compscicenter.ru/" class="btn _big _primary _m-wide mb-8 mb-md-0">Сделать пожертвование</a>
+          </div>
+        </div>
+        <div class="col-md-5 mb-10 mb-md-0">
+          <img class="img-fluid" src="{{ static('v2/img/pages/endowment/endowment.svg') }}" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="grey-bg">
+    <div class="container py-10">
+      <h2 class="h1 my-10 pb-8 text-center">Куда пойдут средства?</h2>
+      <div class="card _horizontal mb-10">
+        <div class="row no-gutters">
+          <div class="col-md-5"
+               style="background-image:url('/static/v2/img/pages/endowment/studio.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat; min-height: 320px">
+          </div>
+          <div class="col-md-7 d-flex">
+            <div class="card__content p-lg-10">
+              <div class="announcement">
+                <h2>Разработка образовательных материалов:</h2>
+                <ul class="card__subtitle ml-6">
+                  <li>подготовка и проведение очных учебных курсов,</li>
+                  <li>запись и проведение онлайн-курсов,</li>
+                  <li>создание и обновление образовательных программ.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card _horizontal mb-10">
+        <div class="row no-gutters">
+          <div class="col-md-7 order-1 d-flex">
+            <div class="card__content p-lg-10">
+              <div class="announcement">
+                <h2>Проведение профильных мероприятий:</h2>
+                <ul class="card__subtitle ml-6">
+                  <li>соревнований, школ, конференций,</li>
+                  <li>других активностей, в том числе открытых,</li>
+                  <li>изготовление сувениров для награждения участников мероприятий.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 order-0 order-md-2"
+               style="background-image:url('/static/v2/img/pages/endowment/seim.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat; min-height: 320px">
+          </div>
+        </div>
+      </div>
+      <div class="card _horizontal mb-10">
+        <div class="row no-gutters">
+          <div class="col-md-5"
+               style="background-image:url('/static/v2/img/pages/endowment/classroom.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat; min-height: 320px">
+          </div>
+          <div class="col-md-7 d-flex">
+            <div class="card__content p-lg-10">
+              <div class="announcement">
+                <h2>Улучшение условий обучения:</h2>
+                <ul class="card__subtitle ml-6">
+                  <li>покупка лицензий или подписок на специализированное ПО и сервисы,</li>
+                  <li>разработка и поддержание систем для администрирования процесса обучения,</li>
+                  <li>покупка техники и оборудования, необходимых для организации обучения,</li>
+                  <li>аренда учебных помещений и их ремонт.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card _horizontal mb-10">
+        <div class="row no-gutters">
+          <div class="col-md-7 order-1 d-flex">
+            <div class="card__content p-lg-10">
+              <div class="announcement">
+                <h2>Продвижение бренда CS&nbsp;центра:</h2>
+                <ul class="card__subtitle ml-6">
+                  <li>создание материалов о&nbsp;жизни центра, достижениях студентов и&nbsp;преподавателей,</li>
+                  <li>размещение упоминаний центра в&nbsp;социальных сетях и&nbsp;СМИ,</li>
+                  <li>организация внеучебных событий.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 order-0 order-md-2"
+               style="background-image:url('/static/v2/img/pages/endowment/party.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat; min-height: 320px">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center dark-bg">
+    <div class="container py-10">
+      <div class="row content-center py-10">
+        <div class="col-12">
+          <h2 class="h1 text-white">Как работает эндаунмент</h2>
+          <div class="card-deck _four pt-8">
+            <div class="card _no-border">
+              <div class="card__header mb-0">
+                <img src="/static/v2/img/pages/endowment/step-1.svg" width="124" alt="">
+              </div>
+              <div class="card__content px-4 pt-0 pb-8">
+                Из пожертвований формируется капитал.
+              </div>
+            </div>
+            <div class="card _no-border">
+              <div class="card__header text-warning">
+                <img src="/static/v2/img/pages/endowment/step-2.svg" width="124" alt="">
+              </div>
+              <div class="card__content px-4 pt-0 pb-8">
+                Капитал передаётся управляющей компании для инвестирования.
+              </div>
+            </div>
+            <div class="card _no-border">
+              <div class="card__header text-warning">
+                <img src="/static/v2/img/pages/endowment/step-3.svg" width="124" alt="">
+              </div>
+              <div class="card__content px-4 pt-0 pb-8">
+                Доходы от инвестиций регулярно поступают поддерживаемой организации.
+              </div>
+            </div>
+            <div class="card _no-border">
+              <div class="card__header text-warning">
+                <img src="/static/v2/img/pages/endowment/step-4.svg" width="124" alt="">
+              </div>
+              <div class="card__content px-4 pt-0 pb-8">
+                Сам капитал не расходуется и&nbsp;продолжает приносить доход.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% set council = [
+  {
+    "name": "Андрей Иванов",
+    "member_of": "JetBrains",
+    "image_url": "v2/img/pages/team/ivanov_a.jpg"
+  },
+    {
+    "name": "Андрей Иванов",
+    "member_of": "JetBrains",
+    "image_url": "v2/img/pages/team/ivanov_a.jpg"
+  },
+    {
+    "name": "Андрей Иванов",
+    "member_of": "JetBrains",
+    "image_url": "v2/img/pages/team/ivanov_a.jpg"
+  },
+    {
+    "name": "Андрей Иванов",
+    "member_of": "JetBrains",
+    "image_url": "v2/img/pages/team/ivanov_a.jpg"
+  },
+    {
+    "name": "Андрей Иванов",
+    "member_of": "JetBrains",
+    "image_url": "v2/img/pages/team/ivanov_a.jpg"
+  }
+] %}
+
+  <div class="container py-10">
+    <div class="row content-center py-10">
+      <h2 class="h1 mb-10 pb-8">Совет эндаумента</h2>
+      <div class="col-lg-12">
+        <div class="card-deck _team">
+          {% for row in council -%}
+            {{ person_card(row["name"], row["member_of"], row.get("job", ""), row["image_url"], row.get("page_url", "")) }}
+          {% endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grey-bg py-10">
+    <div class="container py-10">
+      <h1 class="text-center mb-10 pb-8">Вопросы и ответы</h1>
+      <div class="row content-center">
+        <div class="col-lg-10">
+          <div class="collapsible">
+            <div class="card _qa mb-4">
+              <button class="btn card__header" id="question-1"
+                      aria-expanded="false" href="#answer-1">
+                {{ macros.svg_icon('border-arrow-right') }}Какие гарантии, что деньги не пропадут?
+              </button>
+              <div class="collapse" id="answer-1" aria-expanded="true">
+                <div class="card__content">Место проведения занятий CS
+                  центра в
+                  Санкт-Петербурге — БЦ «Таймс», в Новосибирске — учебные
+                  аудитории нового корпуса Новосибирского государственного
+                  университета (НГУ). Обычно занятия проходят по будням: с
+                  18:30
+                  до 20:00 — первая пара и с 20:00 до 21:30 — вторая.
+                  Система
+                  выбора курсов гибкая, поэтому студенты могут выбрать не
+                  только
+                  интересные, но и удобные в плане расписания предметы.
+                </div>
+              </div>
+            </div>
+            <div class="card _qa mb-4">
+              <button class="btn card__header" id="question-1"
+                      aria-expanded="false" href="#answer-1">
+                {{ macros.svg_icon('border-arrow-right') }}Зачем жертвовать деньги?
+              </button>
+              <div class="collapse" id="answer-1" aria-expanded="true">
+                <div class="card__content">
+                  Многие курсы CS центра закрытые, их могут посещать
+                  только студенты центра. Мы проводим открытые лекции и
+                  публикуем видеозаписи очных занятий. Курсы, которые
+                  проходят в рамках CS клуба, открыты для всех. Расписание
+                  занятий в CS клубе
+                </div>
+              </div>
+            </div>
+            <div class="card _qa mb-4">
+              <button class="btn card__header" id="question-1"
+                      aria-expanded="false" href="#answer-1">
+                {{ macros.svg_icon('border-arrow-right') }}Почему важны даже небольшие пожертвования?
+              </button>
+              <div class="collapse" id="answer-1" aria-expanded="true">
+                <div class="card__content">
+                  Напишите нам на <a href="mailto:info@compscicenter.ru">info@compscicenter.ru</a>.
+                </div>
+              </div>
+            </div>
+            <div class="card _qa mb-4">
+              <button class="btn card__header" id="question-1"
+                      aria-expanded="false" href="#answer-1">
+                {{ macros.svg_icon('border-arrow-right') }}Можно ли получить налоговый вычет?
+              </button>
+              <div class="collapse" id="answer-1" aria-expanded="true">
+                <div class="card__content">
+                  Напишите нам на <a href="mailto:info@compscicenter.ru">info@compscicenter.ru</a>.
+                </div>
+              </div>
+            </div>
+            <div class="card _qa mb-4">
+              <button class="btn card__header" id="question-1"
+                      aria-expanded="false" href="#answer-1">
+                {{ macros.svg_icon('border-arrow-right') }}Можно ли перевести из-за границы?
+              </button>
+              <div class="collapse" id="answer-1" aria-expanded="true">
+                <div class="card__content">
+                  Напишите нам на <a href="mailto:info@compscicenter.ru">info@compscicenter.ru</a>.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dark-bg py-10">
+    <div class="container py-10 text-center">
+      <h2 class="h1 text-white text-center">Примите участие в&nbsp;жизни CS&nbsp;центра</h2>
+      <a href="" class="btn my-10 _big _primary _m-wide">Сделать пожертвование</a>
+    </div>
+  </div>
+
+{% endblock content %}

@@ -1,19 +1,25 @@
 .cover-index-page {
-  background-image: url("/static/v2/img/pages/index/bg-main-page.jpg");
-  background-color: #201f20;
+  background: #2d3237;
   padding: 0 0 64px;
+
+   @include media-breakpoint-up(md) {
+    background-image: url("/static/v2/img/pages/index/bg-main-page.svg");
+    background-size: 116%;
+    background-position: 50% 100%;
+    background-repeat: no-repeat;
+   }
+
   @include media-breakpoint-up(lg) {
     padding-top: 0;
-    text-align: left;
   }
 
-  .cover__title {
-    padding-top: 40px;
+  @include media-breakpoint-up(xl) {
+    background-size: 1400px;
   }
 
   .cover__text {
-    margin-bottom: 40px;
-    max-width: 900px;
+    margin: 0 auto 40px;
+    max-width: 780px;
   }
 }
 

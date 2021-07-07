@@ -4,6 +4,10 @@
 
 {% block title %}{{ super() }}{% endblock title %}
 
+{% block opengraph %}
+  <meta property="og:image" content="v2/img/pages/syllabus/on-campus/og-ds.jpg">
+{% endblock opengraph %}
+
 {% block body_attrs %}data-init-sections="tabs,collapsible"{% endblock body_attrs %}
 
 {% block content %}

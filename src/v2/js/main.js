@@ -181,7 +181,7 @@ function renderLatex() {
     import(/* webpackChunkName: "katex" */ 'katex/dist/katex.css');
     import(/* webpackChunkName: "katex" */ 'katex_renderer')
       .then(module => {
-        katexBlocks.forEach(function (mathBlock) {
+        Array.from(katexBlocks).forEach(function (mathBlock) {
           module.renderMath(mathBlock);
         });
       })

@@ -13,5 +13,35 @@
         }
       }
     }
+
+    &._svg {
+      .control__indicator {
+        position: relative;
+
+        .svg-icon._icon-checkmark {
+          display: none;
+          position: absolute;
+          top: 2px;
+          left: 2px;
+          width: 16px;
+          height: 16px;
+          fill: $white;
+        }
+      }
+
+      .control__input {
+        &:checked ~ .control__indicator {
+          background-image: none;
+
+          ._icon-checkmark {
+            display: block;
+          }
+        }
+      }
+
+      .control__description {
+        margin-left: 6px;
+      }
+    }
   }
 }

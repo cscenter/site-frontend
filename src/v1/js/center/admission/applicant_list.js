@@ -1,7 +1,7 @@
 import {createNotification} from "../../utils";
 
 export default function initApplicantListSection() {
-    $("._btn-import-testings-results").click(function () {
+    $("._btn-import-contest-results").click(function () {
         if (this.getAttribute("disabled")) {
             return false;
         }

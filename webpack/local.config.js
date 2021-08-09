@@ -16,8 +16,7 @@ module.exports = {
   plugins: [
     new BundleTracker({
       path: __outputdir,
-      filename: path.resolve(__outputdir, `webpack-stats-${APP_VERSION}.json`),
-      indent: 4
+      filename: `webpack-stats-${APP_VERSION}.json`
     })
   ]
 };

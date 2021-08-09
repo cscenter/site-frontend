@@ -76,7 +76,7 @@ if (!LOCAL_BUILD) {
   prodConfiguration.plugins.push(
     new BundleTracker({
       path: __outputdir,
-      filename: path.resolve(__outputdir, `webpack-stats-${APP_VERSION}.json`)
+      filename: `webpack-stats-${APP_VERSION}.json`
     })
   );
   const sentryPlugins = [

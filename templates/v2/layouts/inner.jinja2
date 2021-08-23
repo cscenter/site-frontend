@@ -9,9 +9,13 @@
           content="Computer Science Center — объединённая инициатива Школы анализа данных, Computer Science клуба и JetBrains.">
     <meta name="google-site-verification" content="pBs4x-E9VGlX-gA7WxCNEqcYB0TYJCSmcZtSeLBpEgk"/>
 
+    {% block opengraph %}
+      <meta property="og:image" content="v2/img/preview.jpg">
+    {% endblock opengraph %}
+
     <link rel="shortcut icon" type="image/png" href="{{ static("v2/img/favicon.png") }}">
     <link href="{{ static("v2/dist/css/main.css") }}" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,400,600&amp;subset=cyrillic" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
 
     {% block stylesheets %} {% endblock stylesheets %}
 

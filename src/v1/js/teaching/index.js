@@ -32,6 +32,14 @@ $(document).ready(function () {
       })
       .catch(error => showComponentError(error));
   }
+  if (sections.includes('studentGroups')) {
+    import(/* webpackChunkName: "studentGroups" */ 'teaching/studentGroups')
+      .then(module => {
+        const component = module.default;
+        component.launch();
+      })
+      .catch(error => showComponentError(error));
+  }
 
   if (sections.includes('gradebook')) {
     import(/* webpackChunkName: "gradebook" */ 'teaching/gradebook')

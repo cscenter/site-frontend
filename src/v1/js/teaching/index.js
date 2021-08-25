@@ -35,8 +35,8 @@ $(document).ready(function () {
   if (sections.includes('studentGroups')) {
     import(/* webpackChunkName: "studentGroups" */ 'teaching/studentGroups')
       .then(module => {
-        const component = module.default;
-        component.launch();
+        const launch = module.default;
+        launch();
       })
       .catch(error => showComponentError(error));
   }

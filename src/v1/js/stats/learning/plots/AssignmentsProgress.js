@@ -6,9 +6,7 @@ import AssignmentsFilterMixin from './AssignmentsFilterMixin';
 import i18n from 'stats/i18n';
 import { getStudentType } from '../../utils';
 
-class AssignmentsProgress extends mix(PlotOptions).with(
-  AssignmentsFilterMixin
-) {
+class AssignmentsProgress extends mix(PlotOptions).with(AssignmentsFilterMixin) {
   constructor(id, options) {
     super(id, options);
     this.id = id;
@@ -21,9 +19,7 @@ class AssignmentsProgress extends mix(PlotOptions).with(
       titles: undefined // assignment titles
     };
     this.plot = undefined;
-    const promise =
-      options.apiRequest ||
-      this.constructor.getStats(options.course_session_id);
+    const promise = options.apiRequest || this.constructor.getStats(options.course_session_id);
     promise
       // Memorize raw JSON data for future conversions
       .then(rawJSON => {
@@ -163,8 +159,7 @@ class AssignmentsProgress extends mix(PlotOptions).with(
           $(`#${this.options.id}`)
             .selectpicker('render')
             .on('changed.bs.select', function () {
-              self.filters.state.is_online =
-                this.value === '' ? undefined : this.value === 'true';
+              self.filters.state.is_online = this.value === '' ? undefined : this.value === 'true';
             });
         }
       },

@@ -5,9 +5,7 @@ import PlotOptions from 'stats/PlotOptions';
 import AssignmentsFilterMixin from './AssignmentsFilterMixin';
 import i18n from 'stats/i18n';
 
-class AssignmentsMeanScore extends mix(PlotOptions).with(
-  AssignmentsFilterMixin
-) {
+class AssignmentsMeanScore extends mix(PlotOptions).with(AssignmentsFilterMixin) {
   constructor(id, options) {
     super(id, options);
     this.id = id;
@@ -64,8 +62,7 @@ class AssignmentsMeanScore extends mix(PlotOptions).with(
           $(`#${this.options.id}`)
             .selectpicker('render')
             .on('changed.bs.select', function () {
-              self.filters.state.is_online =
-                this.value === '' ? undefined : this.value === 'true';
+              self.filters.state.is_online = this.value === '' ? undefined : this.value === 'true';
             });
         }
       },
@@ -85,11 +82,7 @@ class AssignmentsMeanScore extends mix(PlotOptions).with(
   convertData = rawJSON => {
     let titles = [];
     let rows = [
-      [
-        i18n.assignments.lines.pass,
-        i18n.assignments.lines.mean,
-        i18n.assignments.lines.max
-      ]
+      [i18n.assignments.lines.pass, i18n.assignments.lines.mean, i18n.assignments.lines.max]
     ];
     rawJSON
       .filter(a => this.matchFilters(a, 'assignment'))

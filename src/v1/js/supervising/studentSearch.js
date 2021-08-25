@@ -1,7 +1,7 @@
 import _debounce from 'lodash-es/debounce';
 
 const ENTRY_POINT = $('.user-search #ajax-uri').val();
-let queryName = "";
+let queryName = '';
 let branches = {};
 let curriculumYears = {};
 let admissionYears = {};
@@ -11,7 +11,9 @@ let passedCoursesTotal = {};
 let academicDisciplines = {};
 
 function getSelectedValues(items) {
-  return Object.keys(items).filter(key => items[key]).join(",");
+  return Object.keys(items)
+    .filter(key => items[key])
+    .join(',');
 }
 
 function makeQuery() {
@@ -23,37 +25,41 @@ function makeQuery() {
     types: getSelectedValues(studentTypes),
     status: getSelectedValues(status),
     cnt_enrollments: getSelectedValues(passedCoursesTotal),
-    academic_disciplines: getSelectedValues(academicDisciplines),
+    academic_disciplines: getSelectedValues(academicDisciplines)
   };
 
   $.ajax({
     url: ENTRY_POINT,
     data: filters,
-    dataType: "json",
+    dataType: 'json',
     traditional: true
-  }).done(function (data) {
-    let found;
-    if (data.next !== null) {
-      found = `Показано: 500 из ${data.count}`;
-    } else {
-      found = `Найдено: ${data.count}`;
-    }
-    if (parseInt(data.count) > 0) {
-      found += ` <a target="_blank" href="/staff/student-search.csv?${$.param(filters)}">скачать csv</a>`;
-    }
-    $("#user-num-container").html(found).show();
-    let h = "<table class='table table-condensed'>";
-    data.results.map((studentProfile) => {
-      h += `<tr><td>`;
-      h += `<a href="/users/${studentProfile.user_id}/">${studentProfile.short_name}</a>`;
-      h += "</td></tr>";
+  })
+    .done(function (data) {
+      let found;
+      if (data.next !== null) {
+        found = `Показано: 500 из ${data.count}`;
+      } else {
+        found = `Найдено: ${data.count}`;
+      }
+      if (parseInt(data.count) > 0) {
+        found += ` <a target="_blank" href="/staff/student-search.csv?${$.param(
+          filters
+        )}">скачать csv</a>`;
+      }
+      $('#user-num-container').html(found).show();
+      let h = "<table class='table table-condensed'>";
+      data.results.map(studentProfile => {
+        h += `<tr><td>`;
+        h += `<a href="/users/${studentProfile.user_id}/">${studentProfile.short_name}</a>`;
+        h += '</td></tr>';
+      });
+      h += '</table>';
+      $('#user-table-container').html(h);
+    })
+    .fail(function (jqXHR) {
+      $('#user-num-container').html(`Найдено: 0`).show();
+      $('#user-table-container').html(`Ошибка запроса:<code>${jqXHR.responseText}</code>`);
     });
-    h += "</table>";
-    $("#user-table-container").html(h);
-  }).fail(function (jqXHR) {
-    $("#user-num-container").html(`Найдено: 0`).show();
-    $("#user-table-container").html(`Ошибка запроса:<code>${jqXHR.responseText}</code>`);
-  });
 }
 
 const fn = {
@@ -61,7 +67,7 @@ const fn = {
     const query = _debounce(makeQuery, 200);
 
     $('.user-search')
-      .on("keydown", function (e) {
+      .on('keydown', function (e) {
         // Supress Enter
         if (e.keyCode === 13) {
           e.preventDefault();
@@ -99,7 +105,7 @@ const fn = {
         passedCoursesTotal[$(this).val()] = this.checked;
         query();
       });
-  },
+  }
 };
 
 $(function () {

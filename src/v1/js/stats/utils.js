@@ -14,13 +14,7 @@ export const StudentTypes = {
   graduate: i18n.studentTypes.GRADUATE
 };
 
-export const COLOR_PALETTE = [
-  '#5cb85c',
-  '#f96868',
-  '#F6BE80',
-  '#515492',
-  '#4F86A0'
-];
+export const COLOR_PALETTE = ['#5cb85c', '#f96868', '#F6BE80', '#515492', '#4F86A0'];
 
 export const URLS = window.URLS;
 
@@ -31,10 +25,7 @@ export function getTemplate(id) {
 export function getStudentType(studentProfile) {
   // Graduate is actually a status and it's inconsistent since it
   // changes state after student graduation
-  const value =
-    studentProfile.status === 'graduate'
-      ? studentProfile.status
-      : studentProfile.type;
+  const value = studentProfile.status === 'graduate' ? studentProfile.status : studentProfile.type;
   const label = Object.prototype.hasOwnProperty.call(StudentTypes, value)
     ? StudentTypes[value]
     : 'Unknown Type';

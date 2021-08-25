@@ -6,9 +6,7 @@ import PlotOptions from 'stats/PlotOptions';
 import AssignmentsFilterMixin from './AssignmentsFilterMixin';
 import i18n from 'stats/i18n';
 
-class AssignmentsDeadline extends mix(PlotOptions).with(
-  AssignmentsFilterMixin
-) {
+class AssignmentsDeadline extends mix(PlotOptions).with(AssignmentsFilterMixin) {
   constructor(id, options) {
     super(id, options);
     // Remove
@@ -30,9 +28,7 @@ class AssignmentsDeadline extends mix(PlotOptions).with(
       return m.set(k, i18n.submissions.deadline_types[k]);
     }, new Map());
 
-    let promise =
-      options.apiRequest ||
-      this.constructor.getStats(options.course_session_id);
+    let promise = options.apiRequest || this.constructor.getStats(options.course_session_id);
     promise
       // Memorize raw JSON data for future conversions
       .then(rawJSON => {

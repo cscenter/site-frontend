@@ -30,10 +30,7 @@ class CourseStudentsByType {
     });
 
     let promise = this.getStats(options.course_session_id);
-    promise
-      .then(this.convertData)
-      .then(this.render)
-      .done(this.appendParticipantsInfo);
+    promise.then(this.convertData).then(this.render).done(this.appendParticipantsInfo);
   }
 
   getStats(course_session_id) {

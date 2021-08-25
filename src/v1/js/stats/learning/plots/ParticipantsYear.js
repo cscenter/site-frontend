@@ -39,8 +39,7 @@ class ParticipantsYear {
       oninit: this.renderSwitchButtons
     });
 
-    let promise =
-      options.apiRequest || this.getStats(options.course_session_id);
+    let promise = options.apiRequest || this.getStats(options.course_session_id);
     promise.then(this.convertData).done(this.renderPieChart);
   }
 
@@ -124,10 +123,7 @@ class ParticipantsYear {
       })
       .text(d => d.name)
       .on('click', (d, i, nodes) => {
-        d3Select(this.id)
-          .select('div')
-          .selectAll('button')
-          .classed('active', false);
+        d3Select(this.id).select('div').selectAll('button').classed('active', false);
         d3Select(nodes[i]).classed('active', true);
         d.render();
       });

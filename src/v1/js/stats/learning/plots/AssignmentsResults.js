@@ -26,9 +26,7 @@ class AssignmentsResults extends mix(PlotOptions).with(AssignmentsFilterMixin) {
       return m.set(k, i18n.submissions.statuses[k]);
     }, new Map());
 
-    let promise =
-      options.apiRequest ||
-      this.constructor.getStats(options.course_session_id);
+    let promise = options.apiRequest || this.constructor.getStats(options.course_session_id);
     promise
       // Memorize raw JSON data for future conversions
       .then(rawJSON => {
@@ -154,8 +152,7 @@ class AssignmentsResults extends mix(PlotOptions).with(AssignmentsFilterMixin) {
           $(`#${this.options.id}`)
             .selectpicker('render')
             .on('changed.bs.select', function () {
-              self.filters.state.is_online =
-                this.value === '' ? undefined : this.value === 'true';
+              self.filters.state.is_online = this.value === '' ? undefined : this.value === 'true';
             });
         }
       },

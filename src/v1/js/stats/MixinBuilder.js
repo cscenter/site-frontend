@@ -1,6 +1,6 @@
 // http://justinfagnani.com/2015/12/21/real-mixins-with-javascript-classes/
 
-let mix = (superclass) => new MixinBuilder(superclass);
+let mix = superclass => new MixinBuilder(superclass);
 
 class MixinBuilder {
   constructor(superclass) {

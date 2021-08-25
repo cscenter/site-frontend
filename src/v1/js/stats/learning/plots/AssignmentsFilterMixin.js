@@ -103,9 +103,7 @@ let AssignmentsFilterMixin = superclass =>
               if (isNaN(newState)) {
                 newState = this.value === 'unknown' ? null : '';
               }
-              self.filters.state[
-                'student_profile.year_of_curriculum'
-              ] = newState;
+              self.filters.state['student_profile.year_of_curriculum'] = newState;
             });
         }
       };

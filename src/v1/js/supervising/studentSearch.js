@@ -9,6 +9,7 @@ let studentTypes = {};
 let status = {};
 let passedCoursesTotal = {};
 let academicDisciplines = {};
+let partners = {};
 
 function getSelectedValues(items) {
   return Object.keys(items)
@@ -25,7 +26,8 @@ function makeQuery() {
     types: getSelectedValues(studentTypes),
     status: getSelectedValues(status),
     cnt_enrollments: getSelectedValues(passedCoursesTotal),
-    academic_disciplines: getSelectedValues(academicDisciplines)
+    academic_disciplines: getSelectedValues(academicDisciplines),
+    partners: getSelectedValues(partners)
   };
 
   $.ajax({
@@ -99,6 +101,10 @@ const fn = {
       })
       .on('change', '[name="academic_disciplines"]', function (e) {
         academicDisciplines[$(this).val()] = this.checked;
+        query();
+      })
+      .on('change', '[name="partners"]', function (e) {
+        partners[$(this).val()] = this.checked;
         query();
       })
       .on('change', '[name="cnt_enrollments"]', function (e) {

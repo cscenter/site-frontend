@@ -1,6 +1,7 @@
-import environ
 import warnings
 from pathlib import Path
+
+import environ
 
 env = environ.Env()
 # Try to read .env file, if it's not present, assume that application
@@ -159,3 +160,5 @@ WEBPACK_LOADER = {
             ASSETS_ROOT / "v2" / "dist" / WEBPACK_ENVIRONMENT / "webpack-stats-v2.json"),
     }
 }
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

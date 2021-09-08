@@ -11,7 +11,7 @@ export class FormValidation {
   onSubmitFormHandler(e) {
     e.preventDefault();
     let encodedProperties = [];
-    this.form.elements.forEach(field => {
+    Array.from(this.form.elements).forEach(field => {
       if (field.name) {
         let encodedField = `${encodeURIComponent(field.name)}=${encodeURIComponent(field.value)}`;
         encodedProperties.push(encodedField);

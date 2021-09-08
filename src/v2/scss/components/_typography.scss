@@ -69,7 +69,7 @@ h4,
   font-size: $h4-font-size;
 }
 
-.digits {
+.ui.digits {
   font-size: 3rem;
   line-height: $headings-line-height;
     @include media-breakpoint-down(md) {

@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[18],{x4F8:function(n,t){!function(){if("function"==typeof window.CustomEvent)return!1;function n(n,t){t=t||{bubbles:!1,cancelable:!1,detail:void 0};var e=document.createEvent("CustomEvent");return e.initCustomEvent(n,t.bubbles,t.cancelable,t.detail),e}n.prototype=window.Event.prototype,window.CustomEvent=n}()}}]);

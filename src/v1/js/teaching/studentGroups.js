@@ -1,10 +1,12 @@
 export default function launch() {
   const form = window.document.querySelector('form[name="transfer-students"]');
-  form.addEventListener('submit', e => {
-    const studentProfiles = form.querySelectorAll('input[name="ids"]');
-    const hasCheckedStudentProfiles = Array.from(studentProfiles).some(el => el.checked);
-    if (!hasCheckedStudentProfiles) {
-      e.preventDefault();
-    }
-  });
+  if (form !== null) {
+    form.addEventListener('submit', e => {
+      const studentProfiles = form.querySelectorAll('input[name="ids"]');
+      const hasCheckedStudentProfiles = Array.from(studentProfiles).some(el => el.checked);
+      if (!hasCheckedStudentProfiles) {
+        e.preventDefault();
+      }
+    });
+  }
 }

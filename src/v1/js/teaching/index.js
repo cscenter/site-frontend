@@ -62,25 +62,10 @@ $(document).ready(function () {
       })
       .catch(error => showComponentError(error));
   } else if (sections.includes('assignmentForm')) {
-    $('.has-popover').popover({
-      container: 'body',
-      html: true,
-      placement: 'auto',
-      trigger: 'hover',
-      content: function () {
-        let helpBlockId = $(this).data('target');
-        return $(helpBlockId).html();
-      }
-    });
-
-    const checkingSystemFieldSet = $('#checking-system-info');
-    const checkerSubmissionFormats = checkingSystemFieldSet.data('display');
-    $('select[name="submission_type"]').change(function (e) {
-      if (this.value.length > 0 && checkerSubmissionFormats.includes(this.value)) {
-        checkingSystemFieldSet.removeClass('hidden');
-      } else {
-        checkingSystemFieldSet.addClass('hidden');
-      }
-    });
+    import(/* webpackChunkName: "assignmentForm" */ 'teaching/assignmentForm')
+      .then(m => {
+        m.default();
+      })
+      .catch(error => showComponentError(error));
   }
 });

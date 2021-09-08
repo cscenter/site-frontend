@@ -1,0 +1,9 @@
+a {
+  &.link-theme-dark {
+    color: #049fed;
+
+    &:hover {
+      color: #00acff;
+    }
+  }
+}

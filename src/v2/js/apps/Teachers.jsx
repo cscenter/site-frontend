@@ -164,6 +164,16 @@ class App extends React.Component {
     return (
       <Fragment>
         <h1>Преподаватели</h1>
+        <div className="row mb-8">
+          <div className="col-lg-10">
+            <p>
+              В CS&nbsp;центре преподают увлечённые своим делом люди, которые
+              хотят поделиться знаниями с&nbsp;другими. Опытные программисты,
+              учёные, преподаватели следят за&nbsp;актуальностью программы
+              и&nbsp;рассказывают&nbsp;то, что действительно пригодится.
+            </p>
+          </div>
+        </div>
         <div className="row mb-4">
           <div className="col-lg-3 mb-4">
             <SearchInput

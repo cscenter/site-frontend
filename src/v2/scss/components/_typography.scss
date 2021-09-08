@@ -69,6 +69,14 @@ h4,
   font-size: $h4-font-size;
 }
 
+.digits {
+  font-size: 3rem;
+  line-height: $headings-line-height;
+    @include media-breakpoint-down(md) {
+      font-size: 2rem;
+  }
+}
+
 p {
   &._big {
     font-size: $font-size-lg;

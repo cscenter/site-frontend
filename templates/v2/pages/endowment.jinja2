@@ -7,22 +7,6 @@
 
 {% block stylesheets %}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.0.2/css/glide.core.css">
-  <style>
-    .endowment-stats {
-      position: relative;
-      overflow: visible;
-    }
-
-    .endowment-stats::after {
-      content: '';
-      position: absolute;
-      right: -20px;
-      bottom: -30px;
-      width: 124px;
-      height: 107px;
-      background-image: url('/static/v2/img/pages/endowment/money.svg');
-    }
-  </style>
 {% endblock stylesheets %}
 {% block sprites %}
   <script type="text/javascript">
@@ -33,28 +17,17 @@
 
 
 <div class="py-10">
-  <div class="container pb-10 text-left">
-    <div class="row text-center text-md-left">
-      <div class="col-lg-7 d-md-flex" style="align-items: center">
+  <div class="container py-4 py-lg-10">
+    <div class="row text-center content-center">
+      <div class="col-lg-9 d-md-flex">
         <div>
           <h1>Эндаумент-фонд<br>Computer Science центра</h1>
           <p class="mb-6 text-muted">Целевой фонд объединённой инициативы Школы анализа данных Яндекса, Computer Science клуба и&nbsp;JetBrains.
             Его задача&nbsp;&mdash; поддержать дополнительное образование в&nbsp;сферах Data Science, Software Engineering, Robotics и&nbsp;Computer
             Science.</p>
           <div class="buttons">
-            <a href="https://legacy-ef.com/?donateTo=2848" target="_blank" rel="nofollow noopener" class="btn _big _primary _m-wide mb-4 mb-md-8 mb-lg-0">Поддержать</a>
-            <a href="https://compscicenter.ru/" target="_blank" class="btn _big _gray _outline _m-wide mb-8 mb-md-8  mb-lg-0">О центре</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-5 mb-10 mb-lg-0 pl-lg-10">
-        <div class="card _inverted p-8 p-md-0 endowment-stats">
-          <div class="card__content _big">
-            <h2>На текущий момент</h2>
-            <p class="ui digits mb-2">99 732 300 ₽</p>
-            <p>общий объем капитала фонда</p>
-            <p class="ui digits mb-2">999 человек</p>
-            <p>уже поддержали фонд</p>
+            <a href="#donation" class="btn _big _primary _m-wide mb-4 mb-md-8 mb-lg-0">Поддержать</a>
+            <a href="https://compscicenter.ru/history" target="_blank" class="btn _big _gray _outline _m-wide mb-md-8  mb-lg-0">О центре</a>
           </div>
         </div>
       </div>
@@ -65,7 +38,7 @@
   <div class="container py-10">
     <div class="row content-center py-10">
       <div class="col-12">
-        <h2>Как работает эндаунмент</h2>
+        <h2>Как работает эндаумент</h2>
         <p>Главное отличие эндаумент-фонда в&nbsp;том, что деньги доноров не&nbsp;расходуются, а&nbsp;непрерывно инвестируются.</p>
 
         <div class="row">
@@ -125,7 +98,7 @@
     </div>
   </div>
 </div>
-<div class="grey-bg">
+<div class="grey-bg" id="donation">
   <div class="container py-10">
     <div class="row">
       <div class="col-md-5"><img class="img-fluid px-10 px-md-0" src="/static/v2/img/pages/endowment/endowment-thanks.svg" alt=""></div>
@@ -133,6 +106,7 @@
         <h2 class="h1">Поддержите нас</h2>
         <p class="mb-8">Даже небольшое регулярное пожертвование поможет нашей работе</p>
         <a href="https://legacy-ef.com/?donateTo=2848" target="_blank" rel="nofollow noopener" class="btn _big _primary _m-wide mb-8 mb-md-0">Поддержать</a>
+        <p class="text-small text-muted mt-1">Вы будете перенаправлены на сервис, предоставленный <a href="https://legacy-ef.com" target="_blank" rel="nofollow">Legacy Endowment Services</a></p>
       </div>
     </div>
   </div>
@@ -148,6 +122,18 @@
       <div class="glide__slides">
         <div class="glide__slide card px-8 _no-border">
           <div class="card__img">
+            <img src="/static/v2/img/pages/endowment/bogdanov_y.png" alt="Юрий Богданов">
+          </div>
+          <div class="card__title text-center mt-4">Юрий Богданов</div>
+        </div>
+        <div class="glide__slide card px-8 _no-border">
+          <div class="card__img">
+            <img src="/static/v2/img/pages/endowment/bynina_e.png" alt="Елена Бунина">
+          </div>
+          <div class="card__title text-center mt-4">Елена Бунина</div>
+        </div>
+        <div class="glide__slide card px-8 _no-border">
+          <div class="card__img">
             <img src="/static/v2/img/pages/endowment/ivanov_a.png" alt="Андрей Иванов">
           </div>
           <div class="card__title text-center mt-4">Андрей Иванов</div>
@@ -160,21 +146,9 @@
         </div>
         <div class="glide__slide card px-8 _no-border">
           <div class="card__img">
-            <img src="/static/v2/img/pages/endowment/bynina_e.png" alt="Елена Бунина">
-          </div>
-          <div class="card__title text-center mt-4">Елена Бунина</div>
-        </div>
-        <div class="glide__slide card px-8 _no-border">
-          <div class="card__img">
             <img src="/static/v2/img/pages/endowment/pratusevich_m.png" alt="Максим Пратусевич">
           </div>
           <div class="card__title text-center mt-4">Максим Пратусевич</div>
-        </div>
-        <div class="glide__slide card px-8 _no-border">
-          <div class="card__img">
-            <img src="/static/v2/img/pages/endowment/bogdanov_y.png" alt="Юрий Богданов">
-          </div>
-          <div class="card__title text-center mt-4">Юрий Богданов</div>
         </div>
       </div>
     </div>
@@ -184,7 +158,7 @@
   <div class="container py-10">
     <div class="row content-center text-white">
       <div class="col-lg-10 text-center">
-        <h2>Наши партнеры</h2>
+        <h2>Партнёры фонда</h2>
         <a href="https://legacy-ef.com" target="_blank" rel="nofollow"><img class="mt-4 mb-8" src="/static/v2/img/pages/endowment/logo-legacy.svg" alt="Логотип сервиса Legacy"></a>
         <p class="text-white-50">Мы&nbsp;пользуемся помощью в&nbsp;ведении дел эндаумента по&nbsp;юридическим, бухгалтерским и&nbsp;налоговым
           вопросам&nbsp;&mdash; сервисом
@@ -194,7 +168,7 @@
           Раз в
           год, полгода или месяц доход от&nbsp;инвестиций в&nbsp;виде пожертвования перечисляется в&nbsp;CS центр по&nbsp;бессрочному
           договору с&nbsp;Legacy. Сервис
-          не&nbsp;берёт себе процент от&nbsp;дохода&nbsp;&mdash; у&nbsp;них есть свой эндаумент на&nbsp;поддержку сервиса.</p>
+          не&nbsp;берёт себе процент от&nbsp;дохода&nbsp;&mdash; у&nbsp;него есть свой эндаумент на&nbsp;поддержку сервиса.</p>
         <p class="text-white-50">Наша ближайшая цель&nbsp;&mdash; собрать 3&nbsp;миллиона рублей до&nbsp;сентября 2022&nbsp;года. По&nbsp;закону
           эндаумент-фонд считается
           сформированным, если эту сумму удалось собрать за&nbsp;первый год. Далее фонд станет бессрочным.</p>
@@ -256,7 +230,7 @@
               <div class="card__content">
                 <p>Да, до 100 тысяч рублей в сутки можно перевести через платёжную форму по кнопке «Оформить пожертвование». Конвертация идёт
                 по курсу Альфа-Банка на день проведения операции.</p>
-                <p>Если вы планируете пожертвовать более крупную сумму, можно разбить её на несколько платежей, либо заключить договор
+                <p>Если вы планируете пожертвовать более крупную сумму, можно разбить её на несколько платежей либо заключить договор
                 пожертвования в письменной форме. Напишите нам на <a href="mailto:info@compscicenter.ru">info@compscicenter.ru</a>, если
                 второй вариант для вас предпочтителен.</p>
               </div>

@@ -16,7 +16,7 @@ export default function launch() {
     .on('show.bs.popover', function () {
       $(this).data('bs.popover').tip().css('max-width', '800px');
     });
-  const currentAssignmentFormat = $('select[name="submission_type"]').val();
+  const currentAssignmentFormat = $('select[name="submission_type"]').val() || null;
   updateCheckingSystemForm(currentAssignmentFormat);
 
   $('select[name="submission_type"]').change(function (e) {

@@ -18,8 +18,9 @@ export function getTemplate(id) {
   return template(document.getElementById(id).innerHTML);
 }
 
-export function createNotification(msg, theme = 'default', position = 'bottom-right') {
-  $.jGrowl(msg, { theme: theme, position: position });
+export function createNotification(msg, theme = 'default', options = {}) {
+  const opts = { position: 'bottom-right', ...options };
+  $.jGrowl(msg, { theme: theme, ...opts });
 }
 
 export function showComponentError(error, msg = 'An error occurred while loading the component') {

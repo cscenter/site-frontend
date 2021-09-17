@@ -1,14 +1,10 @@
-// TODO: remove arrow-increment
 import SweetAlert from 'bootstrap-sweetalert';
+import { createNotification, showComponentError } from 'utils';
 
 const buttonDownloadCSV = $('.marks-sheet-csv-link');
-
 let submitButton = $('#marks-sheet-save');
-
 let gradebookContainer = $('#gradebook-container');
-
 let gradebook = $('#gradebook');
-
 let scrollButtonsWrapper = $('.gradebook__controls');
 
 function isChanged(element) {
@@ -23,6 +19,7 @@ const fn = {
     fn.downloadCSVButton();
     fn.onChangeAssignmentGrade();
     fn.scrollButtons();
+    fn.importYandexContestProblemForm();
   },
 
   /**
@@ -112,6 +109,45 @@ const fn = {
       const scrollXOffset = gradebookContainer.scrollLeft();
       gradebookContainer.scrollLeft(scrollXOffset + xinc);
     }
+  },
+
+  importYandexContestProblemForm: function () {
+    const modalWrapper = $('#import-scores-from-yandex-contest');
+    modalWrapper.on('submit', 'form', function (e) {
+      e.preventDefault();
+      const form = e.target;
+      const assignmentId = form.querySelector('select[name=assignment]').value || null;
+      if (assignmentId === null) {
+        return;
+      }
+      $.ajax({
+        method: 'POST',
+        url: form.getAttribute('action'),
+        dataType: 'json',
+        data: {
+          assignment: assignmentId
+        }
+      })
+        .done(data => {
+          createNotification('Оценки были импортированы, страница будет перезагружена', 'info');
+          modalWrapper.modal('hide');
+          window.location.reload();
+        })
+        .fail(xhr => {
+          let message;
+          if (xhr.responseJSON && xhr.responseJSON.errors !== undefined) {
+            const messages = xhr.responseJSON.errors.map(error => error.message);
+            message = messages.join('<br/>');
+          } else {
+            message = `${xhr.statusText}. Try again later.`;
+          }
+          if (xhr.status >= 500 && xhr.status < 600) {
+            createNotification(message, 'error', { sticky: true });
+          } else {
+            createNotification(message, 'error');
+          }
+        });
+    });
   }
 };
 

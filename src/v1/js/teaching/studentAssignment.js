@@ -55,7 +55,7 @@ const fn = {
           $('#assignee-value').text(assigneeName);
         })
         .fail(xhr => {
-          createNotification('kek', 'error');
+          createNotification('Something went wrong', 'error');
           console.log(xhr);
         });
     });

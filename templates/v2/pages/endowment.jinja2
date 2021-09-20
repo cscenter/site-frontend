@@ -6,6 +6,25 @@
   <meta property="og:image" content="v2/img/pages/endowment/og-endowment.jpg">
 {% endblock opengraph %}
 
+{% block stylesheets %}
+    <style>
+    .endowment-stats {
+      position: relative;
+      overflow: visible;
+    }
+
+    .endowment-stats::after {
+      content: '';
+      position: absolute;
+      right: -24px;
+      bottom: -30px;
+      width: 124px;
+      height: 107px;
+      background-image: url('/static/v2/img/pages/endowment/money.svg');
+    }
+  </style>
+{% endblock stylesheets %}
+
 {% block body_attrs %}data-init-sections="collapsible,endowment"{% endblock body_attrs %}
 
 {% block sprites %}
@@ -17,8 +36,8 @@
 {% block content %}
   <div class="py-10">
     <div class="container py-4 py-lg-10">
-      <div class="row text-center content-center">
-        <div class="col-lg-9 d-md-flex">
+      <div class="row">
+        <div class="col-lg-7 d-md-flex mb-8 mb-md-0">
           <div>
             <h1>Эндаумент-фонд<br>Computer Science центра</h1>
             <p class="mb-6 text-muted">Целевой фонд объединённой инициативы Школы анализа данных Яндекса, Computer Science клуба и&nbsp;JetBrains.
@@ -28,6 +47,18 @@
               <a href="#donation" class="btn _big _primary _m-wide mb-4 mb-md-8 mb-lg-0">Поддержать</a>
               <a href="https://compscicenter.ru/history" target="_blank" class="btn _big _gray _outline _m-wide mb-md-8  mb-lg-0">О
                 центре</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 mb-8 mb-lg-0 pl-lg-10">
+          <div class="card _inverted endowment-stats p-2 p-md-0">
+            <div class="card__content _big">
+              <h2 class="mb-1">Состояние фонда</h2>
+              <p class="text-small text-muted">на 20 сентября 2021 года</p>
+              <p class="ui digits mb-1">118 920 ₽</p>
+              <p class="text-muted">общий объём капитала фонда</p>
+              <p class="ui digits mb-1">33 человека</p>
+              <p class="text-muted">уже поддержали фонд</p>
             </div>
           </div>
         </div>

@@ -6,25 +6,6 @@
   <meta property="og:image" content="v2/img/pages/endowment/og-endowment.jpg">
 {% endblock opengraph %}
 
-{% block stylesheets %}
-    <style>
-    .endowment-stats {
-      position: relative;
-      overflow: visible;
-    }
-
-    .endowment-stats::after {
-      content: '';
-      position: absolute;
-      right: -24px;
-      bottom: -30px;
-      width: 124px;
-      height: 107px;
-      background-image: url('/static/v2/img/pages/endowment/money.svg');
-    }
-  </style>
-{% endblock stylesheets %}
-
 {% block body_attrs %}data-init-sections="collapsible,endowment"{% endblock body_attrs %}
 
 {% block sprites %}

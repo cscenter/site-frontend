@@ -8,6 +8,21 @@ a {
   }
 }
 
+.endowment-stats {
+  position: relative;
+  overflow: visible;
+}
+
+.endowment-stats::after {
+  content: '';
+  position: absolute;
+  right: -24px;
+  bottom: -30px;
+  width: 124px;
+  height: 107px;
+  background-image: url('/static/v2/img/pages/endowment/money.svg');
+}
+
 // XXX: styles below are copied from glidejs
 
 .glide {

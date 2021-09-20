@@ -1,5 +1,6 @@
 import SweetAlert from 'bootstrap-sweetalert';
 import { createNotification, showComponentError } from 'utils';
+import _throttle from 'lodash-es/throttle';
 
 const buttonDownloadCSV = $('.marks-sheet-csv-link');
 let submitButton = $('#marks-sheet-save');
@@ -112,26 +113,19 @@ const fn = {
   },
 
   importYandexContestProblemForm: function () {
-    const modalWrapper = $('#import-scores-from-yandex-contest');
-    modalWrapper.on('submit', 'form', function (e) {
-      e.preventDefault();
-      const form = e.target;
-      const assignmentId = form.querySelector('select[name=assignment]').value || null;
-      if (assignmentId === null) {
-        return;
-      }
+    const throttledHandleSubmit = _throttle(handleSubmit, 1000, { leading: true, trailing: false });
+    function handleSubmit(url, assignmentId) {
       $.ajax({
         method: 'POST',
-        url: form.getAttribute('action'),
+        url: url,
         dataType: 'json',
         data: {
           assignment: assignmentId
         }
       })
         .done(data => {
-          createNotification('Оценки были импортированы, страница будет перезагружена', 'info');
-          modalWrapper.modal('hide');
-          window.location.reload();
+          createNotification('Баллы успешно импортированы, страница будет перезагружена', 'info');
+          setTimeout(() => window.location.reload(), 500);
         })
         .fail(xhr => {
           let message;
@@ -147,6 +141,18 @@ const fn = {
             createNotification(message, 'error');
           }
         });
+    }
+
+    const modalWrapper = $('#import-scores-from-yandex-contest');
+    modalWrapper.on('submit', 'form', function (e) {
+      e.preventDefault();
+      const form = e.target;
+      const assignmentId = form.querySelector('select[name=assignment]').value || null;
+      if (assignmentId === null) {
+        return;
+      }
+      throttledHandleSubmit(form.getAttribute('action'), assignmentId);
+      modalWrapper.modal('hide');
     });
   }
 };

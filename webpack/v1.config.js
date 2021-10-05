@@ -82,6 +82,19 @@ const common = {
         include: path.resolve(__srcdir, 'js')
       },
       {
+        test: /\.(js|jsx|ts|tsx)$/,
+        include: [path.resolve(__nodemodulesdir, 'ky')],
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              extends: path.resolve(__srcdir, 'js', '.babelrc.js'),
+              cacheDirectory: false
+            }
+          }
+        ]
+      },
+      {
         test: /\.s?[ac]ss$/,
         exclude: __nodemodulesdir,
         use: [

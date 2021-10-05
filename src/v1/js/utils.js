@@ -1,5 +1,6 @@
 import { get as getCookie } from 'es-cookie';
 import template from 'lodash-es/template';
+import { renderComponent } from './react_app';
 
 export function getLocalStorageKey(textarea) {
   return window.location.pathname.replace(/\//g, '_') + '_' + textarea.name;
@@ -35,5 +36,16 @@ export function getSections() {
     return sections.split(',');
   } else {
     return [];
+  }
+}
+
+export function loadReactApplications() {
+  let reactApps = document.querySelectorAll('.__react-app');
+  if (reactApps.length > 0) {
+    import(/* webpackChunkName: "react" */ 'react_app')
+      .then(m => {
+        Array.from(reactApps).forEach(m.renderComponent);
+      })
+      .catch(error => showComponentError(error));
   }
 }

@@ -1,4 +1,4 @@
-import { showComponentError, getSections } from 'utils';
+import { showComponentError, getSections, loadReactApplications } from 'utils';
 
 $(document).ready(function () {
   let sections = getSections();
@@ -68,4 +68,6 @@ $(document).ready(function () {
       })
       .catch(error => showComponentError(error));
   }
+
+  loadReactApplications();
 });

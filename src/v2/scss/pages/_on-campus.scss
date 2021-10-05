@@ -1,0 +1,14 @@
+.card-deck._on-campus {
+  .card {
+    @include media-breakpoint-up(lg) {
+      width: calc(50% - #{$grid-gutter-width});
+    }
+
+    .card__content {
+        align-self: center;
+      @include media-breakpoint-up(lg) {
+        align-self: start;
+      }
+    }
+  }
+}

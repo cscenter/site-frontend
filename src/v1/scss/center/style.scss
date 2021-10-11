@@ -29,6 +29,7 @@
 @import "components/comment";
 @import "components/hr";
 @import "components/editor";
+@import "components/grid";
 
 // TODO: separate pages from common bundle (teacher bundle, student bundle?)
 @import "pages/_assignments";
@@ -197,22 +198,6 @@ h4.no-top-margin {
   margin-top: 0 !important;
 }
 
-// Container modifications
-.container {
-  width: $min-width;
-}
-.container-wide {
-    width: 90% !important;
-    min-width: $min-width;
-}
-.container-responsive {
-  min-width: $min-width;
-}
-@media (min-width: $container-large-desktop) {
-  .container-responsive {
-    width: $container-large-desktop;
-  }
-}
 
 body {
   margin-bottom: 90px;

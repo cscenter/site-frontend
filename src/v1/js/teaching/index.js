@@ -38,13 +38,6 @@ $(document).ready(function () {
         launch();
       })
       .catch(error => showComponentError(error));
-  } else if (sections.includes('assignmentsCheckQueue')) {
-    import(/* webpackChunkName: "assignmentsCheckQueue" */ 'teaching/assignmentsCheckQueue')
-      .then(module => {
-        const launch = module.default;
-        launch();
-      })
-      .catch(error => showComponentError(error));
   }
 
   if (sections.includes('gradebook')) {

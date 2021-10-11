@@ -5,7 +5,7 @@ import { showComponentError } from 'utils';
 
 export function renderComponent(el) {
   let componentName = el.id;
-  import(/* webpackChunkName: "[request]" */ `screens/${componentName}`)
+  import(/* webpackChunkName: "[request]" */ `screens/${componentName}/index`)
     .then(component => {
       // Not the best place for loading polyfills since we could do it
       // in parallel with application source, but this limitation allows

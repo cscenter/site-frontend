@@ -22,7 +22,7 @@ const fetchPersonalAssignments = async (
   { csrfToken, timeZone, assignments, personalAssignments },
   { signal }
 ) => {
-  const { setPersonalAssignments, scoreStates } = personalAssignments;
+  const { setPersonalAssignments } = personalAssignments;
   const { setAssignments } = assignments;
   const requestPersonalAssignments = ky.get(personalAssignments.endpoint, {
     headers: {
@@ -65,7 +65,6 @@ const fetchPersonalAssignments = async (
           student: item.student,
           score: item.score,
           state: item.state,
-          scoreStatus: scoreStates[item.state],
           activity: item.activity
         };
       });
@@ -85,7 +84,6 @@ function AssignmentsCheckQueue({
   courseOptions,
   courseTeachers,
   courseGroups,
-  scoreStates,
   initialState
 }) {
   const { course } = initialState;
@@ -101,7 +99,6 @@ function AssignmentsCheckQueue({
     personalAssignments: {
       endpoint: `/api/v1/teaching/courses/${course}/personal-assignments/`,
       searchParams: { assignments: selectedAssignments },
-      scoreStates,
       setPersonalAssignments
     },
     assignments: {
@@ -250,7 +247,6 @@ AssignmentsCheckQueue.propTypes = {
       label: PropTypes.string.isRequired
     })
   ).isRequired,
-  scoreStates: PropTypes.object.isRequired,
   courseTeachers: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.number.isRequired,

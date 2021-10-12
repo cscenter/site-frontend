@@ -8,8 +8,21 @@ for (const option of activityOptions) {
   activityCodeLabels[option.value] = option.label;
 }
 
+function formatScore(score) {
+  if (score === null) {
+    return '—';
+  }
+  const suffix = '.00';
+  const index = score.indexOf(suffix, score.length - suffix.length);
+  if (index === -1) {
+    return score;
+  } else {
+    return score.substring(0, index);
+  }
+}
+
 const PersonalAssignment = ({ data, assignments }) => {
-  const { student, assignee, activity, assignmentId } = data;
+  const { student, assignee, activity, score, assignmentId } = data;
   const assignment = assignments.get(assignmentId);
   const studentFullName = `${student.lastName} ${student.firstName}`;
   let assigneeFullName = '—';
@@ -46,7 +59,7 @@ const PersonalAssignment = ({ data, assignments }) => {
       <td>{assigneeFullName}</td>
       <td>
         <span className={`assignment-status ${getScoreClass(data.state)}`}>
-          {data.scoreStatus}/{assignment.maximumScore}
+          {formatScore(score)}/{assignment.maximumScore}
         </span>
       </td>
     </tr>
@@ -71,7 +84,7 @@ PersonalAssignment.propTypes = {
         patronymic: PropTypes.string
       }).isRequired
     }),
-    scoreStatus: PropTypes.string.isRequired,
+    score: PropTypes.string,
     state: PropTypes.string.isRequired,
     activity: PropTypes.shape({
       code: PropTypes.string.isRequired,

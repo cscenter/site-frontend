@@ -15,7 +15,7 @@ export function getHistoryState(location, initialState) {
  * @param location Implements a subset of the `window.location` interface. See https://github.com/ReactTraining/history/blob/master/docs/GettingStarted.md#listening
  * @param action One of PUSH, REPLACE, or POP
  */
-export function onPopState(location, action) {
+export function onPopState({ location, action }) {
   if (action !== 'POP') {
     return;
   }

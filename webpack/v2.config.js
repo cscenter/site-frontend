@@ -57,16 +57,6 @@ const common = {
   module: {
     rules: [
       {
-        test: /bootstrap\.native/,
-        use: {
-          loader: 'bootstrap.native-loader',
-          options: {
-            bs_version: 4,
-            only: ['collapse', 'dropdown']
-          }
-        }
-      },
-      {
         test: /\.(js|jsx|ts|tsx)$/,
         include: path.resolve(__srcdir, 'js'),
         use: [{ loader: 'babel-loader' }]

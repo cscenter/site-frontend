@@ -5,7 +5,8 @@ import 'core-js/modules/es.promise';
 // Sentry needs Object.assign
 import 'core-js/modules/es.object.assign';
 import * as Sentry from '@sentry/browser';
-import 'bootstrap.native';
+import Bootstrap4Dropdown from 'bootstrap.native/src/components-v4/dropdown-native';
+import Bootstrap4Collapse from 'bootstrap.native/src/components-v4/collapse-native';
 import ky from 'ky';
 
 import sentryOptions from './sentry_conf';
@@ -105,6 +106,11 @@ function loadReactApplications() {
 }
 
 function initTopMenu() {
+  const userMenuDropdown = new Bootstrap4Dropdown('.dropdown-user-menu'); // eslint-disable-line no-unused-vars
+  // eslint-disable-next-line no-unused-vars
+  const collapsibleElements = Array.from(
+    document.querySelectorAll('.navbar-container [data-toggle="collapse"]')
+  ).map(el => new Bootstrap4Collapse(el));
   let navbarContainer = document.querySelector('.navbar-container');
   let navbarToggler = document.querySelector('.navbar-toggler');
   let menuRightBlock =

@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import ky from 'ky';
 import { useAsync } from 'react-async';
-import { formatWithOptions } from 'date-fns/fp';
 import { ru } from 'date-fns/locale';
-import { utcToZonedTime } from 'date-fns-tz';
 
 import { createNotification } from 'utils';
 import Checkbox from 'components/Checkbox';
@@ -13,32 +11,38 @@ import CourseFilterForm from './CourseFilterForm';
 import {
   activityOptions,
   scoreOptions,
+  stateReducer,
   parseAssignments,
+  parsePersonalAssignments,
   useFilterState,
   getFilteredPersonalAssignments
 } from './utils';
 
 const fetchPersonalAssignments = async (
-  { csrfToken, timeZone, assignments, personalAssignments },
+  { csrfToken, timeZone, updateState, state },
   { signal }
 ) => {
-  const { setPersonalAssignments } = personalAssignments;
-  const { setAssignments } = assignments;
-  const requestPersonalAssignments = ky.get(personalAssignments.endpoint, {
-    headers: {
-      'X-CSRFToken': csrfToken
-    },
-    searchParams: personalAssignments.searchParams,
-    throwHttpErrors: false,
-    signal: signal
-  });
-  const requestAssignments = ky.get(assignments.endpoint, {
-    headers: {
-      'X-CSRFToken': csrfToken
-    },
-    throwHttpErrors: false,
-    signal: signal
-  });
+  const requestPersonalAssignments = ky.get(
+    `/api/v1/teaching/courses/${state.course}/personal-assignments/`,
+    {
+      headers: {
+        'X-CSRFToken': csrfToken
+      },
+      searchParams: { assignments: state.selectedAssignments },
+      throwHttpErrors: false,
+      signal: signal
+    }
+  );
+  const requestAssignments = ky.get(
+    `/api/v1/teaching/courses/${state.course}/assignments/`,
+    {
+      headers: {
+        'X-CSRFToken': csrfToken
+      },
+      throwHttpErrors: false,
+      signal: signal
+    }
+  );
   Promise.all([requestPersonalAssignments, requestAssignments])
     .then(async responses => {
       const [responsePersonalAssignments, responseAssignments] = responses;
@@ -51,29 +55,32 @@ const fetchPersonalAssignments = async (
       ]);
     })
     .then(responses => {
-      let dateToString = formatWithOptions({ locale: ru }, 'dd LLL HH:mm');
-      const [personalAssignments, assignments] = responses;
-      personalAssignments.forEach((item, i) => {
-        if (item.activity) {
-          const zonedDate = utcToZonedTime(item.activity.dt, timeZone);
-          item.activity.dtFormatted = dateToString(zonedDate);
-        }
-        personalAssignments[i] = {
-          id: item.id,
-          assignmentId: item.assignmentId,
-          assignee: item.assignee,
-          student: item.student,
-          score: item.score,
-          state: item.state,
-          activity: item.activity
-        };
+      const [personalAssignmentsJSON, assignmentsJSON] = responses;
+      const personalAssignments = parsePersonalAssignments({
+        items: personalAssignmentsJSON,
+        timeZone,
+        locale: ru
       });
-      dateToString = formatWithOptions({ locale: ru }, 'dd.MM.yyyy HH:mm');
-      const assignmentsMap = parseAssignments(assignments, timeZone, ru);
-      setAssignments(assignmentsMap);
-      setPersonalAssignments(personalAssignments);
+      const assignmentsMap = parseAssignments({
+        items: assignmentsJSON,
+        timeZone,
+        locale: ru
+      });
+      const assignmentOptions = [];
+      assignmentsMap.forEach((assignment, key) => {
+        assignmentOptions.push({
+          value: assignment.id,
+          label: assignment.title
+        });
+      });
+      updateState({
+        personalAssignments,
+        assignments: assignmentsMap,
+        assignmentOptions
+      });
     })
     .catch(error => {
+      console.debug(error);
       createNotification('Что-то пошло не так. Попробуйте позже.', 'error');
     });
 };
@@ -86,25 +93,20 @@ function AssignmentsCheckQueue({
   courseGroups,
   initialState
 }) {
-  const { course } = initialState;
-  const [personalAssignments, setPersonalAssignments] = useState(null);
-  const [selectedAssignments, setSelectedAssignments] = useState(
-    initialState.assignments
-  );
-  const [assignments, setAssignments] = useState(new Map());
+  const [state, updateState] = useReducer(stateReducer, {
+    course: initialState.course,
+    assignments: new Map(),
+    assignmentOptions: [],
+    selectedAssignments: initialState.selectedAssignments,
+    personalAssignments: null
+  });
+  const { assignments, assignmentOptions, personalAssignments } = state;
   const { isPending } = useAsync({
     promiseFn: fetchPersonalAssignments,
     csrfToken,
     timeZone,
-    personalAssignments: {
-      endpoint: `/api/v1/teaching/courses/${course}/personal-assignments/`,
-      searchParams: { assignments: selectedAssignments },
-      setPersonalAssignments
-    },
-    assignments: {
-      endpoint: `/api/v1/teaching/courses/${course}/assignments/`,
-      setAssignments
-    }
+    state,
+    updateState
   });
   const [filters, onFilterChange] = useFilterState({
     score: [],
@@ -114,14 +116,6 @@ function AssignmentsCheckQueue({
   });
 
   console.debug('filters on render', filters);
-
-  const assignmentOptions = [];
-  assignments.forEach((assignment, key) => {
-    assignmentOptions.push({
-      value: assignment.id,
-      label: assignment.title
-    });
-  });
 
   const setFilterValues = (name, value, checked) => {
     let values;
@@ -159,7 +153,7 @@ function AssignmentsCheckQueue({
         timeZone={timeZone}
         courseOptions={courseOptions}
         assignmentOptions={assignmentOptions}
-        initialFilters={{ course, assignments: selectedAssignments }}
+        initialFilters={state}
       />
       <div className="row">
         <div className="col-xs-9">
@@ -239,7 +233,7 @@ AssignmentsCheckQueue.propTypes = {
   timeZone: PropTypes.string.isRequired,
   initialState: PropTypes.shape({
     course: PropTypes.number.isRequired,
-    assignments: PropTypes.arrayOf(PropTypes.number)
+    selectedAssignments: PropTypes.arrayOf(PropTypes.number)
   }).isRequired,
   courseOptions: PropTypes.arrayOf(
     PropTypes.shape({
@@ -249,7 +243,8 @@ AssignmentsCheckQueue.propTypes = {
   ).isRequired,
   courseTeachers: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.number.isRequired,
+      value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+        .isRequired,
       label: PropTypes.string.isRequired,
       selected: PropTypes.bool.isRequired
     })

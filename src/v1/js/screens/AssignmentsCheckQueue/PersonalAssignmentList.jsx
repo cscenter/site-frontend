@@ -156,6 +156,7 @@ const PersonalAssignmentList = ({ isLoading, assignments, items }) => {
           pageSize={itemsPerPage}
           currentPage={page}
           onChangePage={setPage}
+          force={true}
         />
       )}
     </>

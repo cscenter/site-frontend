@@ -10,16 +10,17 @@ class Pagination extends React.Component {
     marginPagesDisplayed: 1,
     showFirst: true,
     showLast: true,
-    showPrevious: true,
-    showNext: true,
+    showPrevious: false,
+    showNext: false,
     // Fill the gap of max size `gapSize` formed by boundary elements
     // of margin pages and main range with buttons instead of showing
     // ellipsis ("..." looks ugly and unnecessary between "1" and "3")
-    gapSize: 1
+    gapSize: 1,
+    force: false
   };
 
   shouldComponentUpdate(nextProps, nextState, snapshot) {
-    return this.props.currentPage !== nextProps.currentPage;
+    return this.props.currentPage !== nextProps.currentPage || this.props.force;
   }
 
   createPageItem(index, label, currentPage) {
@@ -147,6 +148,7 @@ class Pagination extends React.Component {
 }
 
 Pagination.propTypes = {
+  force: PropTypes.bool, // force to re-render component
   gapSize: PropTypes.number.isRequired,
   pageSize: PropTypes.number.isRequired,
   onChangePage: PropTypes.func.isRequired,

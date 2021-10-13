@@ -18,7 +18,7 @@ const onCourseChange = async (
   const response = await ky.get(endpoint);
   const assignmentsSelect = $(assignmentsSelectRef.current);
   const data = await response.json();
-  const assignments = parseAssignments(data);
+  const assignments = parseAssignments({ items: data, timeZone });
   const options = [];
   assignments.forEach(item => {
     options.push(
@@ -42,10 +42,12 @@ const CourseFilterForm = ({
 }) => {
   const assignmentsSelectRef = useRef(null);
   const [course, setCourse] = useState(initialFilters.course);
-  const [assignments, setAssignments] = useState(initialFilters.assignments);
+  const [assignments, setAssignments] = useState(
+    initialFilters.selectedAssignments
+  );
   const filterButtonDisabled =
     assignments.length === 0 ||
-    _xor(assignments, initialFilters.assignments).length === 0;
+    _xor(assignments, initialFilters.selectedAssignments).length === 0;
 
   const submitForm = e => {
     e.preventDefault();
@@ -168,7 +170,7 @@ CourseFilterForm.propTypes = {
   ).isRequired,
   initialFilters: PropTypes.shape({
     course: PropTypes.number.isRequired,
-    assignments: PropTypes.arrayOf(PropTypes.number).isRequired
+    selectedAssignments: PropTypes.arrayOf(PropTypes.number).isRequired
   }).isRequired
 };
 

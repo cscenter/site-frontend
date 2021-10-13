@@ -7,7 +7,7 @@ export const activityOptions = [
   { value: 'ns', label: 'Отправлено решение' },
   { value: 'sc', label: 'Комментарий студента' },
   { value: 'tc', label: 'Комментарий преподавателя' },
-  { value: '', label: 'Нет активности' }
+  { value: 'unset', label: 'Нет активности' }
 ];
 
 export const scoreOptions = [
@@ -19,7 +19,35 @@ export function getScoreClass(state) {
   return state.replace('/_/g', '-');
 }
 
-export function parseAssignments(items, timeZone, locale) {
+// Doesn't support updating deep object values
+export const stateReducer = (state, updateArg) => {
+  if (typeof updateArg === 'function') {
+    return { ...state, ...updateArg(state) };
+  }
+  return { ...state, ...updateArg };
+};
+
+export function parsePersonalAssignments({ items, timeZone, locale }) {
+  const dateToString = formatWithOptions({ locale }, 'dd LLL HH:mm');
+  items.forEach((item, i) => {
+    if (item.activity) {
+      const zonedDate = utcToZonedTime(item.activity.dt, timeZone);
+      item.activity.dtFormatted = dateToString(zonedDate);
+    }
+    items[i] = {
+      id: item.id,
+      assignmentId: item.assignmentId,
+      assignee: item.assignee,
+      student: item.student,
+      score: item.score,
+      state: item.state,
+      activity: item.activity
+    };
+  });
+  return items;
+}
+
+export function parseAssignments({ items, timeZone, locale }) {
   const data = new Map();
   const dateToString = formatWithOptions({ locale }, 'dd.MM.yyyy HH:mm');
   items.sort((a, b) => b.id - a.id);
@@ -52,14 +80,14 @@ const includesActivity = (item, filterValues) => {
   if (!filterValues || filterValues.length === 0) {
     return true;
   }
-  return filterValues.includes(item.activity !== null ? item.activity.code : '');
+  return filterValues.includes(item.activity !== null ? item.activity.code : 'unset');
 };
 
 const includesReviewer = (item, filterValues) => {
   if (!filterValues || filterValues.length === 0) {
     return true;
   }
-  return filterValues.includes(item.assignee !== null ? item.assignee.id.toString() : '');
+  return filterValues.includes(item.assignee !== null ? item.assignee.id.toString() : 'unset');
 };
 
 const includesScore = (item, filterValues) => {

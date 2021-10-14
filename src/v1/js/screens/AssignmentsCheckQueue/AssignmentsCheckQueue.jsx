@@ -1,8 +1,14 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useReducer, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ky from 'ky';
 import { useAsync } from 'react-async';
 import { ru } from 'date-fns/locale';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate
+} from 'react-router-dom';
 
 import { createNotification } from 'utils';
 import Checkbox from 'components/Checkbox';
@@ -10,57 +16,34 @@ import PersonalAssignmentList from './PersonalAssignmentList';
 import CourseFilterForm from './CourseFilterForm';
 import {
   activityOptions,
-  scoreOptions,
-  stateReducer,
+  getFilteredPersonalAssignments,
   parseAssignments,
   parsePersonalAssignments,
+  scoreOptions,
+  stateReducer,
   useFilterState,
-  getFilteredPersonalAssignments
+  FiltersURLSearchParams,
+  useQuery
 } from './utils';
 
-const fetchPersonalAssignments = async (
-  { csrfToken, timeZone, updateState, state },
-  { signal }
+const fetchData = async (
+  { csrfToken, timeZone, updateState, initialState, queryParams },
+  controller
 ) => {
-  const requestPersonalAssignments = ky.get(
-    `/api/v1/teaching/courses/${state.course}/personal-assignments/`,
-    {
-      headers: {
-        'X-CSRFToken': csrfToken
-      },
-      searchParams: { assignments: state.selectedAssignments },
-      throwHttpErrors: false,
-      signal: signal
-    }
-  );
-  const requestAssignments = ky.get(
-    `/api/v1/teaching/courses/${state.course}/assignments/`,
-    {
-      headers: {
-        'X-CSRFToken': csrfToken
-      },
-      throwHttpErrors: false,
-      signal: signal
-    }
-  );
-  Promise.all([requestPersonalAssignments, requestAssignments])
-    .then(async responses => {
-      const [responsePersonalAssignments, responseAssignments] = responses;
-      if (!responsePersonalAssignments.ok || !responseAssignments.ok) {
-        return Promise.reject(new Error('fail'));
-      }
-      return Promise.all([
-        responsePersonalAssignments.json(),
-        responseAssignments.json()
-      ]);
-    })
+  const searchParams = {
+    course: queryParams.course || initialState.course,
+    assignments: queryParams.assignments || initialState.selectedAssignments
+  };
+  return Promise.all([
+    fetchCourseSettings([csrfToken, searchParams.course], controller),
+    fetchPersonalAssignments(
+      [csrfToken, timeZone, updateState, searchParams],
+      controller
+    )
+  ])
     .then(responses => {
-      const [personalAssignmentsJSON, assignmentsJSON] = responses;
-      const personalAssignments = parsePersonalAssignments({
-        items: personalAssignmentsJSON,
-        timeZone,
-        locale: ru
-      });
+      const [[assignmentsJSON, enrollmentsJSON], personalAssignmentsJSON] =
+        responses;
       const assignmentsMap = parseAssignments({
         items: assignmentsJSON,
         timeZone,
@@ -73,15 +56,110 @@ const fetchPersonalAssignments = async (
           label: assignment.title
         });
       });
+      const studentGroups = new Map();
+      enrollmentsJSON.forEach(item => {
+        studentGroups.set(item.student.id, item.studentGroupId);
+      });
+      const personalAssignments = parsePersonalAssignments({
+        items: personalAssignmentsJSON,
+        studentGroups,
+        timeZone,
+        locale: ru
+      });
       updateState({
-        personalAssignments,
+        isInitialized: true,
         assignments: assignmentsMap,
-        assignmentOptions
+        assignmentOptions,
+        studentGroups: studentGroups,
+        personalAssignments
       });
     })
     .catch(error => {
       console.debug(error);
       createNotification('Что-то пошло не так. Попробуйте позже.', 'error');
+    });
+};
+
+const fetchCourseSettings = async ([csrfToken, course], { signal }) => {
+  const assignments = ky
+    .get(`/api/v1/teaching/courses/${course}/assignments/`, {
+      headers: {
+        'X-CSRFToken': csrfToken
+      },
+      throwHttpErrors: false,
+      signal: signal
+    })
+    .then(async response => {
+      if (!response.ok) {
+        return Promise.reject(new Error('fail'));
+      }
+      return response.json();
+    });
+  const enrollments = ky
+    .get(`/api/v1/teaching/courses/${course}/enrollments/`, {
+      headers: {
+        'X-CSRFToken': csrfToken
+      },
+      throwHttpErrors: false,
+      signal: signal
+    })
+    .then(async response => {
+      if (!response.ok) {
+        return Promise.reject(new Error('fail'));
+      }
+      return response.json();
+    });
+  return Promise.all([assignments, enrollments]);
+};
+
+const fetchPersonalAssignments = async (
+  [csrfToken, timeZone, updateState, searchParams],
+  { signal }
+) => {
+  return ky
+    .get(
+      `/api/v1/teaching/courses/${searchParams.course}/personal-assignments/`,
+      {
+        headers: {
+          'X-CSRFToken': csrfToken
+        },
+        searchParams: { assignments: searchParams.assignments },
+        throwHttpErrors: false,
+        signal: signal
+      }
+    )
+    .then(async response => {
+      if (!response.ok) {
+        return Promise.reject(new Error('fail'));
+      }
+      return response.json();
+    });
+};
+
+const pullPersonalAssignments = async (
+  [csrfToken, timeZone, updateState, studentGroups, searchParams],
+  controller
+) => {
+  fetchPersonalAssignments(
+    [csrfToken, timeZone, updateState, searchParams],
+    controller
+  )
+    .then(data => {
+      const personalAssignments = parsePersonalAssignments({
+        items: data,
+        studentGroups,
+        timeZone,
+        locale: ru
+      });
+      updateState({ personalAssignments });
+    })
+    .catch(error => {
+      if (error.name === 'AbortError') {
+        console.debug('Abort fetch');
+      } else {
+        console.debug(error);
+        createNotification('Что-то пошло не так. Попробуйте позже.', 'error');
+      }
     });
 };
 
@@ -93,21 +171,31 @@ function AssignmentsCheckQueue({
   courseGroups,
   initialState
 }) {
+  const queryParams = useQuery();
+  const navigate = useNavigate();
+
+  const [page, setPage] = useState(1);
   const [state, updateState] = useReducer(stateReducer, {
+    isInitialized: false,
     course: initialState.course,
     assignments: new Map(),
     assignmentOptions: [],
     selectedAssignments: initialState.selectedAssignments,
-    personalAssignments: null
+    personalAssignments: null,
+    studentGroups: null
   });
-  const { assignments, assignmentOptions, personalAssignments } = state;
-  const { isPending } = useAsync({
-    promiseFn: fetchPersonalAssignments,
+  const { assignments, assignmentOptions, studentGroups, personalAssignments } =
+    state;
+  const { counter: fetchCounter, run } = useAsync({
+    promiseFn: fetchData,
+    deferFn: pullPersonalAssignments,
     csrfToken,
     timeZone,
-    state,
+    queryParams,
+    initialState,
     updateState
   });
+
   const [filters, onFilterChange] = useFilterState({
     score: [],
     reviewers: [],
@@ -117,6 +205,49 @@ function AssignmentsCheckQueue({
 
   console.debug('filters on render', filters);
 
+  const handleSubmitForm = ({ course, selectedAssignments }) => {
+    const filterURLSearchParams = new FiltersURLSearchParams({
+      course,
+      assignments: selectedAssignments
+    });
+    filterURLSearchParams.assign({ reviewers: filters.reviewers });
+    // In case of changing course value we should fetch new student groups
+    // As a workaround let's reload the page
+    if (filterURLSearchParams.course !== state.course) {
+      window.location.href = filterURLSearchParams.toString();
+      return;
+    }
+    console.debug('navigate()');
+    navigate(window.location.pathname + filterURLSearchParams.toString());
+  };
+
+  // history.listen() callback
+  useEffect(() => {
+    if (!state.isInitialized) {
+      return;
+    }
+    const filterURLSearchParams = new FiltersURLSearchParams({
+      // Fallback to default values
+      course: queryParams.course || initialState.course,
+      assignments: queryParams.assignments || initialState.selectedAssignments
+    });
+    filterURLSearchParams.assign({ reviewers: filters.reviewers });
+    // TODO: filter out personal assignments and update state instead of
+    //  fetching if only some assignment checkboxes were removed
+    run(csrfToken, timeZone, updateState, studentGroups, filterURLSearchParams);
+    // Rerender multiple select in CourseFilterForm
+    updateState({
+      personalAssignments: null,
+      selectedAssignments:
+        queryParams.assignments || initialState.selectedAssignments
+    });
+    if (fetchCounter > 0) {
+      setPage(1);
+    }
+    // Skip `state` to trigger callback on changing query parameters only
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [run, csrfToken, setPage, timeZone, updateState, queryParams]);
+
   const setFilterValues = (name, value, checked) => {
     let values;
     values = filters[name] || [];
@@ -125,6 +256,7 @@ function AssignmentsCheckQueue({
     } else {
       values = values.filter(v => v !== value);
     }
+    setPage(1);
     onFilterChange({ name, value: values });
   };
 
@@ -138,14 +270,16 @@ function AssignmentsCheckQueue({
     setFilterValues('reviewers', e.target.value, e.target.checked);
 
   const setStudentGroupsFilter = e =>
-    setFilterValues('studentGroups', e.target.value, e.target.checked);
+    setFilterValues(
+      'studentGroups',
+      parseInt(e.target.value, 10),
+      e.target.checked
+    );
 
   const filteredPersonalAssignments = getFilteredPersonalAssignments(
     personalAssignments,
     filters
   );
-
-  const hideStudentsGroupFilter = true;
 
   return (
     <>
@@ -153,11 +287,15 @@ function AssignmentsCheckQueue({
         timeZone={timeZone}
         courseOptions={courseOptions}
         assignmentOptions={assignmentOptions}
-        initialFilters={state}
+        selectedCourse={state.course}
+        selectedAssignments={state.selectedAssignments}
+        onSubmitForm={handleSubmitForm}
       />
       <div className="row">
         <div className="col-xs-9">
           <PersonalAssignmentList
+            page={page}
+            setPage={setPage}
             isLoading={personalAssignments === null}
             assignments={assignments}
             items={filteredPersonalAssignments}
@@ -205,8 +343,7 @@ function AssignmentsCheckQueue({
               ))}
             </>
           </div>
-
-          {!hideStudentsGroupFilter && (
+          {studentGroups !== null && (
             <div className="mb-30">
               <h5>Студенческая группа</h5>
               <>
@@ -258,4 +395,15 @@ AssignmentsCheckQueue.propTypes = {
   ).isRequired
 };
 
-export default AssignmentsCheckQueue;
+export default function App(props) {
+  return (
+    <Router>
+      <Routes>
+        <Route
+          path="/teaching/assignments/"
+          element={<AssignmentsCheckQueue {...props} />}
+        />
+      </Routes>
+    </Router>
+  );
+}

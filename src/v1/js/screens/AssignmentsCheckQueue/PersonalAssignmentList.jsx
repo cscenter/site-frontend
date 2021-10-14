@@ -88,7 +88,7 @@ PersonalAssignment.propTypes = {
     state: PropTypes.string.isRequired,
     activity: PropTypes.shape({
       code: PropTypes.string.isRequired,
-      dt: PropTypes.string.isRequired,
+      dt: PropTypes.instanceOf(Date).isRequired,
       dtFormatted: PropTypes.string
     })
   }),
@@ -105,8 +105,13 @@ PersonalAssignment.propTypes = {
 
 const itemsPerPage = 50;
 
-const PersonalAssignmentList = ({ isLoading, assignments, items }) => {
-  const [page, setPage] = useState(1);
+const PersonalAssignmentList = ({
+  page,
+  setPage,
+  isLoading,
+  assignments,
+  items
+}) => {
   const isShowPagination = items.length > itemsPerPage;
   return (
     <>
@@ -166,7 +171,9 @@ const PersonalAssignmentList = ({ isLoading, assignments, items }) => {
 PersonalAssignmentList.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   items: PropTypes.arrayOf(PropTypes.object),
-  assignments: PropTypes.objectOf(Map)
+  assignments: PropTypes.objectOf(Map),
+  page: PropTypes.number.isRequired,
+  setPage: PropTypes.func.isRequired
 };
 
 export default PersonalAssignmentList;

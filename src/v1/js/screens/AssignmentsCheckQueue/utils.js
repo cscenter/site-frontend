@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { formatWithOptions } from 'date-fns/fp';
-import { ru } from 'date-fns/locale';
 import { utcToZonedTime } from 'date-fns-tz';
+import { useLocation } from 'react-router-dom';
 
 export const activityOptions = [
   { value: 'ns', label: 'Отправлено решение' },
@@ -19,6 +19,56 @@ export function getScoreClass(state) {
   return state.replace('/_/g', '-');
 }
 
+export const useIsMount = () => {
+  const isMountRef = useRef(true);
+  useEffect(() => {
+    isMountRef.current = false;
+  }, []);
+  return isMountRef.current;
+};
+
+export const FiltersURLSearchParams = (function () {
+  function FiltersURLSearchParams(state = {}) {
+    this.course = state.course;
+    this.assignments = state.assignments;
+  }
+
+  FiltersURLSearchParams.prototype.assign = function (...sources) {
+    Object.assign(this, ...sources);
+  };
+
+  FiltersURLSearchParams.prototype.toString = function () {
+    let search = `?course=${this.course}&assignments=${this.assignments.join(',')}`;
+    // if (this.reviewers && this.reviewers.length > 0) {
+    //   search += `&reviewers=${this.reviewers.join(',')}`;
+    // }
+    return search;
+  };
+
+  return FiltersURLSearchParams;
+})();
+
+// TODO: Include polyfill https://www.npmjs.com/package/@ungap/url-search-params
+export function useQuery() {
+  let location = useLocation();
+  return useMemo(() => {
+    const params = {};
+    const props = new URLSearchParams(location.search);
+    for (let [key, value] of props.entries()) {
+      if (key === 'course') {
+        value = parseInt(value, 10) || null;
+      } else if (key === 'assignments') {
+        value = value
+          .split(',')
+          .map(x => parseInt(x, 10))
+          .filter(Boolean);
+      }
+      params[key] = value;
+    }
+    return params;
+  }, [location.search]);
+}
+
 // Doesn't support updating deep object values
 export const stateReducer = (state, updateArg) => {
   if (typeof updateArg === 'function') {
@@ -27,11 +77,12 @@ export const stateReducer = (state, updateArg) => {
   return { ...state, ...updateArg };
 };
 
-export function parsePersonalAssignments({ items, timeZone, locale }) {
+export function parsePersonalAssignments({ items, studentGroups, timeZone, locale }) {
   const dateToString = formatWithOptions({ locale }, 'dd LLL HH:mm');
   items.forEach((item, i) => {
     if (item.activity) {
       const zonedDate = utcToZonedTime(item.activity.dt, timeZone);
+      item.activity.dt = zonedDate;
       item.activity.dtFormatted = dateToString(zonedDate);
     }
     items[i] = {
@@ -41,8 +92,19 @@ export function parsePersonalAssignments({ items, timeZone, locale }) {
       student: item.student,
       score: item.score,
       state: item.state,
-      activity: item.activity
+      activity: item.activity,
+      studentGroupId: studentGroups.get(item.student.id)
     };
+  });
+  items.sort((a, b) => {
+    if (a.activity === null && b.activity === null) {
+      return 0;
+    } else if (a.activity === null) {
+      return 1;
+    } else if (b.activity == null) {
+      return -1;
+    }
+    return b.activity.dt - a.activity.dt;
   });
   return items;
 }
@@ -97,6 +159,13 @@ const includesScore = (item, filterValues) => {
   return filterValues.includes(item.score !== null ? 'set' : 'unset');
 };
 
+const includesStudentGroup = (item, filterValues) => {
+  if (!filterValues || filterValues.length === 0) {
+    return true;
+  }
+  return filterValues.includes(item.studentGroupId);
+};
+
 export function getFilteredPersonalAssignments(items, filters) {
   if (items === null) {
     return [];
@@ -105,7 +174,8 @@ export function getFilteredPersonalAssignments(items, filters) {
     return (
       includesActivity(item, filters.activity) &&
       includesReviewer(item, filters.reviewers) &&
-      includesScore(item, filters.score)
+      includesScore(item, filters.score) &&
+      includesStudentGroup(item, filters.studentGroups)
     );
   });
 }

@@ -38,23 +38,16 @@ const CourseFilterForm = ({
   timeZone,
   courseOptions,
   assignmentOptions,
-  initialFilters
+  selectedCourse,
+  selectedAssignments,
+  onSubmitForm
 }) => {
   const assignmentsSelectRef = useRef(null);
-  const [course, setCourse] = useState(initialFilters.course);
-  const [assignments, setAssignments] = useState(
-    initialFilters.selectedAssignments
-  );
+  const [course, setCourse] = useState(selectedCourse);
+  const [assignments, setAssignments] = useState(selectedAssignments);
   const filterButtonDisabled =
     assignments.length === 0 ||
-    _xor(assignments, initialFilters.selectedAssignments).length === 0;
-
-  const submitForm = e => {
-    e.preventDefault();
-    window.location.href =
-      window.location.pathname +
-      `?course=${course}&assignments=${assignments.join(',')}`;
-  };
+    _xor(assignments, selectedAssignments).length === 0;
 
   useEffect(() => {
     $('select[name=assignments], select[name=course]').selectpicker({
@@ -67,12 +60,29 @@ const CourseFilterForm = ({
     $('select[name=assignments]').selectpicker('refresh');
   });
 
+  useEffect(() => {
+    if (assignments !== selectedAssignments) {
+      setAssignments(selectedAssignments);
+    }
+    // Omit `assignments` in useEffect dependencies since we want to sync
+    // control component state on props.selectedAssignments change only
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setAssignments, selectedAssignments]);
+
+  const handleSubmitForm = e => {
+    e.preventDefault();
+    onSubmitForm({
+      course: parseInt(course, 10),
+      selectedAssignments: assignments
+    });
+  };
+
   return (
     <form
       action=""
       className="mb-30"
       id="assignment-filters"
-      onSubmit={submitForm}
+      onSubmit={handleSubmitForm}
     >
       <div className="row">
         <div className="col-xs-4">
@@ -140,6 +150,7 @@ const CourseFilterForm = ({
             </div>
           </div>
         </div>
+
         <div className="col-xs-3">
           <button
             type="submit"
@@ -168,10 +179,9 @@ CourseFilterForm.propTypes = {
       label: PropTypes.string.isRequired
     })
   ).isRequired,
-  initialFilters: PropTypes.shape({
-    course: PropTypes.number.isRequired,
-    selectedAssignments: PropTypes.arrayOf(PropTypes.number).isRequired
-  }).isRequired
+  selectedCourse: PropTypes.number.isRequired,
+  selectedAssignments: PropTypes.arrayOf(PropTypes.number).isRequired,
+  onSubmitForm: PropTypes.func.isRequired
 };
 
 export default CourseFilterForm;

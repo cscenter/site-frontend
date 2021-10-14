@@ -36,8 +36,10 @@ class Pagination extends React.Component {
 
   createEllipsis(index) {
     return (
-      <li key={index} className={`page-item disabled d-none d-md-block`}>
-        <div className="ellipsis">&hellip;</div>
+      <li key={index} className={`disabled`}>
+        <button disabled className="ellipsis">
+          &hellip;
+        </button>
       </li>
     );
   }

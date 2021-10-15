@@ -106,7 +106,9 @@ function loadReactApplications() {
 }
 
 function initTopMenu() {
-  const userMenuDropdown = new Bootstrap4Dropdown('.dropdown-user-menu'); // eslint-disable-line no-unused-vars
+  if (document.querySelector('.dropdown-user-menu') !== null) {
+    const userMenuDropdown = new Bootstrap4Dropdown('.dropdown-user-menu'); // eslint-disable-line no-unused-vars
+  }
   // eslint-disable-next-line no-unused-vars
   const collapsibleElements = Array.from(
     document.querySelectorAll('.navbar-container [data-toggle="collapse"]')

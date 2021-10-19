@@ -3,11 +3,18 @@ import { formatWithOptions } from 'date-fns/fp';
 import { utcToZonedTime } from 'date-fns-tz';
 import { useLocation } from 'react-router-dom';
 
+export const activities = {
+  NS: 'ns',
+  SC: 'sc',
+  TC: 'tc',
+  UNSET: 'unset'
+};
+
 export const activityOptions = [
-  { value: 'ns', label: 'Отправлено решение' },
-  { value: 'sc', label: 'Комментарий студента' },
-  { value: 'tc', label: 'Комментарий преподавателя' },
-  { value: 'unset', label: 'Нет активности' }
+  { value: activities.NS, label: 'Отправлено решение' },
+  { value: activities.SC, label: 'Комментарий студента' },
+  { value: activities.TC, label: 'Комментарий преподавателя' },
+  { value: activities.UNSET, label: 'Нет активности' }
 ];
 
 export const scoreOptions = [
@@ -77,6 +84,17 @@ export const stateReducer = (state, updateArg) => {
   return { ...state, ...updateArg };
 };
 
+function sortPersonalAssignmentsByLatestActivityAsc(a, b) {
+  if (a.activity === null && b.activity === null) {
+    return 0;
+  } else if (a.activity === null) {
+    return -1;
+  } else if (b.activity == null) {
+    return 1;
+  }
+  return a.activity.dt - b.activity.dt;
+}
+
 export function parsePersonalAssignments({ items, studentGroups, timeZone, locale }) {
   const dateToString = formatWithOptions({ locale }, 'dd LLL HH:mm');
   items.forEach((item, i) => {
@@ -96,16 +114,7 @@ export function parsePersonalAssignments({ items, studentGroups, timeZone, local
       studentGroupId: studentGroups.get(item.student.id)
     };
   });
-  items.sort((a, b) => {
-    if (a.activity === null && b.activity === null) {
-      return 0;
-    } else if (a.activity === null) {
-      return 1;
-    } else if (b.activity == null) {
-      return -1;
-    }
-    return b.activity.dt - a.activity.dt;
-  });
+  items.sort(sortPersonalAssignmentsByLatestActivityAsc);
   return items;
 }
 

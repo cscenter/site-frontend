@@ -15,6 +15,7 @@ import Checkbox from 'components/Checkbox';
 import PersonalAssignmentList from './PersonalAssignmentList';
 import CourseFilterForm from './CourseFilterForm';
 import {
+  activities,
   activityOptions,
   getFilteredPersonalAssignments,
   parseAssignments,
@@ -197,10 +198,10 @@ function AssignmentsCheckQueue({
   });
 
   const [filters, onFilterChange] = useFilterState({
+    activity: [activities.SC, activities.NS],
     score: [],
     reviewers: [],
-    studentGroups: [],
-    activity: []
+    studentGroups: []
   });
 
   console.debug('filters on render', filters);
@@ -310,6 +311,9 @@ function AssignmentsCheckQueue({
                 name="activity"
                 key={option.value}
                 value={option.value}
+                defaultChecked={
+                  filters.activity && filters.activity.includes(option.value)
+                }
                 onChange={setActivityFilter}
                 label={option.label}
               />

@@ -1,4 +1,9 @@
 .dockerignore
+.git
+.gitignore
+.idea/
+.cache/
+node_modules/
 templates/
 media/
 docs/

@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  webpack-bundles:
+    container_name: lms-webpack-bundles
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - WEBPACK_ENVIRONMENT=prod
+        - SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN}
+    image: lms-webpack-bundles
+    restart: always

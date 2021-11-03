@@ -1,4 +1,4 @@
-from core.models import ExtAnonymousUser
+from common.models import ExtAnonymousUser
 from django.conf import settings
 from django.contrib.auth import get_user as auth_get_user
 from django.contrib.auth.models import AnonymousUser

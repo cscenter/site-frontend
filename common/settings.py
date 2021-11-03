@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django_jinja',
     'menu',  # v2 menu support
-    'core',
+    'common',
 ]
 
 MIDDLEWARE = [
@@ -48,7 +48,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'core.middleware.AuthenticationMiddleware',
+    'common.middleware.AuthenticationMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -59,7 +59,7 @@ DATABASES = {
     }
 }
 
-ROOT_URLCONF = 'core.urls'
+ROOT_URLCONF = 'common.urls'
 
 TEMPLATES = [
     {
@@ -85,8 +85,8 @@ TEMPLATES = [
                 "django_jinja.builtins.extensions.StaticFilesExtension",
                 "django_jinja.builtins.extensions.DjangoFiltersExtension",
                 "webpack_loader.contrib.jinja2ext.WebpackExtension",
-                "core.jinja2_extensions.MessagesExtension",
-                "core.jinja2_extensions.MenuExtension",
+                "common.jinja2_extensions.MessagesExtension",
+                "common.jinja2_extensions.MenuExtension",
             ],
             "bytecode_cache": {
                 "name": "default",
@@ -127,10 +127,10 @@ TEMPLATES = [
     },
 ]
 
-AUTH_USER_MODEL = "core.User"
+AUTH_USER_MODEL = "common.User"
 LOGOUT_REDIRECT_URL = '/'
 
-WSGI_APPLICATION = 'core.wsgi.application'
+WSGI_APPLICATION = 'common.wsgi.application'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/

@@ -7,7 +7,7 @@ export default function launch() {
       container: 'body',
       html: true,
       placement: 'auto',
-      trigger: 'hover',
+      trigger: 'hover click',
       content: function () {
         let helpBlockId = $(this).data('target');
         return $(helpBlockId).html();
@@ -16,12 +16,18 @@ export default function launch() {
     .on('show.bs.popover', function () {
       $(this).data('bs.popover').tip().css('max-width', '800px');
     });
-  const currentAssignmentFormat = $('select[name="submission_type"]').val() || null;
+  const submissionTypeSelect = $('select[name="assignment-submission_type"]');
+  const currentAssignmentFormat = submissionTypeSelect.val() || null;
   updateCheckingSystemForm(currentAssignmentFormat);
 
-  $('select[name="submission_type"]').change(function (e) {
+  submissionTypeSelect.change(function (e) {
     const assignmentFormat = this.value || null;
     updateCheckingSystemForm(assignmentFormat);
+  });
+
+  $('select[name="assignment-assignee_mode"]').change(function (e) {
+    const mode = this.value || null;
+    updateAssigneeModeAdditionSettings(mode);
   });
 }
 
@@ -39,4 +45,11 @@ function updateCheckingSystemForm(assignmentFormat) {
   checkingSystemSelect
     .find(`option[value!=${YandexContestCheckingSystemId}]`)
     .attr('disabled', disableOtherOptions);
+}
+
+function updateAssigneeModeAdditionSettings(mode) {
+  $('div[data-assignee-mode]').addClass('hidden');
+  if (mode !== null) {
+    $(`div[data-assignee-mode="${mode}"]`).removeClass('hidden');
+  }
 }

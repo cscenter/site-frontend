@@ -50,6 +50,10 @@ function updateCheckingSystemForm(assignmentFormat) {
 function updateAssigneeModeAdditionSettings(mode) {
   $('div[data-assignee-mode]').addClass('hidden');
   if (mode !== null) {
-    $(`div[data-assignee-mode="${mode}"]`).removeClass('hidden');
+    const modeFormWrapper = $(`div[data-assignee-mode="${mode}"]`);
+    modeFormWrapper.removeClass('hidden');
+    if (mode !== 'sg_custom') {
+      modeFormWrapper.find('input[required=true]').removeAttr('required');
+    }
   }
 }

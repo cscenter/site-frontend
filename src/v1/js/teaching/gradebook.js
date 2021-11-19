@@ -16,6 +16,7 @@ const fn = {
   launch: function () {
     fn.restoreStates();
     fn.finalGradeSelects();
+    fn.bindSubmitToForm();
     fn.submitForm();
     fn.downloadCSVButton();
     fn.onChangeAssignmentGrade();
@@ -46,6 +47,12 @@ const fn = {
         return false;
       }
     });
+  },
+
+  bindSubmitToForm: function () {
+    submitButton.click(function () {
+      $('form[name=gradebook]').submit();
+    })
   },
 
   submitForm: function () {

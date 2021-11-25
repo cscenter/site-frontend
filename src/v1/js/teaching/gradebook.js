@@ -1,5 +1,5 @@
 import SweetAlert from 'bootstrap-sweetalert';
-import { createNotification, showComponentError } from 'utils';
+import { createNotification } from 'utils';
 import _throttle from 'lodash-es/throttle';
 
 const buttonDownloadCSV = $('.marks-sheet-csv-link');
@@ -16,7 +16,6 @@ const fn = {
   launch: function () {
     fn.restoreStates();
     fn.finalGradeSelects();
-    fn.bindSubmitToForm();
     fn.submitForm();
     fn.downloadCSVButton();
     fn.onChangeAssignmentGrade();
@@ -49,17 +48,14 @@ const fn = {
     });
   },
 
-  bindSubmitToForm: function () {
+  submitForm: function () {
     submitButton.click(function () {
       $('form[name=gradebook]').submit();
-    })
-  },
+    });
 
-  submitForm: function () {
     // Form heavily relies on js-behavior. `Disabled` default state
     // prevents accidental submission if js is not activated.
     // submitButton.removeAttr("disabled");
-
     $('form[name=gradebook]').submit(function (e) {
       let elements = this.querySelectorAll('.__input, .__final_grade select');
       Array.prototype.forEach.call(elements, function (element) {

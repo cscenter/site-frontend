@@ -1,5 +1,6 @@
 import Cropper from 'cropperjs';
 import $ from 'jquery';
+import FileAPI from 'fileapi/dist/FileAPI';
 import { createNotification, getCSRFToken, getTemplate } from 'utils';
 
 // profileAppInit - global dependency :<
@@ -33,7 +34,7 @@ let photoValidation = {
 };
 
 const xhrOpts = {
-  url: `/users/${profileAppInit.user_id}/profile-update-image/`,
+  url: `/users/${profileAppInit.userID}/profile-update-image/`,
   headers: {
     'X-CSRFToken': getCSRFToken()
   }
@@ -46,43 +47,31 @@ const modalBody = $('.modal-body', uploadContainer);
 
 let fn = {
   init: function () {
-    if (profileAppInit.user_id === undefined) {
+    if (profileAppInit.userID === undefined) {
       return;
     }
 
-    let deferred = $.Deferred(),
-      chained = deferred;
-    $.each(profileAppInit.preload, function (i, url) {
-      chained = chained.then(function () {
-        return $.ajax({
-          url: url,
-          dataType: 'script',
-          cache: true
-        });
-      });
+    $('.login-helper').click(function (e) {
+      e.preventDefault();
+      $(this).closest('form').submit();
     });
-    chained
-      .done(function () {
-        $("a[href='#user-photo-upload']").click(function () {
-          uploadContainer.modal('toggle');
-          if (imageData === null) {
-            fn.uploadInit();
-          }
-        });
-        uploadContainer.one('shown.bs.modal', function () {
-          // Image dimensions is dynamic and we can't get them
-          // for cropper inside hidden div (w x h will be
-          // 0x0 px before display), init cropper
-          // after modal became visible.
-          if (imageData !== null) {
-            fn.thumbInit(imageData);
-          }
-        });
-      })
-      .fail(function () {
-        createNotification(MESSAGE.preloadError, 'error');
-      });
-    deferred.resolve();
+
+    $("a[href='#user-photo-upload']").click(function () {
+      uploadContainer.modal('toggle');
+      if (imageData === null) {
+        fn.uploadInit();
+      }
+    });
+
+    uploadContainer.one('shown.bs.modal', function () {
+      // Image dimensions is dynamic and we can't get them
+      // for cropper inside hidden div (w x h will be
+      // 0x0 px before display), init cropper
+      // after modal became visible.
+      if (imageData !== null) {
+        fn.thumbInit(imageData);
+      }
+    });
   },
 
   uploadInit: function () {
@@ -257,7 +246,7 @@ let fn = {
     $.ajax(opts)
       .done(function (data) {
         cropper.enable();
-        if (data.success == true) {
+        if (data.success === true) {
           fn.thumbSuccess(cropper, data);
         } else {
           createNotification(data.reason, 'error');

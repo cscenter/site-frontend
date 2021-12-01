@@ -31,15 +31,16 @@ header {
       height: 100%;
       line-height: 1;
 
-      .photo-actions {
+      .profile-actions {
         position: absolute;
         bottom: 0;
         width: 100%;
-        background: #000;
-        background: rgba(29,32,34,.7);
 
-        a {
+        > a {
+          background: #000;
+          background: rgba(29,32,34,.9);
           display: block;
+          margin-bottom: 2px;
           color: #fff;
           padding: 6px 15px;
           line-height: 1.2;
@@ -50,6 +51,10 @@ header {
 
           &:hover {
             opacity: 1;
+          }
+
+          &:last-child {
+            margin-bottom: 0;
           }
         }
       }
@@ -113,5 +118,17 @@ header {
   }
 }
 
+._connected-account {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
+  > :first-child {
+    flex-grow: 1;
+  }
+
+  .btn {
+    min-width: 120px;
+  }
+}
 

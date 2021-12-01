@@ -31,6 +31,7 @@
 @import "components/editor";
 @import "components/grid";
 @import "components/preloader";
+@import "components/user_profile";
 
 // TODO: separate pages from common bundle (teacher bundle, student bundle?)
 @import "pages/_assignments";
@@ -46,7 +47,6 @@
 @import "./pages/alumni_by_year";
 @import "./pages/admission";
 @import "./pages/projects";
-@import "./pages/user_profile";
 
 
 .help-block {

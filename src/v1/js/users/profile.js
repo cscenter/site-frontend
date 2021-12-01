@@ -1,6 +1,7 @@
 import Cropper from 'cropperjs';
 import $ from 'jquery';
 import FileAPI from 'fileapi/dist/FileAPI';
+import _throttle from 'lodash-es/throttle';
 import { createNotification, getCSRFToken, getTemplate } from 'utils';
 
 // profileAppInit - global dependency :<
@@ -34,7 +35,6 @@ let photoValidation = {
 };
 
 const xhrOpts = {
-  url: `/users/${profileAppInit.userID}/profile-update-image/`,
   headers: {
     'X-CSRFToken': getCSRFToken()
   }
@@ -46,7 +46,7 @@ const modalHeader = $('.modal-header', uploadContainer);
 const modalBody = $('.modal-body', uploadContainer);
 
 let fn = {
-  init: function () {
+  initPhotoUploaderAndCropper: function () {
     if (profileAppInit.userID === undefined) {
       return;
     }
@@ -119,6 +119,7 @@ let fn = {
   uploadProgress: function (file) {
     // Try to upload selected image to server
     let opts = FileAPI.extend({}, xhrOpts, {
+      url: `/users/${profileAppInit.userID}/profile-update-image/`,
       files: {
         photo: file
       },
@@ -156,7 +157,7 @@ let fn = {
   },
 
   uploadSuccess: function (data, file) {
-    if (data.success == true) {
+    if (data.success === true) {
       // Get image file dimensions
       FileAPI.getInfo(file, function (err, info) {
         if (!err) {
@@ -239,6 +240,7 @@ let fn = {
 
     let data = $.extend({ crop_data: true }, cropBox);
     let opts = $.extend(true, {}, xhrOpts, {
+      url: `/users/${profileAppInit.userID}/profile-update-image/`,
       method: 'POST',
       dataType: 'json',
       data: data
@@ -260,8 +262,7 @@ let fn = {
 
   // Calculate cropbox data relative to img
   getCropBox: function (cropper) {
-    let cropBox = cropper.getData(true);
-    return cropBox;
+    return cropper.getData(true);
   },
 
   // Calculate cropbox data relative to canvas
@@ -280,6 +281,97 @@ let fn = {
   }
 };
 
+function restoreTab(targetTab) {
+  const tabList = $('.profile-additional-info .nav-tabs');
+  if (tabList.find('a[href="' + targetTab + '"]').length > 0) {
+    tabList.find('li').removeClass('active').find('a').blur();
+    tabList
+      .find('a[href="' + targetTab + '"]')
+      .tab('show')
+      .hover();
+  }
+}
+
+const throttledFetchConnectedAccounts = _throttle(fetchConnectedAccounts, 1000, {
+  leading: true,
+  trailing: false
+});
+
+function initConnectedAccountsTab(targetTab) {
+  const userID = window.profileAppInit.userID || null;
+  if (targetTab === '#connected-accounts') {
+    fetchConnectedAccounts(userID);
+  }
+  observeConnectedAccountsTab(userID);
+}
+
+function observeConnectedAccountsTab(userID) {
+  const tab = document.querySelector('.nav a[href="#connected-accounts"]');
+  tab.addEventListener(
+    'mouseenter',
+    async () => {
+      throttledFetchConnectedAccounts(userID);
+    },
+    { once: true }
+  );
+}
+
+function fetchConnectedAccounts(userID) {
+  if (userID === null) {
+    return;
+  }
+  const container = document.querySelector('.connected-accounts');
+  if (container === null || container.getAttribute('data-fetched') === 'true') {
+    return;
+  }
+
+  const endpoint = `/api/v1/users/${userID}/connected-accounts/`;
+  let opts = Object.assign({}, xhrOpts, {
+    url: endpoint,
+    method: 'GET',
+    dataType: 'json'
+  });
+  $.ajax(opts)
+    .done(data => {
+      data.edges.forEach(connectedService => {
+        const providerContainer = document.querySelector(
+          `._connected-account[data-provider="${connectedService.provider}"]`
+        );
+        if (providerContainer === null) {
+          return;
+        }
+        const uidElement = providerContainer.querySelector('._uid');
+        uidElement.textContent = `id: ${connectedService.uid}`;
+        const actionButton = providerContainer.querySelector('button._associate[disabled]');
+        if (actionButton !== null) {
+          const disconnectLink = actionButton.getAttribute('data-disconnect');
+          const form = actionButton.closest('form');
+          form.action = disconnectLink;
+          form.method = 'POST';
+          $(actionButton)
+            .text('Отключить')
+            .attr('type', 'submit')
+            .removeClass('btn-primary')
+            .addClass('btn-danger')
+            .removeAttr('disabled');
+        }
+      });
+      Array.from(container.querySelectorAll('._associate[disabled]')).forEach(actionButton => {
+        actionButton.type = 'submit';
+        actionButton.removeAttribute('disabled');
+      });
+      $(container).attr('data-fetched', true);
+    })
+    .fail(xhr => {
+      createNotification(xhr.statusText, 'error');
+      $(container).attr('data-fetched', true);
+    });
+}
+
 export function launch() {
-  fn.init();
+  const targetTab = window.location.hash;
+  initConnectedAccountsTab(targetTab);
+
+  restoreTab(targetTab);
+  fn.initPhotoUploaderAndCropper();
 }

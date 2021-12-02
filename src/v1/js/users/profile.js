@@ -4,8 +4,7 @@ import FileAPI from 'fileapi/dist/FileAPI';
 import _throttle from 'lodash-es/throttle';
 import { createNotification, getCSRFToken, getTemplate } from 'utils';
 
-// profileAppInit - global dependency :<
-const profileAppInit = window.profileAppInit;
+const photoAppProps = window.__CSC__.photoApp;
 // TODO: How to resolve FileAPI dependency?
 
 const templates = {
@@ -24,7 +23,7 @@ const MESSAGE = {
   preloadError: 'Ошибка инициализации'
 };
 
-let imageData = profileAppInit.photo;
+let imageData = photoAppProps.photo;
 
 let photoValidation = {
   minWidth: 250,
@@ -47,7 +46,7 @@ const modalBody = $('.modal-body', uploadContainer);
 
 let fn = {
   initPhotoUploaderAndCropper: function () {
-    if (profileAppInit.userID === undefined) {
+    if (photoAppProps.userID === undefined) {
       return;
     }
 
@@ -119,7 +118,7 @@ let fn = {
   uploadProgress: function (file) {
     // Try to upload selected image to server
     let opts = FileAPI.extend({}, xhrOpts, {
-      url: `/users/${profileAppInit.userID}/profile-update-image/`,
+      url: `/users/${photoAppProps.userID}/profile-update-image/`,
       files: {
         photo: file
       },
@@ -240,7 +239,7 @@ let fn = {
 
     let data = $.extend({ crop_data: true }, cropBox);
     let opts = $.extend(true, {}, xhrOpts, {
-      url: `/users/${profileAppInit.userID}/profile-update-image/`,
+      url: `/users/${photoAppProps.userID}/profile-update-image/`,
       method: 'POST',
       dataType: 'json',
       data: data
@@ -298,7 +297,10 @@ const throttledFetchConnectedAccounts = _throttle(fetchConnectedAccounts, 1000, 
 });
 
 function initConnectedAccountsTab(targetTab) {
-  const userID = window.profileAppInit.userID || null;
+  if (!window.__CSC__.socialAccountsApp.isEnabled) {
+    return;
+  }
+  const userID = window.__CSC__.socialAccountsApp.userID;
   if (userID === null) {
     return;
   }

@@ -299,6 +299,9 @@ const throttledFetchConnectedAccounts = _throttle(fetchConnectedAccounts, 1000, 
 
 function initConnectedAccountsTab(targetTab) {
   const userID = window.profileAppInit.userID || null;
+  if (userID === null) {
+    return;
+  }
   if (targetTab === '#connected-accounts') {
     fetchConnectedAccounts(userID);
   }

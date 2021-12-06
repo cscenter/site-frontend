@@ -21,6 +21,7 @@
 @import "components/breadcrumbs";
 @import "components/upload_photo";
 @import "components/editor";
+@import "components/typography";
 @import "components/comment";
 @import "components/pagination";
 @import "components/preloader";
@@ -398,10 +399,6 @@ h2 small a {
 
 .badge.lecture, .badge.seminar {
   width: 6em;
-}
-
-h5.assignment {
-  font-weight: bold;
 }
 
 .assignment-attachment {

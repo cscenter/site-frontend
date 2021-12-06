@@ -94,6 +94,12 @@
   }
 }
 
+.list-group._border-0 {
+  .list-group-item {
+    border: 0;
+  }
+}
+
 ul {
   &.__files {
 
@@ -106,3 +112,5 @@ ul {
     }
   }
 }
+
+

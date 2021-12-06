@@ -1,5 +1,3 @@
-// inspired by Material Admin Responsive
-
 .card {
   background: #FFF none repeat scroll 0 0;
   margin-bottom: 30px;
@@ -12,10 +10,6 @@
 
   .card-header {
     position: relative;
-
-    &.card-header-sm {
-      padding: 18px;
-    }
 
     h1, h2, h3, h4, h5 {
       margin: 0;
@@ -31,17 +25,6 @@
         margin-top: 8px;
         color: #AEAEAE;
         line-height: 160%;
-      }
-    }
-
-    &.ch-alt:not([class*="bgm-"]) {
-      background-color: $background-grey;
-    }
-
-    &[class*="bgm-"] h2 {
-      color: #fff;
-      small {
-        color: #fff;
       }
     }
 
@@ -64,52 +47,4 @@
       margin-bottom: 0;
     }
   }
-
-  .card-body.card-padding-sm {
-    padding: 18px;
-  }
 }
-
-.card-header:not(.ch-alt):not([class*="bgm-"]) + .card-padding {
-  padding-top: 0;
-}
-
-@media screen and (min-width: 768px) {
-  .card {
-    .card-header {
-      &:not(.ch-alt) {
-        padding: 23px 25px;
-      }
-
-      &.card-header-sm {
-        padding: 18px;
-      }
-
-      &.ch-alt {
-        padding: 23px 26px;
-      }
-    }
-
-    .card-body.card-padding {
-      padding: 23px 26px;
-    }
-  }
-}
-
-@media screen and (max-width: 991px) {
-  .card {
-    .card-header {
-      &:not(.ch-alt) {
-        padding: 18px;
-      }
-      &.ch-alt {
-        padding: 18px;
-      }
-    }
-  }
-  .card .card-body.card-padding {
-    padding: 18px;
-  }
-}
-
-

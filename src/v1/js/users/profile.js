@@ -346,7 +346,13 @@ function fetchConnectedAccounts(userID) {
           return;
         }
         const uidElement = providerContainer.querySelector('._uid');
-        uidElement.textContent = `id: ${connectedService.uid}`;
+        let idText;
+        if (connectedService.login !== null) {
+          idText = `Login: ${connectedService.login}`;
+        } else {
+          idText = `id: ${connectedService.uid}`;
+        }
+        uidElement.textContent = idText;
         const actionButton = providerContainer.querySelector('button._associate[disabled]');
         if (actionButton !== null) {
           const disconnectLink = actionButton.getAttribute('data-disconnect');

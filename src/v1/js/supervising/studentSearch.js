@@ -10,6 +10,7 @@ let status = {};
 let passedCoursesTotal = {};
 let academicDisciplines = {};
 let partners = {};
+let isPaidBasis = {};
 
 function getSelectedValues(items) {
   return Object.keys(items)
@@ -27,7 +28,8 @@ function makeQuery() {
     status: getSelectedValues(status),
     cnt_enrollments: getSelectedValues(passedCoursesTotal),
     academic_disciplines: getSelectedValues(academicDisciplines),
-    partners: getSelectedValues(partners)
+    partners: getSelectedValues(partners),
+    is_paid_basis: getSelectedValues(isPaidBasis)
   };
 
   $.ajax({
@@ -109,6 +111,10 @@ const fn = {
       })
       .on('change', '[name="cnt_enrollments"]', function (e) {
         passedCoursesTotal[$(this).val()] = this.checked;
+        query();
+      })
+      .on('change', '[name="is_paid_basis"]', function (e) {
+        isPaidBasis[$(this).val()] = this.checked;
         query();
       });
   }

@@ -85,3 +85,14 @@ hr.deadline {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+
+// Tables
+.table-borderless {
+  th,
+  td,
+  thead th,
+  tbody + tbody {
+    border: 0!important;
+  }
+}

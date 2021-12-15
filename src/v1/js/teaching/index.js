@@ -9,21 +9,6 @@ $(document).ready(function () {
     defaultWhiteList.dt = [];
     $('[data-toggle="tooltip"]').tooltip();
   }
-  if (sections.includes('datetimepickers')) {
-    import('components/forms')
-      .then(m => {
-        m.initDatePickers();
-        m.initTimePickers();
-      })
-      .catch(error => showComponentError(error));
-  }
-  if (sections.includes('selectpickers')) {
-    import('components/forms')
-      .then(m => {
-        m.initSelectPickers();
-      })
-      .catch(error => showComponentError(error));
-  }
   if (sections.includes('studentAssignment')) {
     import(/* webpackChunkName: "gradebook" */ 'teaching/studentAssignment')
       .then(module => {

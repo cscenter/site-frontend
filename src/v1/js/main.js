@@ -34,6 +34,21 @@ $(document).ready(function () {
   fn.initUberEditors();
 
   let sections = getSections();
+  if (sections.includes('datetimepickers')) {
+    import('components/forms')
+      .then(m => {
+        m.initDatePickers();
+        m.initTimePickers();
+      })
+      .catch(error => showComponentError(error));
+  }
+  if (sections.includes('selectpickers')) {
+    import('components/forms')
+      .then(m => {
+        m.initSelectPickers();
+      })
+      .catch(error => showComponentError(error));
+  }
   if (sections.includes('lazy-img')) {
     import(/* webpackChunkName: "lazyload" */ 'components/lazyload')
       .then(m => m.launch())

@@ -32,7 +32,6 @@ export default function launch() {
 }
 
 function updateCheckingSystemForm(assignmentFormat) {
-  const checkingSystemSelect = $('select[name=checking_system]');
   if (assignmentFormat !== null && checkerSubmissionFormats.includes(assignmentFormat)) {
     checkingSystemFieldSet.removeClass('hidden');
   } else {
@@ -41,6 +40,7 @@ function updateCheckingSystemForm(assignmentFormat) {
   // Disable all options except Yandex.Contest
   let disableOtherOptions = assignmentFormat === 'ya.contest';
   const YandexContestCheckingSystemId = 1;
+  const checkingSystemSelect = $('select[name=assignment-checking_system]');
   checkingSystemSelect.val(YandexContestCheckingSystemId);
   checkingSystemSelect
     .find(`option[value!=${YandexContestCheckingSystemId}]`)

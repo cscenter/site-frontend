@@ -55,12 +55,11 @@ const i18n = {
       // no_submission: "Не сдавал"
     },
     statuses: {
-      not_submitted: 'Не отправлено',
-      not_checked: 'Не проверено',
-      unsatisfactory: 'Незачет',
-      pass: 'Удовлетворительно',
-      good: 'Хорошо',
-      excellent: 'Отлично'
+      new: 'Создано',
+      not_submitted: 'Не сдано',
+      on_checking: 'На проверке',
+      need_fixes: 'Ждёт исправления',
+      completed: 'Выполнено'
     }
   },
   enrollments: {

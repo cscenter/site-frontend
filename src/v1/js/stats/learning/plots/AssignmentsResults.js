@@ -21,8 +21,7 @@ class AssignmentsResults extends mix(PlotOptions).with(AssignmentsFilterMixin) {
 
     // Order is unspecified for Object, but I believe browsers sort
     // it in a proper way
-    // TODO: rename?
-    this.states = Object.keys(i18n.submissions.statuses).reduce((m, k) => {
+    this.statuses = Object.keys(i18n.submissions.statuses).reduce((m, k) => {
       return m.set(k, i18n.submissions.statuses[k]);
     }, new Map());
 
@@ -44,22 +43,22 @@ class AssignmentsResults extends mix(PlotOptions).with(AssignmentsFilterMixin) {
   }
 
   convertData = rawJSON => {
-    let states = Array.from(this.states, ([k, v]) => v),
+    let statuses = Array.from(this.statuses, ([k, v]) => v),
       titles = [],
-      rows = [states];
+      rows = [statuses];
 
     rawJSON
       .filter(a => this.matchFilters(a, 'assignment'))
       .forEach(assignment => {
         titles.push(assignment.title);
-        let counters = states.reduce(function (a, b) {
+        let counters = statuses.reduce(function (a, b) {
           return a.set(b, 0);
         }, new Map());
         assignment.students
           .filter(sa => this.matchFilters(sa, 'student_assignment'))
-          .forEach(student => {
-            let state = this.states.get(student.state);
-            counters.set(state, counters.get(state) + 1);
+          .forEach(personalAssignment => {
+            let status = this.statuses.get(personalAssignment.status);
+            counters.set(status, counters.get(status) + 1);
           });
         rows.push(Array.from(counters, ([k, v]) => v));
       });

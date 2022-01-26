@@ -22,8 +22,8 @@ export const scoreOptions = [
   { value: 'set', label: 'С оценкой' }
 ];
 
-export function getScoreClass(state) {
-  return state.replace('/_/g', '-');
+export function getScoreClass(status) {
+  return (status || '').replace('/_/g', '-');
 }
 
 export const useIsMount = () => {
@@ -35,20 +35,30 @@ export const useIsMount = () => {
 };
 
 export const FiltersURLSearchParams = (function () {
-  function FiltersURLSearchParams(state = {}) {
-    this.course = state.course;
-    this.assignments = state.assignments;
-  }
+  function FiltersURLSearchParams() {}
 
   FiltersURLSearchParams.prototype.assign = function (...sources) {
     Object.assign(this, ...sources);
   };
 
+  // TODO: configure name alias and value serializer with object constructor or try to replace with `query-string` package
   FiltersURLSearchParams.prototype.toString = function () {
     let search = `?course=${this.course}&assignments=${this.assignments.join(',')}`;
-    // if (this.reviewers && this.reviewers.length > 0) {
-    //   search += `&reviewers=${this.reviewers.join(',')}`;
-    // }
+    if (this['reviewers'] && this['reviewers'].length > 0) {
+      search += `&reviewers=${this['reviewers'].join(',')}`;
+    }
+    const selectedActivities = this['activities'];
+    if (selectedActivities && selectedActivities.length > 0) {
+      search += `&activities=${selectedActivities.join(',')}`;
+    } else {
+      search += `&activities=`;
+    }
+    if (this['score'] && this['score'].length > 0) {
+      search += `&score=${this['score'].join(',')}`;
+    }
+    if (this['studentGroups'] && this['studentGroups'].length > 0) {
+      search += `&studentGroups=${this['studentGroups'].join(',')}`;
+    }
     return search;
   };
 
@@ -56,7 +66,7 @@ export const FiltersURLSearchParams = (function () {
 })();
 
 // TODO: Include polyfill https://www.npmjs.com/package/@ungap/url-search-params
-export function useQuery() {
+export function useQueryParams() {
   let location = useLocation();
   return useMemo(() => {
     const params = {};
@@ -64,11 +74,18 @@ export function useQuery() {
     for (let [key, value] of props.entries()) {
       if (key === 'course') {
         value = parseInt(value, 10) || null;
-      } else if (key === 'assignments') {
+      } else if (['assignments', 'studentGroups'].includes(key)) {
         value = value
           .split(',')
           .map(x => parseInt(x, 10))
-          .filter(Boolean);
+          .filter(Boolean); // Removes all falsy values including zeroes
+      } else if (['score', 'activities'].includes(key)) {
+        value = value.split(',').filter(Boolean);
+      } else if (key === 'reviewers') {
+        value = value
+          .split(',')
+          .map(x => (x !== 'unset' ? parseInt(x, 10) : x))
+          .filter(Boolean); // Removes all falsy values including zeroes
       }
       params[key] = value;
     }
@@ -109,7 +126,7 @@ export function parsePersonalAssignments({ items, studentGroups, timeZone, local
       assignee: item.assignee,
       student: item.student,
       score: item.score,
-      state: item.state,
+      status: item.status,
       activity: item.activity,
       studentGroupId: studentGroups.get(item.student.id)
     };
@@ -142,7 +159,7 @@ export const useFilterState = (initialState = {}) => {
       setFilters(Object.assign({}, filters, { [name]: value }));
     }
   };
-  return [filters, onFilterChange];
+  return [filters, setFilters, onFilterChange];
 };
 
 export const pipe = (...fns) => x => fns.reduce((v, f) => f(v), x); // eslint-disable-line
@@ -158,7 +175,7 @@ const includesReviewer = (item, filterValues) => {
   if (!filterValues || filterValues.length === 0) {
     return true;
   }
-  return filterValues.includes(item.assignee !== null ? item.assignee.id.toString() : 'unset');
+  return filterValues.includes(item.assignee !== null ? item.assignee.id : 'unset');
 };
 
 const includesScore = (item, filterValues) => {
@@ -181,7 +198,7 @@ export function getFilteredPersonalAssignments(items, filters) {
   }
   return items.filter(item => {
     return (
-      includesActivity(item, filters.activity) &&
+      includesActivity(item, filters.activities) &&
       includesReviewer(item, filters.reviewers) &&
       includesScore(item, filters.score) &&
       includesStudentGroup(item, filters.studentGroups)

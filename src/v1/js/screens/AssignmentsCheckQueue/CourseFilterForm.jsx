@@ -73,7 +73,7 @@ const CourseFilterForm = ({
     e.preventDefault();
     onSubmitForm({
       course: parseInt(course, 10),
-      selectedAssignments: assignments
+      assignments
     });
   };
 

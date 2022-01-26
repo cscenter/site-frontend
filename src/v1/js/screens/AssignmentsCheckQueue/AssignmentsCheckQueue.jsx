@@ -9,6 +9,7 @@ import {
   Routes,
   useNavigate
 } from 'react-router-dom';
+import isEqual from 'lodash-es/isEqual';
 
 import { createNotification } from 'utils';
 import Checkbox from 'components/Checkbox';
@@ -24,7 +25,7 @@ import {
   stateReducer,
   useFilterState,
   FiltersURLSearchParams,
-  useQuery
+  useQueryParams
 } from './utils';
 
 const fetchData = async (
@@ -45,13 +46,13 @@ const fetchData = async (
     .then(responses => {
       const [[assignmentsJSON, enrollmentsJSON], personalAssignmentsJSON] =
         responses;
-      const assignmentsMap = parseAssignments({
+      const assignments = parseAssignments({
         items: assignmentsJSON,
         timeZone,
         locale: ru
       });
       const assignmentOptions = [];
-      assignmentsMap.forEach((assignment, key) => {
+      assignments.forEach((assignment, key) => {
         assignmentOptions.push({
           value: assignment.id,
           label: assignment.title
@@ -69,9 +70,9 @@ const fetchData = async (
       });
       updateState({
         isInitialized: true,
-        assignments: assignmentsMap,
-        assignmentOptions,
-        studentGroups: studentGroups,
+        assignments,
+        assignmentOptions, // TODO: useMemo instead
+        studentGroups,
         personalAssignments
       });
     })
@@ -137,7 +138,7 @@ const fetchPersonalAssignments = async (
     });
 };
 
-const pullPersonalAssignments = async (
+const refetchPersonalAssignments = async (
   [csrfToken, timeZone, updateState, studentGroups, searchParams],
   controller
 ) => {
@@ -172,16 +173,14 @@ function AssignmentsCheckQueue({
   courseGroups,
   initialState
 }) {
-  const queryParams = useQuery();
+  const queryParams = useQueryParams();
   const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
   const [state, updateState] = useReducer(stateReducer, {
     isInitialized: false,
-    course: initialState.course,
     assignments: new Map(),
     assignmentOptions: [],
-    selectedAssignments: initialState.selectedAssignments,
     personalAssignments: null,
     studentGroups: null
   });
@@ -189,7 +188,7 @@ function AssignmentsCheckQueue({
     state;
   const { counter: fetchCounter, run } = useAsync({
     promiseFn: fetchData,
-    deferFn: pullPersonalAssignments,
+    deferFn: refetchPersonalAssignments,
     csrfToken,
     timeZone,
     queryParams,
@@ -197,28 +196,31 @@ function AssignmentsCheckQueue({
     updateState
   });
 
-  const [filters, onFilterChange] = useFilterState({
-    activity: [activities.SC, activities.NS],
-    score: [],
-    reviewers: [],
-    studentGroups: []
+  const [filters, setFilters, onFilterChange] = useFilterState({
+    course: initialState.course,
+    assignments: initialState.selectedAssignments,
+    activities: queryParams.activities || [activities.SC, activities.NS],
+    score: queryParams.score || [],
+    reviewers: queryParams.reviewers || [],
+    studentGroups: queryParams.studentGroups || []
   });
 
   console.debug('filters on render', filters);
 
-  const handleSubmitForm = ({ course, selectedAssignments }) => {
-    const filterURLSearchParams = new FiltersURLSearchParams({
+  const handleSubmitForm = ({ course, assignments }) => {
+    const filterURLSearchParams = new FiltersURLSearchParams();
+    filterURLSearchParams.assign(filters, {
       course,
-      assignments: selectedAssignments
+      assignments
     });
-    filterURLSearchParams.assign({ reviewers: filters.reviewers });
+
     // In case of changing course value we should fetch new student groups
     // As a workaround let's reload the page
-    if (filterURLSearchParams.course !== state.course) {
+    if (filterURLSearchParams.course !== filters.course) {
       window.location.href = filterURLSearchParams.toString();
       return;
     }
-    console.debug('navigate()');
+    console.debug('navigate()', filterURLSearchParams);
     navigate(window.location.pathname + filterURLSearchParams.toString());
   };
 
@@ -227,25 +229,53 @@ function AssignmentsCheckQueue({
     if (!state.isInitialized) {
       return;
     }
-    const filterURLSearchParams = new FiltersURLSearchParams({
-      // Fallback to default values
+    console.debug('Eval history.listen() callback');
+
+    const filtersPrevious = filters;
+    const filtersNext = Object.assign({}, filtersPrevious, {
       course: queryParams.course || initialState.course,
-      assignments: queryParams.assignments || initialState.selectedAssignments
+      assignments: queryParams.assignments || initialState.selectedAssignments,
+      score: queryParams.score || [],
+      activities: queryParams.activities || [activities.SC, activities.NS],
+      studentGroups: queryParams.studentGroups || [],
+      reviewers: queryParams.reviewers || []
     });
-    filterURLSearchParams.assign({ reviewers: filters.reviewers });
-    // TODO: filter out personal assignments and update state instead of
-    //  fetching if only some assignment checkboxes were removed
-    run(csrfToken, timeZone, updateState, studentGroups, filterURLSearchParams);
-    // Rerender multiple select in CourseFilterForm
-    updateState({
-      personalAssignments: null,
-      selectedAssignments:
-        queryParams.assignments || initialState.selectedAssignments
-    });
+
+    if (!isEqual(filtersPrevious, filtersNext)) {
+      setFilters(filtersNext);
+    }
+    // Refetch logic
+    const formFiltersPrevious = {
+      course: filtersPrevious.course,
+      assignments: filtersPrevious.assignments
+    };
+    const formFiltersNext = {
+      course: filtersNext.course,
+      assignments: filtersNext.assignments
+    };
+    if (!isEqual(formFiltersPrevious, formFiltersNext)) {
+      // TODO(perf): filter out personal assignments and update state instead of
+      //  fetching if only some assignment checkboxes were removed
+      console.debug('Fetch personal assignments');
+      const filterURLSearchParams = new FiltersURLSearchParams();
+      filterURLSearchParams.assign(filtersNext);
+      run(
+        csrfToken,
+        timeZone,
+        updateState,
+        studentGroups,
+        filterURLSearchParams
+      );
+      // Rerender multiple select in CourseFilterForm
+      updateState({
+        personalAssignments: null
+      });
+    }
+
     if (fetchCounter > 0) {
       setPage(1);
     }
-    // Skip `state` to trigger callback on changing query parameters only
+    // XXX: Skip `state` to trigger callback on changing query parameters only
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [run, csrfToken, setPage, timeZone, updateState, queryParams]);
 
@@ -257,18 +287,27 @@ function AssignmentsCheckQueue({
     } else {
       values = values.filter(v => v !== value);
     }
-    setPage(1);
-    onFilterChange({ name, value: values });
+
+    const filterURLSearchParams = new FiltersURLSearchParams();
+    filterURLSearchParams.assign(filters, {
+      [name]: values
+    });
+    navigate(window.location.pathname + filterURLSearchParams.toString());
   };
 
-  const setActivityFilter = e =>
-    setFilterValues('activity', e.target.value, e.target.checked);
+  const setActivitiesFilter = e =>
+    setFilterValues('activities', e.target.value, e.target.checked);
 
   const setScoreFilter = e =>
     setFilterValues('score', e.target.value, e.target.checked);
 
-  const setReviewersFilter = e =>
-    setFilterValues('reviewers', e.target.value, e.target.checked);
+  const setReviewersFilter = e => {
+    const value =
+      e.target.value !== 'unset'
+        ? parseInt(e.target.value, 10)
+        : e.target.value;
+    setFilterValues('reviewers', value, e.target.checked);
+  };
 
   const setStudentGroupsFilter = e =>
     setFilterValues(
@@ -281,15 +320,24 @@ function AssignmentsCheckQueue({
     personalAssignments,
     filters
   );
+  const isLoaded = personalAssignments !== null;
 
   return (
     <>
+      <h1 className="mb-30">
+        Очередь проверки
+        {isLoaded && (
+          <span className="text-muted">
+            &nbsp;{filteredPersonalAssignments.length}
+          </span>
+        )}
+      </h1>
       <CourseFilterForm
         timeZone={timeZone}
         courseOptions={courseOptions}
         assignmentOptions={assignmentOptions}
-        selectedCourse={state.course}
-        selectedAssignments={state.selectedAssignments}
+        selectedCourse={filters.course}
+        selectedAssignments={filters.assignments}
         onSubmitForm={handleSubmitForm}
       />
       <div className="row">
@@ -297,7 +345,7 @@ function AssignmentsCheckQueue({
           <PersonalAssignmentList
             page={page}
             setPage={setPage}
-            isLoading={personalAssignments === null}
+            isLoading={!isLoaded}
             assignments={assignments}
             items={filteredPersonalAssignments}
           />
@@ -308,13 +356,14 @@ function AssignmentsCheckQueue({
             <h5>Последняя активность</h5>
             {activityOptions.map(option => (
               <Checkbox
-                name="activity"
+                name="activities"
                 key={option.value}
                 value={option.value}
-                defaultChecked={
-                  filters.activity && filters.activity.includes(option.value)
+                checked={
+                  !!filters.activities &&
+                  filters.activities.includes(option.value)
                 }
-                onChange={setActivityFilter}
+                onChange={setActivitiesFilter}
                 label={option.label}
               />
             ))}
@@ -327,6 +376,9 @@ function AssignmentsCheckQueue({
                 key={`score-${option.value}`}
                 name="score"
                 value={option.value}
+                checked={
+                  !!filters.score && filters.score.includes(option.value)
+                }
                 onChange={setScoreFilter}
                 label={option.label}
               />
@@ -341,6 +393,10 @@ function AssignmentsCheckQueue({
                   key={`reviewer-${option.value}`}
                   name="reviewers"
                   value={option.value}
+                  checked={
+                    !!filters.reviewers &&
+                    filters.reviewers.includes(option.value)
+                  }
                   onChange={setReviewersFilter}
                   label={option.label}
                 />
@@ -356,6 +412,10 @@ function AssignmentsCheckQueue({
                     name="studentGroups"
                     key={`student-group-${option.value}`}
                     value={option.value}
+                    checked={
+                      !!filters.studentGroups &&
+                      filters.studentGroups.includes(option.value)
+                    }
                     onChange={setStudentGroupsFilter}
                     label={option.label}
                   />

@@ -58,7 +58,7 @@ const PersonalAssignment = ({ data, assignments }) => {
       </td>
       <td>{assigneeFullName}</td>
       <td>
-        <span className={`assignment-status ${getScoreClass(data.state)}`}>
+        <span className={`assignment-status ${getScoreClass(data.status)}`}>
           {formatScore(score)}/{assignment.maximumScore}
         </span>
       </td>
@@ -85,7 +85,7 @@ PersonalAssignment.propTypes = {
       }).isRequired
     }),
     score: PropTypes.string,
-    state: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
     activity: PropTypes.shape({
       code: PropTypes.string.isRequired,
       dt: PropTypes.instanceOf(Date).isRequired,

@@ -10,8 +10,10 @@
  * * Customize babel-jest and directly pass in global options
  **/
 
+const babelJest = require('babel-jest').default;
+
 const babelOptions = {
   plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/plugin-transform-modules-commonjs']
 };
 
-module.exports = require('babel-jest').createTransformer(babelOptions);
+module.exports = babelJest.createTransformer(babelOptions);

@@ -58,7 +58,7 @@ module.exports = {
   // globals: {},
 
   // An array of directory names to be searched recursively up from the requiring module's location
-  moduleDirectories: ['node_modules', '<rootDir>'],
+  moduleDirectories: ['node_modules', '<rootDir>/src/v2/js'],
 
   // An array of file extensions your modules use
   moduleFileExtensions: [
@@ -71,7 +71,7 @@ module.exports = {
   // A map from regular expressions to module names that allow to stub out resources with a single module
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
-      '<rootDir>/__mocks__/fileMock.js',
+      '<rootDir>jest/__mocks__/fileMock.js',
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy'
   },
 
@@ -109,9 +109,7 @@ module.exports = {
   // rootDir: null,
 
   // A list of paths to directories that Jest should use to search for files in
-  // roots: [
-  //   "<rootDir>"
-  // ],
+  roots: ['<rootDir>/src/v2/js'],
 
   // Allows you to use a custom runner instead of Jest's default test runner
   // runner: "jest-runner",
@@ -120,7 +118,7 @@ module.exports = {
   // setupFiles: [],
 
   // The path to a module that runs some code to configure or set up the testing framework before each test
-  setupFilesAfterEnv: ['./enzyme.config.js'],
+  setupFilesAfterEnv: ['<rootDir>/jest/enzyme.config.js'],
 
   // A list of paths to snapshot serializer modules Jest should use for snapshot testing
   snapshotSerializers: ['enzyme-to-json/serializer'],
@@ -167,7 +165,7 @@ module.exports = {
   // }
   transform: {
     // "^.+\\.jsx?$": "babel-jest"
-    '^.+\\.jsx?$': '<rootDir>/jest.transform.js'
+    '^.+\\.jsx?$': '<rootDir>/jest/jest.transform.js'
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation

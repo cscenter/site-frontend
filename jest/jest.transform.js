@@ -13,7 +13,10 @@
 const babelJest = require('babel-jest').default;
 
 const babelOptions = {
-  plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/plugin-transform-modules-commonjs']
+  plugins: [
+    '@babel/plugin-proposal-object-rest-spread',
+    '@babel/plugin-transform-modules-commonjs'
+  ]
 };
 
 module.exports = babelJest.createTransformer(babelOptions);

@@ -6,7 +6,7 @@ module.exports = api => {
         'module:@cscenter/babel-preset',
         {
           typescript: false,
-          runtime: "classic"
+          runtime: 'classic'
         }
       ]
     ],
@@ -14,12 +14,12 @@ module.exports = api => {
       isEnvTest && ['@babel/plugin-transform-modules-commonjs'],
       isEnvTest && ['dynamic-import-node'],
       // Stage 2
-      ["@babel/plugin-proposal-decorators", {"legacy": true}],
-      "@babel/plugin-proposal-function-sent",
-      "@babel/plugin-proposal-throw-expressions",
+      ['@babel/plugin-proposal-decorators', { legacy: true }],
+      '@babel/plugin-proposal-function-sent',
+      '@babel/plugin-proposal-throw-expressions',
       // Stage 3
-      "@babel/plugin-syntax-dynamic-import",
-      "@babel/plugin-syntax-import-meta",
+      '@babel/plugin-syntax-dynamic-import',
+      '@babel/plugin-syntax-import-meta'
     ].filter(Boolean)
   };
-}
+};

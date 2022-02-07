@@ -88,7 +88,6 @@ const common = {
           {
             loader: 'babel-loader',
             options: {
-              extends: path.resolve(__srcdir, 'js', '.babelrc.js'),
               cacheDirectory: false
             }
           }

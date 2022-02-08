@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[121],{21923:function(e,t,n){function a(){$(".gallery a").magnificPopup({type:"image",image:{titleSrc:function(e){return e.el.attr("title")}},gallery:{enabled:!0,tCounter:'<span class="mfp-counter">%curr% из %total%</span>'},disableOn:400,key:"teacher-gallery"})}n.r(t),n.d(t,{launch:function(){return a}})}}]);

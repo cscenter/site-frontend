@@ -8,19 +8,17 @@ let __outputdir = path.join(__dirname, `../assets/${APP_VERSION}/dist/local`);
 
 module.exports = {
   mode: 'development',
-  devtool: 'cheap-eval-source-map',
+  devtool: 'eval-cheap-source-map',
 
   output: {
+    filename: '[name]-[fullhash].js',
     publicPath: 'http://csc.test:8081/'
   },
 
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"development"'
-      }
+      'process.env.NODE_ENV': JSON.stringify('development')
     }),
-    new webpack.HotModuleReplacementPlugin(),
     new BundleTracker({
       path: __outputdir,
       filename: `webpack-stats-${APP_VERSION}.json`
@@ -29,7 +27,7 @@ module.exports = {
 
   // This is default settings for development mode, but lets set it explicitly
   optimization: {
-    namedModules: true,
+    moduleIds: 'named',
     concatenateModules: false,
     runtimeChunk: 'single'
   },

@@ -5,29 +5,33 @@ const BundleTracker = require('webpack-bundle-tracker');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // clean build dir before building
 const TerserPlugin = require('terser-webpack-plugin');
 const SentryWebpackPlugin = require('@sentry/webpack-plugin');
-const DeleteSourceMapWebpackPlugin = require('delete-sourcemap-webpack-plugin');
 
 const APP_VERSION = process.env.APP_VERSION || 'v1';
 const LOCAL_BUILD = process.env.LOCAL_BUILD === '1';
+const DEBUG = process.env.DEBUG === '1';
+const BUILD_DIR = LOCAL_BUILD ? 'local' : 'prod';
 
-let __outputdir = path.join(__dirname, `../assets/${APP_VERSION}/dist/prod`);
+let __outputdir = path.join(
+  __dirname,
+  `../assets/${APP_VERSION}/dist/${BUILD_DIR}`
+);
 
 // TODO: add css minimization
-const prodConfiguration = {
+const config = {
   mode: 'production',
 
-  devtool: 'hidden-source-map',
+  devtool: LOCAL_BUILD ? 'source-map' : 'hidden-source-map',
 
   output: {
     path: __outputdir,
     filename: '[name]-[chunkhash].js',
-    sourceMapFilename: '[name]-[chunkhash].js.map',
-    chunkFilename: '[name]-[chunkhash].js',
-    publicPath: `/static/${APP_VERSION}/dist/prod/`
+    chunkFilename: '[name].[chunkhash].js',
+    publicPath: `/static/${APP_VERSION}/dist/${BUILD_DIR}/`
   },
 
   stats: {
     colors: false,
+    errorDetails: true,
     hash: true,
     timings: true,
     assets: true,
@@ -38,13 +42,14 @@ const prodConfiguration = {
   },
 
   optimization: {
-    namedModules: false,
-    concatenateModules: true,
     runtimeChunk: 'single',
-    moduleIds: 'hashed',
+    moduleIds: 'deterministic',
+    concatenateModules: true,
+    minimize: !DEBUG,
     minimizer: [
       new TerserPlugin({
-        sourceMap: true, // Must be set to true if using source-maps in production
+        extractComments: true, // extract licenses into separate file
+        // TODO: consider to use https://webpack.js.org/plugins/terser-webpack-plugin/#swc (TODO: remove console.debug with swc)
         terserOptions: {
           compress: {
             pure_funcs: ['console.debug']
@@ -60,25 +65,21 @@ const prodConfiguration = {
       cleanOnceBeforeBuildPatterns: ['**/*', '!.gitattributes']
     }),
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
+      'process.env.NODE_ENV': JSON.stringify('production')
     }),
     // Ignore all locale files of moment.js
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
-    // Need this plugin for deterministic hashing
-    // until this issue is resolved: https://github.com/webpack/webpack/issues/1315
-    //new webpack.HashedModuleIdsPlugin(),
-  ]
-};
-
-if (!LOCAL_BUILD) {
-  prodConfiguration.plugins.push(
+    new webpack.IgnorePlugin({
+      resourceRegExp: /^\.\/locale$/,
+      contextRegExp: /moment$/
+    }),
     new BundleTracker({
       path: __outputdir,
       filename: `webpack-stats-${APP_VERSION}.json`
     })
-  );
+  ]
+};
+
+if (!LOCAL_BUILD) {
   const sentryPlugins = [
     new SentryWebpackPlugin({
       include: [__outputdir],
@@ -91,11 +92,10 @@ if (!LOCAL_BUILD) {
       errorHandler: function (err, invokeErr) {
         console.log(`Sentry CLI Plugin: ${err.message}`);
       }
-    }),
-    // Delete source maps after uploading to sentry.io
-    new DeleteSourceMapWebpackPlugin()
+    })
+    // TODO: Delete source maps after uploading to sentry.io
   ];
-  prodConfiguration.plugins.push(...sentryPlugins);
+  config.plugins.push(...sentryPlugins);
 }
 
-module.exports = prodConfiguration;
+module.exports = config;

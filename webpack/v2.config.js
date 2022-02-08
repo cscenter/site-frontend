@@ -1,49 +1,35 @@
 const path = require('path');
 const webpack = require('webpack');
-const merge = require('webpack-merge'); // merge webpack configs
+const { merge } = require('webpack-merge'); // merge webpack configs
 const Dotenv = require('dotenv-webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
-const DEBUG = process.env.NODE_ENV !== 'production';
-const LOCAL_BUILD = process.env.LOCAL_BUILD === '1';
-
-const development = require('./dev.config');
-const production = require('./prod.config');
-const localConfiguration = require('./local.config');
-
 process.env.BABEL_ENV = process.env.NODE_ENV;
 
 const APP_VERSION = 'v2';
+const DEVELOPMENT = process.env.NODE_ENV === 'development';
 
 const __srcdir = path.join(__dirname, `../src/${APP_VERSION}`);
 const __nodemodulesdir = path.join(__dirname, '../node_modules');
-
 // All dependencies will be copied to path, relative to bundles output
 const STATIC_URL = path.join('/static/');
-
-const PATHS = {
-  common: path.join(__srcdir, '/js/main.js')
-};
 
 const common = {
   context: __srcdir,
 
   entry: {
+    // TODO: rename to `shared`
     common: [
-      // "core-js/stable",
-      // "regenerator-runtime/runtime",
+      'core-js/stable',
+      'regenerator-runtime/runtime', // support async
       //'jquery',
       'ky',
       'popper.js',
       'fontfaceobserver',
       'noty'
     ],
-    main: PATHS.common
-  },
-
-  output: {
-    filename: '[name]-[hash].js'
+    main: { import: path.join(__srcdir, '/js/main.js'), dependOn: 'common' }
   },
 
   externals: {},
@@ -82,31 +68,14 @@ const common = {
         test: /\.s?[ac]ss$/,
         exclude: __nodemodulesdir,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              hmr: DEBUG
-            }
-          },
-          {
-            loader: 'css-loader', // translates CSS into CommonJS modules
-            options: {
-              sourceMap: DEBUG
-            }
-          },
-          {
-            loader: 'postcss-loader', // Run post css actions
-            options: {
-              // See `postcss.config.js` for details
-              sourceMap: DEBUG
-            }
-          },
+          DEVELOPMENT ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader', // translates CSS into CommonJS modules
+          'postcss-loader',
           {
             loader: 'sass-loader', // compiles SASS to CSS
             options: {
-              sourceMap: DEBUG,
-              outputStyle: 'expanded',
               sassOptions: {
+                outputStyle: 'expanded',
                 // precision: 8,
                 includePaths: [__nodemodulesdir]
               }
@@ -117,7 +86,7 @@ const common = {
       {
         test: /\.css$/,
         use: [
-          DEBUG ? 'style-loader' : MiniCssExtractPlugin.loader,
+          DEVELOPMENT ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader'
         ]
       },
@@ -147,7 +116,7 @@ const common = {
                 return `assets/${url}`;
               },
               postTransformPublicPath: p => `__webpack_public_path__ + ${p}`,
-              emitFile: !DEBUG
+              emitFile: !DEVELOPMENT
             }
           }
         ]
@@ -179,23 +148,26 @@ const common = {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: DEBUG ? '[name].css' : '[name].[hash].css',
-      chunkFilename: DEBUG ? '[id].[name].css' : '[name]-[chunkhash].css'
+      filename: DEVELOPMENT ? '[name].css' : '[name]-[contenthash].css',
+      chunkFilename: DEVELOPMENT
+        ? '[id].[name].css'
+        : '[name]-[contenthash].css'
     }),
     new ESLintPlugin()
   ],
 
   optimization: {
     splitChunks: {
-      chunks: 'async',
+      chunks: 'all',
       minSize: 30000,
       minChunks: 2,
       maxAsyncRequests: 6,
       maxInitialRequests: 4,
       automaticNameDelimiter: '~',
-      automaticNameMaxLength: DEBUG ? 109 : 30,
       // name: true,
       cacheGroups: {
+        // Add core-js modules to `common` js entrypoint
+        // TODO: better to move `common` entry point imports to this chunk e.g. https://stackoverflow.com/a/48986526/1341309
         common: {
           chunks: 'all',
           test: /(common|[\\/]node_modules[\\/]core-js[\\/])/,
@@ -227,14 +199,10 @@ const common = {
 };
 
 let appConfig;
-if (process.env.NODE_ENV !== 'development') {
-  let configs = [common, production];
-  if (LOCAL_BUILD) {
-    configs.push(localConfiguration);
-  }
-  appConfig = merge(configs);
+if (DEVELOPMENT) {
+  appConfig = merge(common, require('./dev.config'));
 } else {
-  appConfig = merge(common, development);
+  appConfig = merge(common, require('./prod.config'));
 }
 
 module.exports = appConfig;

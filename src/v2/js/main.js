@@ -1,9 +1,9 @@
 // FIXME: polyfill for classList? https://www.npmjs.com/package/classlist-polyfill
 // FIXME:  https://babeljs.io/docs/en/next/babel-plugin-syntax-dynamic-import#working-with-webpack-and-babel-preset-env
-import 'core-js/modules/es.array.iterator';
-import 'core-js/modules/es.promise';
+// import 'core-js/modules/es.array.iterator';
+// import 'core-js/modules/es.promise';
 // Sentry needs Object.assign
-import 'core-js/modules/es.object.assign';
+// import 'core-js/modules/es.object.assign';
 import * as Sentry from '@sentry/browser';
 import Bootstrap4Dropdown from 'bootstrap.native/src/components-v4/dropdown-native';
 import Bootstrap4Collapse from 'bootstrap.native/src/components-v4/collapse-native';
@@ -198,7 +198,6 @@ function loadLazyImages() {
 function renderLatex() {
   const katexBlocks = document.getElementsByClassName('math-support');
   if (katexBlocks.length > 0) {
-    import(/* webpackChunkName: "katex" */ 'katex/dist/katex.css');
     import(/* webpackChunkName: "katex" */ 'katex_renderer')
       .then(module => {
         Array.from(katexBlocks).forEach(function (mathBlock) {

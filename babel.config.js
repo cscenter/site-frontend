@@ -5,6 +5,7 @@ module.exports = api => {
       [
         'module:@cscenter/babel-preset',
         {
+          presetUseBuiltIns: 'usage',
           typescript: false,
           runtime: 'classic'
         }

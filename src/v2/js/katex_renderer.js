@@ -1,6 +1,6 @@
-// FIXME: check
-// import katex from "katex";
 import renderMathInElement from 'katex/dist/contrib/auto-render.js';
+
+import 'katex/dist/katex.css';
 
 let katexOptions = {
   delimiters: [

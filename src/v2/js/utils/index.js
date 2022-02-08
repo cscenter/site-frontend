@@ -62,6 +62,7 @@ export function getSections() {
 
 export function showComponentError(error, msg = 'An error occurred while loading the component') {
   showErrorNotification(msg);
+  // eslint-disable-next-line no-console
   console.error(error);
 }
 

@@ -18,13 +18,14 @@ function initAssignmentScoreAuditLog() {
         `${header} <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>`
       );
       const dateToString = formatWithOptions({ locale: ru }, 'd LLL yyyy HH:mm');
+      const timeZone = window.__CSC__?.profile?.timezone || 'UTC';
       data.edges.forEach(node => {
         const editor = node.changedBy;
         const fullName = `${editor.lastName} ${editor.firstName} ${editor.patronymic}`.trim();
         node.author = fullName || editor.username;
         node.source = data.sources[node.source];
         const created = new Date(node.createdAt);
-        const zonedDate = utcToZonedTime(created, 'UTC');
+        const zonedDate = utcToZonedTime(created, timeZone);
         node.createdAt = dateToString(zonedDate);
       });
       const html = template({ edges: data.edges });

@@ -169,7 +169,9 @@ const common = {
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       filename: DEVELOPMENT ? '[name].css' : '[name].[hash].css',
-      chunkFilename: DEVELOPMENT ? '[id].[name].css' : '[name]-[chunkhash].css'
+      chunkFilename: DEVELOPMENT
+        ? '[id].[name].css'
+        : '[name]-[contenthash].css'
     })
   ],
 

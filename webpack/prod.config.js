@@ -24,8 +24,8 @@ const config = {
 
   output: {
     path: __outputdir,
-    filename: '[name]-[chunkhash].js',
-    chunkFilename: '[name].[chunkhash].js',
+    filename: '[name]-[contenthash].js',
+    chunkFilename: '[name].[contenthash].js',
     publicPath: `/static/${APP_VERSION}/dist/${BUILD_DIR}/`
   },
 

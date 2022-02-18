@@ -37,6 +37,6 @@ module.exports = {
     hot: true,
     host: '0.0.0.0',
     headers: { 'Access-Control-Allow-Origin': '*' },
-    allowedHosts: ['.csc.test']
+    allowedHosts: ['.csc.test', '.club.ru', 'lk.shad.test']
   }
 };

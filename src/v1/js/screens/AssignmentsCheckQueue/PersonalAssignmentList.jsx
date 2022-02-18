@@ -24,10 +24,13 @@ function formatScore(score) {
 const PersonalAssignment = ({ data, assignments }) => {
   const { student, assignee, activity, score, assignmentId } = data;
   const assignment = assignments.get(assignmentId);
-  const studentFullName = `${student.lastName} ${student.firstName}`;
+  let studentFullName =
+    `${student.lastName} ${student.firstName} ${student.patronymic}`.trim();
+  studentFullName = studentFullName || student.username;
   let assigneeFullName = '—';
   if (assignee !== null) {
-    assigneeFullName = `${assignee.teacher.lastName} ${assignee.teacher.firstName}`;
+    assigneeFullName =
+      `${assignee.teacher.lastName} ${assignee.teacher.firstName} ${assignee.teacher.patronymic}`.trim();
   }
 
   return (
@@ -73,7 +76,8 @@ PersonalAssignment.propTypes = {
     student: PropTypes.shape({
       firstName: PropTypes.string.isRequired,
       lastName: PropTypes.string.isRequired,
-      patronymic: PropTypes.string
+      patronymic: PropTypes.string,
+      username: PropTypes.string.isRequired
     }).isRequired,
     assignee: PropTypes.shape({
       id: PropTypes.number.isRequired,

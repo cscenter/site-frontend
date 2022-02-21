@@ -24,8 +24,7 @@ const PATHS = {
   learning: path.join(__srcdir, '/js/learning/index.js'),
   teaching: path.join(__srcdir, '/js/teaching/index.js'),
   stats: path.join(__srcdir, '/js/stats/main.js'),
-  center: path.join(__srcdir, '/js/center/index.js'),
-  club: path.join(__srcdir, '/js/club/index.js')
+  center: path.join(__srcdir, '/js/center/index.js')
 };
 
 const VENDOR = [
@@ -40,7 +39,6 @@ const common = {
   entry: {
     main: PATHS.common,
     center: PATHS.center,
-    club: PATHS.club,
     admission: PATHS.admission,
     learning: PATHS.learning,
     teaching: PATHS.teaching,

@@ -55,7 +55,7 @@ $(document).ready(function () {
       .catch(error => showComponentError(error));
   }
   if (sections.includes('gallery')) {
-    import(/* webpackChunkName: "courseGallery" */ 'club/gallery')
+    import(/* webpackChunkName: "gallery" */ 'courses/gallery')
       .then(m => m.launch())
       .catch(error => showComponentError(error));
   }

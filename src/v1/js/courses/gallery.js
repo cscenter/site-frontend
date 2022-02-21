@@ -1,3 +1,5 @@
+import 'magnific-popup';
+
 export function launch() {
   $('.gallery a').magnificPopup({
     type: 'image',

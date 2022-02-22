@@ -33,6 +33,12 @@ module.exports = {
   },
 
   devServer: {
+    client: {
+      overlay: {
+        warnings: false,
+        errors: true
+      }
+    },
     port: 8081,
     hot: true,
     host: '0.0.0.0',

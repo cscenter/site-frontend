@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { activityOptions, getScoreClass } from './utils';
 import Pagination from 'components/Pagination';
-
-const activityCodeLabels = {};
-for (const option of activityOptions) {
-  activityCodeLabels[option.value] = option.label;
-}
+import { formatDistance } from 'date-fns';
+import ruLocale from 'date-fns/locale/ru';
+import { getScoreClass } from './utils';
 
 function formatScore(score) {
   if (score === null) {
@@ -21,8 +18,9 @@ function formatScore(score) {
   }
 }
 
-const PersonalAssignment = ({ data, assignments }) => {
-  const { student, assignee, activity, score, assignmentId } = data;
+const PersonalAssignment = ({ data, assignments, statuses }) => {
+  const { student, assignee, status, score, assignmentId, firstSolutionAt } =
+    data;
   const assignment = assignments.get(assignmentId);
   let studentFullName = `${student.lastName} ${student.firstName}`.trim();
   studentFullName = studentFullName || student.username;
@@ -32,6 +30,14 @@ const PersonalAssignment = ({ data, assignments }) => {
       `${assignee.teacher.lastName} ${assignee.teacher.firstName}`.trim();
   }
 
+  const firstSolutionRelative =
+    firstSolutionAt !== null
+      ? formatDistance(firstSolutionAt, new Date(), {
+          locale: ruLocale,
+          addSuffix: true
+        })
+      : null;
+
   return (
     <tr>
       <td>
@@ -40,12 +46,11 @@ const PersonalAssignment = ({ data, assignments }) => {
         </a>
       </td>
       <td>
-        {activity === null && '—'}
-        {activity !== null && (
+        {statuses[status]}
+        {firstSolutionAt && (
           <>
-            {activityCodeLabels[activity.code]}
             <br />
-            <small className="text-muted">{activity.dtFormatted}</small>
+            <small className="text-muted">{firstSolutionRelative}</small>
           </>
         )}
       </td>
@@ -87,14 +92,11 @@ PersonalAssignment.propTypes = {
         patronymic: PropTypes.string
       }).isRequired
     }),
+    firstSolutionAt: PropTypes.date,
     score: PropTypes.string,
-    status: PropTypes.string.isRequired,
-    activity: PropTypes.shape({
-      code: PropTypes.string.isRequired,
-      dt: PropTypes.instanceOf(Date).isRequired,
-      dtFormatted: PropTypes.string
-    })
+    status: PropTypes.string.isRequired
   }),
+  statuses: PropTypes.object.isRequired,
   assignments: PropTypes.objectOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -113,9 +115,18 @@ const PersonalAssignmentList = ({
   setPage,
   isLoading,
   assignments,
+  statusOptions,
   items
 }) => {
   const isShowPagination = items.length > itemsPerPage;
+  const statuses = useMemo(
+    () =>
+      statusOptions.reduce((acc, option) => {
+        acc[option.value] = option.label;
+        return acc;
+      }, {}),
+    [statusOptions]
+  );
   return (
     <>
       <div className="panel">
@@ -124,7 +135,7 @@ const PersonalAssignmentList = ({
             <thead>
               <tr>
                 <th>Студент</th>
-                <th>Последняя&nbsp;активность</th>
+                <th>Статус</th>
                 <th>Задание</th>
                 <th style={{ width: '60px' }}>Проверяющий</th>
                 <th style={{ width: '60px' }}>Оценка</th>
@@ -152,6 +163,7 @@ const PersonalAssignmentList = ({
                       key={`personal-assignment-${item.id}`}
                       data={item}
                       assignments={assignments}
+                      statuses={statuses}
                     />
                   ))}
             </tbody>
@@ -175,6 +187,12 @@ PersonalAssignmentList.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   items: PropTypes.arrayOf(PropTypes.object),
   assignments: PropTypes.objectOf(Map),
+  statusOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired
+    })
+  ).isRequired,
   page: PropTypes.number.isRequired,
   setPage: PropTypes.func.isRequired
 };

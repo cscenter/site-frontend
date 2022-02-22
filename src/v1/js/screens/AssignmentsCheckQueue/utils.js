@@ -1,21 +1,7 @@
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { formatWithOptions } from 'date-fns/fp';
 import { utcToZonedTime } from 'date-fns-tz';
 import { useLocation } from 'react-router-dom';
-
-export const activities = {
-  NS: 'ns',
-  SC: 'sc',
-  TC: 'tc',
-  UNSET: 'unset'
-};
-
-export const activityOptions = [
-  { value: activities.NS, label: 'Отправлено решение' },
-  { value: activities.SC, label: 'Комментарий студента' },
-  { value: activities.TC, label: 'Комментарий преподавателя' },
-  { value: activities.UNSET, label: 'Нет активности' }
-];
 
 export const scoreOptions = [
   { value: 'unset', label: 'Без оценки' },
@@ -47,11 +33,9 @@ export const FiltersURLSearchParams = (function () {
     if (this['reviewers'] && this['reviewers'].length > 0) {
       search += `&reviewers=${this['reviewers'].join(',')}`;
     }
-    const selectedActivities = this['activities'];
-    if (selectedActivities && selectedActivities.length > 0) {
-      search += `&activities=${selectedActivities.join(',')}`;
-    } else {
-      search += `&activities=`;
+    const selectedStatuses = this['statuses'];
+    if (selectedStatuses && selectedStatuses.length > 0) {
+      search += `&statuses=${selectedStatuses.join(',')}`;
     }
     if (this['score'] && this['score'].length > 0) {
       search += `&score=${this['score'].join(',')}`;
@@ -79,7 +63,7 @@ export function useQueryParams() {
           .split(',')
           .map(x => parseInt(x, 10))
           .filter(Boolean); // Removes all falsy values including zeroes
-      } else if (['score', 'activities'].includes(key)) {
+      } else if (['score', 'statuses'].includes(key)) {
         value = value.split(',').filter(Boolean);
       } else if (key === 'reviewers') {
         value = value
@@ -101,24 +85,10 @@ export const stateReducer = (state, updateArg) => {
   return { ...state, ...updateArg };
 };
 
-function sortPersonalAssignmentsByLatestActivityAsc(a, b) {
-  if (a.activity === null && b.activity === null) {
-    return 0;
-  } else if (a.activity === null) {
-    return -1;
-  } else if (b.activity == null) {
-    return 1;
-  }
-  return a.activity.dt - b.activity.dt;
-}
-
 export function parsePersonalAssignments({ items, studentGroups, timeZone, locale }) {
-  const dateToString = formatWithOptions({ locale }, 'dd LLL HH:mm');
   items.forEach((item, i) => {
-    if (item.activity) {
-      const zonedDate = utcToZonedTime(item.activity.dt, timeZone);
-      item.activity.dt = zonedDate;
-      item.activity.dtFormatted = dateToString(zonedDate);
+    if (item.firstSolutionAt !== null) {
+      item.firstSolutionAt = utcToZonedTime(item.firstSolutionAt, timeZone);
     }
     items[i] = {
       id: item.id,
@@ -126,12 +96,12 @@ export function parsePersonalAssignments({ items, studentGroups, timeZone, local
       assignee: item.assignee,
       student: item.student,
       score: item.score,
+      firstSolutionAt: item.firstSolutionAt,
       status: item.status,
       activity: item.activity,
       studentGroupId: studentGroups.get(item.student.id)
     };
   });
-  items.sort(sortPersonalAssignmentsByLatestActivityAsc);
   return items;
 }
 
@@ -164,11 +134,11 @@ export const useFilterState = (initialState = {}) => {
 
 export const pipe = (...fns) => x => fns.reduce((v, f) => f(v), x); // eslint-disable-line
 
-const includesActivity = (item, filterValues) => {
+const includesStatuses = (item, filterValues) => {
   if (!filterValues || filterValues.length === 0) {
     return true;
   }
-  return filterValues.includes(item.activity !== null ? item.activity.code : 'unset');
+  return filterValues.includes(item.status);
 };
 
 const includesReviewer = (item, filterValues) => {
@@ -198,10 +168,37 @@ export function getFilteredPersonalAssignments(items, filters) {
   }
   return items.filter(item => {
     return (
-      includesActivity(item, filters.activities) &&
+      includesStatuses(item, filters.statuses) &&
       includesReviewer(item, filters.reviewers) &&
       includesScore(item, filters.score) &&
       includesStudentGroup(item, filters.studentGroups)
     );
   });
+}
+
+export function sortPersonalAssignments(items, order) {
+  items.sort(sortPersonalAssignmentsByFirstSolutionAsc);
+  return items;
+}
+
+function sortPersonalAssignmentsByFirstSolutionAsc(a, b) {
+  if (a.firstSolutionAt === null && b.firstSolutionAt === null) {
+    return 0;
+  } else if (a.firstSolutionAt === null) {
+    return 1;
+  } else if (b.firstSolutionAt == null) {
+    return -1;
+  }
+  return a.firstSolutionAt - b.firstSolutionAt;
+}
+
+function sortPersonalAssignmentsByFirstSolutionDesc(a, b) {
+  if (a.firstSolutionAt === null && b.firstSolutionAt === null) {
+    return 0;
+  } else if (a.firstSolutionAt === null) {
+    return 1;
+  } else if (b.firstSolutionAt == null) {
+    return -1;
+  }
+  return a.firstSolutionAt - b.firstSolutionAt;
 }

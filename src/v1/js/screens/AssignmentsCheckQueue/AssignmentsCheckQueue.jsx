@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect } from 'react';
+import React, { useState, useReducer, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import ky from 'ky';
 import { useAsync } from 'react-async';
@@ -16,9 +16,8 @@ import Checkbox from 'components/Checkbox';
 import PersonalAssignmentList from './PersonalAssignmentList';
 import CourseFilterForm from './CourseFilterForm';
 import {
-  activities,
-  activityOptions,
   getFilteredPersonalAssignments,
+  sortPersonalAssignments,
   parseAssignments,
   parsePersonalAssignments,
   scoreOptions,
@@ -27,6 +26,7 @@ import {
   FiltersURLSearchParams,
   useQueryParams
 } from './utils';
+import CheckboxButton from '../../components/CheckboxButton';
 
 const fetchData = async (
   { csrfToken, timeZone, updateState, initialState, queryParams },
@@ -168,6 +168,7 @@ const refetchPersonalAssignments = async (
 function AssignmentsCheckQueue({
   csrfToken,
   timeZone,
+  statusOptions,
   courseOptions,
   courseTeachers,
   courseGroups,
@@ -199,7 +200,7 @@ function AssignmentsCheckQueue({
   const [filters, setFilters, onFilterChange] = useFilterState({
     course: initialState.course,
     assignments: initialState.selectedAssignments,
-    activities: queryParams.activities || [activities.SC, activities.NS],
+    statuses: queryParams.statuses || [],
     score: queryParams.score || [],
     reviewers: queryParams.reviewers || [],
     studentGroups: queryParams.studentGroups || []
@@ -209,9 +210,11 @@ function AssignmentsCheckQueue({
 
   const handleSubmitForm = ({ course, assignments }) => {
     const filterURLSearchParams = new FiltersURLSearchParams();
-    filterURLSearchParams.assign(filters, {
+    filterURLSearchParams.assign({
       course,
-      assignments
+      assignments,
+      score: filters.score
+      // TODO: filters.statuses?
     });
 
     // In case of changing course value we should fetch new student groups
@@ -226,17 +229,17 @@ function AssignmentsCheckQueue({
 
   // history.listen() callback
   useEffect(() => {
+    console.debug(`Eval history.listen() triggered: ${!state.isInitialized}`);
     if (!state.isInitialized) {
       return;
     }
-    console.debug('Eval history.listen() callback');
 
     const filtersPrevious = filters;
     const filtersNext = Object.assign({}, filtersPrevious, {
       course: queryParams.course || initialState.course,
       assignments: queryParams.assignments || initialState.selectedAssignments,
+      statuses: queryParams.statuses || [],
       score: queryParams.score || [],
-      activities: queryParams.activities || [activities.SC, activities.NS],
       studentGroups: queryParams.studentGroups || [],
       reviewers: queryParams.reviewers || []
     });
@@ -279,24 +282,29 @@ function AssignmentsCheckQueue({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [run, csrfToken, setPage, timeZone, updateState, queryParams]);
 
-  const setFilterValues = (name, value, checked) => {
-    let values;
-    values = filters[name] || [];
-    if (checked) {
-      values.push(value);
-    } else {
-      values = values.filter(v => v !== value);
-    }
+  const setFilterValues = useCallback(
+    (name, value, checked) => {
+      let values;
+      values = filters[name] || [];
+      if (checked) {
+        values.push(value);
+      } else {
+        values = values.filter(v => v !== value);
+      }
 
-    const filterURLSearchParams = new FiltersURLSearchParams();
-    filterURLSearchParams.assign(filters, {
-      [name]: values
-    });
-    navigate(window.location.pathname + filterURLSearchParams.toString());
-  };
+      const filterURLSearchParams = new FiltersURLSearchParams();
+      filterURLSearchParams.assign(filters, {
+        [name]: values
+      });
+      navigate(window.location.pathname + filterURLSearchParams.toString());
+    },
+    [filters, navigate]
+  );
 
-  const setActivitiesFilter = e =>
-    setFilterValues('activities', e.target.value, e.target.checked);
+  const setStatusesFilter = useCallback(
+    ({ value, checked }) => setFilterValues('statuses', value, checked),
+    [setFilterValues]
+  );
 
   const setScoreFilter = e =>
     setFilterValues('score', e.target.value, e.target.checked);
@@ -320,18 +328,11 @@ function AssignmentsCheckQueue({
     personalAssignments,
     filters
   );
+  sortPersonalAssignments(filteredPersonalAssignments);
   const isLoaded = personalAssignments !== null;
 
   return (
     <>
-      <h1 className="mb-30">
-        Очередь проверки
-        {isLoaded && (
-          <span className="text-muted">
-            &nbsp;{filteredPersonalAssignments.length}
-          </span>
-        )}
-      </h1>
       <CourseFilterForm
         timeZone={timeZone}
         courseOptions={courseOptions}
@@ -340,6 +341,33 @@ function AssignmentsCheckQueue({
         selectedAssignments={filters.assignments}
         onSubmitForm={handleSubmitForm}
       />
+      <h1 className="mb-20">
+        Очередь проверки
+        {isLoaded && (
+          <span className="text-muted">
+            &nbsp;{filteredPersonalAssignments.length}
+          </span>
+        )}
+      </h1>
+      <div className="row">
+        <div className="col-xs-9">
+          <div className="btn-group btn-group-sm mb-20">
+            {statusOptions.map(option => (
+              <CheckboxButton
+                className="btn-default _checkbox"
+                key={`status-${option.value}`}
+                value={option.value}
+                checked={
+                  !!filters.statuses && filters.statuses.includes(option.value)
+                }
+                onChange={setStatusesFilter}
+              >
+                {option.label}
+              </CheckboxButton>
+            ))}
+          </div>
+        </div>
+      </div>
       <div className="row">
         <div className="col-xs-9">
           <PersonalAssignmentList
@@ -347,27 +375,32 @@ function AssignmentsCheckQueue({
             setPage={setPage}
             isLoading={!isLoaded}
             assignments={assignments}
+            statusOptions={statusOptions}
             items={filteredPersonalAssignments}
           />
         </div>
 
         <div className="col-xs-3">
-          <div className="mb-30">
-            <h5>Последняя активность</h5>
-            {activityOptions.map(option => (
-              <Checkbox
-                name="activities"
-                key={option.value}
-                value={option.value}
-                checked={
-                  !!filters.activities &&
-                  filters.activities.includes(option.value)
-                }
-                onChange={setActivitiesFilter}
-                label={option.label}
-              />
-            ))}
-          </div>
+          {studentGroups !== null && (
+            <div className="mb-30">
+              <h5 className="mt-0">Студенческая группа</h5>
+              <>
+                {courseGroups.map(option => (
+                  <Checkbox
+                    name="studentGroups"
+                    key={`student-group-${option.value}`}
+                    value={option.value}
+                    checked={
+                      !!filters.studentGroups &&
+                      filters.studentGroups.includes(option.value)
+                    }
+                    onChange={setStudentGroupsFilter}
+                    label={option.label}
+                  />
+                ))}
+              </>
+            </div>
+          )}
 
           <div className="mb-30">
             <h5>Оценка</h5>
@@ -403,26 +436,6 @@ function AssignmentsCheckQueue({
               ))}
             </>
           </div>
-          {studentGroups !== null && (
-            <div className="mb-30">
-              <h5>Студенческая группа</h5>
-              <>
-                {courseGroups.map(option => (
-                  <Checkbox
-                    name="studentGroups"
-                    key={`student-group-${option.value}`}
-                    value={option.value}
-                    checked={
-                      !!filters.studentGroups &&
-                      filters.studentGroups.includes(option.value)
-                    }
-                    onChange={setStudentGroupsFilter}
-                    label={option.label}
-                  />
-                ))}
-              </>
-            </div>
-          )}
         </div>
       </div>
     </>
@@ -436,6 +449,12 @@ AssignmentsCheckQueue.propTypes = {
     course: PropTypes.number.isRequired,
     selectedAssignments: PropTypes.arrayOf(PropTypes.number)
   }).isRequired,
+  statusOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired
+    })
+  ).isRequired,
   courseOptions: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.number.isRequired,

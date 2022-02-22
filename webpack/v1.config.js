@@ -16,35 +16,22 @@ const __nodemodulesdir = path.join(__dirname, '../node_modules');
 // All dependencies will be copied to path, relative to bundles output
 const STATIC_URL = path.join('/static/');
 
-// TODO: analyze bundles size and concat
-const PATHS = {
-  common: path.join(__srcdir, '/js/main.js'),
-  admission: path.join(__srcdir, '/js/center/admission/index.js'),
-  supervising: path.join(__srcdir, '/js/supervising/index.js'),
-  learning: path.join(__srcdir, '/js/learning/index.js'),
-  teaching: path.join(__srcdir, '/js/teaching/index.js'),
-  stats: path.join(__srcdir, '/js/stats/main.js'),
-  center: path.join(__srcdir, '/js/center/index.js')
-};
-
-const VENDOR = [
-  'core-js/stable',
-  'regenerator-runtime/runtime',
-  path.join(__srcdir, '/js/components/editor')
-];
-
 const common = {
   context: __srcdir,
 
   entry: {
-    main: PATHS.common,
-    center: PATHS.center,
-    admission: PATHS.admission,
-    learning: PATHS.learning,
-    teaching: PATHS.teaching,
-    stats: PATHS.stats,
-    supervising: PATHS.supervising,
-    vendor: VENDOR
+    vendor: [
+      'core-js/stable',
+      'regenerator-runtime/runtime',
+      path.join(__srcdir, '/js/components/editor')
+    ],
+    main: path.join(__srcdir, '/js/main.js'),
+    // TODO: use 1 entry
+    admission: path.join(__srcdir, '/js/admission/index.js'),
+    learning: path.join(__srcdir, '/js/learning/index.js'),
+    teaching: path.join(__srcdir, '/js/teaching/index.js'),
+    stats: path.join(__srcdir, '/js/stats/main.js'),
+    supervising: path.join(__srcdir, '/js/supervising/index.js')
   },
 
   externals: {

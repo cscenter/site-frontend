@@ -1,4 +1,4 @@
-import { createNotification } from '../../utils';
+import { createNotification } from '../utils';
 
 export default function initApplicantListSection() {
   $('._btn-import-contest-results').click(function () {

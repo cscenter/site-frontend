@@ -28,10 +28,11 @@ if (userInfo) {
 const CSC = window.__CSC__;
 
 $(document).ready(function () {
-  fn.configureCSRFAjax();
+  configureCSRFAjax();
   displayNotifications();
-  fn.renderText();
-  fn.initUberEditors();
+  renderText();
+  initUberEditors();
+  initCollapsiblePanelGroups();
 
   let sections = getSections();
   if (sections.includes('datetimepickers')) {
@@ -80,6 +81,11 @@ $(document).ready(function () {
       .then(m => m.launch())
       .catch(error => showComponentError(error));
   }
+  if (sections.includes('projects/report')) {
+    import(/* webpackChunkName: "projects" */ 'projects/report')
+      .then(m => m.launch())
+      .catch(error => showComponentError(error));
+  }
 });
 
 function displayNotifications() {
@@ -94,45 +100,53 @@ function displayNotifications() {
   }
 }
 
-const fn = {
-  configureCSRFAjax: function () {
-    // Append csrf token on ajax POST requests made with jQuery
-    // FIXME: add support for allowed subdomains
-    $.ajaxSetup({
-      beforeSend: function (xhr, settings) {
-        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-          xhr.setRequestHeader('X-CSRFToken', getCSRFToken());
-        }
+function configureCSRFAjax() {
+  // Append csrf token on ajax POST requests made with jQuery
+  // FIXME: add support for allowed subdomains
+  $.ajaxSetup({
+    beforeSend: function (xhr, settings) {
+      if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+        xhr.setRequestHeader('X-CSRFToken', getCSRFToken());
       }
-    });
-  },
+    }
+  });
+}
 
-  renderText: function () {
-    // highlight js and MathJax
-    const $ubertexts = $('div.ubertext');
-    // Note: MathJax and hljs loads for each iframe separately
-    if ($ubertexts.length > 0) {
-      UberEditor.preload(function () {
-        // Configure highlight js
-        hljs.configure({ tabReplace: '    ' });
-        // Render Latex and highlight code
-        $ubertexts.each(function (i, target) {
-          UberEditor.render(target);
-        });
+function renderText() {
+  // highlight js and MathJax
+  const $ubertexts = $('div.ubertext');
+  // Note: MathJax and hljs loads for each iframe separately
+  if ($ubertexts.length > 0) {
+    UberEditor.preload(function () {
+      // Configure highlight js
+      hljs.configure({ tabReplace: '    ' });
+      // Render Latex and highlight code
+      $ubertexts.each(function (i, target) {
+        UberEditor.render(target);
       });
-    }
-  },
-
-  initUberEditors: function () {
-    // Replace textarea with EpicEditor
-    const $ubereditors = $('textarea.ubereditor');
-    UberEditor.cleanLocalStorage($ubereditors);
-    $ubereditors.each(function (i, textarea) {
-      const editor = UberEditor.init(textarea);
-      CSC.config.uberEditors.push(editor);
     });
-    if ($ubereditors.length > 0) {
-      $('a[data-toggle="tab"]').on('shown.bs.tab', UberEditor.reflowOnTabToggle);
-    }
   }
-};
+}
+
+function initUberEditors() {
+  // Replace textarea with EpicEditor
+  const $ubereditors = $('textarea.ubereditor');
+  UberEditor.cleanLocalStorage($ubereditors);
+  $ubereditors.each(function (i, textarea) {
+    const editor = UberEditor.init(textarea);
+    CSC.config.uberEditors.push(editor);
+  });
+  if ($ubereditors.length > 0) {
+    $('a[data-toggle="tab"]').on('shown.bs.tab', UberEditor.reflowOnTabToggle);
+  }
+}
+
+function initCollapsiblePanelGroups() {
+  $('.panel-group').on('click', '.panel-heading._arrowed', function (e) {
+    // Replace js animation with css.
+    e.preventDefault();
+    const open = $(this).attr('aria-expanded') === 'true';
+    $(this).next().toggleClass('collapse').attr('aria-expanded', !open);
+    $(this).attr('aria-expanded', !open);
+  });
+}

@@ -1,8 +1,12 @@
 import { createNotification } from '../utils';
 
-let review_form = $('#review-form form');
+export function launch() {
+  reviewFormValidation();
+}
 
-export function reviewFormValidation() {
+function reviewFormValidation() {
+  const review_form = $('#review-form form');
+
   review_form.submit(function (event) {
     let clickedSubmitButton = $('input[type=submit][clicked=true]', review_form);
     if (clickedSubmitButton.attr('name') === 'review_form-send') {

@@ -88,7 +88,7 @@ export const stateReducer = (state, updateArg) => {
 export function parsePersonalAssignments({ items, studentGroups, timeZone, locale }) {
   items.forEach((item, i) => {
     if (item.firstSolutionAt !== null) {
-      item.firstSolutionAt = utcToZonedTime(item.firstSolutionAt, timeZone);
+      item.firstSolutionAt = new Date(item.firstSolutionAt); // in UTC
     }
     items[i] = {
       id: item.id,
@@ -98,7 +98,6 @@ export function parsePersonalAssignments({ items, studentGroups, timeZone, local
       score: item.score,
       firstSolutionAt: item.firstSolutionAt,
       status: item.status,
-      activity: item.activity,
       studentGroupId: studentGroups.get(item.student.id)
     };
   });
@@ -183,7 +182,7 @@ export function sortPersonalAssignments(items, order) {
 
 function sortPersonalAssignmentsByFirstSolutionAsc(a, b) {
   if (a.firstSolutionAt === null && b.firstSolutionAt === null) {
-    return 0;
+    return a.id - b.id;
   } else if (a.firstSolutionAt === null) {
     return 1;
   } else if (b.firstSolutionAt == null) {
@@ -194,7 +193,7 @@ function sortPersonalAssignmentsByFirstSolutionAsc(a, b) {
 
 function sortPersonalAssignmentsByFirstSolutionDesc(a, b) {
   if (a.firstSolutionAt === null && b.firstSolutionAt === null) {
-    return 0;
+    return a.id - b.id;
   } else if (a.firstSolutionAt === null) {
     return 1;
   } else if (b.firstSolutionAt == null) {

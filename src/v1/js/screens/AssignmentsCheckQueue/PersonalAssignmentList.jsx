@@ -18,6 +18,7 @@ function formatScore(score) {
   }
 }
 
+// TODO: calculate status label and assignment and pass in these values to the component (pros/cons?)
 const PersonalAssignment = ({ data, assignments, statuses }) => {
   const { student, assignee, status, score, assignmentId, firstSolutionAt } =
     data;

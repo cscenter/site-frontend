@@ -1,10 +1,10 @@
 const path = require('path');
-const webpack = require('webpack');
 
-const BundleTracker = require('webpack-bundle-tracker');
+const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // clean build dir before building
 const TerserPlugin = require('terser-webpack-plugin');
-const SentryWebpackPlugin = require('@sentry/webpack-plugin');
+const webpack = require('webpack');
+const BundleTracker = require('webpack-bundle-tracker');
 
 const APP_VERSION = process.env.APP_VERSION || 'v1';
 const LOCAL_BUILD = process.env.LOCAL_BUILD === '1';
@@ -74,7 +74,8 @@ const config = {
     }),
     new BundleTracker({
       path: __outputdir,
-      filename: `webpack-stats-${APP_VERSION}.json`
+      filename: path.join(__outputdir, `./webpack-stats-${APP_VERSION}.json`),
+      relativePath: true
     })
   ]
 };

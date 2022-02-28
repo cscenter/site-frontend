@@ -1,4 +1,5 @@
 const path = require('path');
+
 const webpack = require('webpack');
 const BundleTracker = require('webpack-bundle-tracker');
 
@@ -21,7 +22,7 @@ module.exports = {
     }),
     new BundleTracker({
       path: __outputdir,
-      filename: `webpack-stats-${APP_VERSION}.json`
+      filename: path.join(__outputdir, `./webpack-stats-${APP_VERSION}.json`)
     })
   ],
 

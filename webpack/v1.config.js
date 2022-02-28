@@ -1,8 +1,9 @@
 const path = require('path');
-const webpack = require('webpack');
-const { merge } = require('webpack-merge'); // merge webpack configs
+
 const Dotenv = require('dotenv-webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack');
+const { merge } = require('webpack-merge'); // merge webpack configs
 
 const DEVELOPMENT = process.env.NODE_ENV === 'development';
 
@@ -25,12 +26,24 @@ const common = {
       'regenerator-runtime/runtime',
       path.join(__srcdir, '/js/components/editor')
     ],
-    main: path.join(__srcdir, '/js/main.js'),
+    main: { import: path.join(__srcdir, '/js/main.js'), dependOn: 'vendor' },
     // TODO: use 1 entry
-    admission: path.join(__srcdir, '/js/admission/index.js'),
-    teaching: path.join(__srcdir, '/js/teaching/index.js'),
-    stats: path.join(__srcdir, '/js/stats/main.js'),
-    supervising: path.join(__srcdir, '/js/supervising/index.js')
+    admission: {
+      import: path.join(__srcdir, '/js/admission/index.js'),
+      dependOn: 'vendor'
+    },
+    teaching: {
+      import: path.join(__srcdir, '/js/teaching/index.js'),
+      dependOn: 'vendor'
+    },
+    stats: {
+      import: path.join(__srcdir, '/js/stats/main.js'),
+      dependOn: 'vendor'
+    },
+    supervising: {
+      import: path.join(__srcdir, '/js/supervising/index.js'),
+      dependOn: 'vendor'
+    }
   },
 
   externals: {

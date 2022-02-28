@@ -5,8 +5,8 @@
  * --------------------------------------------------------------------------
  */
 
-import { find as findFn, findOne, matches, closest } from './polyfill';
 import { makeArray } from '../util/index';
+import { closest, find as findFn, findOne, matches } from './polyfill';
 
 /**
  * ------------------------------------------------------------------------

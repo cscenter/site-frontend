@@ -1,6 +1,6 @@
 import { use } from 'i18next';
-import { initReactI18next } from 'react-i18next';
 import xhr from 'i18next-xhr-backend';
+import { initReactI18next } from 'react-i18next';
 
 const i18n =
   // load translation using xhr -> see /public/locales

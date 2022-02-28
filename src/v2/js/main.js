@@ -5,21 +5,22 @@
 // Sentry needs Object.assign
 // import 'core-js/modules/es.object.assign';
 import * as Sentry from '@sentry/browser';
-import Bootstrap4Dropdown from 'bootstrap.native/src/components-v4/dropdown-native';
 import Bootstrap4Collapse from 'bootstrap.native/src/components-v4/collapse-native';
+import Bootstrap4Dropdown from 'bootstrap.native/src/components-v4/dropdown-native';
 import ky from 'ky';
 
-import sentryOptions from './sentry_conf';
 import {
-  onReady,
-  loadFetchPolyfill,
-  polyfillElementMatches,
-  loadBootstrapNativePolyfill,
-  showComponentError,
   getSections,
-  showNotification,
-  showErrorNotification
+  loadBootstrapNativePolyfill,
+  loadFetchPolyfill,
+  onReady,
+  polyfillElementMatches,
+  showComponentError,
+  showErrorNotification,
+  showNotification
 } from 'utils';
+
+import sentryOptions from './sentry_conf';
 
 // Configure Sentry SDK
 Sentry.init({

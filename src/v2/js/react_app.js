@@ -1,8 +1,10 @@
 import React from 'react';
+
 import ReactDOM from 'react-dom';
-import './i18n';
 
 import { showComponentError } from 'utils';
+
+import './i18n';
 
 export function renderComponentInElement(el) {
   let componentName = el.id;

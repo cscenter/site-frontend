@@ -1,5 +1,6 @@
-import { getOptionByValue } from './Select';
 import _isFunction from 'lodash-es/isFunction';
+
+import { getOptionByValue } from './Select';
 
 /**
  * Common handler for input, select, radio buttons, multiple checkboxes

@@ -4,11 +4,11 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * --------------------------------------------------------------------------
  */
-import { getSelectorFromElement, getUID, makeArray, typeCheckConfig } from './util/index';
 import Data from './dom/data';
 import EventHandler from './dom/event-handler';
 import Manipulator from './dom/manipulator';
 import SelectorEngine from './dom/selector-engine';
+import { getSelectorFromElement, getUID, makeArray, typeCheckConfig } from './util/index';
 
 /**
  * ------------------------------------------------------------------------

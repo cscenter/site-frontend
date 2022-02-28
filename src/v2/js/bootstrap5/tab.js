@@ -5,17 +5,17 @@
  * --------------------------------------------------------------------------
  */
 
+import Data from './dom/data';
+import EventHandler from './dom/event-handler';
+import SelectorEngine from './dom/selector-engine';
 import {
-  TRANSITION_END,
   emulateTransitionEnd,
   getElementFromSelector,
   getTransitionDurationFromElement,
   makeArray,
-  reflow
+  reflow,
+  TRANSITION_END
 } from './util/index';
-import Data from './dom/data';
-import EventHandler from './dom/event-handler';
-import SelectorEngine from './dom/selector-engine';
 
 /**
  * ------------------------------------------------------------------------

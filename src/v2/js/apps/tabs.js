@@ -1,4 +1,5 @@
 import { toEnhancedHTMLElement } from '@drivy/dom-query';
+
 import Tab from 'bootstrap5/tab';
 
 export function launch() {

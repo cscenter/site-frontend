@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import 'jasny-bootstrap/js/fileinput';
 
 import UberEditor from 'components/editor';
 import { createNotification } from '../utils';
@@ -13,13 +12,6 @@ const solutionButton = $('#add-solution');
 const solutionForm = $('#solution-form-wrapper');
 
 const fn = {
-  Launch: function () {
-    fn.initCommentForm();
-    fn.initSolutionForm();
-    fn.initCommentModal();
-    fn.initFileInput();
-  },
-
   initCommentForm: function () {
     commentButton.on('click', function () {
       commentForm.removeClass('hidden');
@@ -101,24 +93,11 @@ const fn = {
         createNotification('Комментарий не был сохранён.', 'error');
       });
     return false;
-  },
-
-  initFileInput: function () {
-    $('.jasny.fileinput')
-      .on('clear.bs.fileinput', function (event) {
-        $(event.target).find('.fileinput-clear-checkbox').val('on');
-        $(event.target).find('.fileinput-filename').text('Файл не выбран');
-      })
-      .on('change.bs.fileinput', function (event) {
-        $(event.target).find('.fileinput-clear-checkbox').val('');
-      })
-      .on('reseted.bs.fileinput', function (event) {
-        $(event.target).find('.fileinput-filename').text('Файл не выбран');
-        $(event.target).find('.fileinput-clear-checkbox').val('');
-      });
   }
 };
 
-$(document).ready(function () {
-  fn.Launch();
-});
+export function launch() {
+  fn.initCommentForm();
+  fn.initSolutionForm();
+  fn.initCommentModal();
+}

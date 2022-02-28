@@ -55,6 +55,11 @@ $(document).ready(function () {
       .then(m => m.launch())
       .catch(error => showComponentError(error));
   }
+  if (sections.includes('components/fileinput')) {
+    import(/* webpackChunkName: "fileinput" */ 'components/fileinput')
+      .then(m => m.launch())
+      .catch(error => showComponentError(error));
+  }
   if (sections.includes('gallery')) {
     import(/* webpackChunkName: "gallery" */ 'courses/gallery')
       .then(m => m.launch())
@@ -83,6 +88,11 @@ $(document).ready(function () {
   }
   if (sections.includes('projects/report')) {
     import(/* webpackChunkName: "projects" */ 'projects/report')
+      .then(m => m.launch())
+      .catch(error => showComponentError(error));
+  }
+  if (sections.includes('learning/solution')) {
+    import(/* webpackChunkName: "solution" */ 'learning/solution')
       .then(m => m.launch())
       .catch(error => showComponentError(error));
   }

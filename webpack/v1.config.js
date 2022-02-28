@@ -28,7 +28,6 @@ const common = {
     main: path.join(__srcdir, '/js/main.js'),
     // TODO: use 1 entry
     admission: path.join(__srcdir, '/js/admission/index.js'),
-    learning: path.join(__srcdir, '/js/learning/index.js'),
     teaching: path.join(__srcdir, '/js/teaching/index.js'),
     stats: path.join(__srcdir, '/js/stats/main.js'),
     supervising: path.join(__srcdir, '/js/supervising/index.js')

@@ -1,8 +1,11 @@
-import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import Pagination from 'components/Pagination';
+import React, { useMemo } from 'react';
+
 import { formatDistance } from 'date-fns';
 import ruLocale from 'date-fns/locale/ru';
+
+import Pagination from 'components/Pagination';
+
 import { getScoreClass } from './utils';
 
 function formatScore(score) {
@@ -93,7 +96,7 @@ PersonalAssignment.propTypes = {
         patronymic: PropTypes.string
       }).isRequired
     }),
-    firstSolutionAt: PropTypes.date,
+    firstSolutionAt: PropTypes.instanceOf(Date),
     score: PropTypes.string,
     status: PropTypes.string.isRequired
   }),

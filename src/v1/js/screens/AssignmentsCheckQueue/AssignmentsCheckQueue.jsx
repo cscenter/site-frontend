@@ -1,169 +1,39 @@
-import React, { useState, useReducer, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import ky from 'ky';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useState
+} from 'react';
+
+import cn from 'classnames';
+import countBy from 'lodash-es/countBy';
+import isEqual from 'lodash-es/isEqual';
 import { useAsync } from 'react-async';
-import { ru } from 'date-fns/locale';
 import {
-  BrowserRouter as Router,
   Route,
+  BrowserRouter as Router,
   Routes,
   useNavigate
 } from 'react-router-dom';
-import isEqual from 'lodash-es/isEqual';
 
-import { createNotification } from 'utils';
-import Checkbox from 'components/Checkbox';
-import PersonalAssignmentList from './PersonalAssignmentList';
+import Checkbox from '../../components/Checkbox';
+import CheckboxButton from '../../components/CheckboxButton';
 import CourseFilterForm from './CourseFilterForm';
+import { fetchData, refetchPersonalAssignments } from './fetch';
+import PersonalAssignmentList from './PersonalAssignmentList';
 import {
+  FiltersURLSearchParams,
   getFilteredPersonalAssignments,
-  sortPersonalAssignments,
-  parseAssignments,
-  parsePersonalAssignments,
   scoreOptions,
+  sortEnum,
+  sortOptions,
+  sortPersonalAssignments,
   stateReducer,
   useFilterState,
-  FiltersURLSearchParams,
   useQueryParams
 } from './utils';
-import CheckboxButton from '../../components/CheckboxButton';
-
-const fetchData = async (
-  { csrfToken, timeZone, updateState, initialState, queryParams },
-  controller
-) => {
-  const searchParams = {
-    course: queryParams.course || initialState.course,
-    assignments: queryParams.assignments || initialState.selectedAssignments
-  };
-  return Promise.all([
-    fetchCourseSettings([csrfToken, searchParams.course], controller),
-    fetchPersonalAssignments(
-      [csrfToken, timeZone, updateState, searchParams],
-      controller
-    )
-  ])
-    .then(responses => {
-      const [[assignmentsJSON, enrollmentsJSON], personalAssignmentsJSON] =
-        responses;
-      const assignments = parseAssignments({
-        items: assignmentsJSON,
-        timeZone,
-        locale: ru
-      });
-      const assignmentOptions = [];
-      assignments.forEach((assignment, key) => {
-        assignmentOptions.push({
-          value: assignment.id,
-          label: assignment.title
-        });
-      });
-      const studentGroups = new Map();
-      enrollmentsJSON.forEach(item => {
-        studentGroups.set(item.student.id, item.studentGroupId);
-      });
-      const personalAssignments = parsePersonalAssignments({
-        items: personalAssignmentsJSON,
-        studentGroups,
-        timeZone,
-        locale: ru
-      });
-      updateState({
-        isInitialized: true,
-        assignments,
-        assignmentOptions, // TODO: useMemo instead
-        studentGroups,
-        personalAssignments
-      });
-    })
-    .catch(error => {
-      console.debug(error);
-      createNotification('Что-то пошло не так. Попробуйте позже.', 'error');
-    });
-};
-
-const fetchCourseSettings = async ([csrfToken, course], { signal }) => {
-  const assignments = ky
-    .get(`/api/v1/teaching/courses/${course}/assignments/`, {
-      headers: {
-        'X-CSRFToken': csrfToken
-      },
-      throwHttpErrors: false,
-      signal: signal
-    })
-    .then(async response => {
-      if (!response.ok) {
-        return Promise.reject(new Error('fail'));
-      }
-      return response.json();
-    });
-  const enrollments = ky
-    .get(`/api/v1/teaching/courses/${course}/enrollments/`, {
-      headers: {
-        'X-CSRFToken': csrfToken
-      },
-      throwHttpErrors: false,
-      signal: signal
-    })
-    .then(async response => {
-      if (!response.ok) {
-        return Promise.reject(new Error('fail'));
-      }
-      return response.json();
-    });
-  return Promise.all([assignments, enrollments]);
-};
-
-const fetchPersonalAssignments = async (
-  [csrfToken, timeZone, updateState, searchParams],
-  { signal }
-) => {
-  return ky
-    .get(
-      `/api/v1/teaching/courses/${searchParams.course}/personal-assignments/`,
-      {
-        headers: {
-          'X-CSRFToken': csrfToken
-        },
-        searchParams: { assignments: searchParams.assignments },
-        throwHttpErrors: false,
-        signal: signal
-      }
-    )
-    .then(async response => {
-      if (!response.ok) {
-        return Promise.reject(new Error('fail'));
-      }
-      return response.json();
-    });
-};
-
-const refetchPersonalAssignments = async (
-  [csrfToken, timeZone, updateState, studentGroups, searchParams],
-  controller
-) => {
-  fetchPersonalAssignments(
-    [csrfToken, timeZone, updateState, searchParams],
-    controller
-  )
-    .then(data => {
-      const personalAssignments = parsePersonalAssignments({
-        items: data,
-        studentGroups,
-        timeZone,
-        locale: ru
-      });
-      updateState({ personalAssignments });
-    })
-    .catch(error => {
-      if (error.name === 'AbortError') {
-        console.debug('Abort fetch');
-      } else {
-        console.debug(error);
-        createNotification('Что-то пошло не так. Попробуйте позже.', 'error');
-      }
-    });
-};
 
 function AssignmentsCheckQueue({
   csrfToken,
@@ -176,7 +46,6 @@ function AssignmentsCheckQueue({
 }) {
   const queryParams = useQueryParams();
   const navigate = useNavigate();
-
   const [page, setPage] = useState(1);
   const [state, updateState] = useReducer(stateReducer, {
     isInitialized: false,
@@ -185,8 +54,6 @@ function AssignmentsCheckQueue({
     personalAssignments: null,
     studentGroups: null
   });
-  const { assignments, assignmentOptions, studentGroups, personalAssignments } =
-    state;
   const { counter: fetchCounter, run } = useAsync({
     promiseFn: fetchData,
     deferFn: refetchPersonalAssignments,
@@ -196,24 +63,27 @@ function AssignmentsCheckQueue({
     initialState,
     updateState
   });
-
   const [filters, setFilters, onFilterChange] = useFilterState({
     course: initialState.course,
     assignments: initialState.selectedAssignments,
     statuses: queryParams.statuses || [],
     score: queryParams.score || [],
     reviewers: queryParams.reviewers || [],
-    studentGroups: queryParams.studentGroups || []
+    studentGroups: queryParams.studentGroups || [],
+    sort: queryParams.sort || sortEnum.SOLUTION_ASC
   });
-
   console.debug('filters on render', filters);
+
+  const { assignments, assignmentOptions, studentGroups, personalAssignments } =
+    state;
 
   const handleSubmitForm = ({ course, assignments }) => {
     const filterURLSearchParams = new FiltersURLSearchParams();
     filterURLSearchParams.assign({
       course,
       assignments,
-      score: filters.score
+      score: filters.score,
+      sort: filters.sort
       // TODO: filters.statuses?
     });
 
@@ -241,7 +111,8 @@ function AssignmentsCheckQueue({
       statuses: queryParams.statuses || [],
       score: queryParams.score || [],
       studentGroups: queryParams.studentGroups || [],
-      reviewers: queryParams.reviewers || []
+      reviewers: queryParams.reviewers || [],
+      sort: queryParams.sort || sortEnum.SOLUTION_ASC
     });
 
     if (!isEqual(filtersPrevious, filtersNext)) {
@@ -282,6 +153,15 @@ function AssignmentsCheckQueue({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [run, csrfToken, setPage, timeZone, updateState, queryParams]);
 
+  const setFilterQueryParams = useCallback(
+    newFilters => {
+      const filterURLSearchParams = new FiltersURLSearchParams();
+      filterURLSearchParams.assign(filters, newFilters);
+      navigate(window.location.pathname + filterURLSearchParams.toString());
+    },
+    [filters, navigate]
+  );
+
   const setFilterValues = useCallback(
     (name, value, checked) => {
       let values;
@@ -292,13 +172,11 @@ function AssignmentsCheckQueue({
         values = values.filter(v => v !== value);
       }
 
-      const filterURLSearchParams = new FiltersURLSearchParams();
-      filterURLSearchParams.assign(filters, {
+      setFilterQueryParams({
         [name]: values
       });
-      navigate(window.location.pathname + filterURLSearchParams.toString());
     },
-    [filters, navigate]
+    [filters, setFilterQueryParams]
   );
 
   const setStatusesFilter = useCallback(
@@ -328,7 +206,12 @@ function AssignmentsCheckQueue({
     personalAssignments,
     filters
   );
-  sortPersonalAssignments(filteredPersonalAssignments);
+  sortPersonalAssignments(filteredPersonalAssignments, filters.sort);
+
+  const countByStatus = useMemo(
+    () => countBy(personalAssignments, item => item.status),
+    [personalAssignments]
+  );
   const isLoaded = personalAssignments !== null;
 
   return (
@@ -341,31 +224,53 @@ function AssignmentsCheckQueue({
         selectedAssignments={filters.assignments}
         onSubmitForm={handleSubmitForm}
       />
-      <h1 className="mb-20">
-        Очередь проверки
-        {isLoaded && (
-          <span className="text-muted">
-            &nbsp;{filteredPersonalAssignments.length}
-          </span>
-        )}
-      </h1>
+      <h1 className="mb-20">Очередь проверки</h1>
       <div className="row">
         <div className="col-xs-9">
-          <div className="btn-group btn-group-sm mb-20">
-            {statusOptions.map(option => (
-              <CheckboxButton
-                className="btn-default _checkbox"
-                key={`status-${option.value}`}
-                value={option.value}
-                checked={
-                  !!filters.statuses && filters.statuses.includes(option.value)
-                }
-                onChange={setStatusesFilter}
+          <div className="btn-group btn-group-sm mb-10">
+            {statusOptions.map(option => {
+              const total = countByStatus[option.value] || 0;
+              const suffix = isLoaded ? ` (${total})` : '';
+              return (
+                <CheckboxButton
+                  className="btn-default _checkbox"
+                  key={`status-${option.value}`}
+                  value={option.value}
+                  checked={
+                    !!filters.statuses &&
+                    filters.statuses.includes(option.value)
+                  }
+                  onChange={setStatusesFilter}
+                >
+                  {`${option.label}${suffix}`}
+                </CheckboxButton>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-xs-9 mb-5">
+          <span className="text-muted">Сортировка</span>:
+          {sortOptions.map(option => {
+            const active = filters.sort === option.value;
+            return (
+              <button
+                onClick={_ => {
+                  if (!active) {
+                    setFilterQueryParams({ sort: option.value });
+                  }
+                }}
+                className={cn({
+                  'btn btn-link': true,
+                  active
+                })}
+                key={`sort-${option.value}`}
               >
                 {option.label}
-              </CheckboxButton>
-            ))}
-          </div>
+              </button>
+            );
+          })}
         </div>
       </div>
       <div className="row">

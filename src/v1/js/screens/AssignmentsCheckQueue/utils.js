@@ -1,11 +1,24 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { formatWithOptions } from 'date-fns/fp';
+
 import { utcToZonedTime } from 'date-fns-tz';
+import { formatWithOptions } from 'date-fns/fp';
 import { useLocation } from 'react-router-dom';
 
 export const scoreOptions = [
   { value: 'unset', label: 'Без оценки' },
   { value: 'set', label: 'С оценкой' }
+];
+
+export const sortEnum = {
+  SOLUTION_DESC: 'solution_desc',
+  SOLUTION_ASC: 'solution_asc',
+  NAME_ASC: 'name_asc'
+};
+
+export const sortOptions = [
+  { value: sortEnum.SOLUTION_DESC, label: 'Новые решения' },
+  { value: sortEnum.SOLUTION_ASC, label: 'Старые решения' },
+  { value: sortEnum.NAME_ASC, label: 'Фамилия студента' }
 ];
 
 export function getScoreClass(status) {
@@ -42,6 +55,9 @@ export const FiltersURLSearchParams = (function () {
     }
     if (this['studentGroups'] && this['studentGroups'].length > 0) {
       search += `&studentGroups=${this['studentGroups'].join(',')}`;
+    }
+    if (this['sort']) {
+      search += `&sort=${this['sort']}`;
     }
     return search;
   };
@@ -176,10 +192,18 @@ export function getFilteredPersonalAssignments(items, filters) {
 }
 
 export function sortPersonalAssignments(items, order) {
-  items.sort(sortPersonalAssignmentsByFirstSolutionAsc);
+  if (order === sortEnum.SOLUTION_DESC) {
+    // New solutions first
+    items.sort(sortPersonalAssignmentsByFirstSolutionDesc);
+  } else if (order === sortEnum.SOLUTION_ASC) {
+    items.sort(sortPersonalAssignmentsByFirstSolutionAsc);
+  } else {
+    items.sort((a, b) => a.student.lastName.localeCompare(b.student.lastName));
+  }
   return items;
 }
 
+// New solutions first, then null values
 function sortPersonalAssignmentsByFirstSolutionAsc(a, b) {
   if (a.firstSolutionAt === null && b.firstSolutionAt === null) {
     return a.id - b.id;
@@ -199,5 +223,5 @@ function sortPersonalAssignmentsByFirstSolutionDesc(a, b) {
   } else if (b.firstSolutionAt == null) {
     return -1;
   }
-  return a.firstSolutionAt - b.firstSolutionAt;
+  return b.firstSolutionAt - a.firstSolutionAt;
 }

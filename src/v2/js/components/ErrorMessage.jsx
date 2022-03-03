@@ -1,6 +1,7 @@
-import React from 'react';
-import { ErrorMessage as BaseErrorMessage } from '@hookform/error-message';
 import PropTypes from 'prop-types';
+import React from 'react';
+
+import { ErrorMessage as BaseErrorMessage } from '@hookform/error-message';
 
 function ErrorMessage({ className = '', ...rest }) {
   return (

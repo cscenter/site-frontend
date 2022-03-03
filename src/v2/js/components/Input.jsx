@@ -1,7 +1,8 @@
-import _isNil from 'lodash-es/isNil';
-import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import React from 'react';
+
+import cn from 'classnames';
+import _isNil from 'lodash-es/isNil';
 
 function computeTabIndex(disabled, tabIndex) {
   if (disabled) {
@@ -12,34 +13,40 @@ function computeTabIndex(disabled, tabIndex) {
   }
 }
 
-const Input = React.forwardRef(function Input(props, ref) {
-  const {
-    type = 'text',
-    autoComplete = 'off',
-    className = '',
-    disabled = false,
-    tabIndex = null,
-    ...rest
-  } = props;
-  const computedTabIndex = computeTabIndex(disabled, tabIndex);
-  let wrapperClass = classNames({
-    'ui input': true,
-    [className]: className.length > 0,
-    disabled: disabled
-  });
-  return (
-    <div className={wrapperClass}>
-      <input
-        tabIndex={computedTabIndex}
-        autoComplete={autoComplete}
-        type={type}
-        ref={ref}
-        disabled={disabled}
-        {...rest}
-      />
-    </div>
-  );
-});
+const Input = React.forwardRef(
+  (
+    {
+      type = 'text',
+      autoComplete = 'off',
+      className = '',
+      disabled = false,
+      tabIndex = null,
+      ...rest
+    },
+    ref
+  ) => {
+    const computedTabIndex = computeTabIndex(disabled, tabIndex);
+
+    return (
+      <div
+        className={cn({
+          'ui input': true,
+          [className]: className.length > 0,
+          disabled: disabled
+        })}
+      >
+        <input
+          tabIndex={computedTabIndex}
+          autoComplete={autoComplete}
+          type={type}
+          disabled={disabled}
+          {...rest}
+          ref={ref}
+        />
+      </div>
+    );
+  }
+);
 
 Input.propTypes = {
   onChange: PropTypes.func,

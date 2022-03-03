@@ -1,6 +1,7 @@
-import React, { Fragment, useReducer, useEffect } from 'react';
-import ky from 'ky';
 import * as PropTypes from 'prop-types';
+import React, { Fragment, useEffect, useReducer } from 'react';
+
+import ky from 'ky';
 import { useAsync } from 'react-async';
 import { useForm } from 'react-hook-form';
 
@@ -10,7 +11,6 @@ import {
   ErrorMessage,
   InputField,
   MemoizedTextField,
-  Input,
   RadioGroup,
   RadioOption,
   Select,
@@ -27,15 +27,12 @@ const Hint = ({ ...options }) => (
   </Tooltip>
 );
 
-let openAuthPopup = function (url, authCompleteUrl) {
-  const width = 700;
-  const height = 600;
-  const leftOffset = 100;
-  const topOffset = 100;
-
-  url += `?next=${authCompleteUrl}`;
-  let name = '';
-  const settings = `height=${height},width=${width},left=${leftOffset},top=${topOffset},resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=yes,directories=no,status=yes`;
+let openAuthPopup = function (url, nextURL = null) {
+  if (nextURL !== null) {
+    url += `?next=${nextURL}`;
+  }
+  const name = '';
+  const settings = `height=600,width=700,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=yes,directories=no,status=yes`;
   window.open(url, name, settings);
 };
 
@@ -77,6 +74,40 @@ const submitForm = async (
   }
 };
 
+const msgRequired = 'Это поле обязательно для заполнения';
+const rules = {
+  lastName: { required: msgRequired },
+  firstName: { required: msgRequired },
+  patronymic: null,
+  email: { required: msgRequired },
+  phone: { required: msgRequired },
+  livingPlace: { required: msgRequired },
+  stepikId: null,
+  githubLogin: null,
+  university: { required: msgRequired },
+  faculty: { required: msgRequired },
+  course: { required: msgRequired },
+  hasJob: { required: msgRequired },
+  position: null,
+  workplace: null,
+  experience: null,
+  onlineEducationExperience: null,
+  campaign: { required: msgRequired },
+  preferredStudyPrograms: {
+    required: msgRequired
+  },
+  motivation: { required: msgRequired },
+  probability: { required: msgRequired },
+  additionalInfo: null,
+  whereDidYouLearn: {
+    required: msgRequired
+  },
+  whereDidYouLearnOther: {
+    required: msgRequired
+  },
+  agreement: { required: msgRequired }
+};
+
 function ApplicationForm({
   endpoint,
   csrfToken,
@@ -96,38 +127,44 @@ function ApplicationForm({
   const reducer = (state, newState) => ({ ...state, ...newState });
   const [state, setState] = useReducer(reducer, initial);
   const { isPending, run: runSubmit } = useAsync({ deferFn: submitForm });
-  const { register, handleSubmit, setValue, trigger, errors, watch } = useForm({
+  const {
+    register,
+    control,
+    handleSubmit,
+    setValue,
+    trigger,
+    formState: { errors },
+    watch
+  } = useForm({
     mode: 'onBlur',
     defaultValues: { agreement: false }
   });
 
-  let msgRequired = 'Это поле обязательно для заполнения';
-  register({ name: 'patronymic', type: 'custom' });
-  register({ name: 'university', type: 'custom' }, { required: msgRequired });
-  register({ name: 'course', type: 'custom' }, { required: msgRequired });
-  register({ name: 'has_job', type: 'custom' }, { required: msgRequired });
-  register({ name: 'campaign', type: 'custom' }, { required: msgRequired });
-  register({ name: 'agreement', type: 'custom' }, { required: msgRequired });
+  useEffect(() => {
+    register('has_job', rules.hasJob);
+    register('university', rules.university);
+    register('campaign', rules.campaign);
+    register('course', rules.course);
+    register('agreement', rules.agreement);
+  }, [register]);
 
-  const watchFields = watch([
+  const [
+    selectedCampaignId,
+    hasJob,
+    selectedStudyPrograms,
+    whereDidYouLearn,
+    agreementConfirmed
+  ] = watch([
     'campaign',
     'has_job',
     'preferred_study_programs',
     'where_did_you_learn',
     'agreement'
   ]);
-  const {
-    campaign: selectedCampaignId,
-    has_job: hasJob,
-    preferred_study_programs: selectedStudyPrograms,
-    where_did_you_learn: whereDidYouLearn,
-    agreement: agreementConfirmed
-  } = watchFields;
-  let selectedCampaign =
-    selectedCampaignId &&
-    campaigns.find(obj => {
-      return obj.id === parseInt(selectedCampaignId);
-    }).value;
+
+  let selectedCampaign = campaigns.find(
+    obj => obj.id === parseInt(selectedCampaignId)
+  );
 
   function handleInputChange(event) {
     const target = event.target;
@@ -183,7 +220,7 @@ function ApplicationForm({
 
   if (isFormSubmitted) {
     return (
-      <Fragment>
+      <>
         <h3>Заявка зарегистрирована</h3>
         Спасибо за интерес к обучению в CS центре.
         <br />
@@ -194,7 +231,7 @@ function ApplicationForm({
         нет, напишите на{' '}
         <a href="mailto:info@compscicenter.ru">info@compscicenter.ru</a> о своей
         проблеме. Не забудьте указать свои ФИО и email.
-      </Fragment>
+      </>
     );
   }
 
@@ -205,47 +242,47 @@ function ApplicationForm({
         <div className="row">
           <InputField
             name="last_name"
+            control={control}
+            rules={rules.lastName}
             label={'Фамилия'}
-            inputRef={register({ required: msgRequired })}
             wrapperClass="col-lg-4"
-            errors={errors}
           />
           <InputField
+            control={control}
+            rules={rules.firstName}
             name="first_name"
             label={'Имя'}
-            inputRef={register({ required: msgRequired })}
             wrapperClass="col-lg-4"
-            errors={errors}
           />
           <InputField
+            control={control}
+            rules={rules.patronymic}
             name="patronymic"
             label={'Отчество'}
-            onChange={handleInputChange}
             wrapperClass="col-lg-4"
-            errors={errors}
           />
           <InputField
+            control={control}
+            rules={rules.email}
             name="email"
             type="email"
             label={'Электронная почта'}
-            inputRef={register({ required: msgRequired })}
             wrapperClass="col-lg-4"
-            errors={errors}
           />
           <InputField
+            control={control}
+            rules={rules.phone}
             name="phone"
             label={'Контактный телефон'}
-            inputRef={register({ required: msgRequired })}
             wrapperClass="col-lg-4"
-            errors={errors}
             placeholder="+7 (999) 1234567"
           />
           <InputField
+            control={control}
+            rules={rules.livingPlace}
             name="living_place"
             label={'В каком городе вы живёте?'}
-            inputRef={register({ required: msgRequired })}
             wrapperClass="col-lg-4"
-            errors={errors}
             placeholder=""
           />
         </div>
@@ -254,20 +291,20 @@ function ApplicationForm({
         <h3>Аккаунты</h3>
         <div className="row">
           <InputField
+            control={control}
+            rules={rules.stepikId}
             name="stepic_id"
             label={'ID на stepik.org'}
             wrapperClass="col-lg-4"
-            errors={errors}
-            inputRef={register}
             helpText={'https://stepik.org/users/xxxx, ID — это xxxx'}
             placeholder="ХХХХ"
           />
           <InputField
+            control={control}
+            rules={rules.githubLogin}
             name="github_login"
             label={'Логин на github.com'}
             wrapperClass="col-lg-4"
-            errors={errors}
-            inputRef={register}
             helpText={'https://github.com/xxxx, логин — это xxxx'}
             placeholder="ХХХХ"
           />
@@ -275,7 +312,7 @@ function ApplicationForm({
             <label>
               Доступ к данным на Яндексе&nbsp;
               <Hint
-                title={
+                html={
                   'Вступительный тест организован в системе Яндекс.Контест. Чтобы выдать права участника и затем сопоставить результаты с анкетами, нам нужно знать ваш логин на Яндексе без ошибок, учитывая все особенности, например, вход через социальные сети. Чтобы всё сработало, поделитесь с нами доступом к некоторым данным из вашего Яндекс.Паспорта: логин и ФИО.'
                 }
               />
@@ -325,11 +362,11 @@ function ApplicationForm({
             <ErrorMessage errors={errors} name={'university'} />
           </div>
           <InputField
+            control={control}
+            rules={rules.faculty}
             name="faculty"
             label={'Специальность'}
             wrapperClass="col-lg-4"
-            errors={errors}
-            inputRef={register({ required: msgRequired })}
             helpText={'Факультет, специальность или кафедра'}
           />
 
@@ -367,44 +404,38 @@ function ApplicationForm({
         </div>
         {hasJob && hasJob === 'yes' && (
           <div className="row ">
-            <div className="field col-lg-4">
-              <label htmlFor="position">Должность</label>
-              <Input
-                name="position"
-                id="position"
-                ref={register}
-                placeholder=""
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="field col-lg-4">
-              <label htmlFor="workplace">Место работы</label>
-              <Input
-                name="workplace"
-                id="workplace"
-                ref={register}
-                placeholder=""
-                onChange={handleInputChange}
-              />
-            </div>
+            <InputField
+              control={control}
+              rules={rules.position}
+              name="position"
+              label={'Должность'}
+              wrapperClass="col-lg-4"
+            />
+            <InputField
+              control={control}
+              rules={rules.workplace}
+              name="workplace"
+              label={'Место работы'}
+              wrapperClass="col-lg-4"
+            />
           </div>
         )}
         <div className="row">
           <MemoizedTextField
             name="experience"
-            label="Расскажите об опыте программирования и исследований"
+            control={control}
+            rules={rules.experience}
             wrapperClass="col-lg-8"
-            inputRef={register}
+            label="Расскажите об опыте программирования и исследований"
             helpText="Напишите здесь о том, что вы делаете на работе, и о своей нынешней дипломной или курсовой работе. Здесь стоит рассказать о студенческих проектах, в которых вы участвовали, или о небольших личных проектах, которые вы делаете дома, для своего удовольствия. Если хотите, укажите ссылки, где можно посмотреть текст или код работ."
-            errors={errors}
           />
           <MemoizedTextField
             name="online_education_experience"
-            label="Вы проходили какие-нибудь онлайн-курсы? Какие? Какие удалось закончить?"
+            control={control}
+            rules={rules.onlineEducationExperience}
             wrapperClass="col-lg-8"
-            inputRef={register}
+            label="Вы проходили какие-нибудь онлайн-курсы? Какие? Какие удалось закончить?"
             helpText="Приведите ссылки на курсы или их названия и платформы, где вы их проходили. Расскажите о возникших трудностях. Что понравилось, а что не понравилось в таком формате обучения?"
-            errors={errors}
           />
         </div>
       </fieldset>
@@ -473,12 +504,13 @@ function ApplicationForm({
                 <div className="grouped">
                   {studyProgramOptions.map(option => (
                     <Checkbox
-                      className={
-                        errors && errors.preferred_study_programs ? 'error' : ''
-                      }
-                      name="preferred_study_programs"
                       key={option.value}
-                      ref={register({ required: msgRequired })}
+                      name="preferred_study_programs"
+                      className={errors.preferred_study_programs ? 'error' : ''}
+                      {...register(
+                        'preferred_study_programs',
+                        rules.preferredStudyPrograms
+                      )}
                       value={option.value}
                       label={option.label}
                     />
@@ -515,7 +547,7 @@ function ApplicationForm({
                       id="preferred_study_programs_cs_note"
                       name="preferred_study_programs_cs_note"
                       rows="6"
-                      ref={register}
+                      {...register('preferred_study_programs_cs_note')}
                     />
                   </div>
                 </div>
@@ -533,7 +565,7 @@ function ApplicationForm({
                       id="preferred_study_programs_dm_note"
                       name="preferred_study_programs_dm_note"
                       rows="6"
-                      ref={register}
+                      {...register('preferred_study_programs_dm_note')}
                     />
                   </div>
                 </div>
@@ -552,7 +584,7 @@ function ApplicationForm({
                       id="preferred_study_programs_se_note"
                       name="preferred_study_programs_se_note"
                       rows="6"
-                      ref={register}
+                      {...register('preferred_study_programs_se_note')}
                     />
                   </div>
                 </div>
@@ -571,7 +603,7 @@ function ApplicationForm({
                         id="preferred_study_programs_robotics_note"
                         name="preferred_study_programs_robotics_note"
                         rows="6"
-                        ref={register}
+                        {...register('preferred_study_programs_robotics_note')}
                       />
                     </div>
                   </div>
@@ -583,24 +615,24 @@ function ApplicationForm({
         <div className="row">
           <MemoizedTextField
             name="motivation"
-            label="Почему вы хотите учиться в CS центре? Что вы ожидаете от обучения?"
+            control={control}
+            rules={rules.motivation}
             wrapperClass="col-lg-8"
-            inputRef={register({ required: msgRequired })}
-            errors={errors}
+            label="Почему вы хотите учиться в CS центре? Что вы ожидаете от обучения?"
           />
           <MemoizedTextField
             name="probability"
+            control={control}
+            rules={rules.probability}
             label="Что нужно для выпуска из CS центра? Оцените вероятность, что вы сможете это сделать"
             wrapperClass="col-lg-8"
-            inputRef={register({ required: msgRequired })}
-            errors={errors}
           />
           <MemoizedTextField
             name="additional_info"
-            label="Напишите любую дополнительную информацию о себе"
+            control={control}
+            rules={rules.additionalInfo}
             wrapperClass="col-lg-8"
-            inputRef={register}
-            errors={errors}
+            label="Напишите любую дополнительную информацию о себе"
           />
         </div>
         <div className="row">
@@ -610,12 +642,12 @@ function ApplicationForm({
               {sourceOptions.map(option => (
                 <Checkbox
                   key={option.value}
-                  ref={register({ required: msgRequired })}
+                  name="where_did_you_learn"
+                  {...register('where_did_you_learn', rules.whereDidYouLearn)}
+                  value={option.value}
                   className={
                     errors && errors.where_did_you_learn ? 'error' : ''
                   }
-                  name="where_did_you_learn"
-                  value={option.value}
                   label={option.label}
                 />
               ))}
@@ -629,10 +661,10 @@ function ApplicationForm({
           {whereDidYouLearn && whereDidYouLearn.includes('other') && (
             <InputField
               name="where_did_you_learn_other"
+              control={control}
+              rules={rules.whereDidYouLearnOther}
               wrapperClass="animation col-lg-5"
-              inputRef={register({ required: msgRequired })}
               placeholder="Ваш вариант"
-              errors={errors}
             />
           )}
         </div>
@@ -644,7 +676,7 @@ function ApplicationForm({
               required
               name={'agreement'}
               label={
-                <Fragment>
+                <>
                   Настоящим подтверждаю свое согласие на обработку Оператором
                   моих персональных данных в соответствии с{' '}
                   <a
@@ -656,7 +688,7 @@ function ApplicationForm({
                     Пользователей Веб-сайта
                   </a>
                   , а также гарантирую достоверность представленных мной данных
-                </Fragment>
+                </>
               }
               onChange={handleInputChange}
             />

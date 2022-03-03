@@ -1,70 +1,104 @@
-import React from 'react';
-import { ErrorMessage, Input } from 'components';
 import PropTypes from 'prop-types';
-import { refType } from 'types/props';
-import classNames from 'classnames';
+import React from 'react';
 
-const fieldProps = {
-  inputRef: refType,
-  className: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string,
-  helpText: PropTypes.string,
-  wrapperClass: PropTypes.string,
-  errors: PropTypes.object
-};
+import cn from 'classnames';
+import { useController } from 'react-hook-form';
+
+import { ErrorMessage, Input } from 'components';
 
 export function InputField({
-  className = '',
-  wrapperClass = '',
-  helpText = '',
   name,
-  label,
-  errors = null,
-  inputRef,
+  control,
+  rules = null,
+  defaultValue = '',
+  label = null,
+  className = null,
+  wrapperClass = null,
+  helpText = null,
   ...rest
 }) {
+  const { field, fieldState } = useController({
+    name,
+    control,
+    rules,
+    defaultValue,
+    // Note: Will trigger re-render for conditional fields
+    shouldUnregister: true
+  });
   return (
-    <div className={`field ${wrapperClass}`}>
-      {label && <label htmlFor={name}>{label}</label>}
+    <div
+      className={cn({
+        field: true,
+        [wrapperClass]: wrapperClass !== null
+      })}
+    >
+      {label !== null && <label htmlFor={name}>{label}</label>}
       <Input
         name={name}
         id={name}
-        className={errors && errors[name] ? `${className} error` : className}
-        ref={inputRef}
+        className={cn({
+          [className]: className !== null,
+          error: fieldState.error
+        })}
         {...rest}
+        {...field}
       />
-      {helpText && <div className="help-text">{helpText}</div>}
-      {errors && <ErrorMessage errors={errors} name={name} />}
+      {helpText !== null && <div className="help-text">{helpText}</div>}
+      <ErrorMessage errors={{ [name]: fieldState.error }} name={name} />
     </div>
   );
 }
 
+const fieldProps = {
+  name: PropTypes.string.isRequired,
+  control: PropTypes.object.isRequired,
+  rules: PropTypes.object,
+  defaultValue: PropTypes.string,
+  className: PropTypes.string,
+  label: PropTypes.string,
+  helpText: PropTypes.string,
+  wrapperClass: PropTypes.string
+};
+
 InputField.propTypes = fieldProps;
 
 export function TextField({
-  className = '',
-  wrapperClass = '',
-  helpText = '',
   name,
-  label,
-  errors = null,
-  inputRef,
+  control,
+  rules = null,
+  defaultValue = '',
+  label = null,
+  className = null,
+  wrapperClass = null,
+  helpText = null,
   ...rest
 }) {
-  let inputClass = classNames({
-    'ui input': true,
-    error: errors && errors[name]
+  const { field, fieldState } = useController({
+    name,
+    control,
+    rules,
+    defaultValue,
+    shouldUnregister: true
   });
 
   return (
-    <div className={`field ${wrapperClass}`}>
-      {label && <label htmlFor={name}>{label}</label>}
-      {helpText && <div className="text-small mb-2">{helpText}</div>}
-      <div className={inputClass}>
-        <textarea name={name} id={name} rows="6" ref={inputRef} {...rest} />
+    <div
+      className={cn({
+        field: true,
+        [wrapperClass]: wrapperClass !== null
+      })}
+    >
+      {label !== null && <label htmlFor={name}>{label}</label>}
+      {helpText !== null && <div className="text-small mb-2">{helpText}</div>}
+      <div
+        className={cn({
+          'ui input': true,
+          error: fieldState.error
+        })}
+      >
+        <textarea name={name} id={name} rows="6" {...field} {...rest} />
       </div>
-      {errors && <ErrorMessage errors={errors} name={name} />}
+      <ErrorMessage errors={{ [name]: fieldState.error }} name={name} />
     </div>
   );
 }

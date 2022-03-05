@@ -1,15 +1,15 @@
 {
   "status": "done",
   "assets": {
-    "admission-70f25755b4768555912b.js": {
-      "name": "admission-70f25755b4768555912b.js",
-      "path": "admission-70f25755b4768555912b.js",
-      "publicPath": "/static/v1/dist/prod/admission-70f25755b4768555912b.js"
+    "admission-1a8146f9b5c4fc595799.js": {
+      "name": "admission-1a8146f9b5c4fc595799.js",
+      "path": "admission-1a8146f9b5c4fc595799.js",
+      "publicPath": "/static/v1/dist/prod/admission-1a8146f9b5c4fc595799.js"
     },
-    "teaching-f054de2e39ccac55a526.js": {
-      "name": "teaching-f054de2e39ccac55a526.js",
-      "path": "teaching-f054de2e39ccac55a526.js",
-      "publicPath": "/static/v1/dist/prod/teaching-f054de2e39ccac55a526.js"
+    "teaching-d01f6926b16c46fa981f.js": {
+      "name": "teaching-d01f6926b16c46fa981f.js",
+      "path": "teaching-d01f6926b16c46fa981f.js",
+      "publicPath": "/static/v1/dist/prod/teaching-d01f6926b16c46fa981f.js"
     },
     "runtime-e3de1b8378e147371e3b.js": {
       "name": "runtime-e3de1b8378e147371e3b.js",
@@ -101,50 +101,50 @@
       "path": "lazyload.e1edfd897354a6bab508.js.LICENSE.txt",
       "publicPath": "/static/v1/dist/prod/lazyload.e1edfd897354a6bab508.js.LICENSE.txt"
     },
-    "main-365a4027431afecd0c27.js.LICENSE.txt": {
-      "name": "main-365a4027431afecd0c27.js.LICENSE.txt",
-      "path": "main-365a4027431afecd0c27.js.LICENSE.txt",
-      "publicPath": "/static/v1/dist/prod/main-365a4027431afecd0c27.js.LICENSE.txt"
+    "main-d20ab17d6b1f3358ac5c.js.LICENSE.txt": {
+      "name": "main-d20ab17d6b1f3358ac5c.js.LICENSE.txt",
+      "path": "main-d20ab17d6b1f3358ac5c.js.LICENSE.txt",
+      "publicPath": "/static/v1/dist/prod/main-d20ab17d6b1f3358ac5c.js.LICENSE.txt"
     },
     "profile.21f2482efe187516c4d7.js.LICENSE.txt": {
       "name": "profile.21f2482efe187516c4d7.js.LICENSE.txt",
       "path": "profile.21f2482efe187516c4d7.js.LICENSE.txt",
       "publicPath": "/static/v1/dist/prod/profile.21f2482efe187516c4d7.js.LICENSE.txt"
     },
-    "stats-73b60646ec4b34de7a25.js.LICENSE.txt": {
-      "name": "stats-73b60646ec4b34de7a25.js.LICENSE.txt",
-      "path": "stats-73b60646ec4b34de7a25.js.LICENSE.txt",
-      "publicPath": "/static/v1/dist/prod/stats-73b60646ec4b34de7a25.js.LICENSE.txt"
+    "stats-a35a6ae33859ccf86d61.js.LICENSE.txt": {
+      "name": "stats-a35a6ae33859ccf86d61.js.LICENSE.txt",
+      "path": "stats-a35a6ae33859ccf86d61.js.LICENSE.txt",
+      "publicPath": "/static/v1/dist/prod/stats-a35a6ae33859ccf86d61.js.LICENSE.txt"
     },
-    "supervising-d3d1c78e6dd51306859f.js.LICENSE.txt": {
-      "name": "supervising-d3d1c78e6dd51306859f.js.LICENSE.txt",
-      "path": "supervising-d3d1c78e6dd51306859f.js.LICENSE.txt",
-      "publicPath": "/static/v1/dist/prod/supervising-d3d1c78e6dd51306859f.js.LICENSE.txt"
+    "supervising-b2c59bf0d69d1144d2a3.js.LICENSE.txt": {
+      "name": "supervising-b2c59bf0d69d1144d2a3.js.LICENSE.txt",
+      "path": "supervising-b2c59bf0d69d1144d2a3.js.LICENSE.txt",
+      "publicPath": "/static/v1/dist/prod/supervising-b2c59bf0d69d1144d2a3.js.LICENSE.txt"
     },
-    "vendor-e8dd11eac55e9352400a.js.LICENSE.txt": {
-      "name": "vendor-e8dd11eac55e9352400a.js.LICENSE.txt",
-      "path": "vendor-e8dd11eac55e9352400a.js.LICENSE.txt",
-      "publicPath": "/static/v1/dist/prod/vendor-e8dd11eac55e9352400a.js.LICENSE.txt"
+    "vendor-ff7a39fe25a44e7bcc82.js.LICENSE.txt": {
+      "name": "vendor-ff7a39fe25a44e7bcc82.js.LICENSE.txt",
+      "path": "vendor-ff7a39fe25a44e7bcc82.js.LICENSE.txt",
+      "publicPath": "/static/v1/dist/prod/vendor-ff7a39fe25a44e7bcc82.js.LICENSE.txt"
     },
-    "vendor-e8dd11eac55e9352400a.js": {
-      "name": "vendor-e8dd11eac55e9352400a.js",
-      "path": "vendor-e8dd11eac55e9352400a.js",
-      "publicPath": "/static/v1/dist/prod/vendor-e8dd11eac55e9352400a.js"
+    "vendor-ff7a39fe25a44e7bcc82.js": {
+      "name": "vendor-ff7a39fe25a44e7bcc82.js",
+      "path": "vendor-ff7a39fe25a44e7bcc82.js",
+      "publicPath": "/static/v1/dist/prod/vendor-ff7a39fe25a44e7bcc82.js"
     },
-    "main-365a4027431afecd0c27.js": {
-      "name": "main-365a4027431afecd0c27.js",
-      "path": "main-365a4027431afecd0c27.js",
-      "publicPath": "/static/v1/dist/prod/main-365a4027431afecd0c27.js"
+    "main-d20ab17d6b1f3358ac5c.js": {
+      "name": "main-d20ab17d6b1f3358ac5c.js",
+      "path": "main-d20ab17d6b1f3358ac5c.js",
+      "publicPath": "/static/v1/dist/prod/main-d20ab17d6b1f3358ac5c.js"
     },
-    "stats-73b60646ec4b34de7a25.js": {
-      "name": "stats-73b60646ec4b34de7a25.js",
-      "path": "stats-73b60646ec4b34de7a25.js",
-      "publicPath": "/static/v1/dist/prod/stats-73b60646ec4b34de7a25.js"
+    "stats-a35a6ae33859ccf86d61.js": {
+      "name": "stats-a35a6ae33859ccf86d61.js",
+      "path": "stats-a35a6ae33859ccf86d61.js",
+      "publicPath": "/static/v1/dist/prod/stats-a35a6ae33859ccf86d61.js"
     },
-    "supervising-d3d1c78e6dd51306859f.js": {
-      "name": "supervising-d3d1c78e6dd51306859f.js",
-      "path": "supervising-d3d1c78e6dd51306859f.js",
-      "publicPath": "/static/v1/dist/prod/supervising-d3d1c78e6dd51306859f.js"
+    "supervising-b2c59bf0d69d1144d2a3.js": {
+      "name": "supervising-b2c59bf0d69d1144d2a3.js",
+      "path": "supervising-b2c59bf0d69d1144d2a3.js",
+      "publicPath": "/static/v1/dist/prod/supervising-b2c59bf0d69d1144d2a3.js"
     },
     "AssignmentsCheckQueue-index.0ea39cdf0aa9fdf44527.js": {
       "name": "AssignmentsCheckQueue-index.0ea39cdf0aa9fdf44527.js",
@@ -171,35 +171,35 @@
       "path": "profile.21f2482efe187516c4d7.js",
       "publicPath": "/static/v1/dist/prod/profile.21f2482efe187516c4d7.js"
     },
-    "vendor-e8dd11eac55e9352400a.js.map": {
-      "name": "vendor-e8dd11eac55e9352400a.js.map",
-      "path": "vendor-e8dd11eac55e9352400a.js.map",
-      "publicPath": "/static/v1/dist/prod/vendor-e8dd11eac55e9352400a.js.map"
+    "vendor-ff7a39fe25a44e7bcc82.js.map": {
+      "name": "vendor-ff7a39fe25a44e7bcc82.js.map",
+      "path": "vendor-ff7a39fe25a44e7bcc82.js.map",
+      "publicPath": "/static/v1/dist/prod/vendor-ff7a39fe25a44e7bcc82.js.map"
     },
-    "main-365a4027431afecd0c27.js.map": {
-      "name": "main-365a4027431afecd0c27.js.map",
-      "path": "main-365a4027431afecd0c27.js.map",
-      "publicPath": "/static/v1/dist/prod/main-365a4027431afecd0c27.js.map"
+    "main-d20ab17d6b1f3358ac5c.js.map": {
+      "name": "main-d20ab17d6b1f3358ac5c.js.map",
+      "path": "main-d20ab17d6b1f3358ac5c.js.map",
+      "publicPath": "/static/v1/dist/prod/main-d20ab17d6b1f3358ac5c.js.map"
     },
-    "admission-70f25755b4768555912b.js.map": {
-      "name": "admission-70f25755b4768555912b.js.map",
-      "path": "admission-70f25755b4768555912b.js.map",
-      "publicPath": "/static/v1/dist/prod/admission-70f25755b4768555912b.js.map"
+    "admission-1a8146f9b5c4fc595799.js.map": {
+      "name": "admission-1a8146f9b5c4fc595799.js.map",
+      "path": "admission-1a8146f9b5c4fc595799.js.map",
+      "publicPath": "/static/v1/dist/prod/admission-1a8146f9b5c4fc595799.js.map"
     },
-    "teaching-f054de2e39ccac55a526.js.map": {
-      "name": "teaching-f054de2e39ccac55a526.js.map",
-      "path": "teaching-f054de2e39ccac55a526.js.map",
-      "publicPath": "/static/v1/dist/prod/teaching-f054de2e39ccac55a526.js.map"
+    "teaching-d01f6926b16c46fa981f.js.map": {
+      "name": "teaching-d01f6926b16c46fa981f.js.map",
+      "path": "teaching-d01f6926b16c46fa981f.js.map",
+      "publicPath": "/static/v1/dist/prod/teaching-d01f6926b16c46fa981f.js.map"
     },
-    "stats-73b60646ec4b34de7a25.js.map": {
-      "name": "stats-73b60646ec4b34de7a25.js.map",
-      "path": "stats-73b60646ec4b34de7a25.js.map",
-      "publicPath": "/static/v1/dist/prod/stats-73b60646ec4b34de7a25.js.map"
+    "stats-a35a6ae33859ccf86d61.js.map": {
+      "name": "stats-a35a6ae33859ccf86d61.js.map",
+      "path": "stats-a35a6ae33859ccf86d61.js.map",
+      "publicPath": "/static/v1/dist/prod/stats-a35a6ae33859ccf86d61.js.map"
     },
-    "supervising-d3d1c78e6dd51306859f.js.map": {
-      "name": "supervising-d3d1c78e6dd51306859f.js.map",
-      "path": "supervising-d3d1c78e6dd51306859f.js.map",
-      "publicPath": "/static/v1/dist/prod/supervising-d3d1c78e6dd51306859f.js.map"
+    "supervising-b2c59bf0d69d1144d2a3.js.map": {
+      "name": "supervising-b2c59bf0d69d1144d2a3.js.map",
+      "path": "supervising-b2c59bf0d69d1144d2a3.js.map",
+      "publicPath": "/static/v1/dist/prod/supervising-b2c59bf0d69d1144d2a3.js.map"
     },
     "runtime-e3de1b8378e147371e3b.js.map": {
       "name": "runtime-e3de1b8378e147371e3b.js.map",
@@ -295,22 +295,22 @@
   "chunks": {
     "vendor": [
       "runtime-e3de1b8378e147371e3b.js",
-      "vendor-e8dd11eac55e9352400a.js"
+      "vendor-ff7a39fe25a44e7bcc82.js"
     ],
     "main": [
-      "main-365a4027431afecd0c27.js"
+      "main-d20ab17d6b1f3358ac5c.js"
     ],
     "admission": [
-      "admission-70f25755b4768555912b.js"
+      "admission-1a8146f9b5c4fc595799.js"
     ],
     "teaching": [
-      "teaching-f054de2e39ccac55a526.js"
+      "teaching-d01f6926b16c46fa981f.js"
     ],
     "stats": [
-      "stats-73b60646ec4b34de7a25.js"
+      "stats-a35a6ae33859ccf86d61.js"
     ],
     "supervising": [
-      "supervising-d3d1c78e6dd51306859f.js"
+      "supervising-b2c59bf0d69d1144d2a3.js"
     ]
   },
   "publicPath": "/static/v1/dist/prod/"

@@ -1,10 +1,12 @@
 import c3 from 'c3';
 import $ from 'jquery';
 import { createDuration } from 'moment/src/lib/duration/duration';
-import mix from '../../MixinBuilder';
-import PlotOptions from 'stats/PlotOptions';
-import AssignmentsFilterMixin from './AssignmentsFilterMixin';
+
 import i18n from 'stats/i18n';
+import PlotOptions from 'stats/PlotOptions';
+
+import mix from '../../MixinBuilder';
+import AssignmentsFilterMixin from './AssignmentsFilterMixin';
 
 class AssignmentsDeadline extends mix(PlotOptions).with(AssignmentsFilterMixin) {
   constructor(id, options) {
@@ -86,7 +88,7 @@ class AssignmentsDeadline extends mix(PlotOptions).with(AssignmentsFilterMixin) 
         assignment.students
           .filter(s => this.matchFilters(s, 'student_assignment'))
           .forEach(sa => {
-            let type = this.toType(deadline, sa.first_student_comment_at);
+            let type = this.toType(deadline, sa.first_solution_at);
             if (type !== undefined) {
               counters.set(type, counters.get(type) + 1);
             } else {
@@ -172,7 +174,7 @@ class AssignmentsDeadline extends mix(PlotOptions).with(AssignmentsFilterMixin) 
     rawJSON.forEach(function (assignment) {
       assignment.students
         .filter(s => {
-          return s.first_student_comment_at !== null;
+          return s.first_solution_at !== null;
         })
         .forEach(function (sa) {
           curriculumYearChoices.add(sa.student_profile.year_of_curriculum);

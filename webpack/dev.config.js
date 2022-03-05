@@ -13,7 +13,8 @@ module.exports = {
 
   output: {
     filename: '[name]-[fullhash].js',
-    publicPath: 'http://csc.test:8081/'
+    publicPath: 'http://csc.test:8081/',
+    assetModuleFilename: `assets/[name].[hash][ext][query]`
   },
 
   plugins: [

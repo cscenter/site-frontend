@@ -26,7 +26,20 @@ const config = {
     path: __outputdir,
     filename: '[name]-[contenthash].js',
     chunkFilename: '[name].[contenthash].js',
-    publicPath: `/static/${APP_VERSION}/dist/${BUILD_DIR}/`
+    publicPath: `/static/${APP_VERSION}/dist/${BUILD_DIR}/`,
+    assetModuleFilename: ({ filename }) => {
+      // Keeps file structure to the asset file
+      const absPathToFile = path.resolve(filename);
+      const nodeModulesDir = path.join(
+        path.dirname(absPathToFile).split('node_modules')[0],
+        'node_modules'
+      );
+      // relative to the module
+      const filepath = path.dirname(
+        path.relative(nodeModulesDir, absPathToFile)
+      );
+      return `assets/${filepath}/[hash][ext][query]`;
+    }
   },
 
   stats: {

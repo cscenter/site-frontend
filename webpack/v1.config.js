@@ -107,52 +107,14 @@ const common = {
           'css-loader'
         ]
       },
-      // Static in a project source directory
       {
-        test: /\.woff2?$|\.ttf$|\.eot$|\.svg$|\.png$|\.jpg$|\.swf$/,
-        exclude: __nodemodulesdir,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[path][name].[ext]',
-              emitFile: false, // since all images are in assets/img dir, do not copy paste it, use publicPath instead
-              // FIXME: replace with __webpack_public_path__
-              publicPath: STATIC_URL
-            }
-          }
-        ]
-      },
-      // Serve static in node_modules/
-      {
+        // Serve static in node_modules/
         test: /\.woff2?$|\.ttf$|\.eot$|\.svg$|\.png$|\.jpg$|\.swf$/,
         include: __nodemodulesdir,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              context: __nodemodulesdir,
-              name: file => {
-                if (process.env.NODE_ENV === 'development') {
-                  return `[path][name].[ext]`;
-                }
-
-                return '[path][contenthash].[ext]';
-              },
-              outputPath: 'assets',
-              publicPath: (url, resourcePath, context) => {
-                // `resourcePath` is original absolute path to asset
-                // `context` is a directory where asset is stored (`rootContext` or `context` option)
-                if (process.env.NODE_ENV === 'development') {
-                  return `node_modules/${url}`;
-                }
-                return `assets/${url}`;
-              },
-              postTransformPublicPath: p => `__webpack_public_path__ + ${p}`,
-              emitFile: !DEVELOPMENT
-            }
-          }
-        ]
+        type: 'asset/resource',
+        generator: {
+          emit: !DEVELOPMENT
+        }
       }
     ]
   },

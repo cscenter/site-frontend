@@ -23,8 +23,7 @@ function formatScore(score) {
 
 // TODO: calculate status label and assignment and pass in these values to the component (pros/cons?)
 const PersonalAssignment = ({ data, assignments, statuses }) => {
-  const { student, assignee, status, score, assignmentId, firstSolutionAt } =
-    data;
+  const { student, assignee, status, score, assignmentId, solutionAt } = data;
   const assignment = assignments.get(assignmentId);
   let studentFullName = `${student.lastName} ${student.firstName}`.trim();
   studentFullName = studentFullName || student.username;
@@ -34,9 +33,9 @@ const PersonalAssignment = ({ data, assignments, statuses }) => {
       `${assignee.teacher.lastName} ${assignee.teacher.firstName}`.trim();
   }
 
-  const firstSolutionRelative =
-    firstSolutionAt !== null
-      ? formatDistance(firstSolutionAt, new Date(), {
+  const solutionDistanceRelative =
+    solutionAt !== null
+      ? formatDistance(solutionAt, new Date(), {
           locale: ruLocale,
           addSuffix: true
         })
@@ -51,10 +50,10 @@ const PersonalAssignment = ({ data, assignments, statuses }) => {
       </td>
       <td>
         {statuses[status]}
-        {firstSolutionAt && (
+        {solutionAt && (
           <>
             <br />
-            <small className="text-muted">{firstSolutionRelative}</small>
+            <small className="text-muted">{solutionDistanceRelative}</small>
           </>
         )}
       </td>
@@ -96,7 +95,7 @@ PersonalAssignment.propTypes = {
         patronymic: PropTypes.string
       }).isRequired
     }),
-    firstSolutionAt: PropTypes.instanceOf(Date),
+    solutionAt: PropTypes.instanceOf(Date),
     score: PropTypes.string,
     status: PropTypes.string.isRequired
   }),

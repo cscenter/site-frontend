@@ -103,8 +103,8 @@ export const stateReducer = (state, updateArg) => {
 
 export function parsePersonalAssignments({ items, studentGroups, timeZone, locale }) {
   items.forEach((item, i) => {
-    if (item.firstSolutionAt !== null) {
-      item.firstSolutionAt = new Date(item.firstSolutionAt); // in UTC
+    if (item.solutionAt !== null) {
+      item.solutionAt = new Date(item.solutionAt); // in UTC
     }
     items[i] = {
       id: item.id,
@@ -112,7 +112,7 @@ export function parsePersonalAssignments({ items, studentGroups, timeZone, local
       assignee: item.assignee,
       student: item.student,
       score: item.score,
-      firstSolutionAt: item.firstSolutionAt,
+      solutionAt: item.solutionAt,
       status: item.status,
       studentGroupId: studentGroups.get(item.student.id)
     };
@@ -205,23 +205,24 @@ export function sortPersonalAssignments(items, order) {
 
 // New solutions first, then null values
 function sortPersonalAssignmentsByFirstSolutionAsc(a, b) {
-  if (a.firstSolutionAt === null && b.firstSolutionAt === null) {
+  if (a.solutionAt === null && b.solutionAt === null) {
     return a.id - b.id;
-  } else if (a.firstSolutionAt === null) {
+  } else if (a.solutionAt === null) {
     return 1;
-  } else if (b.firstSolutionAt == null) {
+  } else if (b.solutionAt == null) {
     return -1;
   }
-  return a.firstSolutionAt - b.firstSolutionAt;
+  return a.solutionAt - b.solutionAt;
 }
 
+// TODO: impress with ASC version but null's should go last
 function sortPersonalAssignmentsByFirstSolutionDesc(a, b) {
-  if (a.firstSolutionAt === null && b.firstSolutionAt === null) {
+  if (a.solutionAt === null && b.solutionAt === null) {
     return a.id - b.id;
-  } else if (a.firstSolutionAt === null) {
+  } else if (a.solutionAt === null) {
     return 1;
-  } else if (b.firstSolutionAt == null) {
+  } else if (b.solutionAt == null) {
     return -1;
   }
-  return b.firstSolutionAt - a.firstSolutionAt;
+  return b.solutionAt - a.solutionAt;
 }

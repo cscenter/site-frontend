@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Набор в ШАД 2022</title>
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/png" href="{{ static("v2/img/favicon.png") }}">
+  <link href="{{ static("v2/dist/css/main.css") }}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container page-content p-xs-0">
+  <div class="row content-center no-gutters">
+    <div class="col-lg-8">
+      <div class="card _form">
+        <form action="">
+          <div class="card__title">
+            <h2 class="mb-3">Набор в ШАД 2022</h2>
+            <p>Это форма для тестирования</p>
+          </div>
+          <div class="card__content">
+            <div class="row">
+              <div class="field col-lg-6">
+                <div class="ui input">
+                  <label>Фамилия <span class="asterisk">*</span></label>
+                  <input type="text" name="surname" required>
+                </div>
+              </div>
+              <div class="field col-lg-6">
+                <div class="ui input">
+                  <label>Имя <span class="asterisk">*</span></label>
+                  <input type="text" name="name" required>
+                </div>
+              </div>
+              <div class="field col-lg-6">
+                <div class="ui input">
+                  <label>Отчество <span class="asterisk">*</span></label>
+                  <input type="text" name="patronymic" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="field col-lg-6">
+                <div class="ui input">
+                  <label>Email <span class="asterisk"
+                  >*</span></label>
+                  <input type="email" name="email" required>
+                </div>
+                <div class="help-text">
+                  Обязательно проверьте правильность адреса
+                </div>
+              </div>
+              <div class="field col-lg-6">
+                <div class="ui input">
+                  <label>Телефон <span class="asterisk">*</span></label>
+                  <input type="text" name="phone" required>
+                </div></div>
+              <div class="field col-lg-6">
+                <div class="ui input">
+                  <label>Дата рождения <span class="asterisk">*</span></label>
+                  <input type="date" name="birthday" required>
+                </div>
+              </div>
+              <div class="field col-lg-6">
+                <div class="ui input">
+                  <label>В каком городе вы живете? <span class="asterisk">*</span></label>
+                  <input type="text" name="native_city" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="field col-12">
+                <div class="grouped">
+                  <label class="title-label">В каком городе вы хотите учиться в ШАД? <span class="asterisk"
+                  >*</span></label>
+                  <label class="ui option radio">
+                    <input type="radio" name="study_city" class="control__input" value="ekaterinburg">
+                    <span class="control__indicator"></span>
+                    <span class="control__description">Екатеринбург</span>
+                  </label>
+                  <label class="ui option radio">
+                    <input type="radio" name="study_city" class="control__input" value="distance">
+                    <span class="control__indicator"></span>
+                    <span class="control__description">Заочное отделение</span>
+                  </label>
+                  <label class="ui option radio">
+                    <input type="radio" name="study_city" class="control__input" value="minsk">
+                    <span class="control__indicator"></span>
+                    <span class="control__description">Минск</span>
+                  </label>
+                  <label class="ui option radio">
+                    <input type="radio" name="study_city" class="control__input" value="moscow">
+                    <span class="control__indicator"></span>
+                    <span class="control__description">Москва</span>
+                  </label>
+                  <label class="ui option radio">
+                    <input type="radio" name="study_city" class="control__input" value="nizhniy-novgorod">
+                    <span class="control__indicator"></span>
+                    <span class="control__description">Нижний Новгород</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <label class="title-label">В каком университете вы учитесь/учились? <span class="asterisk"
+                >*</span></label>
+              </div>
+              <div class="field col-lg-6">
+                <div class="ui input">
+                  <input type="text" placeholder="Город" name="study-city" required>
+                </div>
+              </div>
+              <div class="field col-lg-6">
+                <div class="ui input">
+                  <input type="text" placeholder="Университет" name="university" required>
+                </div>
+              </div>
+              <div class="field col-12">
+                <div class="grouped">
+                  <label class="title-label">Учитесь ли вы сейчас в университете? <span class="asterisk"
+                  >*</span></label>
+                  <label class="ui option radio">
+                    <input type="radio" name="do_you_study_now" class="control__input">
+                    <span class="control__indicator"></span>
+                    <span class="control__description">Да</span>
+                  </label>
+                  <label class="ui option radio">
+                    <input type="radio" name="do_you_study_now" class="control__input">
+                    <span class="control__indicator"></span>
+                    <span class="control__description">Нет</span>
+                  </label>
+                </div>
+              </div>
+              <div class="field col-lg-6">
+                <div class="ui input">
+                  <label>На каком курсе вы сейчас учитесь? <span class="asterisk"
+                  >*</span></label>
+                  <input type="text" name="course" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="field col-lg-6">
+                <div class="ui input">
+                  <label>На каком факультете вы учитесь/учились? На какой кафедре? <span class="asterisk"
+                  >*</span></label>
+                  <input type="text" name="faculty" required>
+                </div>
+              </div>
+              <div class="field col-lg-6">
+                <div class="ui input">
+                  <label>В каком году вы закончите/закончили университет? <span class="asterisk"
+                  >*</span></label>
+                  <input type="text" name="graduate_year" required>
+                </div>
+              </div>
+              <div class="field col-12">
+                <div class="ui input">
+                  <label>Откуда вы узнали про ШАД?</label>
+                  <textarea rows="6"></textarea>
+                </div>
+              </div>
+              <div class="field col-12">
+                <div class="ui input">
+                  <label>
+                    Зачем вы поступаете в ШАД? Расскажите чему вы ожидаете научиться в ШАД, для чего вам эти знания, какое
+                    направление привлекает больше всего. Чем честнее ответ - тем лучше. <span class="asterisk"
+                  >*</span></label>
+                  <textarea rows="6"></textarea>
+                </div>
+              </div>
+              <div class="field col-12">
+                <div class="ui input">
+                  <label>
+                    Изучали ли вы раньше машинное обучение/анализ данных? Каким образом? Какие навыки удалось приобрести,
+                    какие проекты сделать? <span class="asterisk">*</span></label>
+                  <textarea rows="6"></textarea>
+                </div>
+              </div>
+              <div class="field col-12">
+                <div class="grouped">
+                  <label class="ui option checkbox">
+                    <input type="checkbox" class="control__input" name="ticket_access">
+                    <span class="control__indicator"></span>
+                    <span class="control__description __user-agreement">Мне был предоставлен билет на прошлом отборе в ШАД</span>
+                  </label>
+                </div>
+              </div>
+              <div class="field col-12">
+                <div class="grouped">
+                  <label class="title-label">Планируете ли вы поступать в этом году на одну из совместных с ШАД магистерских программ?
+                    <span class="asterisk">*</span></label>
+                  <label class="ui option radio">
+                    <input type="radio" name="magister_alumni" class="control__input">
+                    <span class="control__indicator"></span>
+                    <span class="control__description">Да</span>
+                  </label>
+                  <label class="ui option radio">
+                    <input type="radio" name="magister_alumni" class="control__input">
+                    <span class="control__indicator"></span>
+                    <span class="control__description">Нет</span>
+                  </label>
+                </div>
+              </div>
+              <div class="field col-12">
+                <div class="grouped">
+                  <label class="ui option checkbox">
+                    <input type="checkbox" class="control__input" required>
+                    <span class="control__indicator"></span>
+                    <span class="control__description __user-agreement">Я обещаю самостоятельно выполнять все задания всех этапов поступления в ШАД, не списывать и не давать списывать, не публиковать задания теста и экзамена в открытом доступе, не использовать более одного логина для участия в отборе ШАД. <span
+                            class="asterisk">*</span></span>
+                  </label>
+                </div>
+              </div>
+              <div class="field col-12">
+                <div class="grouped">
+                  <label class="ui option checkbox">
+                    <input type="checkbox" class="control__input" required>
+                    <span class="control__indicator"></span>
+                    <span class="control__description __user-agreement">Я согласен (-на) на обработку указанных данных на условиях <a
+                            href="https://yandex.ru/legal/sad_personal_data/?lang=ru" target="_blank" rel="nofollow noopener">Правил обработки персональных данных участника проекта «Школа Анализа Данных»</a><span
+                            class="asterisk">*</span></span>
+                  </label>
+                </div>
+              </div>
+              <div class="field col-12">
+                <div class="grouped">
+                  <label class="ui option checkbox">
+                    <input type="checkbox" class="control__input">
+                    <span class="control__indicator"></span>
+                    <span class="control__description __user-agreement">Я согласен (-на) на получение новостной и рекламной рассылки от АНО ДПО "ШАД" и ООО "ЯНДЕКС"</span>
+                  </label>
+                </div>
+              </div>
+              <div class="field col-lg-auto">
+                <a href="" class="btn _primary _m-wide">Отправить</a>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

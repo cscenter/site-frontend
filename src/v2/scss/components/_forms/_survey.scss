@@ -23,11 +23,6 @@
     @extend .h3;
     font-weight: $font-weight-normal;
     margin-bottom: spacer("4x");
-
-    .asterisk {
-      font-weight: $font-weight-light;
-      color: $red;
-    }
   }
 }
 

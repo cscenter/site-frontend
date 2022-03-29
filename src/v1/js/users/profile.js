@@ -1,7 +1,8 @@
 import Cropper from 'cropperjs';
-import $ from 'jquery';
 import FileAPI from 'fileapi/dist/FileAPI';
+import $ from 'jquery';
 import _throttle from 'lodash-es/throttle';
+
 import { createNotification, getCSRFToken, getTemplate } from 'utils';
 
 const photoAppProps = window.__CSC__.photoApp;
@@ -176,8 +177,6 @@ let fn = {
 
   thumbInit: function (data) {
     fn.enableLoadingState();
-    // Avoid img cache
-    data.url = data.url + '?' + new Date().getTime();
     fn.cropperInit(data);
   },
 

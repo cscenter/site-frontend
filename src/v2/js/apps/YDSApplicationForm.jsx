@@ -86,7 +86,8 @@ const rules = {
   university_city: { required: msgRequired },
   university: { required: msgRequired },
   faculty: { required: msgRequired },
-  shadPlusRash: { required: msgRequired },
+  shadPlusRash: {},
+  newTrack: {},
   newTrackScientificArticles: null,
   newTrackProjects: null,
   newTrackTechArticles: null,
@@ -146,8 +147,8 @@ function YDSApplicationForm({
     register('honesty', rules.honesty);
     register('agreement', rules.agreement);
     register('shad_plus_rash', rules.shadPlusRash);
+    register('new_track', rules.newTrack);
   }, [register]);
-
   let [
     campaign,
     isStudying,
@@ -181,6 +182,11 @@ function YDSApplicationForm({
       unregister('course');
       rules.course = value === 'yes' ? { required: msgRequired } : {};
       register('course', rules.course);
+    }
+    if (name === mskStrCampaignId) {
+      const required = value === 'yes' ? msgRequired : false;
+      rules.shadPlusRash.required = required;
+      rules.newTrack.required = required;
     }
   }
 
@@ -221,8 +227,10 @@ function YDSApplicationForm({
       ticket_access,
       magistracy_and_shad,
       email_subscription,
+      agreement,
       ...payload
     } = data;
+    payload['agreement'] = agreement === true;
     payload['shad_plus_rash'] = shad_plus_rash === 'yes';
     payload['rash_agreement'] = rash_agreement === true;
     payload['new_track'] = new_track === 'yes';
@@ -793,10 +801,14 @@ function YDSApplicationForm({
               rashStatus ||
               isPending
             }
-            className="btn _primary _m-wide mb-6"
+            className="btn _primary _m-wide mt-3 mb-6"
           >
             Подать заявку
           </button>
+        </div>
+        <div className="row">
+          Если возникли технические проблемы с формой, напишите на почту&nbsp;
+          <a href="mailto:shad@yandex-team.ru">shad@yandex-team.ru</a>
         </div>
       </div>
     </form>

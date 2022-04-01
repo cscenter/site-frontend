@@ -100,7 +100,7 @@ const rules = {
   motivation: { required: msgRequired },
   whereDidYouLearnOther: {},
   honesty: { required: msgRequired },
-  agreement: { required: msgRequired }
+  shadAgreement: { required: msgRequired }
 };
 
 function YDSApplicationForm({
@@ -132,7 +132,7 @@ function YDSApplicationForm({
   } = useForm({
     mode: 'onBlur',
     defaultValues: {
-      agreement: false,
+      shad_agreement: false,
       rash_agreement: false,
       honesty: false
     }
@@ -145,7 +145,7 @@ function YDSApplicationForm({
     register('campaign', rules.campaign);
     register('course', rules.course);
     register('honesty', rules.honesty);
-    register('agreement', rules.agreement);
+    register('shad_agreement', rules.shadAgreement);
     register('shad_plus_rash', rules.shadPlusRash);
     register('new_track', rules.newTrack);
   }, [register]);
@@ -161,7 +161,7 @@ function YDSApplicationForm({
     'campaign',
     'is_studying',
     'honesty',
-    'agreement',
+    'shad_agreement',
     'shad_plus_rash',
     'rash_agreement',
     'new_track'
@@ -185,6 +185,7 @@ function YDSApplicationForm({
     }
     if (name === mskStrCampaignId) {
       const required = value === 'yes' ? msgRequired : false;
+      console.log(value, required);
       rules.shadPlusRash.required = required;
       rules.newTrack.required = required;
     }
@@ -227,13 +228,17 @@ function YDSApplicationForm({
       ticket_access,
       magistracy_and_shad,
       email_subscription,
-      agreement,
+      shad_agreement,
       ...payload
     } = data;
-    payload['agreement'] = agreement === true;
-    payload['shad_plus_rash'] = shad_plus_rash === 'yes';
+    payload['shad_agreement'] = shad_agreement === true;
+    if (shad_plus_rash !== undefined) {
+      payload['shad_plus_rash'] = shad_plus_rash === 'yes';
+    }
     payload['rash_agreement'] = rash_agreement === true;
-    payload['new_track'] = new_track === 'yes';
+    if (new_track !== undefined) {
+      payload['new_track'] = new_track === 'yes';
+    }
     payload['is_studying'] = is_studying === 'yes';
     payload['level_of_education'] = course && course.value;
     payload['ticket_access'] = ticket_access === true;
@@ -264,7 +269,10 @@ function YDSApplicationForm({
       </>
     );
   }
-  const rashStatus = shadPlusRash === 'yes' && rashConfirmed !== true;
+  const rashStatus =
+    campaign === mskStrCampaignId &&
+    shadPlusRash === 'yes' &&
+    rashConfirmed !== true;
   return (
     <form className="ui form" onSubmit={handleSubmit(onSubmit)}>
       <div className="card__content">
@@ -442,10 +450,16 @@ function YDSApplicationForm({
                   shouldUnregister={true}
                   onChange={handleInputChange}
                 >
-                  <RadioOption {...register('shad_plus_rash')} id="yes">
+                  <RadioOption
+                    {...register('shad_plus_rash', { shouldUnregister: true })}
+                    id="yes"
+                  >
                     Да
                   </RadioOption>
-                  <RadioOption {...register('shad_plus_rash')} id="no">
+                  <RadioOption
+                    {...register('shad_plus_rash', { shouldUnregister: true })}
+                    id="no"
+                  >
                     Нет
                   </RadioOption>
                 </RadioGroup>
@@ -458,8 +472,8 @@ function YDSApplicationForm({
             <div className="col-lg-12">
               <div className="grouped mb-4">
                 <Checkbox
-                  required
                   name={'rash_agreement'}
+                  {...register('rash_agreement', { shouldUnregister: true })}
                   label={
                     <>
                       Выбирая участие в совместной программе, даю согласие на
@@ -522,10 +536,16 @@ function YDSApplicationForm({
                   className="inline pt-0"
                   onChange={handleInputChange}
                 >
-                  <RadioOption {...register('new_track')} id="yes">
+                  <RadioOption
+                    {...register('new_track', { shouldUnregister: true })}
+                    id="yes"
+                  >
                     Да
                   </RadioOption>
-                  <RadioOption {...register('new_track')} id="no">
+                  <RadioOption
+                    {...register('new_track', { shouldUnregister: true })}
+                    id="no"
+                  >
                     Нет
                   </RadioOption>
                 </RadioGroup>
@@ -761,7 +781,7 @@ function YDSApplicationForm({
             <div className="grouped mb-4">
               <Checkbox
                 required
-                name={'agreement'}
+                name={'shad_agreement'}
                 label={
                   <>
                     Я согласен (-на) на обработку указанных данных на условиях{' '}

@@ -167,11 +167,14 @@ function YDSApplicationForm({
     'new_track'
   ]);
 
-  let mskStrCampaignId = campaigns
-    .find((e, i, a) => {
-      return e.value === 'msk';
-    })
-    .id.toString();
+  let mskStrCampaignId = campaigns.find((e, i, a) => {
+    return e.value === 'msk';
+  });
+  if (mskStrCampaignId !== undefined) {
+    mskStrCampaignId = mskStrCampaignId.id.toString();
+  } else {
+    mskStrCampaignId = null;
+  }
 
   function handleInputChange(event) {
     const target = event.target;
@@ -185,7 +188,6 @@ function YDSApplicationForm({
     }
     if (name === mskStrCampaignId) {
       const required = value === 'yes' ? msgRequired : false;
-      console.log(value, required);
       rules.shadPlusRash.required = required;
       rules.newTrack.required = required;
     }

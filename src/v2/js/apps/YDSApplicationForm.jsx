@@ -196,7 +196,6 @@ function YDSApplicationForm({
     if (universityCity !== undefined && universityCity !== null) {
       let isNum = /^\d+$/.test(universityCity.value);
       if (!isNum) {
-        console.log(isNum, universityCity);
         return;
       }
       fetch(`${endpointUniversities}?city=${universityCity.value}`)

@@ -1,5 +1,5 @@
 import * as PropTypes from 'prop-types';
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 
 import ky from 'ky';
 import { useAsync } from 'react-async';
@@ -83,7 +83,7 @@ const rules = {
   phone: { required: msgRequired },
   birthDate: { required: msgRequired },
   livingPlace: { required: msgRequired },
-  university_city: { required: msgRequired },
+  universityCity: { required: msgRequired },
   university: { required: msgRequired },
   faculty: { required: msgRequired },
   shadPlusRash: {},
@@ -105,11 +105,12 @@ const rules = {
 
 function YDSApplicationForm({
   endpoint,
+  endpointCities,
+  endpointUniversities,
   csrfToken,
   authCompleteUrl,
   authBeginUrl,
   campaigns,
-  universities,
   educationLevelOptions,
   initialState
 }) {
@@ -137,11 +138,20 @@ function YDSApplicationForm({
       honesty: false
     }
   });
+  const [cities, setCities] = useState([]);
+  useEffect(() => {
+    fetch(endpointCities)
+      .then(response => response.json())
+      .then(data => {
+        console.debug('Fetching cities');
+        setCities(data.map(({ id, name }) => ({ value: id, label: name })));
+      });
+  }, [endpointCities]);
 
-  // TODO: what is it?
   useEffect(() => {
     register('is_studying', rules.isStudying);
     register('university', rules.university);
+    register('university_city', rules.universityCity);
     register('campaign', rules.campaign);
     register('course', rules.course);
     register('honesty', rules.honesty);
@@ -151,6 +161,8 @@ function YDSApplicationForm({
   }, [register]);
   let [
     campaign,
+    university,
+    universityCity,
     isStudying,
     honestyConfirmed,
     agreementConfirmed,
@@ -159,6 +171,8 @@ function YDSApplicationForm({
     newTrack
   ] = watch([
     'campaign',
+    'university',
+    'university_city',
     'is_studying',
     'honesty',
     'shad_agreement',
@@ -166,7 +180,19 @@ function YDSApplicationForm({
     'rash_agreement',
     'new_track'
   ]);
-
+  const [universityList, setUniversityChoices] = useState([]);
+  useEffect(() => {
+    if (universityCity !== undefined && universityCity !== null) {
+      fetch(`${endpointUniversities}?city=${universityCity.value}`)
+        .then(response => response.json())
+        .then(data => {
+          console.debug('Fetching universities from ', universityCity);
+          setUniversityChoices(
+            data.map(({ id, name }) => ({ value: id, label: name }))
+          );
+        });
+    }
+  }, [endpointUniversities, universityCity]);
   let mskStrCampaignId = campaigns.find((e, i, a) => {
     return e.value === 'msk';
   });
@@ -186,7 +212,7 @@ function YDSApplicationForm({
       rules.course = value === 'yes' ? { required: msgRequired } : {};
       register('course', rules.course);
     }
-    if (name === mskStrCampaignId) {
+    if (name === 'campaign' && value === mskStrCampaignId) {
       const required = value === 'yes' ? msgRequired : false;
       rules.shadPlusRash.required = required;
       rules.newTrack.required = required;
@@ -196,8 +222,11 @@ function YDSApplicationForm({
   function handleSelectChange(option, name) {
     setValue(name, option);
     trigger(name);
+    if (name === 'university_city') {
+      setValue('university', null);
+      trigger('university');
+    }
   }
-
   useEffect(() => {
     // Yandex.Passport global handlers (postMessage could be broken in IE11-)
     window.accessYandexLoginSuccess = login => {
@@ -227,6 +256,7 @@ function YDSApplicationForm({
       is_studying,
       course,
       university,
+      university_city,
       ticket_access,
       magistracy_and_shad,
       email_subscription,
@@ -250,7 +280,20 @@ function YDSApplicationForm({
       if (university.__isNew__) {
         payload['university_other'] = university.value;
       } else {
-        payload['university'] = university.value;
+        payload['university'] = parseInt(university.value);
+      }
+    }
+    if (university_city) {
+      if (university_city.__isNew__) {
+        payload['university_city'] = {
+          is_exists: false,
+          city_name: university_city.value
+        };
+      } else {
+        payload['university_city'] = {
+          is_exists: true,
+          pk: parseInt(university_city.value),
+        };
       }
     }
     runSubmit(endpoint, csrfToken, setState, payload);
@@ -599,13 +642,6 @@ function YDSApplicationForm({
               <span className="asterisk">*</span>
             </label>
           </div>
-          <InputField
-            control={control}
-            rules={rules.livingPlace}
-            name="university_city"
-            wrapperClass="col-lg-6"
-            placeholder="Город"
-          />
           <div className="field col-lg-6">
             <div className="ui select">
               <CreatableSelect
@@ -616,10 +652,34 @@ function YDSApplicationForm({
                 openMenuOnFocus={true}
                 isClearable={true}
                 onChange={handleSelectChange}
+                onBlur={e => trigger('university_city')}
+                name="university_city"
+                placeholder="Город"
+                options={cities}
+                menuPortalTarget={document.body}
+                errors={errors}
+              />
+            </div>
+            <ErrorMessage errors={errors} name={'university_city'} />
+          </div>
+          <div className="field col-lg-6">
+            <div className="ui select">
+              <CreatableSelect
+                required
+                isDisabled={
+                  universityCity === undefined || universityCity === null
+                }
+                components={{
+                  DropdownIndicator: null
+                }}
+                openMenuOnFocus={true}
+                isClearable={true}
+                onChange={handleSelectChange}
                 onBlur={e => trigger('university')}
                 name="university"
                 placeholder="Университет"
-                options={universities}
+                value={university}
+                options={universityList}
                 menuPortalTarget={document.body}
                 errors={errors}
               />
@@ -727,13 +787,14 @@ function YDSApplicationForm({
             }
           />
           <div className="col-lg-12">
-            <div className="grouped mb-4">
+            <div className="grouped inline mb-4">
               <Checkbox
                 name={'ticket_access'}
                 label={
                   <>
                     Мне был предоставлен билет на прошлом отборе в ШАД&nbsp;
                     <Hint
+                      delay={[0, 3000]}
                       html={
                         'Поставьте здесь галочку, если по итогам отбора в ШАД в прошлом году вам пришло письмо, в котором говорилось, что в этом году вы сразу можете пройти на собеседование, минуя первые два этапа отбора.'
                       }
@@ -842,6 +903,8 @@ YDSApplicationForm.propTypes = {
     isYandexPassportAccessAllowed: PropTypes.bool.isRequired
   }).isRequired,
   endpoint: PropTypes.string.isRequired,
+  endpointCities: PropTypes.string.isRequired,
+  endpointUniversities: PropTypes.string.isRequired,
   csrfToken: PropTypes.string.isRequired,
   authBeginUrl: PropTypes.string.isRequired,
   authCompleteUrl: PropTypes.string.isRequired,
@@ -852,7 +915,7 @@ YDSApplicationForm.propTypes = {
       id: PropTypes.number.isRequired
     })
   ).isRequired,
-  universities: PropTypes.arrayOf(
+  universities_list: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.number.isRequired,
       label: PropTypes.string.isRequired

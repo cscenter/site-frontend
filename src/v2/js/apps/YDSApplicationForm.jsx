@@ -194,8 +194,9 @@ function YDSApplicationForm({
   const [universities, setUniversities] = useState([]);
   useEffect(() => {
     if (universityCity !== undefined && universityCity !== null) {
-      let isNum = /^\d+$/.test(universityCity);
+      let isNum = /^\d+$/.test(universityCity.value);
       if (!isNum) {
+        console.log(isNum, universityCity);
         return;
       }
       fetch(`${endpointUniversities}?city=${universityCity.value}`)
@@ -934,12 +935,6 @@ YDSApplicationForm.propTypes = {
       value: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
       id: PropTypes.number.isRequired
-    })
-  ).isRequired,
-  universities_list: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.number.isRequired,
-      label: PropTypes.string.isRequired
     })
   ).isRequired,
   educationLevelOptions: PropTypes.arrayOf(optionStrType).isRequired

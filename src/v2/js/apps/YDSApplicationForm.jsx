@@ -194,6 +194,10 @@ function YDSApplicationForm({
   const [universities, setUniversities] = useState([]);
   useEffect(() => {
     if (universityCity !== undefined && universityCity !== null) {
+      let isNum = /^\d+$/.test(universityCity);
+      if (!isNum) {
+        return;
+      }
       fetch(`${endpointUniversities}?city=${universityCity.value}`)
         .then(response => response.json())
         .then(data => {

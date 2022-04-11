@@ -106,6 +106,7 @@ const rules = {
 };
 
 function YDSApplicationForm({
+  utm,
   endpoint,
   endpointCities,
   endpointUniversities,
@@ -281,6 +282,7 @@ function YDSApplicationForm({
       shad_agreement,
       ...payload
     } = data;
+    payload['utm'] = utm;
     payload['shad_agreement'] = shad_agreement === true;
     if (shad_plus_rash !== undefined) {
       payload['shad_plus_rash'] = shad_plus_rash === 'yes';
@@ -925,6 +927,13 @@ function YDSApplicationForm({
 }
 
 YDSApplicationForm.propTypes = {
+  utm: PropTypes.shape({
+    utm_source: PropTypes.string,
+    utm_medium: PropTypes.string,
+    utm_campaign: PropTypes.string,
+    utm_term: PropTypes.string,
+    utm_content: PropTypes.string
+  }),
   initialState: PropTypes.shape({
     isYandexPassportAccessAllowed: PropTypes.bool.isRequired
   }).isRequired,

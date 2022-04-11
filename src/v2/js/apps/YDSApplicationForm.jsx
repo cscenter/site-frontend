@@ -17,10 +17,7 @@ import {
   Tooltip
 } from 'components';
 import { optionStrType } from 'types/props';
-import {
-  showErrorNotification,
-  showNotification
-} from 'utils';
+import { showErrorNotification, showNotification } from 'utils';
 
 // TODO: потестить isPending. Есть какой-то devtools для react-async
 
@@ -325,6 +322,8 @@ function YDSApplicationForm({
     return (
       <>
         <h3>Ваша заявка принята!</h3>
+        Начать онлайн-тест нужно до 5 мая 18:00 (по московскому времени)
+        <br />
         Мы выслали вам на почту письмо — прочитайте его и переходите к тесту.
         <br />
         Если письмо не пришло в течение часа и его не оказалось в папке «Спам»
@@ -681,6 +680,10 @@ function YDSApplicationForm({
                 errors={errors}
               />
             </div>
+            <div className="help-text">
+              Если вашего города/университета не оказалось в списке, вы можете
+              добавить его название.
+            </div>
             <ErrorMessage errors={errors} name={'university_city'} />
           </div>
           <div className="field col-lg-6">
@@ -776,8 +779,10 @@ function YDSApplicationForm({
           <MemoizedTextField
             name="where_did_you_learn_other"
             control={control}
+            maxlength={255}
             rules={rules.whereDidYouLearnOther}
             wrapperClass="col-lg-12"
+            helpText="Не более 255 символов."
             label="Откуда вы узнали про ШАД?"
           />
           <MemoizedTextField

@@ -17,10 +17,7 @@ import {
   Tooltip
 } from 'components';
 import { optionStrType } from 'types/props';
-import {
-  showErrorNotification,
-  showNotification
-} from 'utils';
+import { showErrorNotification, showNotification } from 'utils';
 
 // TODO: потестить isPending. Есть какой-то devtools для react-async
 
@@ -54,7 +51,8 @@ const submitForm = async (
   });
   if (!response.ok) {
     if (response.status === 400) {
-      const data = response.json();
+      const data = await response.json();
+      console.log(data);
       let msg = '<h5>Анкета не была сохранена</h5>';
       if (
         Object.keys(data).length === 1 &&
@@ -62,16 +60,19 @@ const submitForm = async (
       ) {
         msg += data['non_field_errors'];
         showErrorNotification(msg);
+        console.log(`Non field errors: ${data}`);
       } else {
-        msg += 'Одно или более полей пропущены или заполнены некорректно.';
-        showNotification(msg, { type: 'error', timeout: 3000 });
+        msg += 'Одно или более полей пропущены или заполнены некорректно:';
+        msg += `<br/>${JSON.stringify(data)}`;
+        showNotification(msg, { type: 'error' });
       }
     } else if (response.status === 403) {
       let msg = '<h5>Анкета не была сохранена</h5>Приемная кампания окончена.';
       showErrorNotification(msg);
     } else {
       showErrorNotification(
-        'Что-то пошло не так. Пожалуйста, обратитесь на почту, указанную вниз анкеты.'
+        `Что-то пошло не так: код ошибки ${response.status}.<br/>
+               Пожалуйста, обратитесь на почту, указанную внизу анкеты.`
       );
     }
   } else {
@@ -152,7 +153,7 @@ function YDSApplicationForm({
         setCities(data.map(({ id, name }) => ({ value: id, label: name })));
       })
       .catch(errors => {
-        showErrorNotification(`Что-то пошло не так, пожалуйста, обратитесь на почту,
+        showErrorNotification(`Не удалось загрузить список городов, пожалуйста, обратитесь на почту,
                                                         указанную внизу анкеты.<br>${errors.toString()}`);
         console.error(errors);
       });
@@ -207,7 +208,7 @@ function YDSApplicationForm({
           );
         })
         .catch(errors => {
-          showErrorNotification(`Что-то пошло не так, пожалуйста, обратитесь на почту,
+          showErrorNotification(`Не удалось загрузить список университетов, пожалуйста, обратитесь на почту,
                                                         указанную внизу анкеты.<br>${errors.toString()}`);
           console.error(errors);
         });
@@ -232,9 +233,8 @@ function YDSApplicationForm({
       rules.course = value === 'yes' ? { required: msgRequired } : {};
       register('course', rules.course);
     }
-    if (name === 'campaign' && value === mskStrCampaignId) {
-      const required = value === 'yes' ? msgRequired : false;
-      console.log(value, required);
+    if (name === 'campaign') {
+      const required = value === mskStrCampaignId ? msgRequired : false;
       rules.shadPlusRash.required = required;
       rules.newTrack.required = required;
     }

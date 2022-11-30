@@ -151,6 +151,9 @@
     margin: 0;
 }
 @media print {
+    #non-printable {
+        display: none;
+    }
     * {
         box-sizing: border-box;
         -moz-box-sizing: border-box;

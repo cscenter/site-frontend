@@ -81,6 +81,7 @@ const rules = {
   lastName: { required: msgRequired },
   firstName: { required: msgRequired },
   patronymic: { required: msgRequired },
+  telegram_username: { required: msgRequired },
   email: { required: msgRequired },
   phone: { required: msgRequired },
   birthDate: { required: msgRequired },
@@ -88,8 +89,7 @@ const rules = {
   universityCity: { required: msgRequired },
   university: { required: msgRequired },
   faculty: { required: msgRequired },
-  shadPlusRash: {},
-  newTrack: {},
+  newTrack: { required: msgRequired },
   newTrackScientificArticles: null,
   newTrackProjects: null,
   newTrackTechArticles: null,
@@ -100,7 +100,9 @@ const rules = {
   ml_experience: { required: msgRequired },
   campaign: { required: msgRequired },
   motivation: { required: msgRequired },
-  whereDidYouLearnOther: {},
+  hasJob: { required: msgRequired },
+  whereDidYouLearn: { required: msgRequired },
+  whereDidYouLearnOther: { required: msgRequired },
   honesty: { required: msgRequired },
   shadAgreement: { required: msgRequired }
 };
@@ -114,13 +116,14 @@ function YDSApplicationForm({
   authCompleteUrl,
   authBeginUrl,
   campaigns,
+  sourceOptions,
   educationLevelOptions,
-  initialState
+  initialState,
+  partners
 }) {
   const initial = {
     ...initialState
   };
-
   const reducer = (state, newState) => ({ ...state, ...newState });
   const [state, setState] = useReducer(reducer, initial);
   const { isPending, run: runSubmit } = useAsync({ deferFn: submitForm });
@@ -137,7 +140,6 @@ function YDSApplicationForm({
     mode: 'onBlur',
     defaultValues: {
       shad_agreement: false,
-      rash_agreement: false,
       honesty: false
     }
   });
@@ -157,6 +159,7 @@ function YDSApplicationForm({
   }, [endpointCities]);
 
   useEffect(() => {
+    register('has_job', rules.hasJob);
     register('is_studying', rules.isStudying);
     register('university', rules.university);
     register('university_city', rules.universityCity);
@@ -164,7 +167,6 @@ function YDSApplicationForm({
     register('course', rules.course);
     register('honesty', rules.honesty);
     register('shad_agreement', rules.shadAgreement);
-    register('shad_plus_rash', rules.shadPlusRash);
     register('new_track', rules.newTrack);
   }, [register]);
   let [
@@ -172,20 +174,20 @@ function YDSApplicationForm({
     university,
     universityCity,
     isStudying,
+    hasJob,
     honestyConfirmed,
+    whereDidYouLearn,
     agreementConfirmed,
-    shadPlusRash,
-    rashConfirmed,
     newTrack
   ] = watch([
     'campaign',
     'university',
     'university_city',
     'is_studying',
+    'has_job',
     'honesty',
+    'where_did_you_learn',
     'shad_agreement',
-    'shad_plus_rash',
-    'rash_agreement',
     'new_track'
   ]);
 
@@ -230,12 +232,6 @@ function YDSApplicationForm({
       rules.course = value === 'yes' ? { required: msgRequired } : {};
       register('course', rules.course);
     }
-    if (name === 'campaign' && value === mskStrCampaignId) {
-      const required = value === 'yes' ? msgRequired : false;
-      console.log(value, required);
-      rules.shadPlusRash.required = required;
-      rules.newTrack.required = required;
-    }
   }
 
   function handleSelectChange(option, name) {
@@ -269,32 +265,26 @@ function YDSApplicationForm({
 
   function onSubmit(data) {
     let {
-      shad_plus_rash,
-      rash_agreement,
       new_track,
+      has_job,
       is_studying,
       course,
       university,
       university_city,
       ticket_access,
-      magistracy_and_shad,
       email_subscription,
       shad_agreement,
       ...payload
     } = data;
     payload['utm'] = utm;
+    payload['has_job'] = has_job === 'yes';
     payload['shad_agreement'] = shad_agreement === true;
-    if (shad_plus_rash !== undefined) {
-      payload['shad_plus_rash'] = shad_plus_rash === 'yes';
-    }
-    payload['rash_agreement'] = rash_agreement === true;
     if (new_track !== undefined) {
       payload['new_track'] = new_track === 'yes';
     }
     payload['is_studying'] = is_studying === 'yes';
     payload['level_of_education'] = course && course.value;
     payload['ticket_access'] = ticket_access === true;
-    payload['magistracy_and_shad'] = magistracy_and_shad === 'yes';
     payload['email_subscription'] = email_subscription === true;
     if (university) {
       if (university.__isNew__) {
@@ -324,20 +314,18 @@ function YDSApplicationForm({
     return (
       <>
         <h3>Ваша заявка принята!</h3>
-        В начале июля мы пришлем вам письмо с
-        приглашением на собеседование.<br/>Если у вас есть вопросы, вы можете задать
-        их нам на почту <a href="mailto:shad@yandex-team.ru.">shad@yandex-team.ru.</a><br/>
-        Также вы можете вступить в чат абитуриентов ШАД:{' '}
-        <a href="https://t.me/+yTgsgue-tDZlZjhi">
-          https://t.me/+yTgsgue-tDZlZjhi
-        </a>
+        Начать онлайн-тест можно с 1 мая по 18:00 7 мая (по московскому времени)
+        <br />
+        Мы выслали вам на почту письмо — обязательно прочитайте его.
+        <br />
+        Если письмо не пришло в течение часа и его не оказалось в папке «Спам»
+        или «Промоакции», пишите на{' '}
+        <a href="mailto:shad@yandex-team.ru.">shad@yandex-team.ru.</a>
+        <br />
+        Не забудьте указать свои ФИО и email.
       </>
     );
   }
-  const rashStatus =
-    campaign === mskStrCampaignId &&
-    shadPlusRash === 'yes' &&
-    rashConfirmed !== true;
   return (
     <form className="ui form" onSubmit={handleSubmit(onSubmit)}>
       <div className="card__content">
@@ -402,6 +390,18 @@ function YDSApplicationForm({
             }
             wrapperClass="col-lg-6"
           />
+          <InputField
+            control={control}
+            rules={rules.birthDate}
+            name="birth_date"
+            type="date"
+            label={
+              <>
+                Дата рождения <span className="asterisk">*</span>
+              </>
+            }
+            wrapperClass="col-lg-6"
+          />
         </div>
         <div className="row">
           <InputField
@@ -431,12 +431,11 @@ function YDSApplicationForm({
           />
           <InputField
             control={control}
-            rules={rules.birthDate}
-            name="birth_date"
-            type="date"
+            rules={rules.telegram_username}
+            name="telegram_username"
             label={
               <>
-                Дата рождения <span className="asterisk">*</span>
+                Telegram <span className="asterisk">*</span>
               </>
             }
             wrapperClass="col-lg-6"
@@ -475,150 +474,60 @@ function YDSApplicationForm({
             </div>
           </div>
         </div>
-        {campaign === mskStrCampaignId && (
-          <div className="row">
-            <div className="field col-12">
-              <div className="grouped">
-                <label className="title-label">
-                  Планируете ли вы поступать на совместную программу ШАД и
-                  РЭШ?&nbsp;
-                  <span className="asterisk">*</span>&nbsp;
-                  <Hint
-                    interactive={true}
-                    html={
-                      <>
-                        Цель этой программы – готовить людей, которые будут
-                        обладать одновременно навыками экономического
-                        моделирования и анализа данных. Они смогут не только
-                        строить модели машинного обучения и делать выводы из
-                        данных, но и учитывать экономические факторы, поведение
-                        людей, строение сложных экосистем. Для участия в
-                        программе необходимо пройти вступительные испытания в
-                        ШАД и сдать тест по английскому языку в РЭШ.
-                        <br />
-                        Более подробно о программе -
-                        <a
-                          href="https://yandexdataschool.ru/university/nes"
-                          target="_blank"
-                          rel="nofollow noopener noreferrer"
-                        >
-                          https://yandexdataschool.ru/university/nes
-                        </a>
-                      </>
-                    }
-                  />
-                </label>
-                <RadioGroup
-                  required
-                  name="shad_plus_rash"
-                  className="inline pt-0"
-                  shouldUnregister={true}
-                  onChange={handleInputChange}
-                >
-                  <RadioOption
-                    {...register('shad_plus_rash', { shouldUnregister: true })}
-                    id="yes"
-                  >
-                    Да
-                  </RadioOption>
-                  <RadioOption
-                    {...register('shad_plus_rash', { shouldUnregister: true })}
-                    id="no"
-                  >
-                    Нет
-                  </RadioOption>
-                </RadioGroup>
-              </div>
-            </div>
-          </div>
-        )}
-        {campaign === mskStrCampaignId && shadPlusRash === 'yes' && (
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="grouped mb-4">
-                <Checkbox
-                  name={'rash_agreement'}
-                  {...register('rash_agreement', { shouldUnregister: true })}
-                  label={
+        <div className="row">
+          <div className="field col-12">
+            <div className="grouped">
+              <label className="title-label">
+                Планируете ли вы воспользоваться альтернативным треком
+                поступления?&nbsp;
+                <span className="asterisk">*</span>&nbsp;
+                <Hint
+                  interactive={true}
+                  html={
                     <>
-                      Выбирая участие в совместной программе, даю согласие на
-                      передачу моей персональной информации в Негосударственное
-                      образовательное учреждение высшего образования "Российская
-                      экономическая школа" (институт) (РЭШ) для обработки в
-                      целях обеспечения условий прохождения программы и обратной
-                      связи по вопросам обучения на условиях{' '}
-                      <a
-                        href="https://admissions.nes.ru/other-doc"
-                        target="_blank"
-                        rel="nofollow noopener noreferrer"
-                      >
-                        Политики в отношении персональных данных
-                      </a>{' '}
-                      <span className="asterisk">*</span>
+                      Альтернативный трек предназначен в первую очередь для тех,
+                      у кого уже есть опыт промышленной разработки или научных
+                      исследований в области Data Science. На втором этапе
+                      отбора и на собеседовании вам не придётся решать трудных
+                      задач по высшей математике, но зато нужно будет показать
+                      хорошее умение программировать. Кроме того, при отборе мы
+                      будем учитывать участие в проектах, наличие статей и в
+                      целом индустриальный опыт. Всего по этому треку
+                      планируется набрать не более 30 человек.
+                      <br />
+                      Решение о том, воспользуетесь ли вы альтернативным треком,
+                      вам нужно принять сейчас. Поменять его потом будет
+                      невозможно.
+                      <br />
+                      Если вы ответили &quot;да&quot;, пожалуйста, уделите
+                      особое внимание следующим вопросам.
                     </>
                   }
-                  onChange={handleInputChange}
                 />
-              </div>
-            </div>
-          </div>
-        )}
-        {campaign === mskStrCampaignId && (
-          <div className="row">
-            <div className="field col-12">
-              <div className="grouped">
-                <label className="title-label">
-                  Планируете ли вы воспользоваться альтернативным треком
-                  поступления?&nbsp;
-                  <span className="asterisk">*</span>&nbsp;
-                  <Hint
-                    interactive={true}
-                    html={
-                      <>
-                        Альтернативный трек предназначен в первую очередь для
-                        тех, у кого уже есть опыт промышленной разработки или
-                        научных исследований в области Data Science. На втором
-                        этапе отбора и на собеседовании вам не придётся решать
-                        трудных задач по высшей математике, но зато нужно будет
-                        показать хорошее умение программировать. Кроме того, при
-                        отборе мы будем учитывать участие в проектах, наличие
-                        статей и в целом индустриальный опыт. Всего по этому
-                        треку планируется набрать не более 30 человек.
-                        <br />
-                        Решение о том, воспользуетесь ли вы альтернативным
-                        треком, вам нужно принять сейчас. Поменять его потом
-                        будет невозможно.
-                        <br />
-                        Если вы ответили "да", пожалуйста, уделите особое
-                        внимание следующим вопросам.
-                      </>
-                    }
-                  />
-                </label>
-                <RadioGroup
-                  required
-                  name="new_track"
-                  className="inline pt-0"
-                  onChange={handleInputChange}
+              </label>
+              <RadioGroup
+                required
+                name="new_track"
+                className="inline pt-0"
+                onChange={handleInputChange}
+              >
+                <RadioOption
+                  {...register('new_track', { shouldUnregister: true })}
+                  id="yes"
                 >
-                  <RadioOption
-                    {...register('new_track', { shouldUnregister: true })}
-                    id="yes"
-                  >
-                    Да
-                  </RadioOption>
-                  <RadioOption
-                    {...register('new_track', { shouldUnregister: true })}
-                    id="no"
-                  >
-                    Нет
-                  </RadioOption>
-                </RadioGroup>
-              </div>
+                  Да
+                </RadioOption>
+                <RadioOption
+                  {...register('new_track', { shouldUnregister: true })}
+                  id="no"
+                >
+                  Нет
+                </RadioOption>
+              </RadioGroup>
             </div>
           </div>
-        )}
-        {campaign === mskStrCampaignId && newTrack === 'yes' && (
+        </div>
+        {newTrack === 'yes' && (
           <div className="row">
             <MemoizedTextField
               name="new_track_scientific_articles"
@@ -653,6 +562,38 @@ function YDSApplicationForm({
                         Пожалуйста, сохраните свой ответ в файле .pdf, выложите его на Яндекс.Диск и поместите сюда ссылку.
                         Если у вас уже есть статья на эту тему и вы давали на неё ссылку в предыдущем вопросе, то можете поставить здесь прочерк."
             />
+          </div>
+        )}
+        {campaign === mskStrCampaignId && (
+          <div className="row">
+            <div className="field col-12">
+              <div className="grouped">
+                <label className="title-label">
+                  Планируете ли вы поступать в этом году на одну из совместных с
+                  ШАД магистерских программ?&nbsp;
+                  <span className="asterisk">*</span>&nbsp;
+                  <Hint
+                    interactive={true}
+                    html={<>Выберите первый приоритет</>}
+                  />
+                </label>
+                <RadioGroup
+                  required
+                  name="partner"
+                  onChange={handleInputChange}
+                >
+                  {partners.map(partner => (
+                    <RadioOption
+                      key={partner.id}
+                      id={`campaign-${partner.value}`}
+                      value={partner.id}
+                    >
+                      {partner.label}
+                    </RadioOption>
+                  ))}
+                </RadioGroup>
+              </div>
+            </div>
           </div>
         )}
         <div className="row">
@@ -776,15 +717,72 @@ function YDSApplicationForm({
             }
             wrapperClass="col-lg-6"
           />
-          <MemoizedTextField
-            name="where_did_you_learn_other"
-            control={control}
-            maxlength={255}
-            rules={rules.whereDidYouLearnOther}
-            wrapperClass="col-lg-12"
-            helpText="Не более 255 символов."
-            label="Откуда вы узнали про ШАД?"
-          />
+        </div>
+        <div className="row">
+          <div className="field col-lg-12">
+            <label>Вы сейчас работаете?</label>
+            <RadioGroup
+              required
+              name="has_job"
+              className="inline pt-0"
+              onChange={handleInputChange}
+            >
+              <RadioOption id="yes">Да</RadioOption>
+              <RadioOption id="no">Нет</RadioOption>
+            </RadioGroup>
+          </div>
+        </div>
+        {hasJob && hasJob === 'yes' && (
+          <div className="row">
+            <InputField
+              control={control}
+              rules={rules.position}
+              name="position"
+              label={'Должность'}
+              wrapperClass="col-lg-6"
+            />
+            <InputField
+              control={control}
+              rules={rules.workplace}
+              name="workplace"
+              label={'Место работы'}
+              wrapperClass="col-lg-6"
+            />
+          </div>
+        )}
+        <div className="row">
+          <div className="field col-lg-12">
+            <label className="mb-4">Откуда вы узнали о наборе в ШАД?</label>
+            <div className="grouped">
+              {sourceOptions.map(option => (
+                <Checkbox
+                  key={option.value}
+                  name="where_did_you_learn"
+                  {...register('where_did_you_learn', rules.whereDidYouLearn)}
+                  value={option.value}
+                  className={
+                    errors && errors.where_did_you_learn ? 'error' : ''
+                  }
+                  label={option.label}
+                />
+              ))}
+            </div>
+            <ErrorMessage
+              errors={errors}
+              name={'where_did_you_learn'}
+              className="mt-2"
+            />
+          </div>
+          {whereDidYouLearn && whereDidYouLearn.includes('other') && (
+            <InputField
+              name="where_did_you_learn_other"
+              control={control}
+              rules={rules.whereDidYouLearnOther}
+              wrapperClass="animation col-lg-5"
+              placeholder="Ваш вариант"
+              helpText="Максимум 255 символов"
+            />
+          )}
           <MemoizedTextField
             name="motivation"
             control={control}
@@ -812,6 +810,13 @@ function YDSApplicationForm({
               </>
             }
           />
+          <MemoizedTextField
+            name="additional_info"
+            control={control}
+            rules={rules.additionalInfo}
+            wrapperClass="col-lg-8"
+            label="Напишите любую дополнительную информацию о себе"
+          />
           <div className="col-lg-12">
             <div className="grouped inline mb-4">
               <Checkbox
@@ -829,23 +834,6 @@ function YDSApplicationForm({
                 }
                 onChange={handleInputChange}
               />
-            </div>
-          </div>
-          <div className="field col-12">
-            <div className="grouped">
-              <label className="title-label">
-                Планируете ли вы поступать в этом году на одну из совместных с
-                ШАД магистерских программ? <span className="asterisk">*</span>
-              </label>
-              <RadioGroup
-                required
-                name="magistracy_and_shad"
-                className="inline pt-0"
-                onChange={handleInputChange}
-              >
-                <RadioOption id="yes">Да</RadioOption>
-                <RadioOption id="no">Нет</RadioOption>
-              </RadioGroup>
             </div>
           </div>
           <div className="col-lg-12">
@@ -894,7 +882,7 @@ function YDSApplicationForm({
               <Checkbox
                 name={'email_subscription'}
                 label={
-                  'Я согласен (-на) на получение новостной и рекламной рассылки от АНО ДПО "ШАД" и ООО "ЯНДЕКС"'
+                  'Я согласен (-на) на получение новостной и рекламной рассылки от АНО ДПО "ОТЯ"'
                 }
                 onChange={handleInputChange}
               />
@@ -904,12 +892,7 @@ function YDSApplicationForm({
         <div className="row">
           <button
             type="submit"
-            disabled={
-              !agreementConfirmed ||
-              !honestyConfirmed ||
-              rashStatus ||
-              isPending
-            }
+            disabled={!agreementConfirmed || !honestyConfirmed || isPending}
             className="btn _primary _m-wide mt-3 mb-6"
           >
             Подать заявку
@@ -948,7 +931,15 @@ YDSApplicationForm.propTypes = {
       id: PropTypes.number.isRequired
     })
   ).isRequired,
-  educationLevelOptions: PropTypes.arrayOf(optionStrType).isRequired
+  educationLevelOptions: PropTypes.arrayOf(optionStrType).isRequired,
+  sourceOptions: PropTypes.arrayOf(optionStrType).isRequired,
+  partners: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired
+    })
+  ).isRequired,
+  additionalInfo: null
 };
 
 export default YDSApplicationForm;

@@ -115,7 +115,7 @@ const rules = {
 function YDSApplicationForm({
   utm,
   endpoint,
-  endpointCities,
+  endpointUniversitiesCities,
   endpointUniversities,
   csrfToken,
   authCompleteUrl,
@@ -150,7 +150,7 @@ function YDSApplicationForm({
   });
   const [cities, setCities] = useState([]);
   useEffect(() => {
-    fetch(endpointCities)
+    fetch(endpointUniversitiesCities)
       .then(response => response.json())
       .then(data => {
         console.debug('Fetching cities');
@@ -161,7 +161,7 @@ function YDSApplicationForm({
                                                         указанную внизу анкеты.<br>${errors.toString()}`);
         console.error(errors);
       });
-  }, [endpointCities]);
+  }, [endpointUniversitiesCities]);
 
   useEffect(() => {
     register('has_internship', rules.hasInternship);
@@ -275,6 +275,7 @@ function YDSApplicationForm({
     let {
       new_track,
       has_job,
+      has_internship,
       is_studying,
       course,
       university,
@@ -286,6 +287,7 @@ function YDSApplicationForm({
     } = data;
     payload['utm'] = utm;
     payload['has_job'] = has_job === 'yes';
+    payload['has_internship'] = has_internship === 'yes';
     payload['shad_agreement'] = shad_agreement === true;
     if (new_track !== undefined) {
       payload['new_track'] = new_track === 'yes';
@@ -966,7 +968,8 @@ YDSApplicationForm.propTypes = {
     isYandexPassportAccessAllowed: PropTypes.bool.isRequired
   }).isRequired,
   endpoint: PropTypes.string.isRequired,
-  endpointCities: PropTypes.string.isRequired,
+  endpointResidenceCities: PropTypes.string.isRequired,
+  endpointUniversitiesCities: PropTypes.string.isRequired,
   endpointUniversities: PropTypes.string.isRequired,
   csrfToken: PropTypes.string.isRequired,
   authBeginUrl: PropTypes.string.isRequired,

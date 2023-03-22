@@ -101,6 +101,11 @@ const rules = {
   campaign: { required: msgRequired },
   motivation: { required: msgRequired },
   hasJob: { required: msgRequired },
+  hasInternship: { required: msgRequired },
+  position: null,
+  workplace: null,
+  internshipPosition: null,
+  internshipWorkplace: null,
   whereDidYouLearn: { required: msgRequired },
   whereDidYouLearnOther: { required: msgRequired },
   honesty: { required: msgRequired },
@@ -159,6 +164,7 @@ function YDSApplicationForm({
   }, [endpointCities]);
 
   useEffect(() => {
+    register('has_internship', rules.hasInternship);
     register('has_job', rules.hasJob);
     register('is_studying', rules.isStudying);
     register('university', rules.university);
@@ -175,6 +181,7 @@ function YDSApplicationForm({
     universityCity,
     isStudying,
     hasJob,
+    hasInternship,
     honestyConfirmed,
     whereDidYouLearn,
     agreementConfirmed,
@@ -185,6 +192,7 @@ function YDSApplicationForm({
     'university_city',
     'is_studying',
     'has_job',
+    'has_internship',
     'honesty',
     'where_did_you_learn',
     'shad_agreement',
@@ -584,13 +592,15 @@ function YDSApplicationForm({
                 >
                   {partners.map(partner => (
                     <RadioOption
-                      key={partner.id}
-                      id={`campaign-${partner.value}`}
+                      id={`partner-${partner.value}`}
                       value={partner.id}
                     >
                       {partner.label}
                     </RadioOption>
                   ))}
+                  <RadioOption>
+                    Нет
+                  </RadioOption>
                 </RadioGroup>
               </div>
             </div>
@@ -720,7 +730,44 @@ function YDSApplicationForm({
         </div>
         <div className="row">
           <div className="field col-lg-12">
-            <label>Вы сейчас работаете?</label>
+            <label>
+              Вы проходили стажировки в компаниях?{' '}
+              <span className="asterisk">*</span>
+            </label>
+            <RadioGroup
+              required
+              name="has_internship"
+              className="inline pt-0"
+              onChange={handleInputChange}
+            >
+              <RadioOption id="yes">Да</RadioOption>
+              <RadioOption id="no">Нет</RadioOption>
+            </RadioGroup>
+          </div>
+        </div>
+        {hasInternship && hasInternship === 'yes' && (
+          <div className="row">
+            <InputField
+              control={control}
+              rules={rules.internshipWorkplace}
+              name="internship_workplace"
+              label={'Место стажировки'}
+              wrapperClass="col-lg-6"
+            />
+            <InputField
+              control={control}
+              rules={rules.internshipPosition}
+              name="internship_position"
+              label={'Должность'}
+              wrapperClass="col-lg-6"
+            />
+          </div>
+        )}
+        <div className="row">
+          <div className="field col-lg-12">
+            <label>
+              Вы сейчас работаете? <span className="asterisk">*</span>
+            </label>
             <RadioGroup
               required
               name="has_job"
@@ -736,16 +783,16 @@ function YDSApplicationForm({
           <div className="row">
             <InputField
               control={control}
-              rules={rules.position}
-              name="position"
-              label={'Должность'}
+              rules={rules.workplace}
+              name="workplace"
+              label={'Место работы'}
               wrapperClass="col-lg-6"
             />
             <InputField
               control={control}
-              rules={rules.workplace}
-              name="workplace"
-              label={'Место работы'}
+              rules={rules.position}
+              name="position"
+              label={'Обязанности'}
               wrapperClass="col-lg-6"
             />
           </div>

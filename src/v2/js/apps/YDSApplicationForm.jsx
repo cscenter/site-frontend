@@ -86,6 +86,7 @@ const rules = {
   phone: { required: msgRequired },
   birthDate: { required: msgRequired },
   livingPlace: { required: msgRequired },
+  residenceCity: { required: msgRequired },
   universityCity: { required: msgRequired },
   university: { required: msgRequired },
   faculty: { required: msgRequired },
@@ -94,6 +95,7 @@ const rules = {
   newTrackProjects: null,
   newTrackTechArticles: null,
   newTrackProjectDetails: null,
+  partner: null,
   course: {},
   isStudying: { required: msgRequired },
   yearOfGraduation: { required: msgRequired },
@@ -115,6 +117,7 @@ const rules = {
 function YDSApplicationForm({
   utm,
   endpoint,
+  endpointResidenceCities,
   endpointUniversitiesCities,
   endpointUniversities,
   csrfToken,
@@ -148,25 +151,45 @@ function YDSApplicationForm({
       honesty: false
     }
   });
-  const [cities, setCities] = useState([]);
+  const [universityCities, setUniversityCities] = useState([]);
   useEffect(() => {
     fetch(endpointUniversitiesCities)
       .then(response => response.json())
       .then(data => {
-        console.debug('Fetching cities');
-        setCities(data.map(({ id, name }) => ({ value: id, label: name })));
+        console.debug('Fetching university cities');
+        setUniversityCities(
+          data.map(({ id, name }) => ({ value: id, label: name }))
+        );
       })
       .catch(errors => {
         showErrorNotification(`Что-то пошло не так, пожалуйста, обратитесь на почту,
-                                                        указанную внизу анкеты.<br>${errors.toString()}`);
+                                    указанную внизу анкеты.<br>${errors.toString()}`);
         console.error(errors);
       });
   }, [endpointUniversitiesCities]);
+
+  const [residenceCities, setResidenceCities] = useState([]);
+  useEffect(() => {
+    fetch(endpointResidenceCities)
+      .then(response => response.json())
+      .then(data => {
+        console.debug('Fetching residence cities');
+        setResidenceCities(
+          data.map(({ id, name }) => ({ value: id, label: name }))
+        );
+      })
+      .catch(errors => {
+        showErrorNotification(`Что-то пошло не так, пожалуйста, обратитесь на почту,
+                                    указанную внизу анкеты.<br>${errors.toString()}`);
+        console.error(errors);
+      });
+  }, [endpointResidenceCities]);
 
   useEffect(() => {
     register('has_internship', rules.hasInternship);
     register('has_job', rules.hasJob);
     register('is_studying', rules.isStudying);
+    register('residence_city', rules.residenceCity);
     register('university', rules.university);
     register('university_city', rules.universityCity);
     register('campaign', rules.campaign);
@@ -177,6 +200,7 @@ function YDSApplicationForm({
   }, [register]);
   let [
     campaign,
+    residenceCity,
     university,
     universityCity,
     isStudying,
@@ -188,6 +212,7 @@ function YDSApplicationForm({
     newTrack
   ] = watch([
     'campaign',
+    'residence_city',
     'university',
     'university_city',
     'is_studying',
@@ -249,7 +274,12 @@ function YDSApplicationForm({
       setValue('university', null);
       trigger('university');
     }
+    if (name === 'residence_city') {
+      setValue('campaign', null);
+      trigger('campaign');
+    }
   }
+
   useEffect(() => {
     // Yandex.Passport global handlers (postMessage could be broken in IE11-)
     window.accessYandexLoginSuccess = login => {
@@ -278,6 +308,7 @@ function YDSApplicationForm({
       has_internship,
       is_studying,
       course,
+      residence_city,
       university,
       university_city,
       ticket_access,
@@ -314,6 +345,14 @@ function YDSApplicationForm({
           is_exists: true,
           pk: parseInt(university_city.value)
         };
+      }
+    }
+    if (residence_city) {
+      if (residence_city.__isNew__) {
+        payload['residence_city'] = null;
+        payload['living_place'] = residence_city.value;
+      } else {
+        payload['residence_city'] = parseInt(residence_city.value);
       }
     }
     runSubmit(endpoint, csrfToken, setState, payload);
@@ -450,40 +489,53 @@ function YDSApplicationForm({
             }
             wrapperClass="col-lg-6"
           />
-          <InputField
-            control={control}
-            rules={rules.livingPlace}
-            name="living_place"
-            label={
-              <>
-                В каком городе вы живёте? <span className="asterisk">*</span>
-              </>
-            }
-            wrapperClass="col-lg-6"
-            placeholder=""
-          />
-        </div>
-        <div className="row">
-          <div className="field col-12">
-            <div className="grouped">
-              <label className="title-label">
-                В каком городе вы хотите учиться в ШАД?{' '}
-                <span className="asterisk">*</span>
-              </label>
-              <RadioGroup required name="campaign" onChange={handleInputChange}>
-                {campaigns.map(branch => (
-                  <RadioOption
-                    key={branch.id}
-                    id={`campaign-${branch.value}`}
-                    value={branch.id}
-                  >
-                    {branch.label}
-                  </RadioOption>
-                ))}
-              </RadioGroup>
+          <div className="field col-6">
+            <div className="ui select">
+              <label htmlFor="residence_city">Город проживания <span className="asterisk">*</span></label>
+              <CreatableSelect
+                required
+                components={{
+                  DropdownIndicator: null
+                }}
+                openMenuOnFocus={true}
+                isClearable={true}
+                onChange={handleSelectChange}
+                onBlur={e => trigger('residence_city')}
+                name="residence_city"
+                placeholder="Начните вводить название"
+                options={residenceCities}
+                menuPortalTarget={document.body}
+                errors={errors}
+              />
+              <div className="help-text">
+                Если вашего города/университета не оказалось в списке, вы можете
+                добавить его название.
+              </div>
+              <ErrorMessage errors={errors} name={'residence_city'} />
             </div>
           </div>
         </div>
+        {residenceCity && (
+          <div className="row">
+            <div className="field col-12">
+              <div className="grouped">
+                <label className="title-label">
+                  В каком городе вы хотите учиться в ШАД?{' '}
+                  <span className="asterisk">*</span>
+                </label>
+                <RadioGroup required name="campaign" onChange={handleInputChange}>
+                  {campaigns.map(branch => (
+                    <RadioOption
+                      key={branch.id}
+                      id={`campaign-${branch.value}`}
+                      value={branch.id}
+                    >{branch.label}</RadioOption>
+                  ))}
+                </RadioGroup>
+              </div>
+            </div>
+          </div>
+        )}
         <div className="row">
           <div className="field col-12">
             <div className="grouped">
@@ -588,7 +640,7 @@ function YDSApplicationForm({
                   />
                 </label>
                 <RadioGroup
-                  required
+                  required={rules.partner}
                   name="partner"
                   onChange={handleInputChange}
                 >
@@ -600,9 +652,7 @@ function YDSApplicationForm({
                       {partner.label}
                     </RadioOption>
                   ))}
-                  <RadioOption>
-                    Нет
-                  </RadioOption>
+                  <RadioOption>Нет</RadioOption>
                 </RadioGroup>
               </div>
             </div>
@@ -628,7 +678,7 @@ function YDSApplicationForm({
                 onBlur={e => trigger('university_city')}
                 name="university_city"
                 placeholder="Город"
-                options={cities}
+                options={universityCities}
                 menuPortalTarget={document.body}
                 errors={errors}
               />

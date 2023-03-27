@@ -51,7 +51,8 @@ const submitForm = async (
   });
   if (!response.ok) {
     if (response.status === 400) {
-      const data = response.json();
+      const data = await response.json();
+      console.log(data);
       let msg = '<h5>Анкета не была сохранена</h5>';
       if (
         Object.keys(data).length === 1 &&
@@ -59,16 +60,19 @@ const submitForm = async (
       ) {
         msg += data['non_field_errors'];
         showErrorNotification(msg);
+        console.log(`Non field errors: ${data}`);
       } else {
-        msg += 'Одно или более полей пропущены или заполнены некорректно.';
-        showNotification(msg, { type: 'error', timeout: 3000 });
+        msg += `Что-то пошло не так: код ошибки ${response.status}.`;
+        msg += `<br/>${JSON.stringify(data)}`;
+        showNotification(msg, { type: 'error' });
       }
     } else if (response.status === 403) {
       let msg = '<h5>Анкета не была сохранена</h5>Приемная кампания окончена.';
       showErrorNotification(msg);
     } else {
       showErrorNotification(
-        'Что-то пошло не так. Пожалуйста, обратитесь на почту, указанную внизу анкеты.'
+        `Что-то пошло не так: код ошибки ${response.status}.<br/>
+               Пожалуйста, обратитесь на почту, указанную внизу анкеты.`
       );
     }
   } else {
@@ -86,6 +90,7 @@ const rules = {
   phone: { required: msgRequired },
   birthDate: { required: msgRequired },
   livingPlace: { required: msgRequired },
+  residenceCity: { required: msgRequired },
   universityCity: { required: msgRequired },
   university: { required: msgRequired },
   faculty: { required: msgRequired },
@@ -94,6 +99,7 @@ const rules = {
   newTrackProjects: null,
   newTrackTechArticles: null,
   newTrackProjectDetails: null,
+  partner: {},
   course: {},
   isStudying: { required: msgRequired },
   yearOfGraduation: { required: msgRequired },
@@ -113,18 +119,20 @@ const rules = {
 };
 
 function YDSApplicationForm({
+  alwaysAllowCampaigns,
+  partners,
+  sourceOptions,
+  educationLevelOptions,
   utm,
   endpoint,
-  endpointCities,
+  endpointResidenceCities,
+  endpointResidenceCampaigns,
+  endpointUniversitiesCities,
   endpointUniversities,
   csrfToken,
   authCompleteUrl,
   authBeginUrl,
-  campaigns,
-  sourceOptions,
-  educationLevelOptions,
-  initialState,
-  partners
+  initialState
 }) {
   const initial = {
     ...initialState
@@ -148,25 +156,50 @@ function YDSApplicationForm({
       honesty: false
     }
   });
-  const [cities, setCities] = useState([]);
+  const [campaigns, setCampaigns] = useState([]);
+  const [residenceCities, setResidenceCities] = useState([]);
+  const [universityCities, setUniversityCities] = useState([]);
+  const [partner, setPartner] = useState([]);
+  const [campaign, setCampaign] = useState([]);
+  const [universities, setUniversities] = useState([]);
   useEffect(() => {
-    fetch(endpointCities)
+    setCampaigns(alwaysAllowCampaigns);
+  }, [alwaysAllowCampaigns]);
+  useEffect(() => {
+    fetch(`${endpointResidenceCities}?ordering=order`)
       .then(response => response.json())
       .then(data => {
-        console.debug('Fetching cities');
-        setCities(data.map(({ id, name }) => ({ value: id, label: name })));
+        console.debug('Fetching residence cities');
+        setResidenceCities(
+          data.map(({ id, name }) => ({ value: id, label: name }))
+        );
       })
       .catch(errors => {
-        showErrorNotification(`Что-то пошло не так, пожалуйста, обратитесь на почту,
-                                                        указанную внизу анкеты.<br>${errors.toString()}`);
+        showErrorNotification(`Не удалось загрузить список городов присутствия ШАД, пожалуйста, обратитесь на почту,
+                                    указанную внизу анкеты.<br>${errors.toString()}`);
         console.error(errors);
       });
-  }, [endpointCities]);
-
+  }, [endpointResidenceCities]);
+  useEffect(() => {
+    fetch(endpointUniversitiesCities)
+      .then(response => response.json())
+      .then(data => {
+        console.debug('Fetching university cities');
+        setUniversityCities(
+          data.map(({ id, name }) => ({ value: id, label: name }))
+        );
+      })
+      .catch(errors => {
+        showErrorNotification(`Не удалось загрузить список городов расположения университетов, пожалуйста, обратитесь на почту,
+                                    указанную внизу анкеты.<br>${errors.toString()}`);
+        console.error(errors);
+      });
+  }, [endpointUniversitiesCities]);
   useEffect(() => {
     register('has_internship', rules.hasInternship);
     register('has_job', rules.hasJob);
     register('is_studying', rules.isStudying);
+    register('residence_city', rules.residenceCity);
     register('university', rules.university);
     register('university_city', rules.universityCity);
     register('campaign', rules.campaign);
@@ -176,7 +209,8 @@ function YDSApplicationForm({
     register('new_track', rules.newTrack);
   }, [register]);
   let [
-    campaign,
+    campaign_watch,
+    residenceCity,
     university,
     universityCity,
     isStudying,
@@ -188,6 +222,7 @@ function YDSApplicationForm({
     newTrack
   ] = watch([
     'campaign',
+    'residence_city',
     'university',
     'university_city',
     'is_studying',
@@ -198,8 +233,13 @@ function YDSApplicationForm({
     'shad_agreement',
     'new_track'
   ]);
-
-  const [universities, setUniversities] = useState([]);
+  useEffect(() => {
+    setPartner(null);
+    setValue('partner', null);
+  }, [campaign_watch, residenceCity]);
+  useEffect(() => {
+    setCampaign(null);
+  }, [residenceCity]);
   useEffect(() => {
     if (universityCity !== undefined && universityCity !== null) {
       let isNum = /^\d+$/.test(universityCity.value);
@@ -209,10 +249,42 @@ function YDSApplicationForm({
       fetch(`${endpointUniversities}?city=${universityCity.value}`)
         .then(response => response.json())
         .then(data => {
-          console.debug('Fetching universities from ', universityCity);
+          console.log('Fetching universities from ', universityCity);
           setUniversities(
             data.map(({ id, name }) => ({ value: id, label: name }))
           );
+        })
+        .catch(errors => {
+          showErrorNotification(`Не удалось загрузить список университетов, пожалуйста, обратитесь на почту,
+                                                        указанную внизу анкеты.<br>${errors.toString()}`);
+          console.error(errors);
+        });
+    }
+  }, [endpointUniversities, universityCity]);
+  useEffect(() => {
+    if (residenceCity !== undefined && residenceCity !== null) {
+      let isNum = /^\d+$/.test(residenceCity.value);
+      console.debug(residenceCity);
+      if (!isNum) {
+        return;
+      }
+      fetch(
+        `${endpointResidenceCampaigns}?city_id=${residenceCity.value}&ordering=campaign`
+      )
+        .then(response => response.json())
+        .then(data => {
+          console.log('Fetching residence campaigns from ', residenceCity);
+          let new_campaigns = Array.from(
+            data.map(({ id, campaign }) => ({
+              campaign_id: campaign.id,
+              value: campaign.branch.code,
+              label: campaign.branch.name
+            }))
+          );
+          if (new_campaigns.length === 0) {
+            new_campaigns = alwaysAllowCampaigns;
+          }
+          setCampaigns(new_campaigns);
         })
         .catch(errors => {
           showErrorNotification(`Что-то пошло не так, пожалуйста, обратитесь на почту,
@@ -220,12 +292,12 @@ function YDSApplicationForm({
           console.error(errors);
         });
     }
-  }, [endpointUniversities, universityCity]);
+  }, [endpointResidenceCampaigns, residenceCity, alwaysAllowCampaigns]);
   let mskStrCampaignId = campaigns.find((e, i, a) => {
     return e.value === 'msk';
   });
   if (mskStrCampaignId !== undefined) {
-    mskStrCampaignId = mskStrCampaignId.id.toString();
+    mskStrCampaignId = mskStrCampaignId.campaign_id.toString();
   } else {
     mskStrCampaignId = null;
   }
@@ -240,6 +312,15 @@ function YDSApplicationForm({
       rules.course = value === 'yes' ? { required: msgRequired } : {};
       register('course', rules.course);
     }
+    if (
+      name === 'campaign' &&
+      mskStrCampaignId &&
+      campaign === mskStrCampaignId
+    ) {
+      unregister('partner');
+      rules.partner = { required: msgRequired };
+      register('partner');
+    }
   }
 
   function handleSelectChange(option, name) {
@@ -249,7 +330,11 @@ function YDSApplicationForm({
       setValue('university', null);
       trigger('university');
     }
+    if (name === 'residence_city') {
+      setValue('campaign', null);
+    }
   }
+
   useEffect(() => {
     // Yandex.Passport global handlers (postMessage could be broken in IE11-)
     window.accessYandexLoginSuccess = login => {
@@ -275,8 +360,10 @@ function YDSApplicationForm({
     let {
       new_track,
       has_job,
+      has_internship,
       is_studying,
       course,
+      residence_city,
       university,
       university_city,
       ticket_access,
@@ -286,6 +373,7 @@ function YDSApplicationForm({
     } = data;
     payload['utm'] = utm;
     payload['has_job'] = has_job === 'yes';
+    payload['has_internship'] = has_internship === 'yes';
     payload['shad_agreement'] = shad_agreement === true;
     if (new_track !== undefined) {
       payload['new_track'] = new_track === 'yes';
@@ -314,6 +402,14 @@ function YDSApplicationForm({
         };
       }
     }
+    if (residence_city) {
+      if (residence_city.__isNew__) {
+        payload['residence_city'] = null;
+        payload['living_place'] = residence_city.value;
+      } else {
+        payload['residence_city'] = parseInt(residence_city.value);
+      }
+    }
     runSubmit(endpoint, csrfToken, setState, payload);
   }
 
@@ -334,6 +430,8 @@ function YDSApplicationForm({
       </>
     );
   }
+  const selectedCampaignID =
+    campaign_watch !== null ? `campaign-${campaign_watch}` : '';
   return (
     <form className="ui form" onSubmit={handleSubmit(onSubmit)}>
       <div className="card__content">
@@ -441,6 +539,7 @@ function YDSApplicationForm({
             control={control}
             rules={rules.telegram_username}
             name="telegram_username"
+            helpText="Для быстрой связи с вами"
             label={
               <>
                 Telegram <span className="asterisk">*</span>
@@ -448,40 +547,71 @@ function YDSApplicationForm({
             }
             wrapperClass="col-lg-6"
           />
-          <InputField
-            control={control}
-            rules={rules.livingPlace}
-            name="living_place"
-            label={
-              <>
-                В каком городе вы живёте? <span className="asterisk">*</span>
-              </>
-            }
-            wrapperClass="col-lg-6"
-            placeholder=""
-          />
-        </div>
-        <div className="row">
-          <div className="field col-12">
-            <div className="grouped">
-              <label className="title-label">
-                В каком городе вы хотите учиться в ШАД?{' '}
-                <span className="asterisk">*</span>
+          <div className="field col-6">
+            <div className="ui select">
+              <label htmlFor="residence_city">
+                Город проживания <span className="asterisk">*</span>
               </label>
-              <RadioGroup required name="campaign" onChange={handleInputChange}>
-                {campaigns.map(branch => (
-                  <RadioOption
-                    key={branch.id}
-                    id={`campaign-${branch.value}`}
-                    value={branch.id}
-                  >
-                    {branch.label}
-                  </RadioOption>
-                ))}
-              </RadioGroup>
+              <CreatableSelect
+                required
+                components={{
+                  DropdownIndicator: null
+                }}
+                openMenuOnFocus={true}
+                isClearable={true}
+                onChange={handleSelectChange}
+                onBlur={e => trigger('residence_city')}
+                name="residence_city"
+                placeholder="Начните вводить название"
+                options={residenceCities}
+                menuPortalTarget={document.body}
+                errors={errors}
+              />
+              <div className="help-text">
+                Город, из которого планируешь обучаться в ШАД
+              </div>
+              <ErrorMessage errors={errors} name={'residence_city'} />
             </div>
           </div>
         </div>
+        <div className="row">
+          <div className="field col-12">
+            <p className="mb-0">
+              Заочное отделение доступно только студентам из городов и областей,
+              где нет очного филиала. <br />
+              Если вы поступаете в очный филиал, то у вас есть возможность
+              посещать занятия как очно, так и подключаться к ним онлайн.
+            </p>
+          </div>
+        </div>
+        {residenceCity && (
+          <div className="row">
+            <div className="field col-12">
+              <div className="grouped">
+                <label className="title-label">
+                  В каком городе вы хотите учиться в ШАД?{' '}
+                  <span className="asterisk">*</span>
+                </label>
+                <RadioGroup
+                  required
+                  name="campaign"
+                  value={selectedCampaignID}
+                  onChange={handleInputChange}
+                >
+                  {campaigns.map(camp => (
+                    <RadioOption
+                      key={camp.campaign_id}
+                      id={`campaign-${camp.campaign_id}`}
+                      value={camp.campaign_id}
+                    >
+                      {camp.label}
+                    </RadioOption>
+                  ))}
+                </RadioGroup>
+              </div>
+            </div>
+          </div>
+        )}
         <div className="row">
           <div className="field col-12">
             <div className="grouped">
@@ -572,7 +702,7 @@ function YDSApplicationForm({
             />
           </div>
         )}
-        {campaign === mskStrCampaignId && (
+        {mskStrCampaignId && campaign_watch === mskStrCampaignId && (
           <div className="row">
             <div className="field col-12">
               <div className="grouped">
@@ -586,7 +716,7 @@ function YDSApplicationForm({
                   />
                 </label>
                 <RadioGroup
-                  required
+                  required={rules.partner}
                   name="partner"
                   onChange={handleInputChange}
                 >
@@ -598,9 +728,7 @@ function YDSApplicationForm({
                       {partner.label}
                     </RadioOption>
                   ))}
-                  <RadioOption>
-                    Нет
-                  </RadioOption>
+                  <RadioOption>Нет</RadioOption>
                 </RadioGroup>
               </div>
             </div>
@@ -626,7 +754,7 @@ function YDSApplicationForm({
                 onBlur={e => trigger('university_city')}
                 name="university_city"
                 placeholder="Город"
-                options={cities}
+                options={universityCities}
                 menuPortalTarget={document.body}
                 errors={errors}
               />
@@ -966,16 +1094,18 @@ YDSApplicationForm.propTypes = {
     isYandexPassportAccessAllowed: PropTypes.bool.isRequired
   }).isRequired,
   endpoint: PropTypes.string.isRequired,
-  endpointCities: PropTypes.string.isRequired,
+  endpointResidenceCities: PropTypes.string.isRequired,
+  endpointResidenceCampaigns: PropTypes.string.isRequired,
+  endpointUniversitiesCities: PropTypes.string.isRequired,
   endpointUniversities: PropTypes.string.isRequired,
   csrfToken: PropTypes.string.isRequired,
   authBeginUrl: PropTypes.string.isRequired,
   authCompleteUrl: PropTypes.string.isRequired,
-  campaigns: PropTypes.arrayOf(
+  alwaysAllowCampaigns: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired
+      campaign_id: PropTypes.number.isRequired
     })
   ).isRequired,
   educationLevelOptions: PropTypes.arrayOf(optionStrType).isRequired,

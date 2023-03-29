@@ -238,6 +238,12 @@ function YDSApplicationForm({
     setValue('partner', null);
   }, [campaign_watch, residenceCity]);
   useEffect(() => {
+    if (newTrack === 'yes') {
+      setPartner(null);
+      setValue('partner', null);
+    }
+  }, [newTrack]);
+  useEffect(() => {
     setCampaign(null);
   }, [residenceCity]);
   useEffect(() => {
@@ -418,15 +424,17 @@ function YDSApplicationForm({
     return (
       <>
         <h3>Ваша заявка принята!</h3>
-        Начать онлайн-тест можно с 1 мая по 18:00 7 мая (по московскому времени)
+        Доступ к онлайн-тесту будет открыт с 1 мая 00:00 до 7 мая 19:00 по
+        московскому времени.
         <br />
         Мы выслали вам на почту письмо — обязательно прочитайте его.
         <br />
         Если письмо не пришло в течение часа и его не оказалось в папке «Спам»
         или «Промоакции», пишите на{' '}
-        <a href="mailto:shad@yandex-team.ru.">shad@yandex-team.ru.</a>
+        <a href="mailto:shad@yandex-team.ru">shad@yandex-team.ru.</a>
         <br />
-        Не забудьте указать свои ФИО и email.
+        Не забудьте в письме указать свои ФИО и email, который указывали при
+        регистрации.
       </>
     );
   }
@@ -665,6 +673,16 @@ function YDSApplicationForm({
             </div>
           </div>
         </div>
+        {mskStrCampaignId && campaign_watch === mskStrCampaignId && (
+          <div className="row">
+            <div className="field col-12">
+              <p className="mb-0">
+                Внимание, альтернативный трек и поступление на совместные с ШАД
+                магистерские программы – взаимоисключающие условия.
+              </p>
+            </div>
+          </div>
+        )}
         {newTrack === 'yes' && (
           <div className="row">
             <MemoizedTextField
@@ -702,7 +720,7 @@ function YDSApplicationForm({
             />
           </div>
         )}
-        {mskStrCampaignId && campaign_watch === mskStrCampaignId && (
+        {mskStrCampaignId && campaign_watch === mskStrCampaignId && newTrack === "no" && (
           <div className="row">
             <div className="field col-12">
               <div className="grouped">
@@ -927,7 +945,10 @@ function YDSApplicationForm({
         )}
         <div className="row">
           <div className="field col-lg-12">
-            <label className="mb-4">Откуда вы узнали о наборе в ШАД?</label>
+            <label className="mb-4">
+              Откуда вы узнали о наборе в ШАД?{' '}
+              <span className="asterisk">*</span>
+            </label>
             <div className="grouped">
               {sourceOptions.map(option => (
                 <Checkbox

@@ -64,7 +64,7 @@ const submitForm = async (
       } else {
         msg += `Что-то пошло не так: код ошибки ${response.status}.`;
         msg += `<br/>${JSON.stringify(data)}`;
-        showNotification(msg, { type: 'error' });
+        showNotification(msg);
       }
     } else if (response.status === 403) {
       let msg = '<h5>Анкета не была сохранена</h5>Приемная кампания окончена.';
@@ -272,6 +272,7 @@ function YDSApplicationForm({
       let isNum = /^\d+$/.test(residenceCity.value);
       console.debug(residenceCity);
       if (!isNum) {
+        setCampaigns(alwaysAllowCampaigns);
         return;
       }
       fetch(
@@ -364,6 +365,7 @@ function YDSApplicationForm({
 
   function onSubmit(data) {
     let {
+      telegram_username,
       new_track,
       has_job,
       has_internship,
@@ -381,6 +383,7 @@ function YDSApplicationForm({
     payload['has_job'] = has_job === 'yes';
     payload['has_internship'] = has_internship === 'yes';
     payload['shad_agreement'] = shad_agreement === true;
+    payload['telegram_username'] = telegram_username.replace('@', '');
     if (new_track !== undefined) {
       payload['new_track'] = new_track === 'yes';
     }
@@ -547,7 +550,12 @@ function YDSApplicationForm({
             control={control}
             rules={rules.telegram_username}
             name="telegram_username"
-            helpText="Для быстрой связи с вами"
+            helpText={
+              <>
+                Введите Telegram <b>@username</b> для быстрой связи с вами
+              </>
+            }
+            pattern="@?\w{5,32}"
             label={
               <>
                 Telegram <span className="asterisk">*</span>

@@ -12,6 +12,27 @@ npx install-peerdeps --dev @cscenter/eslint-config
 npm install --save-dev eslint@^8.8.0
 ```
 
+The log for fixing problems with dependencies.
+```
+npm install eslint-plugin-import@^2.25.4 --save-dev
+npm install eslint-plugin-react@^7.28.0 --save-dev
+npm install eslint-plugin-jsx-a11y@^6.5.1 --save-dev
+npm install eslint-config-prettier@^8.1.0 --save-dev
+npm install eslint-plugin-prettier@^4.0.
+```
+For local build swap lines in selector-engine.js
+
+From
+```
+import { makeArray } from '../util/index';
+import { closest, find as findFn, findOne, matches } from './polyfill';
+```
+To
+```
+import { closest, find as findFn, findOne, matches } from './polyfill';
+import { makeArray } from '../util/index';
+```
+
 # Project Structure
 
 ```

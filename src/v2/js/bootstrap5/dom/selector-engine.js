@@ -4,8 +4,8 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * --------------------------------------------------------------------------
  */
-import { makeArray } from '../util/index';
 import { closest, find as findFn, findOne, matches } from './polyfill';
+import { makeArray } from '../util/index';
 
 /**
  * ------------------------------------------------------------------------

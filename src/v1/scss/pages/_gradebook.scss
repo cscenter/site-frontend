@@ -4,6 +4,7 @@ $controls-height: 40px;
 $title-border-color: #e1e1e1;
 $students-column-width: 150px;
 $final-grade-column-width: 140px;
+$study-year-column-width: 80px;
 $total-score-column-width: 66px;
 $assignment-column-width: 100px;
 $unsaved-state-color: #dcf0ff;
@@ -19,7 +20,9 @@ $gradebook-header-padding: 5px;
 #gradebook-container {
   overflow: hidden;
   overflow-x: auto;
-  min-width: $students-column-width + $final-grade-column-width + $total-score-column-width + 4 * $assignment-column-width;
+  min-width: $students-column-width + $final-grade-column-width + $study-year-column-width + $total-score-column-width
+   + 4 *
+  $assignment-column-width;
 }
 
 .gradebook__controls {
@@ -40,7 +43,7 @@ $gradebook-header-padding: 5px;
     cursor: pointer;
 
     &.left {
-      left: $students-column-width + $final-grade-column-width + $total-score-column-width;
+      left: $students-column-width + $final-grade-column-width + $study-year-column-width + $total-score-column-width ;
     }
 
     &.right {
@@ -51,7 +54,7 @@ $gradebook-header-padding: 5px;
 
 #gradebook {
   margin: 0;
-  padding-left: $students-column-width + $final-grade-column-width + $total-score-column-width;
+  padding-left: $students-column-width + $final-grade-column-width + $study-year-column-width + $total-score-column-width;
 
   .headers {
     overflow: hidden;
@@ -99,18 +102,25 @@ $gradebook-header-padding: 5px;
       left: 0;
     }
 
+    &.__study_year {
+      width: $study_year-column-width;
+      position: absolute;
+      z-index: 100;
+      left: $students-column-width;
+    }
+
     &.__final_grade {
       width: $final-grade-column-width;
       position: absolute;
       z-index: 100;
-      left: $students-column-width;
+      left: $students-column-width + $study_year-column-width;
     }
 
     &.__total_score {
       width: $total-score-column-width;
       position: absolute;
       z-index: 100;
-      left: $students-column-width + $final-grade-column-width;
+      left: $students-column-width + $study_year-column-width + $final-grade-column-width;
     }
 
     &.__assignment {
@@ -168,10 +178,23 @@ $gradebook-header-padding: 5px;
       }
     }
 
+    &.__study_year {
+      width: $study_year-column-width;
+      position: absolute;
+      left: $students-column-width;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      background: $color-white;
+
+      &.even {
+        background: $even-color;
+      }
+    }
+
     &.__final_grade {
       width: $final-grade-column-width;
       position: absolute;
-      left: $students-column-width;
+      left: $students-column-width + $study_year-column-width;
       background: $color-white;
 
       &.even {
@@ -200,7 +223,7 @@ $gradebook-header-padding: 5px;
     &.__total_score {
       width: $total-score-column-width;
       position: absolute;
-      left: $students-column-width + $final-grade-column-width;
+      left: $students-column-width + $study_year-column-width + $final-grade-column-width;
       text-align: right;
       background: $color-white;
 
@@ -280,7 +303,7 @@ $gradebook-header-padding: 5px;
     z-index: 1000;
     width: 20px;
     // 21px - shadow width + 1px to hide white border
-    left: $students-column-width + $final-grade-column-width + $total-score-column-width - 21px;
+    left: $students-column-width + $final-grade-column-width + $study_year-column-width + $total-score-column-width - 21px;
 
   }
 }

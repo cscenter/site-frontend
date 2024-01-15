@@ -1,5 +1,5 @@
 # Notes
-Works with **npm 6.14.13** and **node 14.17.6** (you can use `nvm` to install it).
+Works with **npm 7.24.2** and **node 14.17.6** (you can use `nvm` to install it).
 
 There are problems with installing dependencies:
 `npm WARN <PACKAGE> requires a peer of <ANOTHER_PACKAGE> but none is installed. You must install peer dependencies yourself.`

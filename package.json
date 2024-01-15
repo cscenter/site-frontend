@@ -83,7 +83,6 @@
     "masonry-layout": "^4.2.2",
     "moment": "^2.29.1",
     "noty": "^3.2.0-beta",
-    "npm": "^7.24.2",
     "popper.js": "^1.16.1",
     "raven-js": "^3.27.2",
     "react": "^16.13.1",

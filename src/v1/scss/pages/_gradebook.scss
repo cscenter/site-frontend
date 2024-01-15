@@ -94,33 +94,33 @@ $gradebook-header-padding: 5px;
       overflow: hidden;
     }
 
-    &.__student {
-
-      width: $students-column-width;
+    &.__study_year {
+      width: $study_year-column-width;
       position: absolute;
       z-index: 100;
       left: 0;
     }
 
-    &.__study_year {
-      width: $study_year-column-width;
+    &.__student {
+
+      width: $students-column-width;
       position: absolute;
       z-index: 100;
-      left: $students-column-width;
+      left: $study_year-column-width;
     }
 
     &.__final_grade {
       width: $final-grade-column-width;
       position: absolute;
       z-index: 100;
-      left: $students-column-width + $study_year-column-width;
+      left: $study_year-column-width + $students-column-width;
     }
 
     &.__total_score {
       width: $total-score-column-width;
       position: absolute;
       z-index: 100;
-      left: $students-column-width + $study_year-column-width + $final-grade-column-width;
+      left: $study_year-column-width + $students-column-width + $final-grade-column-width;
     }
 
     &.__assignment {
@@ -165,8 +165,8 @@ $gradebook-header-padding: 5px;
       background: $even-color;
     }
 
-    &.__student {
-      width: $students-column-width;
+    &.__study_year {
+      width: $study_year-column-width;
       position: absolute;
       left: 0;
       text-overflow: ellipsis;
@@ -178,10 +178,10 @@ $gradebook-header-padding: 5px;
       }
     }
 
-    &.__study_year {
-      width: $study_year-column-width;
+    &.__student {
+      width: $students-column-width;
       position: absolute;
-      left: $students-column-width;
+      left: $study_year-column-width;
       text-overflow: ellipsis;
       white-space: nowrap;
       background: $color-white;
@@ -194,7 +194,7 @@ $gradebook-header-padding: 5px;
     &.__final_grade {
       width: $final-grade-column-width;
       position: absolute;
-      left: $students-column-width + $study_year-column-width;
+      left: $study_year-column-width + $students-column-width;
       background: $color-white;
 
       &.even {
@@ -223,7 +223,7 @@ $gradebook-header-padding: 5px;
     &.__total_score {
       width: $total-score-column-width;
       position: absolute;
-      left: $students-column-width + $study_year-column-width + $final-grade-column-width;
+      left: $study_year-column-width + $students-column-width + $final-grade-column-width;
       text-align: right;
       background: $color-white;
 

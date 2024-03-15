@@ -37,7 +37,7 @@ let openAuthPopup = function (url, nextURL = null) {
 };
 
 const submitForm = async (
-  [endpoint, csrfToken, setState, payload],
+  [endpoint, csrfToken, setState, formData],
   props,
   { signal }
 ) => {
@@ -46,7 +46,7 @@ const submitForm = async (
       'X-CSRFToken': csrfToken
     },
     throwHttpErrors: false,
-    json: payload,
+    body: formData,
     signal: signal
   });
   if (!response.ok) {
@@ -69,6 +69,11 @@ const submitForm = async (
     } else if (response.status === 403) {
       let msg = '<h5>Анкета не была сохранена</h5>Приемная кампания окончена.';
       showErrorNotification(msg);
+    } else if (response.status === 413) {
+      let msg = `<h5>Анкета не была сохранена</h5> Выбранное фото слишком большое. Пожалуйста, выберите фото размером
+      менее 1 MB и повторите попытку. <br/> Если ошибка повторяется, пожалуйста, обратитесь на почту, указанную внизу
+      анкеты.`;
+      showNotification(msg);
     } else {
       showErrorNotification(
         `Что-то пошло не так: код ошибки ${response.status}.<br/>
@@ -89,6 +94,7 @@ const rules = {
   email: { required: msgRequired },
   phone: { required: msgRequired },
   birthDate: { required: msgRequired },
+  photo: { required: msgRequired },
   livingPlace: { required: msgRequired },
   residenceCity: { required: msgRequired },
   universityCity: { required: msgRequired },
@@ -379,6 +385,9 @@ function YDSApplicationForm({
       shad_agreement,
       ...payload
     } = data;
+    let formData = new FormData();
+    let photo = document.getElementById("photo").files[0]
+    formData.append("photo", photo);
     payload['utm'] = utm;
     payload['has_job'] = has_job === 'yes';
     payload['has_internship'] = has_internship === 'yes';
@@ -419,7 +428,9 @@ function YDSApplicationForm({
         payload['residence_city'] = parseInt(residence_city.value);
       }
     }
-    runSubmit(endpoint, csrfToken, setState, payload);
+    delete payload['photo'];
+    formData.append('payload', new Blob([JSON.stringify(payload)], { type: 'application/json' }));
+    runSubmit(endpoint, csrfToken, setState, formData);
   }
 
   const { isYandexPassportAccessAllowed, isFormSubmitted } = state;
@@ -444,7 +455,7 @@ function YDSApplicationForm({
   const selectedCampaignID =
     campaign_watch !== null ? `campaign-${campaign_watch}` : '';
   return (
-    <form className="ui form" onSubmit={handleSubmit(onSubmit)}>
+    <form className="ui form" onSubmit={handleSubmit(onSubmit) } enctype="multipart/form-data">
       <div className="card__content">
         <div className="row mb-4">
           <div className="field col-lg-6 mb-2">
@@ -515,6 +526,19 @@ function YDSApplicationForm({
             label={
               <>
                 Дата рождения <span className="asterisk">*</span>
+              </>
+            }
+            wrapperClass="col-lg-6"
+          />
+         <InputField
+            control={control}
+            rules={rules.photo}
+            name="photo"
+            type="file"
+            accept="image/*"
+            label={
+              <>
+                Фотография <span className="asterisk">*</span>
               </>
             }
             wrapperClass="col-lg-6"

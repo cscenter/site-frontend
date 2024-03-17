@@ -118,6 +118,8 @@ const rules = {
   workplace: null,
   internshipPosition: null,
   internshipWorkplace: null,
+  internshipStart: null,
+  internshipFinish: null,
   whereDidYouLearn: { required: msgRequired },
   whereDidYouLearnOther: { required: msgRequired },
   honesty: { required: msgRequired },
@@ -168,6 +170,7 @@ function YDSApplicationForm({
   const [partner, setPartner] = useState([]);
   const [campaign, setCampaign] = useState([]);
   const [universities, setUniversities] = useState([]);
+  const [internship_not_ended, setInternshipNotEnded] = useState(false);
   useEffect(() => {
     setCampaigns(alwaysAllowCampaigns);
   }, [alwaysAllowCampaigns]);
@@ -320,6 +323,9 @@ function YDSApplicationForm({
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
     setValue(name, value);
+    if (name === 'internship_not_ended') {
+    setInternshipNotEnded(value);
+    }
     if (name === 'is_studying') {
       unregister('course');
       rules.course = value === 'yes' ? { required: msgRequired } : {};
@@ -427,6 +433,9 @@ function YDSApplicationForm({
       } else {
         payload['residence_city'] = parseInt(residence_city.value);
       }
+    }
+    if (internship_not_ended) {
+        payload['internship_end'] = null;
     }
     delete payload['photo'];
     formData.append('payload', new Blob([JSON.stringify(payload)], { type: 'application/json' }));
@@ -909,7 +918,7 @@ function YDSApplicationForm({
         <div className="row">
           <div className="field col-lg-12">
             <label>
-              Вы проходили стажировки в компаниях?{' '}
+              Вы проходили/проходите стажировки в IT-компаниях?{' '}
               <span className="asterisk">*</span>
             </label>
             <RadioGroup
@@ -924,6 +933,7 @@ function YDSApplicationForm({
           </div>
         </div>
         {hasInternship && hasInternship === 'yes' && (
+        <div>
           <div className="row">
             <InputField
               control={control}
@@ -940,6 +950,34 @@ function YDSApplicationForm({
               wrapperClass="col-lg-6"
             />
           </div>
+          <div className="row">
+          <InputField
+            control={control}
+            rules={rules.internshipStart}
+            name="internship_beginning"
+            type="date"
+            label={'Дата начала стажировки'}
+            wrapperClass="col-lg-6"
+          />
+          </div>
+          <Checkbox
+                name={'internship_not_ended'}
+                label={'По настоящее время'}
+                onChange={handleInputChange}
+                wrapperClass="col-lg-6"
+              />
+          <div className="row">
+          <InputField
+            control={control}
+            rules={rules.internshipFinish}
+            name="internship_end"
+            type="date"
+            label={'Дата конца стажировки'}
+            disabled={internship_not_ended}
+            wrapperClass="col-lg-6"
+          />
+          </div>
+        </div>
         )}
         <div className="row">
           <div className="field col-lg-12">

@@ -107,7 +107,8 @@ const rules = {
   newTrackProjectDetails: null,
   partner: {},
   course: {},
-  isStudying: { required: msgRequired },
+  diploma_degree: {},
+  HasDiploma: { required: msgRequired },
   yearOfGraduation: { required: msgRequired },
   ml_experience: { required: msgRequired },
   campaign: { required: msgRequired },
@@ -116,6 +117,7 @@ const rules = {
   hasInternship: { required: msgRequired },
   position: null,
   workplace: null,
+  working_hours: null,
   internshipPosition: null,
   internshipWorkplace: null,
   internshipStart: null,
@@ -123,6 +125,8 @@ const rules = {
   whereDidYouLearn: { required: msgRequired },
   whereDidYouLearnOther: { required: msgRequired },
   honesty: { required: msgRequired },
+  awareness: { required: msgRequired },
+  mail_allowance: { required: msgRequired },
   shadAgreement: { required: msgRequired }
 };
 
@@ -131,6 +135,7 @@ function YDSApplicationForm({
   partners,
   sourceOptions,
   educationLevelOptions,
+  diplomaDegreeOptions,
   utm,
   endpoint,
   endpointResidenceCities,
@@ -161,7 +166,9 @@ function YDSApplicationForm({
     mode: 'onBlur',
     defaultValues: {
       shad_agreement: false,
-      honesty: false
+      honesty: false,
+      mail_allowance: false,
+      awareness: false
     }
   });
   const [campaigns, setCampaigns] = useState([]);
@@ -207,13 +214,16 @@ function YDSApplicationForm({
   useEffect(() => {
     register('has_internship', rules.hasInternship);
     register('has_job', rules.hasJob);
-    register('is_studying', rules.isStudying);
+    register('has_diploma', rules.HasDiploma);
     register('residence_city', rules.residenceCity);
     register('university', rules.university);
     register('university_city', rules.universityCity);
     register('campaign', rules.campaign);
     register('course', rules.course);
+    register('diploma_degree', rules.diploma_degree);
     register('honesty', rules.honesty);
+    register('awareness', rules.awareness);
+    register('mail_allowance', rules.mail_allowance);
     register('shad_agreement', rules.shadAgreement);
     register('new_track', rules.newTrack);
   }, [register]);
@@ -222,24 +232,28 @@ function YDSApplicationForm({
     residenceCity,
     university,
     universityCity,
-    isStudying,
+    HasDiploma,
     hasJob,
     hasInternship,
     honestyConfirmed,
     whereDidYouLearn,
     agreementConfirmed,
+    MailConfirmed,
+    AwarenessConfirmed,
     newTrack
   ] = watch([
     'campaign',
     'residence_city',
     'university',
     'university_city',
-    'is_studying',
+    'has_diploma',
     'has_job',
     'has_internship',
     'honesty',
     'where_did_you_learn',
     'shad_agreement',
+    'mail_allowance',
+    'awareness',
     'new_track'
   ]);
   useEffect(() => {
@@ -326,10 +340,13 @@ function YDSApplicationForm({
     if (name === 'internship_not_ended') {
     setInternshipNotEnded(value);
     }
-    if (name === 'is_studying') {
+    if (name === 'has_diploma') {
       unregister('course');
-      rules.course = value === 'yes' ? { required: msgRequired } : {};
+      unregister('diploma_degree');
+      rules.diploma_degree = value === 'yes' ? { required: msgRequired } : {};
+      rules.course = value === 'in_process' ? { required: msgRequired } : {};
       register('course', rules.course);
+      register('diploma_degree', rules.diploma_degree);
     }
     if (
       name === 'campaign' &&
@@ -381,7 +398,10 @@ function YDSApplicationForm({
       new_track,
       has_job,
       has_internship,
-      is_studying,
+      internship_beginning,
+      internship_not_ended,
+      internship_end,
+      diploma_degree,
       course,
       residence_city,
       university,
@@ -402,7 +422,7 @@ function YDSApplicationForm({
     if (new_track !== undefined) {
       payload['new_track'] = new_track === 'yes';
     }
-    payload['is_studying'] = is_studying === 'yes';
+    payload['diploma_degree'] = diploma_degree && diploma_degree.value;
     payload['level_of_education'] = course && course.value;
     payload['ticket_access'] = ticket_access === true;
     payload['email_subscription'] = email_subscription === true;
@@ -434,6 +454,9 @@ function YDSApplicationForm({
         payload['residence_city'] = parseInt(residence_city.value);
       }
     }
+    payload['internship_end'] = internship_end || null;
+    payload['internship_beginning'] = internship_beginning || null;
+    payload['internship_not_ended'] = internship_not_ended || false;
     if (internship_not_ended) {
         payload['internship_end'] = null;
     }
@@ -794,9 +817,75 @@ function YDSApplicationForm({
           </div>
         )}
         <div className="row">
+          <div className="field col-12">
+            <div className="grouped">
+              <label className="title-label">
+                Есть ли у вас диплом о среднем специальном или высшем образовании?<br />
+                (Диплом колледжа/ техникума/ бакалавриата/ магистратуры){' '}
+                <span className="asterisk">*</span>
+              </label>
+              <RadioGroup
+                required
+                name="has_diploma"
+                className="inline pt-0"
+                onChange={handleInputChange}
+              >
+                <RadioOption id="yes">Да, есть</RadioOption><br />
+                <RadioOption id="in_process">Нет, я еще учусь/нахожусь в академе</RadioOption><br />
+                <RadioOption id="no">Нет, сейчас не учусь и нет диплома</RadioOption><br />
+              </RadioGroup>
+            </div>
+          </div>
+
+          {HasDiploma === 'yes' && (
+            <div className="row field col-lg-6">
+              <div className="ui select">
+                <label>
+                  Укажите степень вашего диплома{' '}
+                  <span className="asterisk">*</span>
+                </label>
+                <Select
+                  onChange={handleSelectChange}
+                  onBlur={e => trigger('diploma_degree')}
+                  name="diploma_degree"
+                  isClearable={false}
+                  placeholder="Выберите из списка"
+                  options={diplomaDegreeOptions}
+                  menuPortalTarget={document.body}
+                  errors={errors}
+                />
+                <ErrorMessage errors={errors} name={'diploma_degree'} />
+              </div>
+            </div>
+          )}
+          {HasDiploma === 'in_process' && (
+            <div className="row field col-lg-6">
+              <div className="ui select">
+                <label>
+                  На каком курсе вы сейчас учитесь?{' '}
+                  <span className="asterisk">*</span>
+                </label>
+                <Select
+                  onChange={handleSelectChange}
+                  onBlur={e => trigger('course')}
+                  name="course"
+                  isClearable={false}
+                  placeholder="Выберите из списка"
+                  options={educationLevelOptions}
+                  menuPortalTarget={document.body}
+                  errors={errors}
+                />
+                <ErrorMessage errors={errors} name={'course'} />
+              </div>
+            </div>
+          )}
+        {(HasDiploma === 'yes' || HasDiploma === 'in_process') && (
+        <div>
+          <div className="row">
           <div className="col-12">
             <label className="title-label">
-              В каком университете вы учитесь/учились?{' '}
+              В каком вузе/ССУЗ вы учитесь/учились?<br/>
+                (Укажите ваше последнее место обучения){' '}
               <span className="asterisk">*</span>
             </label>
           </div>
@@ -848,47 +937,6 @@ function YDSApplicationForm({
             </div>
             <ErrorMessage errors={errors} name={'university'} />
           </div>
-          <div className="field col-12">
-            <div className="grouped">
-              <label className="title-label">
-                Учитесь ли вы сейчас в университете?{' '}
-                <span className="asterisk">*</span>
-              </label>
-              <RadioGroup
-                required
-                name="is_studying"
-                className="inline pt-0"
-                onChange={handleInputChange}
-              >
-                <RadioOption id="yes">Да</RadioOption>
-                <RadioOption id="no">Нет</RadioOption>
-              </RadioGroup>
-            </div>
-          </div>
-
-          {isStudying === 'yes' && (
-            <div className="field col-lg-6">
-              <div className="ui select">
-                <label>
-                  На каком курсе вы сейчас учитесь?{' '}
-                  <span className="asterisk">*</span>
-                </label>
-                <Select
-                  onChange={handleSelectChange}
-                  onBlur={e => trigger('course')}
-                  name="course"
-                  isClearable={false}
-                  placeholder="Выберите из списка"
-                  options={educationLevelOptions}
-                  menuPortalTarget={document.body}
-                  errors={errors}
-                />
-                <ErrorMessage errors={errors} name={'course'} />
-              </div>
-            </div>
-          )}
-        </div>
-        <div className="row">
           <InputField
             control={control}
             rules={rules.faculty}
@@ -908,12 +956,23 @@ function YDSApplicationForm({
             type="number"
             label={
               <>
-                В каком году вы окончите/окончили университет?{' '}
+                В каком году вы окончите/окончили вуз/ССУЗ?{' '}
                 <span className="asterisk">*</span>
               </>
             }
             wrapperClass="col-lg-6"
           />
+          </div>
+        </div>
+        )}
+        {HasDiploma === 'no' && (
+        <label className="title-label warning">
+                Обратите внимание, что поступить и учиться в Школе анализа данных могут только действующие студенты
+                или выпускники.
+                Поэтому для зачисления мы можем вас попоросить предоставить документы из учебных учреждений,
+                в противном случае зачисление в ШАД будет невозможно даже при успешном прохождение отбора.{' '}
+              </label>
+        )}
         </div>
         <div className="row">
           <div className="field col-lg-12">
@@ -1011,6 +1070,14 @@ function YDSApplicationForm({
               label={'Обязанности'}
               wrapperClass="col-lg-6"
             />
+            <InputField
+            control={control}
+            rules={rules.working_hours}
+            name="working_hours"
+            type="number"
+            label={"Количество рабочих часов в неделю"}
+            wrapperClass="col-lg-6"
+          />
           </div>
         )}
         <div className="row">
@@ -1109,10 +1176,43 @@ function YDSApplicationForm({
                 name={'honesty'}
                 label={
                   <>
-                    Я обещаю самостоятельно выполнять все задания всех этапов
-                    поступления в ШАД, не списывать и не давать списывать, не
-                    публиковать задания теста и экзамена в открытом доступе, не
-                    использовать более одного логина для участия в отборе ШАД.{' '}
+                    Я обещаю самостоятельно выполнять все задания всех этапов поступления в ШАД,
+                    не списывать и не давать списывать,
+                    не публиковать задания теста и экзамена в открытом доступе
+                    во время наборной кампании с 1 апреля по 1 августа 2024 года,
+                    не использовать более одного логина для участия в отборе ШАД.{' '}
+                    <span className="asterisk">*</span>
+                  </>
+                }
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+          <div className="col-lg-12">
+            <div className="grouped mb-4">
+              <Checkbox
+                required
+                name={'awareness'}
+                label={
+                  <>
+                    Я согласен (-на), что в случае нарушения описанных выше пунктов могу быть недопущен к следующему
+                    этапу.{' '}
+                    <span className="asterisk">*</span>
+                  </>
+                }
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+          <div className="col-lg-12">
+            <div className="grouped mb-4">
+              <Checkbox
+                required
+                name={'mail_allowance'}
+                label={
+                  <>
+                    Я согласен (-на), что результаты всех этапов будут отправлены мне на почту, которую я указывал
+                    (-а) при регистрации.{' '}
                     <span className="asterisk">*</span>
                   </>
                 }
@@ -1158,7 +1258,7 @@ function YDSApplicationForm({
         <div className="row">
           <button
             type="submit"
-            disabled={!agreementConfirmed || !honestyConfirmed || isPending}
+            disabled={!agreementConfirmed || !honestyConfirmed || !MailConfirmed || !AwarenessConfirmed || isPending}
             className="btn _primary _m-wide mt-3 mb-6"
           >
             Подать заявку

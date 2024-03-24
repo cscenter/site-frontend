@@ -8,4 +8,4 @@ export { default as Pagination } from './Pagination';
 export { default as RadioGroup } from './RadioGroup';
 export { default as RadioOption } from './RadioOption';
 export { getOptionByValue, Select, CreatableSelect } from './Select';
-export { Tooltip } from './Tooltip';
+export { Tooltip, Hint } from './Tooltip';

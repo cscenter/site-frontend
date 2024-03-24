@@ -21,3 +21,9 @@ Tooltip.propTypes = {
   title: PropTypes.string,
   children: PropTypes.element.isRequired
 };
+
+export const Hint = ({ ...options }) => (
+  <Tooltip {...options}>
+    <span className="tooltip__icon _rounded">?</span>
+  </Tooltip>
+);

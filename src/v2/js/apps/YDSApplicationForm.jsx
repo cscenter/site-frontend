@@ -14,18 +14,12 @@ import {
   RadioGroup,
   RadioOption,
   Select,
-  Tooltip
+  Hint
 } from 'components';
 import { optionStrType } from 'types/props';
 import { showErrorNotification, showNotification } from 'utils';
 
 // TODO: потестить isPending. Есть какой-то devtools для react-async
-
-const Hint = ({ ...options }) => (
-  <Tooltip {...options}>
-    <span className="tooltip__icon _rounded">?</span>
-  </Tooltip>
-);
 
 let openAuthPopup = function (url, nextURL = null) {
   if (nextURL !== null) {
@@ -95,16 +89,14 @@ const rules = {
   phone: { required: msgRequired },
   birthDate: { required: msgRequired },
   photo: { required: msgRequired },
+  gender: { required: msgRequired },
   livingPlace: { required: msgRequired },
   residenceCity: { required: msgRequired },
-  universityCity: { required: msgRequired },
-  university: { required: msgRequired },
+  universityCity: {},
+  university: {},
   faculty: { required: msgRequired },
   newTrack: { required: msgRequired },
-  newTrackScientificArticles: null,
-  newTrackProjects: null,
-  newTrackTechArticles: null,
-  newTrackProjectDetails: null,
+  newTrackInfo: {},
   partner: {},
   course: {},
   diploma_degree: {},
@@ -113,8 +105,8 @@ const rules = {
   ml_experience: { required: msgRequired },
   campaign: { required: msgRequired },
   motivation: { required: msgRequired },
-  hasJob: { required: msgRequired },
-  hasInternship: { required: msgRequired },
+  hasJob: {},
+  hasInternship: {},
   position: null,
   workplace: null,
   working_hours: null,
@@ -136,6 +128,7 @@ function YDSApplicationForm({
   sourceOptions,
   educationLevelOptions,
   diplomaDegreeOptions,
+  genderOptions,
   utm,
   endpoint,
   endpointResidenceCities,
@@ -213,6 +206,7 @@ function YDSApplicationForm({
   }, [endpointUniversitiesCities]);
   useEffect(() => {
     register('has_internship', rules.hasInternship);
+    register('gender', rules.gender);
     register('has_job', rules.hasJob);
     register('has_diploma', rules.HasDiploma);
     register('residence_city', rules.residenceCity);
@@ -343,10 +337,29 @@ function YDSApplicationForm({
     if (name === 'has_diploma') {
       unregister('course');
       unregister('diploma_degree');
+      unregister('university_city');
+      unregister('university');
       rules.diploma_degree = value === 'yes' ? { required: msgRequired } : {};
+      if (value === 'yes' || value === 'in_process') {
+      rules.universityCity = { required: msgRequired }
+      rules.university = { required: msgRequired }
+      } else {
+      rules.universityCity = {}
+      rules.university = {}
+      }
       rules.course = value === 'in_process' ? { required: msgRequired } : {};
       register('course', rules.course);
       register('diploma_degree', rules.diploma_degree);
+      register('university_city', rules.universityCity);
+      register('university', rules.university);
+    }
+    if (name === "new_track") {
+    unregister("has_internship")
+    unregister("has_job")
+    rules.hasInternship = value === 'no' ? { required: msgRequired } : {};
+    rules.hasJob = value === 'no' ? { required: msgRequired } : {};
+    register("has_internship", rules.hasInternship)
+    register("has_job", rules.hasJob)
     }
     if (
       name === 'campaign' &&
@@ -403,6 +416,7 @@ function YDSApplicationForm({
       internship_end,
       diploma_degree,
       course,
+      gender,
       residence_city,
       university,
       university_city,
@@ -423,6 +437,7 @@ function YDSApplicationForm({
       payload['new_track'] = new_track === 'yes';
     }
     payload['diploma_degree'] = diploma_degree && diploma_degree.value;
+    payload['gender'] = gender && gender.value;
     payload['level_of_education'] = course && course.value;
     payload['ticket_access'] = ticket_access === true;
     payload['email_subscription'] = email_subscription === true;
@@ -470,7 +485,7 @@ function YDSApplicationForm({
     return (
       <>
         <h3>Ваша заявка принята!</h3>
-        Доступ к онлайн-тесту будет открыт с 1 мая 00:00 до 7 мая 19:00 по
+        Доступ к онлайн-тестированию будет открыт с 6 мая 00:00 до 13 мая 19:00 по
         московскому времени.
         <br />
         Мы выслали вам на почту письмо — обязательно прочитайте его.
@@ -574,7 +589,32 @@ function YDSApplicationForm({
               </>
             }
             wrapperClass="col-lg-6"
+            hint = {
+              <>
+              Загрузите фотографию, где отчётливо видно ваше лицо. Профили с картинками/фейковыми фотографиями не
+              будут допущены до следующих этапов отбора. <br/>
+              Максимальный размер всех файла: 1 МБ <br/>
+              Тип файла: png, jpg <br/>
+              </>
+            }
           />
+        <div className="field col-lg-6">
+              <div className="ui select">
+                <label>
+                  Укажите ваш пол{' '}
+                  <span className="asterisk">*</span>
+                </label>
+                <Select
+                  onChange={handleSelectChange}
+                  name="gender"
+                  isClearable={false}
+                  placeholder="Выберите из списка"
+                  options={genderOptions}
+                  menuPortalTarget={document.body}
+                  errors={errors}
+                />
+              </div>
+            </div>
         </div>
         <div className="row">
           <InputField
@@ -684,138 +724,8 @@ function YDSApplicationForm({
             </div>
           </div>
         )}
-        <div className="row">
-          <div className="field col-12">
-            <div className="grouped">
-              <label className="title-label">
-                Планируете ли вы воспользоваться альтернативным треком
-                поступления?&nbsp;
-                <span className="asterisk">*</span>&nbsp;
-                <Hint
-                  interactive={true}
-                  html={
-                    <>
-                      Альтернативный трек предназначен в первую очередь для тех,
-                      у кого уже есть опыт промышленной разработки или научных
-                      исследований в области Data Science. На втором этапе
-                      отбора и на собеседовании вам не придётся решать трудных
-                      задач по высшей математике, но зато нужно будет показать
-                      хорошее умение программировать. Кроме того, при отборе мы
-                      будем учитывать участие в проектах, наличие статей и в
-                      целом индустриальный опыт. Всего по этому треку
-                      планируется набрать не более 30 человек.
-                      <br />
-                      Решение о том, воспользуетесь ли вы альтернативным треком,
-                      вам нужно принять сейчас. Поменять его потом будет
-                      невозможно.
-                      <br />
-                      Если вы ответили &quot;да&quot;, пожалуйста, уделите
-                      особое внимание следующим вопросам.
-                    </>
-                  }
-                />
-              </label>
-              <RadioGroup
-                required
-                name="new_track"
-                className="inline pt-0"
-                onChange={handleInputChange}
-              >
-                <RadioOption
-                  {...register('new_track', { shouldUnregister: true })}
-                  id="yes"
-                >
-                  Да
-                </RadioOption>
-                <RadioOption
-                  {...register('new_track', { shouldUnregister: true })}
-                  id="no"
-                >
-                  Нет
-                </RadioOption>
-              </RadioGroup>
-            </div>
-          </div>
-        </div>
-        {mskStrCampaignId && campaign_watch === mskStrCampaignId && (
-          <div className="row">
-            <div className="field col-12">
-              <p className="mb-0">
-                Внимание, альтернативный трек и поступление на совместные с ШАД
-                магистерские программы – взаимоисключающие условия.
-              </p>
-            </div>
-          </div>
-        )}
-        {newTrack === 'yes' && (
-          <div className="row">
-            <MemoizedTextField
-              name="new_track_scientific_articles"
-              control={control}
-              rules={rules.newTrackScientificArticles}
-              wrapperClass="col-lg-12"
-              label="Есть ли у вас научные статьи? Если да, то дайте их координаты."
-            />
-            <MemoizedTextField
-              name="new_track_projects"
-              control={control}
-              rules={rules.newTrackProjects}
-              wrapperClass="col-lg-12"
-              label="Есть ли у вас открытые проекты вашего авторства,
-                         или в которых вы участвовали в составе команды, на github или
-                          на каком-либо из подобных сервисов? Если да, дайте ссылки на них."
-            />
-            <MemoizedTextField
-              name="new_track_tech_articles"
-              control={control}
-              rules={rules.newTrackTechArticles}
-              wrapperClass="col-lg-12"
-              label="Есть ли у вас посты или статьи о технологиях? Если да, дайте ссылки на них."
-            />
-            <MemoizedTextField
-              name="new_track_project_details"
-              control={control}
-              rules={rules.newTrackProjectDetails}
-              wrapperClass="col-lg-12"
-              label="Расскажите более подробно о каком-нибудь из своих проектов. Что хотелось сделать?
-                        Какие нетривиальные технические решения вы использовали? В чём были трудности и как вы их преодолевали?
-                        Пожалуйста, сохраните свой ответ в файле .pdf, выложите его на Яндекс.Диск и поместите сюда ссылку.
-                        Если у вас уже есть статья на эту тему и вы давали на неё ссылку в предыдущем вопросе, то можете поставить здесь прочерк."
-            />
-          </div>
-        )}
-        {mskStrCampaignId && campaign_watch === mskStrCampaignId && newTrack === "no" && (
-          <div className="row">
-            <div className="field col-12">
-              <div className="grouped">
-                <label className="title-label">
-                  Планируете ли вы поступать в этом году на одну из совместных с
-                  ШАД магистерских программ?&nbsp;
-                  <span className="asterisk">*</span>&nbsp;
-                  <Hint
-                    interactive={true}
-                    html={<>Выберите первый приоритет</>}
-                  />
-                </label>
-                <RadioGroup
-                  required={rules.partner}
-                  name="partner"
-                  onChange={handleInputChange}
-                >
-                  {partners.map(partner => (
-                    <RadioOption
-                      id={`partner-${partner.value}`}
-                      value={partner.id}
-                    >
-                      {partner.label}
-                    </RadioOption>
-                  ))}
-                  <RadioOption>Нет</RadioOption>
-                </RadioGroup>
-              </div>
-            </div>
-          </div>
-        )}
+        <hr/>
+        <br/>
         <div className="row">
           <div className="field col-12">
             <div className="grouped">
@@ -975,6 +885,110 @@ function YDSApplicationForm({
         )}
         </div>
         <div className="row">
+          <div className="field col-12">
+            <div className="grouped">
+              <label className="title-label">
+                Выберите трек поступления в ШАД&nbsp;
+                <span className="asterisk">*</span>&nbsp;
+              </label>
+              <RadioGroup
+                required
+                name="new_track"
+                className="inline pt-0"
+                onChange={handleInputChange}
+              >
+                <RadioOption
+                  {...register('new_track', { shouldUnregister: true })}
+                  id="no"
+                >
+                  Классический&nbsp;
+                  <Hint
+                    interactive={true}
+                    html={
+                    <>
+                    Подойдёт студентам старших курсов или выпускникам технических вузов и СПО.
+                    При поступлении проверяются знания в рамках общей программы:
+                    базовые разделы высшей алгебры, математического анализа, комбинаторики, теории вероятностей,
+                    а также основы программирования и анализа данных.
+                    </>}
+                  />
+                </RadioOption>
+                <RadioOption
+                  {...register('new_track', { shouldUnregister: true })}
+                  id="yes"
+                >
+                  Альтернативный&nbsp;
+                  <Hint
+                    interactive={true}
+                    html={
+                    <>
+                    Для разработчиков и аналитиков с высшим образованием и опытом работы более 3 лет после выпуска,
+                    а также выпускников аспирантуры.
+                    При поступлении проверяются знания в рамках общей программы:
+                    базовые разделы высшей алгебры, математического анализа, комбинаторики, теории вероятностей,
+                    а также умение программировать,
+                    дополнительно учитываем ваш опыт работы и мотивационное письмо из анкеты.
+                    Последний этапом отбора будет месячный интенсив «Математика для разработчиков» в августе.
+                    </>}
+                  />
+                </RadioOption>
+              </RadioGroup>
+            </div>
+          </div>
+        </div>
+        {mskStrCampaignId && campaign_watch === mskStrCampaignId && newTrack === 'yes' && (
+        <label className="title-label warning">
+                Внимание, альтернативный трек и поступление на совместные с ШАД
+                магистерские программы – взаимоисключающие условия.{' '}
+              </label>
+        )}
+        {newTrack === 'yes' && (
+          <div className="row">
+            <MemoizedTextField
+              name="new_track_info"
+              control={control}
+              rules={rules.newTrackInfo}
+              wrapperClass="col-lg-12"
+              label="Опишите ваш опыт работы в IT-сфере (разработка, аналитика) после получения диплома в формате:
+период работы, компания, должность, обязанности. Если вы аспирант, то опишите тематику исследований и приложите список публикаций.
+Ответ на этот вопрос будет учитываться во втором этапе отбора."
+            />
+          </div>
+        )}
+        {mskStrCampaignId && campaign_watch === mskStrCampaignId && newTrack === "no" && (
+          <div className="row">
+            <div className="field col-12">
+              <div className="grouped">
+                <label className="title-label">
+                  Планируете ли вы поступать в этом году на одну из совместных с
+                  ШАД магистерских программ?&nbsp;
+                  <span className="asterisk">*</span>&nbsp;
+                  <Hint
+                    interactive={true}
+                    html={<>Выберите первый приоритет</>}
+                  />
+                </label>
+                <RadioGroup
+                  required={rules.partner}
+                  name="partner"
+                  onChange={handleInputChange}
+                >
+                  {partners.map(partner => (
+                    <RadioOption
+                      id={`partner-${partner.value}`}
+                      value={partner.id}
+                    >
+                      {partner.label}
+                    </RadioOption>
+                  ))}
+                  <RadioOption>Нет</RadioOption>
+                </RadioGroup>
+              </div>
+            </div>
+          </div>
+        )}
+        {newTrack === "no" && (
+        <div className="row">
           <div className="field col-lg-12">
             <label>
               Вы проходили/проходите стажировки в IT-компаниях?{' '}
@@ -991,7 +1005,8 @@ function YDSApplicationForm({
             </RadioGroup>
           </div>
         </div>
-        {hasInternship && hasInternship === 'yes' && (
+        )}
+        {newTrack === "no" && hasInternship && hasInternship === 'yes' && (
         <div>
           <div className="row">
             <InputField
@@ -1038,6 +1053,7 @@ function YDSApplicationForm({
           </div>
         </div>
         )}
+        {newTrack === "no" && (
         <div className="row">
           <div className="field col-lg-12">
             <label>
@@ -1054,7 +1070,8 @@ function YDSApplicationForm({
             </RadioGroup>
           </div>
         </div>
-        {hasJob && hasJob === 'yes' && (
+        )}
+        {newTrack === "no" && hasJob && hasJob === 'yes' && (
           <div className="row">
             <InputField
               control={control}
@@ -1080,6 +1097,8 @@ function YDSApplicationForm({
           />
           </div>
         )}
+        <hr/>
+        <br/>
         <div className="row">
           <div className="field col-lg-12">
             <label className="mb-4">
@@ -1125,7 +1144,9 @@ function YDSApplicationForm({
               <>
                 Зачем вы поступаете в ШАД? Расскажите чему вы ожидаете научиться
                 в ШАД, для чего вам эти знания, какое направление привлекает
-                больше всего. Чем честнее ответ - тем лучше.{' '}
+                больше всего. Чем честнее ответ - тем лучше. <br/>
+                Ответ на этот вопрос будет учитываться при оценке
+                мотивационного собеседования и может быть причиной недопуска к следующим этапам отбора{' '}
                 <span className="asterisk">*</span>
               </>
             }

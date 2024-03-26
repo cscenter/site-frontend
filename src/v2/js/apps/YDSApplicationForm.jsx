@@ -730,6 +730,96 @@ function YDSApplicationForm({
           <div className="field col-12">
             <div className="grouped">
               <label className="title-label">
+                Выберите трек поступления в ШАД&nbsp;
+                <span className="asterisk">*</span>&nbsp;
+              </label>
+              <RadioGroup
+                required
+                name="new_track"
+                className="inline pt-0"
+                onChange={handleInputChange}
+              >
+                <RadioOption
+                  {...register('new_track', { shouldUnregister: true })}
+                  id="no"
+                >
+                  Классический&nbsp;
+                  <Hint
+                    interactive={true}
+                    html={
+                    <>
+                    Подойдёт студентам старших курсов или выпускникам технических вузов и СПО.
+                    При поступлении проверяются знания в рамках общей программы:
+                    базовые разделы высшей алгебры, математического анализа, комбинаторики, теории вероятностей,
+                    а также основы программирования и анализа данных.
+                    </>}
+                  />
+                </RadioOption>
+                <RadioOption
+                  {...register('new_track', { shouldUnregister: true })}
+                  id="yes"
+                >
+                  Альтернативный&nbsp;
+                  <Hint
+                    interactive={true}
+                    html={
+                    <>
+                    Для разработчиков и аналитиков с высшим образованием и опытом работы более 3 лет после выпуска,
+                    а также выпускников аспирантуры.
+                    При поступлении проверяются знания в рамках общей программы:
+                    базовые разделы высшей алгебры, математического анализа, комбинаторики, теории вероятностей,
+                    а также умение программировать,
+                    дополнительно учитываем ваш опыт работы и мотивационное письмо из анкеты.
+                    Последний этапом отбора будет месячный интенсив «Математика для разработчиков» в августе.
+                    </>}
+                  />
+                </RadioOption>
+              </RadioGroup>
+            </div>
+          </div>
+        </div>
+        {mskStrCampaignId && campaign_watch === mskStrCampaignId && newTrack === 'yes' && (
+        <label className="title-label warning">
+                Внимание, альтернативный трек и поступление на совместные с ШАД
+                магистерские программы – взаимоисключающие условия.{' '}
+              </label>
+        )}
+        {mskStrCampaignId && campaign_watch === mskStrCampaignId && newTrack === "no" && (
+          <div className="row">
+            <div className="field col-12">
+              <div className="grouped">
+                <label className="title-label">
+                  Планируете ли вы поступать в этом году на одну из совместных с
+                  ШАД магистерских программ?&nbsp;
+                  <span className="asterisk">*</span>&nbsp;
+                  <Hint
+                    interactive={true}
+                    html={<>Выберите первый приоритет</>}
+                  />
+                </label>
+                <RadioGroup
+                  required={rules.partner}
+                  name="partner"
+                  onChange={handleInputChange}
+                >
+                  {partners.map(partner => (
+                    <RadioOption
+                      id={`partner-${partner.value}`}
+                      value={partner.id}
+                    >
+                      {partner.label}
+                    </RadioOption>
+                  ))}
+                  <RadioOption>Нет</RadioOption>
+                </RadioGroup>
+              </div>
+            </div>
+          </div>
+        )}
+        <div className="row">
+          <div className="field col-12">
+            <div className="grouped">
+              <label className="title-label">
                 Есть ли у вас диплом о среднем специальном или высшем образовании?<br />
                 (Диплом колледжа/ техникума/ бакалавриата/ магистратуры){' '}
                 <span className="asterisk">*</span>
@@ -884,64 +974,6 @@ function YDSApplicationForm({
               </label>
         )}
         </div>
-        <div className="row">
-          <div className="field col-12">
-            <div className="grouped">
-              <label className="title-label">
-                Выберите трек поступления в ШАД&nbsp;
-                <span className="asterisk">*</span>&nbsp;
-              </label>
-              <RadioGroup
-                required
-                name="new_track"
-                className="inline pt-0"
-                onChange={handleInputChange}
-              >
-                <RadioOption
-                  {...register('new_track', { shouldUnregister: true })}
-                  id="no"
-                >
-                  Классический&nbsp;
-                  <Hint
-                    interactive={true}
-                    html={
-                    <>
-                    Подойдёт студентам старших курсов или выпускникам технических вузов и СПО.
-                    При поступлении проверяются знания в рамках общей программы:
-                    базовые разделы высшей алгебры, математического анализа, комбинаторики, теории вероятностей,
-                    а также основы программирования и анализа данных.
-                    </>}
-                  />
-                </RadioOption>
-                <RadioOption
-                  {...register('new_track', { shouldUnregister: true })}
-                  id="yes"
-                >
-                  Альтернативный&nbsp;
-                  <Hint
-                    interactive={true}
-                    html={
-                    <>
-                    Для разработчиков и аналитиков с высшим образованием и опытом работы более 3 лет после выпуска,
-                    а также выпускников аспирантуры.
-                    При поступлении проверяются знания в рамках общей программы:
-                    базовые разделы высшей алгебры, математического анализа, комбинаторики, теории вероятностей,
-                    а также умение программировать,
-                    дополнительно учитываем ваш опыт работы и мотивационное письмо из анкеты.
-                    Последний этапом отбора будет месячный интенсив «Математика для разработчиков» в августе.
-                    </>}
-                  />
-                </RadioOption>
-              </RadioGroup>
-            </div>
-          </div>
-        </div>
-        {mskStrCampaignId && campaign_watch === mskStrCampaignId && newTrack === 'yes' && (
-        <label className="title-label warning">
-                Внимание, альтернативный трек и поступление на совместные с ШАД
-                магистерские программы – взаимоисключающие условия.{' '}
-              </label>
-        )}
         {newTrack === 'yes' && (
           <div className="row">
             <MemoizedTextField
@@ -949,42 +981,15 @@ function YDSApplicationForm({
               control={control}
               rules={rules.newTrackInfo}
               wrapperClass="col-lg-12"
-              label="Опишите ваш опыт работы в IT-сфере (разработка, аналитика) после получения диплома в формате:
+              label={
+              <>
+                Опишите ваш опыт работы в IT-сфере (разработка, аналитика) после получения диплома в формате:
 период работы, компания, должность, обязанности. Если вы аспирант, то опишите тематику исследований и приложите список публикаций.
-Ответ на этот вопрос будет учитываться во втором этапе отбора."
+Ответ на этот вопрос будет учитываться во втором этапе отбора.{' '}
+                <span className="asterisk">*</span>
+              </>
+            }
             />
-          </div>
-        )}
-        {mskStrCampaignId && campaign_watch === mskStrCampaignId && newTrack === "no" && (
-          <div className="row">
-            <div className="field col-12">
-              <div className="grouped">
-                <label className="title-label">
-                  Планируете ли вы поступать в этом году на одну из совместных с
-                  ШАД магистерских программ?&nbsp;
-                  <span className="asterisk">*</span>&nbsp;
-                  <Hint
-                    interactive={true}
-                    html={<>Выберите первый приоритет</>}
-                  />
-                </label>
-                <RadioGroup
-                  required={rules.partner}
-                  name="partner"
-                  onChange={handleInputChange}
-                >
-                  {partners.map(partner => (
-                    <RadioOption
-                      id={`partner-${partner.value}`}
-                      value={partner.id}
-                    >
-                      {partner.label}
-                    </RadioOption>
-                  ))}
-                  <RadioOption>Нет</RadioOption>
-                </RadioGroup>
-              </div>
-            </div>
           </div>
         )}
         {newTrack === "no" && (
@@ -1097,9 +1102,38 @@ function YDSApplicationForm({
           />
           </div>
         )}
+          <MemoizedTextField
+            name="motivation"
+            control={control}
+            rules={rules.motivation}
+            wrapperClass="col-lg-12"
+            label={
+              <>
+                Зачем вы поступаете в ШАД? Расскажите чему вы ожидаете научиться
+                в ШАД, для чего вам эти знания, какое направление привлекает
+                больше всего. Чем честнее ответ - тем лучше. <br/>
+                Ответ на этот вопрос будет учитываться при оценке
+                мотивационного собеседования и может быть причиной недопуска к следующим этапам отбора{' '}
+                <span className="asterisk">*</span>
+              </>
+            }
+          />
+          <MemoizedTextField
+            name="ml_experience"
+            control={control}
+            rules={rules.ml_experience}
+            wrapperClass="col-lg-12"
+            label={
+              <>
+                Изучали ли вы раньше машинное обучение/анализ данных? Каким
+                образом? Какие навыки удалось приобрести, какие проекты сделать?{' '}
+                <span className="asterisk">*</span>
+              </>
+            }
+          />
         <hr/>
         <br/>
-        <div className="row">
+          <div className="row">
           <div className="field col-lg-12">
             <label className="mb-4">
               Откуда вы узнали о наборе в ШАД?{' '}
@@ -1135,35 +1169,6 @@ function YDSApplicationForm({
               helpText="Максимум 255 символов"
             />
           )}
-          <MemoizedTextField
-            name="motivation"
-            control={control}
-            rules={rules.motivation}
-            wrapperClass="col-lg-12"
-            label={
-              <>
-                Зачем вы поступаете в ШАД? Расскажите чему вы ожидаете научиться
-                в ШАД, для чего вам эти знания, какое направление привлекает
-                больше всего. Чем честнее ответ - тем лучше. <br/>
-                Ответ на этот вопрос будет учитываться при оценке
-                мотивационного собеседования и может быть причиной недопуска к следующим этапам отбора{' '}
-                <span className="asterisk">*</span>
-              </>
-            }
-          />
-          <MemoizedTextField
-            name="ml_experience"
-            control={control}
-            rules={rules.ml_experience}
-            wrapperClass="col-lg-12"
-            label={
-              <>
-                Изучали ли вы раньше машинное обучение/анализ данных? Каким
-                образом? Какие навыки удалось приобрести, какие проекты сделать?{' '}
-                <span className="asterisk">*</span>
-              </>
-            }
-          />
           <MemoizedTextField
             name="additional_info"
             control={control}

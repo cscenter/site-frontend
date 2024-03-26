@@ -4,7 +4,7 @@ import React from 'react';
 import cn from 'classnames';
 import { useController } from 'react-hook-form';
 
-import { ErrorMessage, Input } from 'components';
+import { ErrorMessage, Input, Hint } from 'components';
 
 export function InputField({
   name,
@@ -15,6 +15,7 @@ export function InputField({
   className = null,
   wrapperClass = null,
   helpText = null,
+  hint = null,
   ...rest
 }) {
   const { field, fieldState } = useController({
@@ -32,7 +33,15 @@ export function InputField({
         [wrapperClass]: wrapperClass !== null
       })}
     >
-      {label !== null && <label htmlFor={name}>{label}</label>}
+      {label !== null && (
+        <label htmlFor={name}>
+            {label}
+            &nbsp;
+            {hint !== null && (
+                <Hint interactive={true} html={hint}/>
+            )}
+        </label>
+        )}
       <Input
         name={name}
         id={name}
@@ -57,6 +66,7 @@ const fieldProps = {
   className: PropTypes.string,
   label: PropTypes.string,
   helpText: PropTypes.string,
+  hint: PropTypes.string,
   wrapperClass: PropTypes.string
 };
 

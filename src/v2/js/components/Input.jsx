@@ -30,7 +30,7 @@ const Input = React.forwardRef(
     return (
       <div
         className={cn({
-          'ui input': true,
+          'ui input': type !== 'file',
           [className]: className.length > 0,
           disabled: disabled
         })}

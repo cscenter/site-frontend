@@ -56,7 +56,7 @@ media/  # Put static which not directly related to layout or page (some dynamic 
 # Run dev server
 $ ./manage.py runserver 8000
 # Compile css
-$ npm run gulp:build
+$ npm run gulp:[1-2]:build
 # Build js with webpack
 npm run local:[1-2]
 # In iTerm2 you can use `make` command

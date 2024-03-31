@@ -473,6 +473,7 @@ function YDSApplicationForm({
       }
     }
     payload['internship_end'] = internship_end || null;
+    payload['working_hours'] = internship_end || null;
     payload['internship_beginning'] = internship_beginning || null;
     payload['internship_not_ended'] = internship_not_ended || false;
     if (internship_not_ended) {
@@ -596,9 +597,10 @@ function YDSApplicationForm({
               </>
             }
             wrapperClass="col-lg-6"
+            helpText="Загрузите фотографию, где отчётливо видно ваше лицо"
             hint = {
               <>
-              Загрузите фотографию, где отчётливо видно ваше лицо. Профили с картинками / фейковыми фотографиями не
+              Профили с картинками / фейковыми фотографиями не
               будут допущены до следующих этапов отбора. <br/>
               Максимальный размер файла: 1 МБ. <br/>
               Тип файла: png, jpg. <br/>
@@ -630,10 +632,12 @@ function YDSApplicationForm({
             type="email"
             label={
               <>
-                Электронная почта<span className="asterisk">*</span>
+                Электронная почта в домене Яндекс<span className="asterisk">*</span>
               </>
             }
-            helpText="Обязательно проверьте правильность адреса"
+            placeholder="email@yandex.ru"
+            helpText="Обязательно перепроверьте правильность написания,
+            все дальнейшие письма будут поступать именно на этот адрес"
             wrapperClass="col-lg-6"
           />
           <InputField
@@ -646,7 +650,12 @@ function YDSApplicationForm({
               </>
             }
             wrapperClass="col-lg-6"
-            placeholder="+7 (999) 1234567"
+            placeholder="+79991234567"
+            helpText={
+              <>
+                Введите ваш номер телефона в формате <b>+79991234567</b>
+              </>
+            }
           />
           <InputField
             control={control}
@@ -1225,9 +1234,8 @@ function YDSApplicationForm({
                 name={'awareness'}
                 label={
                   <>
-                    Я согласен (-на), что в случае нарушения описанных выше пунктов могу быть не допущен (-на) к
-                    следующему
-                    этапу<span className="asterisk">*</span>
+                    Я согласен (-на), что в случае нарушения описанного выше пункта могу быть не допущен (-на)
+                    к следующему этапу<span className="asterisk">*</span>
                   </>
                 }
                 onChange={handleInputChange}

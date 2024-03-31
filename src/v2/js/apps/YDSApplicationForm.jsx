@@ -116,6 +116,7 @@ const rules = {
   internshipFinish: null,
   whereDidYouLearn: { required: msgRequired },
   whereDidYouLearnOther: { required: msgRequired },
+  courseOther: { required: msgRequired },
   honesty: { required: msgRequired },
   awareness: { required: msgRequired },
   mail_allowance: { required: msgRequired },
@@ -227,6 +228,7 @@ function YDSApplicationForm({
     university,
     universityCity,
     HasDiploma,
+    Course,
     hasJob,
     hasInternship,
     honestyConfirmed,
@@ -241,6 +243,7 @@ function YDSApplicationForm({
     'university',
     'university_city',
     'has_diploma',
+    'course',
     'has_job',
     'has_internship',
     'honesty',
@@ -507,11 +510,15 @@ function YDSApplicationForm({
         <div className="row mb-4">
           <div className="field col-lg-6 mb-2">
             <label>
-              Доступ к данным на Яндексе <span className="asterisk">*</span>
-              &nbsp;
+              Доступ к данным на Яндексе<span className="asterisk">*</span>
               <Hint
                 html={
-                  'Вступительные тест и экзамен организованы в системе Яндекс.Контест. Чтобы выдать права участника и затем сопоставить результаты с анкетами, нам нужно знать ваш логин на Яндексе без ошибок, учитывая все особенности, например, вход через социальные сети. Чтобы всё сработало, поделитесь с нами доступом к некоторым данным из вашего Яндекс.Паспорта: логин и ФИО.'
+                    <>
+                  Вступительные тест и экзамен организованы в системе Яндекс Контест.
+                  Чтобы выдать права участника и затем сопоставить результаты с анкетами, нам нужно знать ваш логин
+                  на Яндексе без ошибок, учитывая все особенности, например, вход через социальные сети.
+                  Чтобы всё сработало, поделитесь с нами доступом к некоторым данным из вашего Яндекс Паспортa: логин и ФИО.'
+                    </>
                 }
               />
             </label>
@@ -538,7 +545,7 @@ function YDSApplicationForm({
             rules={rules.lastName}
             label={
               <>
-                Фамилия <span className="asterisk">*</span>
+                Фамилия<span className="asterisk">*</span>
               </>
             }
             wrapperClass="col-lg-6"
@@ -549,7 +556,7 @@ function YDSApplicationForm({
             name="first_name"
             label={
               <>
-                Имя <span className="asterisk">*</span>
+                Имя<span className="asterisk">*</span>
               </>
             }
             wrapperClass="col-lg-6"
@@ -560,7 +567,7 @@ function YDSApplicationForm({
             name="patronymic"
             label={
               <>
-                Отчество <span className="asterisk">*</span>
+                Отчество<span className="asterisk">*</span>
               </>
             }
             wrapperClass="col-lg-6"
@@ -572,7 +579,7 @@ function YDSApplicationForm({
             type="date"
             label={
               <>
-                Дата рождения <span className="asterisk">*</span>
+                Дата рождения<span className="asterisk">*</span>
               </>
             }
             wrapperClass="col-lg-6"
@@ -585,24 +592,23 @@ function YDSApplicationForm({
             accept="image/*"
             label={
               <>
-                Фотография <span className="asterisk">*</span>
+                Фотография<span className="asterisk">*</span>
               </>
             }
             wrapperClass="col-lg-6"
             hint = {
               <>
-              Загрузите фотографию, где отчётливо видно ваше лицо. Профили с картинками/фейковыми фотографиями не
+              Загрузите фотографию, где отчётливо видно ваше лицо. Профили с картинками / фейковыми фотографиями не
               будут допущены до следующих этапов отбора. <br/>
-              Максимальный размер всех файла: 1 МБ <br/>
-              Тип файла: png, jpg <br/>
+              Максимальный размер файла: 1 МБ. <br/>
+              Тип файла: png, jpg. <br/>
               </>
             }
           />
         <div className="field col-lg-6">
               <div className="ui select">
                 <label>
-                  Укажите ваш пол{' '}
-                  <span className="asterisk">*</span>
+                  Укажите ваш пол<span className="asterisk">*</span>
                 </label>
                 <Select
                   onChange={handleSelectChange}
@@ -624,7 +630,7 @@ function YDSApplicationForm({
             type="email"
             label={
               <>
-                Электронная почта <span className="asterisk">*</span>
+                Электронная почта<span className="asterisk">*</span>
               </>
             }
             helpText="Обязательно проверьте правильность адреса"
@@ -636,7 +642,7 @@ function YDSApplicationForm({
             name="phone"
             label={
               <>
-                Контактный телефон <span className="asterisk">*</span>
+                Контактный телефон<span className="asterisk">*</span>
               </>
             }
             wrapperClass="col-lg-6"
@@ -648,13 +654,13 @@ function YDSApplicationForm({
             name="telegram_username"
             helpText={
               <>
-                Введите Telegram в формате <b>@username</b> для быстрой связи с вами
+                Введите  ваш логин в Telegram в формате <b>@username</b> для быстрой связи с вами
               </>
             }
             pattern="@?\w{5,32}"
             label={
               <>
-                Telegram <span className="asterisk">*</span>
+                Telegram<span className="asterisk">*</span>
               </>
             }
             wrapperClass="col-lg-6"
@@ -662,7 +668,7 @@ function YDSApplicationForm({
           <div className="field col-6">
             <div className="ui select">
               <label htmlFor="residence_city">
-                Город проживания <span className="asterisk">*</span>
+                Город проживания<span className="asterisk">*</span>
               </label>
               <CreatableSelect
                 required
@@ -692,7 +698,7 @@ function YDSApplicationForm({
               Заочное отделение доступно только студентам из городов и областей,
               где нет очного филиала. <br />
               Если вы поступаете в очный филиал, то у вас есть возможность
-              посещать занятия как очно, так и подключаться к ним онлайн.
+              как посещать занятия очно, так и подключаться к ним онлайн.
             </p>
           </div>
         </div>
@@ -701,8 +707,7 @@ function YDSApplicationForm({
             <div className="field col-12">
               <div className="grouped">
                 <label className="title-label">
-                  В каком городе вы хотите учиться в ШАД?{' '}
-                  <span className="asterisk">*</span>
+                  В каком отделении вы хотите учиться?<span className="asterisk">*</span>
                 </label>
                 <RadioGroup
                   required
@@ -730,8 +735,7 @@ function YDSApplicationForm({
           <div className="field col-12">
             <div className="grouped">
               <label className="title-label">
-                Выберите трек поступления в ШАД&nbsp;
-                <span className="asterisk">*</span>&nbsp;
+                Выберите трек поступления в ШАД<span className="asterisk">*</span>
               </label>
               <RadioGroup
                 required
@@ -768,211 +772,15 @@ function YDSApplicationForm({
                     а также выпускников аспирантуры.
                     При поступлении проверяются знания в рамках общей программы:
                     базовые разделы высшей алгебры, математического анализа, комбинаторики, теории вероятностей,
-                    а также умение программировать,
-                    дополнительно учитываем ваш опыт работы и мотивационное письмо из анкеты.
-                    Последний этапом отбора будет месячный интенсив «Математика для разработчиков» в августе.
+                    а также умение программировать.
+                    Дополнительно учитываем ваш опыт работы и мотивационное письмо из анкеты.
+                    Последним этапом отбора будет месячный интенсив «Математика для разработчиков» в августе.
                     </>}
                   />
                 </RadioOption>
               </RadioGroup>
             </div>
           </div>
-        </div>
-        {mskStrCampaignId && campaign_watch === mskStrCampaignId && newTrack === 'yes' && (
-        <label className="title-label warning">
-                Внимание, альтернативный трек и поступление на совместные с ШАД
-                магистерские программы – взаимоисключающие условия.{' '}
-              </label>
-        )}
-        {mskStrCampaignId && campaign_watch === mskStrCampaignId && newTrack === "no" && (
-          <div className="row">
-            <div className="field col-12">
-              <div className="grouped">
-                <label className="title-label">
-                  Планируете ли вы поступать в этом году на одну из совместных с
-                  ШАД магистерских программ?&nbsp;
-                  <span className="asterisk">*</span>&nbsp;
-                  <Hint
-                    interactive={true}
-                    html={<>Выберите первый приоритет</>}
-                  />
-                </label>
-                <RadioGroup
-                  required={rules.partner}
-                  name="partner"
-                  onChange={handleInputChange}
-                >
-                  {partners.map(partner => (
-                    <RadioOption
-                      id={`partner-${partner.value}`}
-                      value={partner.id}
-                    >
-                      {partner.label}
-                    </RadioOption>
-                  ))}
-                  <RadioOption>Нет</RadioOption>
-                </RadioGroup>
-              </div>
-            </div>
-          </div>
-        )}
-        <div className="row">
-          <div className="field col-12">
-            <div className="grouped">
-              <label className="title-label">
-                Есть ли у вас диплом о среднем специальном или высшем образовании?<br />
-                (Диплом колледжа/ техникума/ бакалавриата/ магистратуры){' '}
-                <span className="asterisk">*</span>
-              </label>
-              <RadioGroup
-                required
-                name="has_diploma"
-                className="inline pt-0"
-                onChange={handleInputChange}
-              >
-                <RadioOption id="yes">Да, есть</RadioOption><br />
-                <RadioOption id="in_process">Нет, я еще учусь/нахожусь в академе</RadioOption><br />
-                <RadioOption id="no">Нет, сейчас не учусь и нет диплома</RadioOption><br />
-              </RadioGroup>
-            </div>
-          </div>
-
-          {HasDiploma === 'yes' && (
-            <div className="row field col-lg-6">
-              <div className="ui select">
-                <label>
-                  Укажите степень вашего диплома{' '}
-                  <span className="asterisk">*</span>
-                </label>
-                <Select
-                  onChange={handleSelectChange}
-                  onBlur={e => trigger('diploma_degree')}
-                  name="diploma_degree"
-                  isClearable={false}
-                  placeholder="Выберите из списка"
-                  options={diplomaDegreeOptions}
-                  menuPortalTarget={document.body}
-                  errors={errors}
-                />
-                <ErrorMessage errors={errors} name={'diploma_degree'} />
-              </div>
-            </div>
-          )}
-          {HasDiploma === 'in_process' && (
-            <div className="row field col-lg-6">
-              <div className="ui select">
-                <label>
-                  На каком курсе вы сейчас учитесь?{' '}
-                  <span className="asterisk">*</span>
-                </label>
-                <Select
-                  onChange={handleSelectChange}
-                  onBlur={e => trigger('course')}
-                  name="course"
-                  isClearable={false}
-                  placeholder="Выберите из списка"
-                  options={educationLevelOptions}
-                  menuPortalTarget={document.body}
-                  errors={errors}
-                />
-                <ErrorMessage errors={errors} name={'course'} />
-              </div>
-            </div>
-          )}
-        {(HasDiploma === 'yes' || HasDiploma === 'in_process') && (
-        <div>
-          <div className="row">
-          <div className="col-12">
-            <label className="title-label">
-              В каком вузе/ССУЗ вы учитесь/учились?<br/>
-                (Укажите ваше последнее место обучения){' '}
-              <span className="asterisk">*</span>
-            </label>
-          </div>
-          <div className="field col-lg-6">
-            <div className="ui select">
-              <CreatableSelect
-                required
-                components={{
-                  DropdownIndicator: null
-                }}
-                openMenuOnFocus={true}
-                isClearable={true}
-                onChange={handleSelectChange}
-                onBlur={e => trigger('university_city')}
-                name="university_city"
-                placeholder="Город"
-                options={universityCities}
-                menuPortalTarget={document.body}
-                errors={errors}
-              />
-            </div>
-            <div className="help-text">
-              Если вашего города/университета не оказалось в списке, вы можете
-              добавить его название.
-            </div>
-            <ErrorMessage errors={errors} name={'university_city'} />
-          </div>
-          <div className="field col-lg-6">
-            <div className="ui select">
-              <CreatableSelect
-                required
-                isDisabled={
-                  universityCity === undefined || universityCity === null
-                }
-                components={{
-                  DropdownIndicator: null
-                }}
-                openMenuOnFocus={true}
-                isClearable={true}
-                onChange={handleSelectChange}
-                onBlur={e => trigger('university')}
-                name="university"
-                placeholder="Университет"
-                value={university}
-                options={universities}
-                menuPortalTarget={document.body}
-                errors={errors}
-              />
-            </div>
-            <ErrorMessage errors={errors} name={'university'} />
-          </div>
-          <InputField
-            control={control}
-            rules={rules.faculty}
-            name="faculty"
-            label={
-              <>
-                На каком факультете вы учитесь/учились? На какой кафедре?{' '}
-                <span className="asterisk">*</span>
-              </>
-            }
-            wrapperClass="col-lg-6"
-          />
-          <InputField
-            control={control}
-            rules={rules.yearOfGraduation}
-            name="year_of_graduation"
-            type="number"
-            label={
-              <>
-                В каком году вы окончите/окончили вуз/ССУЗ?{' '}
-                <span className="asterisk">*</span>
-              </>
-            }
-            wrapperClass="col-lg-6"
-          />
-          </div>
-        </div>
-        )}
-        {HasDiploma === 'no' && (
-        <label className="title-label warning">
-                Обратите внимание, что поступить и учиться в Школе анализа данных могут только действующие студенты
-                или выпускники.
-                Поэтому для зачисления мы можем вас попоросить предоставить документы из учебных учреждений,
-                в противном случае зачисление в ШАД будет невозможно даже при успешном прохождение отбора.{' '}
-              </label>
-        )}
         </div>
         {newTrack === 'yes' && (
           <div className="row">
@@ -985,8 +793,7 @@ function YDSApplicationForm({
               <>
                 Опишите ваш опыт работы в IT-сфере (разработка, аналитика) после получения диплома в формате:
 период работы, компания, должность, обязанности. Если вы аспирант, то опишите тематику исследований и приложите список публикаций.
-Ответ на этот вопрос будет учитываться во втором этапе отбора.{' '}
-                <span className="asterisk">*</span>
+Ответ на этот вопрос будет учитываться во втором этапе отбора<span className="asterisk">*</span>
               </>
             }
             />
@@ -996,8 +803,7 @@ function YDSApplicationForm({
         <div className="row">
           <div className="field col-lg-12">
             <label>
-              Вы проходили/проходите стажировки в IT-компаниях?{' '}
-              <span className="asterisk">*</span>
+              Вы проходили/проходите стажировки в IT-компаниях?<span className="asterisk">*</span>
             </label>
             <RadioGroup
               required
@@ -1062,7 +868,7 @@ function YDSApplicationForm({
         <div className="row">
           <div className="field col-lg-12">
             <label>
-              Вы сейчас работаете? <span className="asterisk">*</span>
+              Вы сейчас работаете?<span className="asterisk">*</span>
             </label>
             <RadioGroup
               required
@@ -1102,6 +908,206 @@ function YDSApplicationForm({
           />
           </div>
         )}
+        {mskStrCampaignId && campaign_watch === mskStrCampaignId && newTrack === 'yes' && (
+        <label className="title-label warning">
+                Внимание, альтернативный трек и поступление на совместные с ШАД
+                магистерские программы – взаимоисключающие условия.{' '}
+              </label>
+        )}
+        {mskStrCampaignId && campaign_watch === mskStrCampaignId && newTrack === "no" && (
+          <div className="row">
+            <div className="field col-12">
+              <div className="grouped">
+                <label className="title-label">
+                  Планируете ли вы поступать в этом году на одну из совместных с
+                  ШАД магистерских программ?<span className="asterisk">*</span>
+                  <Hint
+                    interactive={true}
+                    html={<>Выберите первый приоритет</>}
+                  />
+                </label>
+                <RadioGroup
+                  required={rules.partner}
+                  name="partner"
+                  onChange={handleInputChange}
+                >
+                  {partners.map(partner => (
+                    <RadioOption
+                      id={`partner-${partner.value}`}
+                      value={partner.id}
+                    >
+                      {partner.label}
+                    </RadioOption>
+                  ))}
+                  <RadioOption>Нет</RadioOption>
+                </RadioGroup>
+              </div>
+            </div>
+          </div>
+        )}
+        <div className="row">
+          <div className="field col-12">
+            <div className="grouped">
+              <label className="title-label">
+                Есть ли у вас диплом о среднем специальном или высшем образовании?<br />
+                (диплом колледжа/техникума/бакалавриата/магистратуры)<span className="asterisk">*</span>
+              </label>
+              <RadioGroup
+                required
+                name="has_diploma"
+                className="inline pt-0"
+                onChange={handleInputChange}
+              >
+                <RadioOption id="yes">Да, есть</RadioOption><br />
+                <RadioOption id="in_process">Нет, я ещё учусь / нахожусь в академе</RadioOption><br />
+                <RadioOption id="no">Нет, сейчас не учусь и нет диплома</RadioOption><br />
+              </RadioGroup>
+            </div>
+          </div>
+
+          {HasDiploma === 'yes' && (
+            <div className="row field col-lg-6">
+              <div className="ui select">
+                <label>
+                  Укажите степень вашего диплома<span className="asterisk">*</span>
+                </label>
+                <Select
+                  onChange={handleSelectChange}
+                  onBlur={e => trigger('diploma_degree')}
+                  name="diploma_degree"
+                  isClearable={false}
+                  placeholder="Выберите из списка"
+                  options={diplomaDegreeOptions}
+                  menuPortalTarget={document.body}
+                  errors={errors}
+                />
+                <ErrorMessage errors={errors} name={'diploma_degree'} />
+              </div>
+            </div>
+          )}
+          {HasDiploma === 'in_process' && (
+            <div className="row field col-lg-12">
+              <div className="ui select">
+                <label>
+                  На каком курсе вы сейчас учитесь?<span className="asterisk">*</span>
+                </label>
+                <Select
+                  onChange={handleSelectChange}
+                  onBlur={e => trigger('course')}
+                  name="course"
+                  isClearable={false}
+                  placeholder="Выберите из списка"
+                  options={educationLevelOptions}
+                  menuPortalTarget={document.body}
+                  errors={errors}
+                />
+                <ErrorMessage errors={errors} name={'course'} />
+              </div>
+            </div>
+          )}
+          {HasDiploma === 'in_process' && Course && Course.value === 'other' && (
+          <div className="row col-lg-5">
+            <InputField
+              name="level_of_education_other"
+              control={control}
+              rules={rules.courseOther}
+              placeholder="Ваш вариант"
+              helpText="Максимум 255 символов"
+            />
+            </div>
+          )}
+        {(HasDiploma === 'yes' || HasDiploma === 'in_process') && (
+        <div>
+          <div className="row">
+          <div className="col-12">
+            <label className="title-label">
+              В каком вузе/ССУЗ вы учитесь/учились?<br/>
+                (Укажите ваше последнее место обучения)<span className="asterisk">*</span>
+            </label>
+          </div>
+          <div className="field col-lg-6">
+            <div className="ui select">
+              <CreatableSelect
+                required
+                components={{
+                  DropdownIndicator: null
+                }}
+                openMenuOnFocus={true}
+                isClearable={true}
+                onChange={handleSelectChange}
+                onBlur={e => trigger('university_city')}
+                name="university_city"
+                placeholder="Город"
+                options={universityCities}
+                menuPortalTarget={document.body}
+                errors={errors}
+              />
+            </div>
+            <div className="help-text">
+              Если вашего города/университета не оказалось в списке, вы можете
+              добавить его название.
+            </div>
+            <ErrorMessage errors={errors} name={'university_city'} />
+          </div>
+          <div className="field col-lg-6">
+            <div className="ui select">
+              <CreatableSelect
+                required
+                isDisabled={
+                  universityCity === undefined || universityCity === null
+                }
+                components={{
+                  DropdownIndicator: null
+                }}
+                openMenuOnFocus={true}
+                isClearable={true}
+                onChange={handleSelectChange}
+                onBlur={e => trigger('university')}
+                name="university"
+                placeholder="Университет"
+                value={university}
+                options={universities}
+                menuPortalTarget={document.body}
+                errors={errors}
+              />
+            </div>
+            <ErrorMessage errors={errors} name={'university'} />
+          </div>
+          <InputField
+            control={control}
+            rules={rules.faculty}
+            name="faculty"
+            label={
+              <>
+                На каком факультете вы учитесь/учились? На какой кафедре?<span className="asterisk">*</span>
+              </>
+            }
+            wrapperClass="col-lg-6"
+          />
+          <InputField
+            control={control}
+            rules={rules.yearOfGraduation}
+            name="year_of_graduation"
+            type="number"
+            label={
+              <>
+                В каком году вы окончите/окончили вуз/ССУЗ?<span className="asterisk">*</span>
+              </>
+            }
+            wrapperClass="col-lg-6"
+          />
+          </div>
+        </div>
+        )}
+        {HasDiploma === 'no' && (
+        <label className="title-label warning">
+                Внимание, поступить и учиться в Школе анализа данных могут только действующие студенты или выпускники
+                высших или средних специальных учебных заведений.
+                На этапе зачисления мы попросим вас предоставить подтверждающие документы,
+                в противном случае зачисление в ШАД будет невозможно даже при успешном прохождении отбора.{' '}
+              </label>
+        )}
+        </div>
           <MemoizedTextField
             name="motivation"
             control={control}
@@ -1109,11 +1115,11 @@ function YDSApplicationForm({
             wrapperClass="col-lg-12"
             label={
               <>
-                Зачем вы поступаете в ШАД? Расскажите чему вы ожидаете научиться
-                в ШАД, для чего вам эти знания, какое направление привлекает
-                больше всего. Чем честнее ответ - тем лучше. <br/>
+                Зачем вы поступаете в ШАД? Расскажите, чему вы ожидаете научиться
+                в ШАДе, для чего вам эти знания, какое направление привлекает
+                больше всего. Чем честнее ответ, тем лучше. <br/>
                 Ответ на этот вопрос будет учитываться при оценке
-                мотивационного собеседования и может быть причиной недопуска к следующим этапам отбора{' '}
+                мотивационного собеседования и может быть причиной недопуска к следующим этапам отбора
                 <span className="asterisk">*</span>
               </>
             }
@@ -1125,9 +1131,8 @@ function YDSApplicationForm({
             wrapperClass="col-lg-12"
             label={
               <>
-                Изучали ли вы раньше машинное обучение/анализ данных? Каким
-                образом? Какие навыки удалось приобрести, какие проекты сделать?{' '}
-                <span className="asterisk">*</span>
+                Изучали ли вы раньше машинное обучение / анализ данных? Каким
+                образом? Какие навыки удалось приобрести, какие проекты сделать?<span className="asterisk">*</span>
               </>
             }
           />
@@ -1136,8 +1141,7 @@ function YDSApplicationForm({
           <div className="row">
           <div className="field col-lg-12">
             <label className="mb-4">
-              Откуда вы узнали о наборе в ШАД?{' '}
-              <span className="asterisk">*</span>
+              Откуда вы узнали о наборе в ШАД?<span className="asterisk">*</span>
             </label>
             <div className="grouped">
               {sourceOptions.map(option => (
@@ -1206,7 +1210,7 @@ function YDSApplicationForm({
                     не списывать и не давать списывать,
                     не публиковать задания теста и экзамена в открытом доступе
                     во время наборной кампании с 1 апреля по 1 августа 2024 года,
-                    не использовать более одного логина для участия в отборе ШАД.{' '}
+                    не использовать более одного логина для участия в отборе в ШАД
                     <span className="asterisk">*</span>
                   </>
                 }
@@ -1221,9 +1225,9 @@ function YDSApplicationForm({
                 name={'awareness'}
                 label={
                   <>
-                    Я согласен (-на), что в случае нарушения описанных выше пунктов могу быть недопущен к следующему
-                    этапу.{' '}
-                    <span className="asterisk">*</span>
+                    Я согласен (-на), что в случае нарушения описанных выше пунктов могу быть не допущен (-на) к
+                    следующему
+                    этапу<span className="asterisk">*</span>
                   </>
                 }
                 onChange={handleInputChange}
@@ -1238,8 +1242,7 @@ function YDSApplicationForm({
                 label={
                   <>
                     Я согласен (-на), что результаты всех этапов будут отправлены мне на почту, которую я указывал
-                    (-а) при регистрации.{' '}
-                    <span className="asterisk">*</span>
+                    (-а) при регистрации<span className="asterisk">*</span>
                   </>
                 }
                 onChange={handleInputChange}
@@ -1260,8 +1263,8 @@ function YDSApplicationForm({
                       rel="nofollow noopener noreferrer"
                     >
                       Правил обработки персональных данных участника проекта
-                      «Школа Анализа Данных»
-                    </a>{' '}
+                      «Школа анализа данных»
+                    </a>
                     <span className="asterisk">*</span>
                   </>
                 }
@@ -1273,9 +1276,8 @@ function YDSApplicationForm({
             <div className="grouped mb-4">
               <Checkbox
                 name={'email_subscription'}
-                label={
-                  'Я согласен (-на) на получение новостной и рекламной рассылки от АНО ДПО "ОТЯ"'
-                }
+                label='Я согласен (-на) на получение новостной и рекламной рассылки от
+                        АНО ДПО «Образовательные технологии Яндекса»'
                 onChange={handleInputChange}
               />
             </div>

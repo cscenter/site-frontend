@@ -176,7 +176,7 @@ function YDSApplicationForm({
     setCampaigns(alwaysAllowCampaigns);
   }, [alwaysAllowCampaigns]);
   useEffect(() => {
-    fetch(`${endpointResidenceCities}?ordering=order`)
+    fetch(`${endpointResidenceCities}?ordering=order,name`)
       .then(response => response.json())
       .then(data => {
         console.debug('Fetching residence cities');

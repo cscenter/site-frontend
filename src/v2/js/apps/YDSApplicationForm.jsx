@@ -417,6 +417,7 @@ function YDSApplicationForm({
       internship_beginning,
       internship_not_ended,
       internship_end,
+      working_hours,
       diploma_degree,
       course,
       gender,
@@ -473,7 +474,7 @@ function YDSApplicationForm({
       }
     }
     payload['internship_end'] = internship_end || null;
-    payload['working_hours'] = internship_end || null;
+    payload['working_hours'] = working_hours || null;
     payload['internship_beginning'] = internship_beginning || null;
     payload['internship_not_ended'] = internship_not_ended || false;
     if (internship_not_ended) {

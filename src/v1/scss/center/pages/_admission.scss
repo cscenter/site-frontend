@@ -95,6 +95,11 @@
 .interview-results-page {
   @extend .container;
 
+  .table {
+     table-layout: fixed;
+     word-wrap: break-word;
+  }
+
   form {
     select {
       -webkit-transition: none!important;

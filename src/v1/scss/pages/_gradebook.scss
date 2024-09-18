@@ -72,6 +72,12 @@ $gradebook-header-padding: 5px;
 
   .meta {
     overflow: hidden;
+    height: 3 * $cell-height;
+    .cell {
+      &.__student {
+        height: 3 * $cell-height;
+      }
+    }
   }
 
   .title {

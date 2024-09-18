@@ -101,7 +101,7 @@ function updateDOM(eventData, termSlug, academicYear, selectedTerm) {
   // Update table content
   let rows = '';
   eventData.offeringsData.courses[termSlug].forEach(course => {
-    rows += eventData.templates.courseRow({ co: course });
+    rows += eventData.templates.courseRow({ co: course, COURSE_DURATIONS: eventData.offeringsData.COURSE_DURATIONS});
   });
   $('.__courses tbody').html(rows);
   // Update term types list

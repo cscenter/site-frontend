@@ -6,6 +6,7 @@
 *.css.map
 # Python
 *.pyc
+site-frontend/
 # Ignore IDEA files
 .idea/
 

@@ -5,8 +5,8 @@
 // Sentry needs Object.assign
 // import 'core-js/modules/es.object.assign';
 import * as Sentry from '@sentry/browser';
-import Bootstrap4Collapse from 'bootstrap.native/src/components-v4/collapse-native';
-import Bootstrap4Dropdown from 'bootstrap.native/src/components-v4/dropdown-native';
+import Bootstrap4Collapse from 'bootstrap.native/src/components/collapse-native';
+import Bootstrap4Dropdown from 'bootstrap.native/src/components/dropdown-native';
 import ky from 'ky';
 
 import {

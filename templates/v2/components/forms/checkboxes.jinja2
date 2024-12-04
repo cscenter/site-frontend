@@ -6,24 +6,51 @@
     <div class="container page-content">
         <div class="row">
             <div class="col-lg-9">
-                <h2>States</h2>
+                <h2>Bg-img realization</h2>
                 <table>
                     <tr>
                         <td>
-                            Enabled Selected<br>
                             <label class="ui option checkbox">
-                                <input type="checkbox" class="control__input">
+                                <input type="checkbox" class="control__input" checked>
                                 <span class="control__indicator"></span>
+                                <span class="control__description">Enabled Selected</span>
                             </label>
 
                         </td>
                         <td>
-                            Disabled Selected
+                            <label class="ui option checkbox disabled">
+                                <input type="checkbox" class="control__input" checked disabled>
+                                <span class="control__indicator"></span>
+                                <span class="control__description">Disabled Selected</span>
+                            </label>
                         </td>
-                        <td>Hover Selected</td>
-                        <td>Focus Selected</td>
-                        <td>Pressed Selected</td>
                     </tr>
+                </table>
+              <br>
+              <br>
+                <h2>Svg realization</h2>
+                <table>
+                  <tr>
+                    <td>
+                      <label class="ui option checkbox _svg">
+                        <input type="checkbox" class="control__input" checked>
+                        <span class="control__indicator">
+                          {{ macros.svg_icon('checkmark') }}
+                        </span>
+                        <span class="control__description">Enabled Selected</span>
+                      </label>
+
+                    </td>
+                    <td>
+                      <label class="ui option checkbox _svg disabled">
+                        <input type="checkbox" class="control__input" checked disabled>
+                        <span class="control__indicator">
+                          {{ macros.svg_icon('checkmark') }}
+                        </span>
+                        <span class="control__description">Disabled Selected</span>
+                      </label>
+                    </td>
+                  </tr>
                 </table>
             </div>
         </div>

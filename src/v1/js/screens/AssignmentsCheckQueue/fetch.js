@@ -92,7 +92,7 @@ const fetchPersonalAssignments = async (
   { signal }
 ) => {
   return ky
-    .get(`/api/v1/teaching/courses/${searchParams.course}/personal-assignments/`, {
+    .get(`/api/v1/teaching/courses/${searchParams.course}/personal-assignments/active/`, {
       headers: {
         'X-CSRFToken': csrfToken
       },

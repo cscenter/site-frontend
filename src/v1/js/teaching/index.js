@@ -45,6 +45,12 @@ $(document).ready(function () {
         m.default();
       })
       .catch(error => showComponentError(error));
+  } else if (sections.includes('classForm')) {
+    import(/* webpackChunkName: "classForm" */ 'teaching/classForm')
+      .then(m => {
+        m.default();
+      })
+      .catch(error => showComponentError(error));
   }
 
   loadReactApplications();

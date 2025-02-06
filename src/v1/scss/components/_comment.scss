@@ -17,7 +17,12 @@
   &.passed {
     color: $color-green;
   }
+
+  &.retrying {
+    color: $color-orange-dark;
+  }
 }
+
 
 .assignment-submission__date {
     color: #999;

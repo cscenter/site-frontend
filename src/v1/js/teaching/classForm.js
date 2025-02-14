@@ -10,7 +10,7 @@ export default function launch() {
   }
 
 function updateInvitedTeacherSettings(isChecked) {
-    const detailsDiv = $('div[id=div_id_number_of_repeats]');
+    const detailsDiv = $('div[id=invited-teacher-details]');
     if (isChecked) {
         detailsDiv.removeClass('hidden');
     } else {

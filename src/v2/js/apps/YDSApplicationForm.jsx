@@ -918,13 +918,13 @@ function YDSApplicationForm({
           />
           </div>
         )}
-        {mskStrCampaignId && campaign_watch === mskStrCampaignId && newTrack === 'yes' && (
+        {newTrack === 'yes' && (
         <label className="title-label warning">
                 Внимание, альтернативный трек и поступление на совместные с ШАД
                 магистерские программы – взаимоисключающие условия.{' '}
               </label>
         )}
-        {mskStrCampaignId && campaign_watch === mskStrCampaignId && newTrack === "no" && (
+        {newTrack === "no" && (
           <div className="row">
             <div className="field col-12">
               <div className="grouped">

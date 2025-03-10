@@ -98,6 +98,8 @@ const rules = {
   newTrack: { required: msgRequired },
   newTrackInfo: {},
   partner: {},
+  miptTrack: {},
+  miptTrack: {},
   course: {},
   diploma_degree: {},
   HasDiploma: { required: msgRequired },
@@ -172,6 +174,14 @@ function YDSApplicationForm({
   const [campaign, setCampaign] = useState([]);
   const [universities, setUniversities] = useState([]);
   const [internship_not_ended, setInternshipNotEnded] = useState(false);
+const isMFTIPartner = (partnerId) => {
+    const mftiPartner = partners.find(p => 
+      p.label && (
+        p.label.toLowerCase().includes('мфти')
+      ) && p.id.toString() === partnerId
+    );
+    return !!mftiPartner;
+  };
   useEffect(() => {
     setCampaigns(alwaysAllowCampaigns);
   }, [alwaysAllowCampaigns]);
@@ -211,6 +221,7 @@ function YDSApplicationForm({
     register('has_job', rules.hasJob);
     register('has_diploma', rules.HasDiploma);
     register('residence_city', rules.residenceCity);
+    register('mipt_track', rules.miptTrack);
     register('university', rules.university);
     register('university_city', rules.universityCity);
     register('campaign', rules.campaign);
@@ -227,6 +238,7 @@ function YDSApplicationForm({
     residenceCity,
     university,
     universityCity,
+    selected_partner,
     HasDiploma,
     Course,
     hasJob,
@@ -242,6 +254,7 @@ function YDSApplicationForm({
     'residence_city',
     'university',
     'university_city',
+    'partner',
     'has_diploma',
     'course',
     'has_job',
@@ -364,6 +377,11 @@ function YDSApplicationForm({
     register("has_internship", rules.hasInternship)
     register("has_job", rules.hasJob)
     }
+    if (name === 'partner') {
+      unregister('mipt_track');
+      rules.miptTrack = (isMFTIPartner(value)) ? { required: msgRequired } : {};
+      register('mipt_track', rules.miptTrack);
+    }
     if (
       name === 'campaign' &&
       mskStrCampaignId &&
@@ -412,6 +430,7 @@ function YDSApplicationForm({
     let {
       telegram_username,
       new_track,
+      mipt_track,
       has_job,
       has_internship,
       internship_beginning,
@@ -440,6 +459,7 @@ function YDSApplicationForm({
     if (new_track !== undefined) {
       payload['new_track'] = new_track === 'yes';
     }
+    payload['mipt_track'] = mipt_track || null;
     payload['diploma_degree'] = diploma_degree && diploma_degree.value;
     payload['gender'] = gender && gender.value;
     payload['level_of_education'] = course && course.value;
@@ -949,6 +969,43 @@ function YDSApplicationForm({
                     </RadioOption>
                   ))}
                   <RadioOption>Нет</RadioOption>
+                </RadioGroup>
+              </div>
+            </div>
+          </div>
+        )}
+        {newTrack === "no" && selected_partner && isMFTIPartner(selected_partner) && (
+          <div className="row">
+            <div className="field col-12">
+              <div className="grouped">
+                <label className="title-label">
+                  Выберите трек поступления на совместную программу МФТИ + ШАД<span>*</span>
+                </label>
+                <RadioGroup
+                  required
+                  name="mipt_track"
+                  onChange={handleInputChange}
+                >
+                  <RadioOption
+                    id="basic"
+                    value="basic"
+                  >
+                    Базовый трек&nbsp;
+                    <Hint
+                      interactive={true}
+                      html={<>Для тех, кто хорошо знает математику и только начинает свой путь в IT.</>}
+                    />
+                  </RadioOption>
+                  <RadioOption
+                    id="advanced"
+                    value="advanced"
+                  >
+                    Продвинутый трек&nbsp;
+                    <Hint
+                      interactive={true}
+                      html={<>Для выпускников бакалавриата кафедры МФТИ «Анализ данных» и выпускников ШАДа.</>}
+                    />
+                  </RadioOption>
                 </RadioGroup>
               </div>
             </div>

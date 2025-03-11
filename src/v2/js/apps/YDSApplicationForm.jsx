@@ -191,9 +191,9 @@ function YDSApplicationForm({
   const [internship_not_ended, setInternshipNotEnded] = useState(false);
 const isMFTIPartner = (partnerId) => {
     const mftiPartner = partners.find(p => 
-      p.label && (
-        p.label.toLowerCase().includes('мфти')
-      ) && p.id.toString() === partnerId
+      p.label &&
+      p.label.toLowerCase().includes('мфти') && 
+      p.id.toString() === partnerId
     );
     return !!mftiPartner;
   };

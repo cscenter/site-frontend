@@ -589,7 +589,7 @@ const isMFTIPartner = (partnerId) => {
     }
   }
 
-  const { isYandexPassportAccessAllowed, isFormSubmitted } = state;
+  const { isYandexPassportAccessAllowed, isFormSubmitted, isSubmitting } = state;
   if (isFormSubmitted) {
     return (
       <>

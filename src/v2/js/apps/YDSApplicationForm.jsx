@@ -438,6 +438,70 @@ const isMFTIPartner = (partnerId) => {
     return false;
   };
 
+  // Function to compress image files
+  const compressImage = async (file, maxSizeMB = 1) => {
+    if (!file) return null;
+    
+    // Skip compression if file is already smaller than maxSizeMB
+    if (file.size / 1024 / 1024 < maxSizeMB) return file;
+    
+    // Create a FileReader to read the image
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target.result;
+        img.onload = () => {
+          // Create a canvas to resize the image
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+          
+        // Calculate new dimensions while maintaining aspect ratio
+        const MAX_WIDTH = 1800;
+        const MAX_HEIGHT = 1800;
+          
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height = Math.round(height * MAX_WIDTH / width);
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width = Math.round(width * MAX_HEIGHT / height);
+              height = MAX_HEIGHT;
+            }
+          }
+          
+          canvas.width = width;
+          canvas.height = height;
+          
+          // Draw the resized image on the canvas
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          
+        // Convert canvas to blob with reduced quality
+        canvas.toBlob((blob) => {
+          // Create a new file from the blob
+          const compressedFile = new File([blob], file.name, {
+            type: 'image/jpeg',
+            lastModified: Date.now()
+          });
+          
+          // If still too large, try again with lower quality
+          if (compressedFile.size / 1024 / 1024 > maxSizeMB && maxSizeMB > 0.5) {
+            // Recursively compress with lower quality
+            resolve(compressImage(file, maxSizeMB - 0.1));
+          } else {
+            resolve(compressedFile);
+          }
+        }, 'image/jpeg', 0.85); // Adjust quality (0.85 = 85% quality)
+        };
+      };
+    });
+  };
+
   async function onSubmit(data) {
     setState({ isSubmitting: true });
   

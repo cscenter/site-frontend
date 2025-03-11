@@ -99,7 +99,6 @@ const rules = {
   newTrackInfo: {},
   partner: {},
   miptTrack: {},
-  miptTrack: {},
   course: {},
   diploma_degree: {},
   HasDiploma: { required: msgRequired },

@@ -35,6 +35,7 @@ const submitForm = async (
   props,
   { signal }
 ) => {
+  try {
   const response = await ky.post(endpoint, {
     headers: {
       'X-CSRFToken': csrfToken
@@ -43,7 +44,11 @@ const submitForm = async (
     body: formData,
     signal: signal
   });
+    
   if (!response.ok) {
+      // Reset the submitting state to allow resubmission
+      setState({ isSubmitting: false });
+      
     if (response.status === 400) {
       const data = await response.json();
       console.log(data);
@@ -76,6 +81,14 @@ const submitForm = async (
     }
   } else {
     setState({ isFormSubmitted: true });
+  }
+  } catch (error) {
+    // Reset the submitting state if there's an error during the request
+    setState({ isSubmitting: false });
+    showErrorNotification(
+      `Произошла ошибка при отправке формы. Пожалуйста, попробуйте еще раз или обратитесь на почту, указанную внизу анкеты.`
+    );
+    console.error('Error submitting form:', error);
   }
 };
 
@@ -425,7 +438,10 @@ const isMFTIPartner = (partnerId) => {
     return false;
   };
 
-  function onSubmit(data) {
+  async function onSubmit(data) {
+    setState({ isSubmitting: true });
+  
+    try {
     let {
       telegram_username,
       new_track,
@@ -502,6 +518,11 @@ const isMFTIPartner = (partnerId) => {
     delete payload['photo'];
     formData.append('payload', new Blob([JSON.stringify(payload)], { type: 'application/json' }));
     runSubmit(endpoint, csrfToken, setState, formData);
+    } catch (error) {
+      console.error('Error during form submission:', error);
+      showErrorNotification('Произошла ошибка при обработке файлов. Пожалуйста, попробуйте еще раз или обратитесь на почту, указанную внизу анкеты.');
+      setState({ isSubmitting: false });
+    }
   }
 
   const { isYandexPassportAccessAllowed, isFormSubmitted } = state;
@@ -525,7 +546,7 @@ const isMFTIPartner = (partnerId) => {
   const selectedCampaignID =
     campaign_watch !== null ? `campaign-${campaign_watch}` : '';
   return (
-    <form className="ui form" onSubmit={handleSubmit(onSubmit) } enctype="multipart/form-data">
+    <form className="ui form" onSubmit={handleSubmit(onSubmit) } encType="multipart/form-data">
       <div className="card__content">
         <div className="row mb-4">
           <div className="field col-lg-6 mb-2">
@@ -955,6 +976,7 @@ const isMFTIPartner = (partnerId) => {
                   />
                 </label>
                 <RadioGroup
+                  key={`partner-group-${residenceCity?.value || 'default'}`}
                   required={rules.partner}
                   name="partner"
                   onChange={handleInputChange}
@@ -1350,10 +1372,10 @@ const isMFTIPartner = (partnerId) => {
         <div className="row">
           <button
             type="submit"
-            disabled={!agreementConfirmed || !honestyConfirmed || !MailConfirmed || !AwarenessConfirmed || isPending}
+            disabled={!agreementConfirmed || !honestyConfirmed || !MailConfirmed || !AwarenessConfirmed || isPending || isSubmitting}
             className="btn _primary _m-wide mt-3 mb-6"
           >
-            Подать заявку
+            {isSubmitting ? 'Отправка...' : 'Подать заявку'}
           </button>
         </div>
         <div className="row">

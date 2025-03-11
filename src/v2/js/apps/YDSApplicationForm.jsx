@@ -112,6 +112,9 @@ const rules = {
   newTrackInfo: {},
   partner: {},
   miptTrack: {},
+  miptGpa: {},
+  miptGradesFile: {},
+  miptExpectations: {},
   course: {},
   diploma_degree: {},
   HasDiploma: { required: msgRequired },
@@ -234,6 +237,9 @@ const isMFTIPartner = (partnerId) => {
     register('has_diploma', rules.HasDiploma);
     register('residence_city', rules.residenceCity);
     register('mipt_track', rules.miptTrack);
+    register('mipt_gpa', rules.miptGpa);
+    register('mipt_grades_file', rules.miptGradesFile);
+    register('mipt_expectations', rules.miptExpectations);
     register('university', rules.university);
     register('university_city', rules.universityCity);
     register('campaign', rules.campaign);
@@ -391,8 +397,17 @@ const isMFTIPartner = (partnerId) => {
     }
     if (name === 'partner') {
       unregister('mipt_track');
+      unregister('mipt_gpa');
+      unregister('mipt_grades_file');
+      unregister('mipt_expectations');
       rules.miptTrack = (isMFTIPartner(value)) ? { required: msgRequired } : {};
+      rules.miptGpa = (isMFTIPartner(value)) ? { required: msgRequired } : {};
+      rules.miptGradesFile = (isMFTIPartner(value)) ? { required: msgRequired } : {};
+      rules.miptExpectations = (isMFTIPartner(value)) ? { required: msgRequired } : {};
       register('mipt_track', rules.miptTrack);
+      register('mipt_gpa', rules.miptGpa);
+      register('mipt_grades_file', rules.miptGradesFile);
+      register('mipt_expectations', rules.miptExpectations);
     }
     if (
       name === 'campaign' &&
@@ -510,6 +525,8 @@ const isMFTIPartner = (partnerId) => {
       telegram_username,
       new_track,
       mipt_track,
+        mipt_gpa,
+        mipt_expectations,
       has_job,
       has_internship,
       internship_beginning,
@@ -530,8 +547,17 @@ const isMFTIPartner = (partnerId) => {
       
     let formData = new FormData();
       let photo = document.getElementById("photo").files[0];
+      let mipt_grades_file = document.getElementById("mipt_grades_file").files[0];
+      
+      // Compress photo before uploading
       const compressedPhoto = await compressImage(photo);
       formData.append("photo", compressedPhoto);
+      
+      // Compress mipt_grades_file if it exists
+      if (mipt_grades_file) {
+        const compressedGradesFile = await compressImage(mipt_grades_file);
+        formData.append("mipt_grades_file", compressedGradesFile);
+      }
     payload['utm'] = utm;
     payload['has_job'] = has_job === 'yes';
     payload['has_internship'] = has_internship === 'yes';
@@ -541,6 +567,8 @@ const isMFTIPartner = (partnerId) => {
       payload['new_track'] = new_track === 'yes';
     }
     payload['mipt_track'] = mipt_track || null;
+      payload['mipt_gpa'] = mipt_gpa || null;
+      payload['mipt_expectations'] = mipt_expectations || null;
     payload['diploma_degree'] = diploma_degree && diploma_degree.value;
     payload['gender'] = gender && gender.value;
     payload['level_of_education'] = course && course.value;
@@ -582,6 +610,7 @@ const isMFTIPartner = (partnerId) => {
         payload['internship_end'] = null;
     }
     delete payload['photo'];
+      delete payload['mipt_grades_file'];
     formData.append('payload', new Blob([JSON.stringify(payload)], { type: 'application/json' }));
     runSubmit(endpoint, csrfToken, setState, formData);
     } catch (error) {
@@ -1094,6 +1123,63 @@ const isMFTIPartner = (partnerId) => {
                     />
                   </RadioOption>
                 </RadioGroup>
+
+                <div className="mt-4">
+                  <InputField
+                    control={control}
+                    rules={rules.mipt_gpa}
+                    name="mipt_gpa"
+                    type="number"
+                    step="0.1"
+                    min="0"
+                    max="10"
+                    label={
+                      <>
+                        Средний балл за последние два курса бакалавриата или специалитета (в 10-балльной шкале)<span>*</span>
+                      </>
+                    }
+                    helpText="Укажите средний балл по 10-балльной шкале (например, 9.5)"
+                    wrapperClass="col-lg-6"
+                  />
+              </div>
+
+                <div className="mt-4">
+                  <InputField
+                    control={control}
+                    rules={rules.mipt_grades_file}
+                    name="mipt_grades_file"
+                    type="file"
+                    accept="image/*"
+                    label={
+                      <>
+                        Приложите скрин с оценками из личного кабинета студента<span>*</span>
+                      </>
+                    }
+                    wrapperClass="col-lg-6"
+                    helpText="Загрузите файл в формате PDF, JPG или PNG"
+                    hint = {
+                      <>
+                      Максимальный размер файла: 1 МБ. <br/>
+                      Тип файла: png, jpg. <br/>
+                      </>
+                    }
+                  />
+                </div>
+
+                <div className="mt-2">
+                  <MemoizedTextField
+                    name="mipt_expectations"
+                    control={control}
+                    rules={rules.mipt_expectations}
+                    wrapperClass="col-lg-12"
+                    label={
+                      <>
+                        Чего Вы ожидаете от магистратуры? Чему хотели бы научиться? Какие навыки получить?<span>*</span>
+                      </>
+                    }
+                    helpText="Максимум 1000 символов"
+                  />
+                </div>
               </div>
             </div>
           </div>

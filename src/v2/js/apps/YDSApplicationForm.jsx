@@ -527,9 +527,11 @@ const isMFTIPartner = (partnerId) => {
       shad_agreement,
       ...payload
     } = data;
+      
     let formData = new FormData();
-    let photo = document.getElementById("photo").files[0]
-    formData.append("photo", photo);
+      let photo = document.getElementById("photo").files[0];
+      const compressedPhoto = await compressImage(photo);
+      formData.append("photo", compressedPhoto);
     payload['utm'] = utm;
     payload['has_job'] = has_job === 'yes';
     payload['has_internship'] = has_internship === 'yes';

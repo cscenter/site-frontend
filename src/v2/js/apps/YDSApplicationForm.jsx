@@ -35,47 +35,60 @@ const submitForm = async (
   props,
   { signal }
 ) => {
-  const response = await ky.post(endpoint, {
-    headers: {
-      'X-CSRFToken': csrfToken
-    },
-    throwHttpErrors: false,
-    body: formData,
-    signal: signal
-  });
-  if (!response.ok) {
-    if (response.status === 400) {
-      const data = await response.json();
-      console.log(data);
-      let msg = '<h5>Анкета не была сохранена</h5>';
-      if (
-        Object.keys(data).length === 1 &&
-        Object.prototype.hasOwnProperty.call(data, 'non_field_errors')
-      ) {
-        msg += data['non_field_errors'];
+  try {
+    const response = await ky.post(endpoint, {
+      headers: {
+        'X-CSRFToken': csrfToken
+      },
+      throwHttpErrors: false,
+      body: formData,
+      signal: signal
+    });
+    
+    if (!response.ok) {
+      // Reset the submitting state to allow resubmission
+      setState({ isSubmitting: false });
+      
+      if (response.status === 400) {
+        const data = await response.json();
+        console.log(data);
+        let msg = '<h5>Анкета не была сохранена</h5>';
+        if (
+          Object.keys(data).length === 1 &&
+          Object.prototype.hasOwnProperty.call(data, 'non_field_errors')
+        ) {
+          msg += data['non_field_errors'];
+          showErrorNotification(msg);
+          console.log(`Non field errors: ${data}`);
+        } else {
+          msg += `Что-то пошло не так: код ошибки ${response.status}.`;
+          msg += `<br/>${JSON.stringify(data)}`;
+          showNotification(msg);
+        }
+      } else if (response.status === 403) {
+        let msg = '<h5>Анкета не была сохранена</h5>Приемная кампания окончена.';
         showErrorNotification(msg);
-        console.log(`Non field errors: ${data}`);
-      } else {
-        msg += `Что-то пошло не так: код ошибки ${response.status}.`;
-        msg += `<br/>${JSON.stringify(data)}`;
+      } else if (response.status === 413) {
+        let msg = `<h5>Анкета не была сохранена</h5> Выбранное фото слишком большое. Пожалуйста, выберите фото размером
+        менее 1 MB и повторите попытку. <br/> Если ошибка повторяется, пожалуйста, обратитесь на почту, указанную внизу
+        анкеты.`;
         showNotification(msg);
+      } else {
+        showErrorNotification(
+          `Что-то пошло не так: код ошибки ${response.status}.<br/>
+                 Пожалуйста, обратитесь на почту, указанную внизу анкеты.`
+        );
       }
-    } else if (response.status === 403) {
-      let msg = '<h5>Анкета не была сохранена</h5>Приемная кампания окончена.';
-      showErrorNotification(msg);
-    } else if (response.status === 413) {
-      let msg = `<h5>Анкета не была сохранена</h5> Выбранное фото слишком большое. Пожалуйста, выберите фото размером
-      менее 1 MB и повторите попытку. <br/> Если ошибка повторяется, пожалуйста, обратитесь на почту, указанную внизу
-      анкеты.`;
-      showNotification(msg);
     } else {
-      showErrorNotification(
-        `Что-то пошло не так: код ошибки ${response.status}.<br/>
-               Пожалуйста, обратитесь на почту, указанную внизу анкеты.`
-      );
+      setState({ isFormSubmitted: true });
     }
-  } else {
-    setState({ isFormSubmitted: true });
+  } catch (error) {
+    // Reset the submitting state if there's an error during the request
+    setState({ isSubmitting: false });
+    showErrorNotification(
+      `Произошла ошибка при отправке формы. Пожалуйста, попробуйте еще раз или обратитесь на почту, указанную внизу анкеты.`
+    );
+    console.error('Error submitting form:', error);
   }
 };
 
@@ -97,7 +110,11 @@ const rules = {
   faculty: { required: msgRequired },
   newTrack: { required: msgRequired },
   newTrackInfo: {},
-  partner: {},
+  partner: {required: msgRequired},
+  miptTrack: {},
+  miptGpa: {},
+  miptGradesFile: {},
+  miptExpectations: {},
   course: {},
   diploma_degree: {},
   HasDiploma: { required: msgRequired },
@@ -172,6 +189,14 @@ function YDSApplicationForm({
   const [campaign, setCampaign] = useState([]);
   const [universities, setUniversities] = useState([]);
   const [internship_not_ended, setInternshipNotEnded] = useState(false);
+  const isMFTIPartner = (partnerId) => {
+    const mftiPartner = partners.find(p => 
+      p.label &&
+      p.label.toLowerCase().includes('мфти') && 
+      p.id.toString() === partnerId
+    );
+    return !!mftiPartner;
+  };
   useEffect(() => {
     setCampaigns(alwaysAllowCampaigns);
   }, [alwaysAllowCampaigns]);
@@ -211,6 +236,10 @@ function YDSApplicationForm({
     register('has_job', rules.hasJob);
     register('has_diploma', rules.HasDiploma);
     register('residence_city', rules.residenceCity);
+    register('mipt_track', rules.miptTrack);
+    register('mipt_gpa', rules.miptGpa);
+    register('mipt_grades_file', rules.miptGradesFile);
+    register('mipt_expectations', rules.miptExpectations);
     register('university', rules.university);
     register('university_city', rules.universityCity);
     register('campaign', rules.campaign);
@@ -227,6 +256,7 @@ function YDSApplicationForm({
     residenceCity,
     university,
     universityCity,
+    selected_partner,
     HasDiploma,
     Course,
     hasJob,
@@ -242,6 +272,7 @@ function YDSApplicationForm({
     'residence_city',
     'university',
     'university_city',
+    'partner',
     'has_diploma',
     'course',
     'has_job',
@@ -253,10 +284,6 @@ function YDSApplicationForm({
     'awareness',
     'new_track'
   ]);
-  useEffect(() => {
-    setPartner(null);
-    setValue('partner', null);
-  }, [campaign_watch, residenceCity]);
   useEffect(() => {
     if (newTrack === 'yes') {
       setPartner(null);
@@ -320,14 +347,6 @@ function YDSApplicationForm({
         });
     }
   }, [endpointResidenceCampaigns, residenceCity, alwaysAllowCampaigns]);
-  let mskStrCampaignId = campaigns.find((e, i, a) => {
-    return e.value === 'msk';
-  });
-  if (mskStrCampaignId !== undefined) {
-    mskStrCampaignId = mskStrCampaignId.campaign_id.toString();
-  } else {
-    mskStrCampaignId = null;
-  }
 
   function handleInputChange(event) {
     const target = event.target;
@@ -364,14 +383,19 @@ function YDSApplicationForm({
     register("has_internship", rules.hasInternship)
     register("has_job", rules.hasJob)
     }
-    if (
-      name === 'campaign' &&
-      mskStrCampaignId &&
-      campaign === mskStrCampaignId
-    ) {
-      unregister('partner');
-      rules.partner = { required: msgRequired };
-      register('partner');
+    if (name === 'partner') {
+      unregister('mipt_track');
+      unregister('mipt_gpa');
+      unregister('mipt_grades_file');
+      unregister('mipt_expectations');
+      rules.miptTrack = (isMFTIPartner(value)) ? { required: msgRequired } : {};
+      rules.miptGpa = (isMFTIPartner(value)) ? { required: msgRequired } : {};
+      rules.miptGradesFile = (isMFTIPartner(value)) ? { required: msgRequired } : {};
+      rules.miptExpectations = (isMFTIPartner(value)) ? { required: msgRequired } : {};
+      register('mipt_track', rules.miptTrack);
+      register('mipt_gpa', rules.miptGpa);
+      register('mipt_grades_file', rules.miptGradesFile);
+      register('mipt_expectations', rules.miptExpectations);
     }
   }
 
@@ -408,90 +432,179 @@ function YDSApplicationForm({
     return false;
   };
 
-  function onSubmit(data) {
-    let {
-      telegram_username,
-      new_track,
-      has_job,
-      has_internship,
-      internship_beginning,
-      internship_not_ended,
-      internship_end,
-      working_hours,
-      diploma_degree,
-      course,
-      gender,
-      residence_city,
-      university,
-      university_city,
-      ticket_access,
-      email_subscription,
-      shad_agreement,
-      ...payload
-    } = data;
-    let formData = new FormData();
-    let photo = document.getElementById("photo").files[0]
-    formData.append("photo", photo);
-    payload['utm'] = utm;
-    payload['has_job'] = has_job === 'yes';
-    payload['has_internship'] = has_internship === 'yes';
-    payload['shad_agreement'] = shad_agreement === true;
-    payload['telegram_username'] = telegram_username.replace('@', '');
-    if (new_track !== undefined) {
-      payload['new_track'] = new_track === 'yes';
-    }
-    payload['diploma_degree'] = diploma_degree && diploma_degree.value;
-    payload['gender'] = gender && gender.value;
-    payload['level_of_education'] = course && course.value;
-    payload['ticket_access'] = ticket_access === true;
-    payload['email_subscription'] = email_subscription === true;
-    if (university) {
-      if (university.__isNew__) {
-        payload['university_other'] = university.value;
-      } else {
-        payload['university'] = parseInt(university.value);
-      }
-    }
-    if (university_city) {
-      if (university_city.__isNew__) {
-        payload['university_city'] = {
-          is_exists: false,
-          city_name: university_city.value
+  // Function to compress image files
+  const compressImage = async (file, maxSizeMB = 1) => {
+    if (!file) return null;
+    
+    // Skip compression if file is already smaller than maxSizeMB
+    if (file.size / 1024 / 1024 < maxSizeMB) return file;
+    
+    // Create a FileReader to read the image
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target.result;
+        img.onload = () => {
+          // Create a canvas to resize the image
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+          
+        // Calculate new dimensions while maintaining aspect ratio
+        const MAX_WIDTH = 1800;
+        const MAX_HEIGHT = 1800;
+          
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height = Math.round(height * MAX_WIDTH / width);
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width = Math.round(width * MAX_HEIGHT / height);
+              height = MAX_HEIGHT;
+            }
+          }
+          
+          canvas.width = width;
+          canvas.height = height;
+          
+          // Draw the resized image on the canvas
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          
+        // Convert canvas to blob with reduced quality
+        canvas.toBlob((blob) => {
+          // Create a new file from the blob
+          const compressedFile = new File([blob], file.name, {
+            type: 'image/jpeg',
+            lastModified: Date.now()
+          });
+          
+          // If still too large, try again with lower quality
+          if (compressedFile.size / 1024 / 1024 > maxSizeMB && maxSizeMB > 0.5) {
+            // Recursively compress with lower quality
+            resolve(compressImage(file, maxSizeMB - 0.1));
+          } else {
+            resolve(compressedFile);
+          }
+        }, 'image/jpeg', 0.85); // Adjust quality (0.85 = 85% quality)
         };
-      } else {
-        payload['university_city'] = {
-          is_exists: true,
-          pk: parseInt(university_city.value)
-        };
+      };
+    });
+  };
+
+  async function onSubmit(data) {
+    setState({ isSubmitting: true });
+  
+    try {
+      let {
+        telegram_username,
+        new_track,
+        mipt_track,
+        mipt_gpa,
+        mipt_expectations,
+        has_job,
+        has_internship,
+        internship_beginning,
+        internship_not_ended,
+        internship_end,
+        working_hours,
+        diploma_degree,
+        course,
+        gender,
+        residence_city,
+        university,
+        university_city,
+        ticket_access,
+        email_subscription,
+        shad_agreement,
+        ...payload
+      } = data;
+      
+      let formData = new FormData();
+      let photo = document.getElementById("photo").files[0];
+      let mipt_grades_file = document.getElementById("mipt_grades_file").files[0];
+      
+      // Compress photo before uploading
+      const compressedPhoto = await compressImage(photo);
+      formData.append("photo", compressedPhoto);
+      
+      // Compress mipt_grades_file if it exists
+      if (mipt_grades_file) {
+        const compressedGradesFile = await compressImage(mipt_grades_file);
+        formData.append("mipt_grades_file", compressedGradesFile);
       }
-    }
-    if (residence_city) {
-      if (residence_city.__isNew__) {
-        payload['residence_city'] = null;
-        payload['living_place'] = residence_city.value;
-      } else {
-        payload['residence_city'] = parseInt(residence_city.value);
+      payload['utm'] = utm;
+      payload['has_job'] = has_job === 'yes';
+      payload['has_internship'] = has_internship === 'yes';
+      payload['shad_agreement'] = shad_agreement === true;
+      payload['telegram_username'] = telegram_username.replace('@', '');
+      if (new_track !== undefined) {
+        payload['new_track'] = new_track === 'yes';
       }
+      payload['mipt_track'] = mipt_track || null;
+      payload['mipt_gpa'] = mipt_gpa || null;
+      payload['mipt_expectations'] = mipt_expectations || null;
+      payload['diploma_degree'] = diploma_degree && diploma_degree.value;
+      payload['gender'] = gender && gender.value;
+      payload['level_of_education'] = course && course.value;
+      payload['ticket_access'] = ticket_access === true;
+      payload['email_subscription'] = email_subscription === true;
+      if (university) {
+        if (university.__isNew__) {
+          payload['university_other'] = university.value;
+        } else {
+          payload['university'] = parseInt(university.value);
+        }
+      }
+      if (university_city) {
+        if (university_city.__isNew__) {
+          payload['university_city'] = {
+            is_exists: false,
+            city_name: university_city.value
+          };
+        } else {
+          payload['university_city'] = {
+            is_exists: true,
+            pk: parseInt(university_city.value)
+          };
+        }
+      }
+      if (residence_city) {
+        if (residence_city.__isNew__) {
+          payload['residence_city'] = null;
+          payload['living_place'] = residence_city.value;
+        } else {
+          payload['residence_city'] = parseInt(residence_city.value);
+        }
+      }
+      payload['internship_end'] = internship_end || null;
+      payload['working_hours'] = working_hours || null;
+      payload['internship_beginning'] = internship_beginning || null;
+      payload['internship_not_ended'] = internship_not_ended || false;
+      if (internship_not_ended) {
+          payload['internship_end'] = null;
+      }
+      delete payload['photo'];
+      delete payload['mipt_grades_file'];
+      formData.append('payload', new Blob([JSON.stringify(payload)], { type: 'application/json' }));
+      runSubmit(endpoint, csrfToken, setState, formData);
+    } catch (error) {
+      console.error('Error during form submission:', error);
+      showErrorNotification('Произошла ошибка при обработке файлов. Пожалуйста, попробуйте еще раз или обратитесь на почту, указанную внизу анкеты.');
+      setState({ isSubmitting: false });
     }
-    payload['internship_end'] = internship_end || null;
-    payload['working_hours'] = working_hours || null;
-    payload['internship_beginning'] = internship_beginning || null;
-    payload['internship_not_ended'] = internship_not_ended || false;
-    if (internship_not_ended) {
-        payload['internship_end'] = null;
-    }
-    delete payload['photo'];
-    formData.append('payload', new Blob([JSON.stringify(payload)], { type: 'application/json' }));
-    runSubmit(endpoint, csrfToken, setState, formData);
   }
 
-  const { isYandexPassportAccessAllowed, isFormSubmitted } = state;
+  const { isYandexPassportAccessAllowed, isFormSubmitted, isSubmitting } = state;
   if (isFormSubmitted) {
     return (
       <>
         <h3>Ваша заявка принята!</h3>
-        Доступ к онлайн-тестированию будет открыт с 6 мая 00:00 до 13 мая 19:00 по
-        московскому времени.
+        Доступ к онлайн-тестированию будет открыт с 29 апреля 00:00 до 5 мая 19:00 по московскому времени.
         <br />
         Мы выслали вам на почту письмо — обязательно прочитайте его.
         <br />
@@ -507,7 +620,7 @@ function YDSApplicationForm({
   const selectedCampaignID =
     campaign_watch !== null ? `campaign-${campaign_watch}` : '';
   return (
-    <form className="ui form" onSubmit={handleSubmit(onSubmit) } enctype="multipart/form-data">
+    <form className="ui form" onSubmit={handleSubmit(onSubmit) } encType="multipart/form-data">
       <div className="card__content">
         <div className="row mb-4">
           <div className="field col-lg-6 mb-2">
@@ -918,13 +1031,13 @@ function YDSApplicationForm({
           />
           </div>
         )}
-        {mskStrCampaignId && campaign_watch === mskStrCampaignId && newTrack === 'yes' && (
+        {newTrack === 'yes' && (
         <label className="title-label warning">
                 Внимание, альтернативный трек и поступление на совместные с ШАД
                 магистерские программы – взаимоисключающие условия.{' '}
               </label>
         )}
-        {mskStrCampaignId && campaign_watch === mskStrCampaignId && newTrack === "no" && (
+        {newTrack === "no" && (
           <div className="row">
             <div className="field col-12">
               <div className="grouped">
@@ -951,6 +1064,100 @@ function YDSApplicationForm({
                   ))}
                   <RadioOption>Нет</RadioOption>
                 </RadioGroup>
+              </div>
+            </div>
+          </div>
+        )}
+        {newTrack === "no" && selected_partner && isMFTIPartner(selected_partner) && (
+          <div className="row">
+            <div className="field col-12">
+              <div className="grouped">
+                <label className="title-label">
+                  Выберите трек поступления на совместную программу МФТИ + ШАД<span>*</span>
+                </label>
+                <RadioGroup
+                  required
+                  name="mipt_track"
+                  onChange={handleInputChange}
+                >
+                  <RadioOption
+                    id="basic"
+                    value="basic"
+                  >
+                    Базовый трек&nbsp;
+                    <Hint
+                      interactive={true}
+                      html={<>Для тех, кто хорошо знает математику и только начинает свой путь в IT.</>}
+                    />
+                  </RadioOption>
+                  <RadioOption
+                    id="advanced"
+                    value="advanced"
+                  >
+                    Продвинутый трек&nbsp;
+                    <Hint
+                      interactive={true}
+                      html={<>Для выпускников бакалавриата кафедры МФТИ «Анализ данных» и выпускников ШАДа.</>}
+                    />
+                  </RadioOption>
+                </RadioGroup>
+
+                <div className="mt-4">
+                  <InputField
+                    control={control}
+                    rules={rules.mipt_gpa}
+                    name="mipt_gpa"
+                    type="number"
+                    step="0.1"
+                    min="0"
+                    max="10"
+                    label={
+                      <>
+                        Средний балл за последние два курса бакалавриата или специалитета (в 10-балльной шкале)<span>*</span>
+                      </>
+                    }
+                    helpText="Укажите средний балл по 10-балльной шкале (например, 9.5)"
+                    wrapperClass="col-lg-6"
+                  />
+                </div>
+
+                <div className="mt-4">
+                  <InputField
+                    control={control}
+                    rules={rules.mipt_grades_file}
+                    name="mipt_grades_file"
+                    type="file"
+                    accept="image/*"
+                    label={
+                      <>
+                        Приложите скрин с оценками из личного кабинета студента<span>*</span>
+                      </>
+                    }
+                    wrapperClass="col-lg-6"
+                    helpText="Загрузите файл в формате PDF, JPG или PNG"
+                    hint = {
+                      <>
+                      Максимальный размер файла: 1 МБ. <br/>
+                      Тип файла: png, jpg. <br/>
+                      </>
+                    }
+                  />
+                </div>
+
+                <div className="mt-2">
+                  <MemoizedTextField
+                    name="mipt_expectations"
+                    control={control}
+                    rules={rules.mipt_expectations}
+                    wrapperClass="col-lg-12"
+                    label={
+                      <>
+                        Чего Вы ожидаете от магистратуры? Чему хотели бы научиться? Какие навыки получить?<span>*</span>
+                      </>
+                    }
+                    helpText="Максимум 1000 символов"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -1219,7 +1426,7 @@ function YDSApplicationForm({
                     Я обещаю самостоятельно выполнять все задания всех этапов поступления в ШАД,
                     не списывать и не давать списывать,
                     не публиковать задания теста и экзамена в открытом доступе
-                    во время наборной кампании с 1 апреля по 1 августа 2024 года,
+                    во время наборной кампании с 1 апреля по 1 августа 2025 года,
                     не использовать более одного логина для участия в отборе в ШАД
                     <span className="asterisk">*</span>
                   </>
@@ -1295,10 +1502,10 @@ function YDSApplicationForm({
         <div className="row">
           <button
             type="submit"
-            disabled={!agreementConfirmed || !honestyConfirmed || !MailConfirmed || !AwarenessConfirmed || isPending}
+            disabled={!agreementConfirmed || !honestyConfirmed || !MailConfirmed || !AwarenessConfirmed || isPending || isSubmitting}
             className="btn _primary _m-wide mt-3 mb-6"
           >
-            Подать заявку
+            {isSubmitting ? 'Отправка...' : 'Подать заявку'}
           </button>
         </div>
         <div className="row">

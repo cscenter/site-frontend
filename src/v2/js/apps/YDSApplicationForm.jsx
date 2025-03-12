@@ -36,52 +36,52 @@ const submitForm = async (
   { signal }
 ) => {
   try {
-  const response = await ky.post(endpoint, {
-    headers: {
-      'X-CSRFToken': csrfToken
-    },
-    throwHttpErrors: false,
-    body: formData,
-    signal: signal
-  });
+    const response = await ky.post(endpoint, {
+      headers: {
+        'X-CSRFToken': csrfToken
+      },
+      throwHttpErrors: false,
+      body: formData,
+      signal: signal
+    });
     
-  if (!response.ok) {
+    if (!response.ok) {
       // Reset the submitting state to allow resubmission
       setState({ isSubmitting: false });
       
-    if (response.status === 400) {
-      const data = await response.json();
-      console.log(data);
-      let msg = '<h5>Анкета не была сохранена</h5>';
-      if (
-        Object.keys(data).length === 1 &&
-        Object.prototype.hasOwnProperty.call(data, 'non_field_errors')
-      ) {
-        msg += data['non_field_errors'];
+      if (response.status === 400) {
+        const data = await response.json();
+        console.log(data);
+        let msg = '<h5>Анкета не была сохранена</h5>';
+        if (
+          Object.keys(data).length === 1 &&
+          Object.prototype.hasOwnProperty.call(data, 'non_field_errors')
+        ) {
+          msg += data['non_field_errors'];
+          showErrorNotification(msg);
+          console.log(`Non field errors: ${data}`);
+        } else {
+          msg += `Что-то пошло не так: код ошибки ${response.status}.`;
+          msg += `<br/>${JSON.stringify(data)}`;
+          showNotification(msg);
+        }
+      } else if (response.status === 403) {
+        let msg = '<h5>Анкета не была сохранена</h5>Приемная кампания окончена.';
         showErrorNotification(msg);
-        console.log(`Non field errors: ${data}`);
-      } else {
-        msg += `Что-то пошло не так: код ошибки ${response.status}.`;
-        msg += `<br/>${JSON.stringify(data)}`;
+      } else if (response.status === 413) {
+        let msg = `<h5>Анкета не была сохранена</h5> Выбранное фото слишком большое. Пожалуйста, выберите фото размером
+        менее 1 MB и повторите попытку. <br/> Если ошибка повторяется, пожалуйста, обратитесь на почту, указанную внизу
+        анкеты.`;
         showNotification(msg);
+      } else {
+        showErrorNotification(
+          `Что-то пошло не так: код ошибки ${response.status}.<br/>
+                 Пожалуйста, обратитесь на почту, указанную внизу анкеты.`
+        );
       }
-    } else if (response.status === 403) {
-      let msg = '<h5>Анкета не была сохранена</h5>Приемная кампания окончена.';
-      showErrorNotification(msg);
-    } else if (response.status === 413) {
-      let msg = `<h5>Анкета не была сохранена</h5> Выбранное фото слишком большое. Пожалуйста, выберите фото размером
-      менее 1 MB и повторите попытку. <br/> Если ошибка повторяется, пожалуйста, обратитесь на почту, указанную внизу
-      анкеты.`;
-      showNotification(msg);
     } else {
-      showErrorNotification(
-        `Что-то пошло не так: код ошибки ${response.status}.<br/>
-               Пожалуйста, обратитесь на почту, указанную внизу анкеты.`
-      );
+      setState({ isFormSubmitted: true });
     }
-  } else {
-    setState({ isFormSubmitted: true });
-  }
   } catch (error) {
     // Reset the submitting state if there's an error during the request
     setState({ isSubmitting: false });
@@ -110,7 +110,7 @@ const rules = {
   faculty: { required: msgRequired },
   newTrack: { required: msgRequired },
   newTrackInfo: {},
-  partner: {},
+  partner: {required: msgRequired},
   miptTrack: {},
   miptGpa: {},
   miptGradesFile: {},
@@ -189,7 +189,7 @@ function YDSApplicationForm({
   const [campaign, setCampaign] = useState([]);
   const [universities, setUniversities] = useState([]);
   const [internship_not_ended, setInternshipNotEnded] = useState(false);
-const isMFTIPartner = (partnerId) => {
+  const isMFTIPartner = (partnerId) => {
     const mftiPartner = partners.find(p => 
       p.label &&
       p.label.toLowerCase().includes('мфти') && 
@@ -285,10 +285,6 @@ const isMFTIPartner = (partnerId) => {
     'new_track'
   ]);
   useEffect(() => {
-    setPartner(null);
-    setValue('partner', null);
-  }, [campaign_watch, residenceCity]);
-  useEffect(() => {
     if (newTrack === 'yes') {
       setPartner(null);
       setValue('partner', null);
@@ -351,14 +347,6 @@ const isMFTIPartner = (partnerId) => {
         });
     }
   }, [endpointResidenceCampaigns, residenceCity, alwaysAllowCampaigns]);
-  let mskStrCampaignId = campaigns.find((e, i, a) => {
-    return e.value === 'msk';
-  });
-  if (mskStrCampaignId !== undefined) {
-    mskStrCampaignId = mskStrCampaignId.campaign_id.toString();
-  } else {
-    mskStrCampaignId = null;
-  }
 
   function handleInputChange(event) {
     const target = event.target;
@@ -408,15 +396,6 @@ const isMFTIPartner = (partnerId) => {
       register('mipt_gpa', rules.miptGpa);
       register('mipt_grades_file', rules.miptGradesFile);
       register('mipt_expectations', rules.miptExpectations);
-    }
-    if (
-      name === 'campaign' &&
-      mskStrCampaignId &&
-      campaign === mskStrCampaignId
-    ) {
-      unregister('partner');
-      rules.partner = { required: msgRequired };
-      register('partner');
     }
   }
 
@@ -521,31 +500,31 @@ const isMFTIPartner = (partnerId) => {
     setState({ isSubmitting: true });
   
     try {
-    let {
-      telegram_username,
-      new_track,
-      mipt_track,
+      let {
+        telegram_username,
+        new_track,
+        mipt_track,
         mipt_gpa,
         mipt_expectations,
-      has_job,
-      has_internship,
-      internship_beginning,
-      internship_not_ended,
-      internship_end,
-      working_hours,
-      diploma_degree,
-      course,
-      gender,
-      residence_city,
-      university,
-      university_city,
-      ticket_access,
-      email_subscription,
-      shad_agreement,
-      ...payload
-    } = data;
+        has_job,
+        has_internship,
+        internship_beginning,
+        internship_not_ended,
+        internship_end,
+        working_hours,
+        diploma_degree,
+        course,
+        gender,
+        residence_city,
+        university,
+        university_city,
+        ticket_access,
+        email_subscription,
+        shad_agreement,
+        ...payload
+      } = data;
       
-    let formData = new FormData();
+      let formData = new FormData();
       let photo = document.getElementById("photo").files[0];
       let mipt_grades_file = document.getElementById("mipt_grades_file").files[0];
       
@@ -558,61 +537,61 @@ const isMFTIPartner = (partnerId) => {
         const compressedGradesFile = await compressImage(mipt_grades_file);
         formData.append("mipt_grades_file", compressedGradesFile);
       }
-    payload['utm'] = utm;
-    payload['has_job'] = has_job === 'yes';
-    payload['has_internship'] = has_internship === 'yes';
-    payload['shad_agreement'] = shad_agreement === true;
-    payload['telegram_username'] = telegram_username.replace('@', '');
-    if (new_track !== undefined) {
-      payload['new_track'] = new_track === 'yes';
-    }
-    payload['mipt_track'] = mipt_track || null;
+      payload['utm'] = utm;
+      payload['has_job'] = has_job === 'yes';
+      payload['has_internship'] = has_internship === 'yes';
+      payload['shad_agreement'] = shad_agreement === true;
+      payload['telegram_username'] = telegram_username.replace('@', '');
+      if (new_track !== undefined) {
+        payload['new_track'] = new_track === 'yes';
+      }
+      payload['mipt_track'] = mipt_track || null;
       payload['mipt_gpa'] = mipt_gpa || null;
       payload['mipt_expectations'] = mipt_expectations || null;
-    payload['diploma_degree'] = diploma_degree && diploma_degree.value;
-    payload['gender'] = gender && gender.value;
-    payload['level_of_education'] = course && course.value;
-    payload['ticket_access'] = ticket_access === true;
-    payload['email_subscription'] = email_subscription === true;
-    if (university) {
-      if (university.__isNew__) {
-        payload['university_other'] = university.value;
-      } else {
-        payload['university'] = parseInt(university.value);
+      payload['diploma_degree'] = diploma_degree && diploma_degree.value;
+      payload['gender'] = gender && gender.value;
+      payload['level_of_education'] = course && course.value;
+      payload['ticket_access'] = ticket_access === true;
+      payload['email_subscription'] = email_subscription === true;
+      if (university) {
+        if (university.__isNew__) {
+          payload['university_other'] = university.value;
+        } else {
+          payload['university'] = parseInt(university.value);
+        }
       }
-    }
-    if (university_city) {
-      if (university_city.__isNew__) {
-        payload['university_city'] = {
-          is_exists: false,
-          city_name: university_city.value
-        };
-      } else {
-        payload['university_city'] = {
-          is_exists: true,
-          pk: parseInt(university_city.value)
-        };
+      if (university_city) {
+        if (university_city.__isNew__) {
+          payload['university_city'] = {
+            is_exists: false,
+            city_name: university_city.value
+          };
+        } else {
+          payload['university_city'] = {
+            is_exists: true,
+            pk: parseInt(university_city.value)
+          };
+        }
       }
-    }
-    if (residence_city) {
-      if (residence_city.__isNew__) {
-        payload['residence_city'] = null;
-        payload['living_place'] = residence_city.value;
-      } else {
-        payload['residence_city'] = parseInt(residence_city.value);
+      if (residence_city) {
+        if (residence_city.__isNew__) {
+          payload['residence_city'] = null;
+          payload['living_place'] = residence_city.value;
+        } else {
+          payload['residence_city'] = parseInt(residence_city.value);
+        }
       }
-    }
-    payload['internship_end'] = internship_end || null;
-    payload['working_hours'] = working_hours || null;
-    payload['internship_beginning'] = internship_beginning || null;
-    payload['internship_not_ended'] = internship_not_ended || false;
-    if (internship_not_ended) {
-        payload['internship_end'] = null;
-    }
-    delete payload['photo'];
+      payload['internship_end'] = internship_end || null;
+      payload['working_hours'] = working_hours || null;
+      payload['internship_beginning'] = internship_beginning || null;
+      payload['internship_not_ended'] = internship_not_ended || false;
+      if (internship_not_ended) {
+          payload['internship_end'] = null;
+      }
+      delete payload['photo'];
       delete payload['mipt_grades_file'];
-    formData.append('payload', new Blob([JSON.stringify(payload)], { type: 'application/json' }));
-    runSubmit(endpoint, csrfToken, setState, formData);
+      formData.append('payload', new Blob([JSON.stringify(payload)], { type: 'application/json' }));
+      runSubmit(endpoint, csrfToken, setState, formData);
     } catch (error) {
       console.error('Error during form submission:', error);
       showErrorNotification('Произошла ошибка при обработке файлов. Пожалуйста, попробуйте еще раз или обратитесь на почту, указанную внизу анкеты.');
@@ -1071,7 +1050,6 @@ const isMFTIPartner = (partnerId) => {
                   />
                 </label>
                 <RadioGroup
-                  key={`partner-group-${residenceCity?.value || 'default'}`}
                   required={rules.partner}
                   name="partner"
                   onChange={handleInputChange}
@@ -1141,7 +1119,7 @@ const isMFTIPartner = (partnerId) => {
                     helpText="Укажите средний балл по 10-балльной шкале (например, 9.5)"
                     wrapperClass="col-lg-6"
                   />
-              </div>
+                </div>
 
                 <div className="mt-4">
                   <InputField

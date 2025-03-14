@@ -1048,6 +1048,13 @@ function YDSApplicationForm({
                     interactive={true}
                     html={<>Выберите первый приоритет</>}
                   />
+                  <br/>
+                  Подробнее про совместные программы можно прочитать 
+                            на странице Поступления: <a
+                            href="https://shad.yandex.ru/enroll"
+                            target="_blank"
+                            rel="nofollow noopener noreferrer"
+                            > https://shad.yandex.ru/enroll</a>.
                 </label>
                 <RadioGroup
                   required={rules.partner}

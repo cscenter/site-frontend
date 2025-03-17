@@ -163,6 +163,7 @@ function YDSApplicationForm({
   };
   const reducer = (state, newState) => ({ ...state, ...newState });
   const [state, setState] = useReducer(reducer, initial);
+  const [selectedMiptTrack, setSelectedMiptTrack] = useState(null);
   const { isPending, run: runSubmit } = useAsync({ deferFn: submitForm });
   const {
     register,
@@ -397,6 +398,9 @@ function YDSApplicationForm({
       register('mipt_grades_file', rules.miptGradesFile);
       register('mipt_expectations', rules.miptExpectations);
     }
+    if (name === 'mipt_track') {
+      setSelectedMiptTrack(value);
+    }
   }
 
   function handleSelectChange(option, name) {
@@ -601,6 +605,8 @@ function YDSApplicationForm({
 
   const { isYandexPassportAccessAllowed, isFormSubmitted, isSubmitting } = state;
   if (isFormSubmitted) {
+    const isMftiAdvanced = isMFTIPartner(selected_partner) && selectedMiptTrack === 'advanced';
+    
     return (
       <>
         <h3>Ваша заявка принята!</h3>

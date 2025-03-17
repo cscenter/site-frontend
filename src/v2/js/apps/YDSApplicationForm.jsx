@@ -526,7 +526,7 @@ function YDSApplicationForm({
       
       let formData = new FormData();
       let photo = document.getElementById("photo").files[0];
-      let mipt_grades_file = document.getElementById("mipt_grades_file").files[0];
+      let mipt_grades_file = document.getElementById("mipt_grades_file")?.files[0];
       
       // Compress photo before uploading
       const compressedPhoto = await compressImage(photo);

@@ -163,6 +163,7 @@ function YDSApplicationForm({
   };
   const reducer = (state, newState) => ({ ...state, ...newState });
   const [state, setState] = useReducer(reducer, initial);
+  const [selectedMiptTrack, setSelectedMiptTrack] = useState(null);
   const { isPending, run: runSubmit } = useAsync({ deferFn: submitForm });
   const {
     register,
@@ -397,6 +398,9 @@ function YDSApplicationForm({
       register('mipt_grades_file', rules.miptGradesFile);
       register('mipt_expectations', rules.miptExpectations);
     }
+    if (name === 'mipt_track') {
+      setSelectedMiptTrack(value);
+    }
   }
 
   function handleSelectChange(option, name) {
@@ -526,7 +530,7 @@ function YDSApplicationForm({
       
       let formData = new FormData();
       let photo = document.getElementById("photo").files[0];
-      let mipt_grades_file = document.getElementById("mipt_grades_file").files[0];
+      let mipt_grades_file = document.getElementById("mipt_grades_file")?.files[0];
       
       // Compress photo before uploading
       const compressedPhoto = await compressImage(photo);
@@ -601,19 +605,41 @@ function YDSApplicationForm({
 
   const { isYandexPassportAccessAllowed, isFormSubmitted, isSubmitting } = state;
   if (isFormSubmitted) {
+    const isMftiAdvanced = isMFTIPartner(selected_partner) && selectedMiptTrack === 'advanced';
+    
     return (
       <>
         <h3>Ваша заявка принята!</h3>
-        Доступ к онлайн-тестированию будет открыт с 29 апреля 00:00 до 5 мая 19:00 по московскому времени.
-        <br />
-        Мы выслали вам на почту письмо — обязательно прочитайте его.
-        <br />
-        Если письмо не пришло в течение часа и его не оказалось в папке «Спам»
-        или «Промоакции», пишите на{' '}
-        <a href="mailto:shad@yandex-team.ru">shad@yandex-team.ru.</a>
-        <br />
-        Не забудьте в письме указать свои ФИО и email, который указывали при
-        регистрации.
+        {isMftiAdvanced ? (
+          <>
+            Мы получили твою заявку на поступление в совместную магистерскую программу ШАД с МФТИ кафедры Анализа Данных — 2025! 
+            Вступай в чат абитуриентов внутреннего отбора, там много ответов на вопросы по поступлению: 
+            <a href="https://t.me/+TbiQy0JfHWlmMDUy">https://t.me/+TbiQy0JfHWlmMDUy</a>.
+            <br />
+            <br />
+            Информацию по дальнейшим шагам отправили на почту — обязательно прочитайте письмо.
+            <br />
+            Если письмо не пришло в течение часа и его не оказалось в папке «Спам»
+            или «Промоакции», пишите на{' '}
+            <a href="mailto:shad@yandex-team.ru">shad@yandex-team.ru</a>.
+            <br />
+            Не забудьте в письме указать свои ФИО и email, который указывали при
+            регистрации.
+          </>
+        ) : (
+          <>
+            Доступ к онлайн-тестированию будет открыт с 29 апреля 00:00 до 5 мая 19:00 по московскому времени.
+            <br />
+            Мы выслали вам на почту письмо — обязательно прочитайте его.
+            <br />
+            Если письмо не пришло в течение часа и его не оказалось в папке «Спам»
+            или «Промоакции», пишите на{' '}
+            <a href="mailto:shad@yandex-team.ru">shad@yandex-team.ru</a>.
+            <br />
+            Не забудьте в письме указать свои ФИО и email, который указывали при
+            регистрации.
+          </>
+        )}
       </>
     );
   }
@@ -1048,6 +1074,13 @@ function YDSApplicationForm({
                     interactive={true}
                     html={<>Выберите первый приоритет</>}
                   />
+                  <br/>
+                  Подробнее про совместные программы можно прочитать 
+                            на странице Поступления: <a
+                            href="https://shad.yandex.ru/enroll"
+                            target="_blank"
+                            rel="nofollow noopener noreferrer"
+                            > https://shad.yandex.ru/enroll</a>.
                 </label>
                 <RadioGroup
                   required={rules.partner}

@@ -1159,7 +1159,7 @@ function YDSApplicationForm({
                     rules={rules.mipt_grades_file}
                     name="mipt_grades_file"
                     type="file"
-                    accept="image/*"
+                    accept="image/*,application/pdf"
                     label={
                       <>
                         Приложите скрин с оценками из личного кабинета студента<span>*</span>
@@ -1170,7 +1170,7 @@ function YDSApplicationForm({
                     hint = {
                       <>
                       Максимальный размер файла: 1 МБ. <br/>
-                      Тип файла: png, jpg. <br/>
+                      Тип файла: png, jpg, pdf. <br/>
                       </>
                     }
                   />

@@ -842,8 +842,9 @@ function YDSApplicationForm({
           <div className="field col-12">
             <p className="mb-0">
               Заочное отделение доступно только студентам из городов и областей,
-              где нет очного филиала. <br />
-              Если вы поступаете в очный филиал, то у вас есть возможность
+              где студенты не могут посещать занятия очно. <br />
+              Если вы поступаете в Москву, Минск, Екатеринбург, Нижний Новгород, 
+              Санкт Петербург или Новосибирск, то у вас есть возможность 
               как посещать занятия очно, так и подключаться к ним онлайн.
             </p>
           </div>
@@ -853,7 +854,7 @@ function YDSApplicationForm({
             <div className="field col-12">
               <div className="grouped">
                 <label className="title-label">
-                  В каком отделении вы хотите учиться?<span className="asterisk">*</span>
+                  В каком городе вы хотите учиться?<span className="asterisk">*</span>
                 </label>
                 <RadioGroup
                   required
@@ -1540,7 +1541,7 @@ function YDSApplicationForm({
         </div>
         <div className="row">
           Если возникли технические проблемы с формой, напишите на почту&nbsp;
-          <a href="mailto:shad@yandex-team.ru">shad@yandex-team.ru</a>
+          <a href="education.sup@yandex.ru">education.sup@yandex.ru</a>
         </div>
       </div>
     </form>

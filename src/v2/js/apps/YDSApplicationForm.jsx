@@ -1058,7 +1058,14 @@ function YDSApplicationForm({
         {newTrack === 'yes' && (
         <label className="title-label warning">
                 Внимание, альтернативный трек и поступление на совместные с ШАД
-                магистерские программы – взаимоисключающие условия.{' '}
+                магистерские программы – взаимоисключающие условия.
+                ВАЖНО!
+                Это условие не касается совместной программы СКН. Про поступление в СКН читайте по 
+                <a
+                href="https://www.hse.ru/ma/mcs/tracks"
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+                > ссылке</a>.
               </label>
         )}
         {newTrack === "no" && (

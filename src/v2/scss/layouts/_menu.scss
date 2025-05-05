@@ -302,7 +302,7 @@ body {
 }
 
 .dropdown-user-menu {
-  margin-left: auto;
+  margin-left: auto; //for mobile view
   margin-right: -$navbar-toggler-padding-x;
 
   ._user {
@@ -320,9 +320,13 @@ body {
   }
 
   .dropdown-menu {
-    font-size: $font-size-content-base;
     right: $navbar-toggler-padding-x;
     left: auto;
+    border-radius: 4px;
+  }
+
+  .dropdown-item {
+    padding: spacer("1x") spacer("3x");
   }
 
   .btn {

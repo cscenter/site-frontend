@@ -42,6 +42,7 @@ function AssignmentsCheckQueue({
   courseOptions,
   courseTeachers,
   courseGroups,
+  programYear,
   initialState
 }) {
   const queryParams = useQueryParams();
@@ -70,9 +71,9 @@ function AssignmentsCheckQueue({
     score: queryParams.score || [],
     reviewers: queryParams.reviewers || [],
     studentGroups: queryParams.studentGroups || [],
+    programYear: queryParams.programYear || [],
     sort: queryParams.sort || sortEnum.SOLUTION_ASC
   });
-  console.debug('filters on render', filters);
 
   const { assignments, assignmentOptions, studentGroups, personalAssignments } =
     state;
@@ -111,6 +112,7 @@ function AssignmentsCheckQueue({
       statuses: queryParams.statuses || [],
       score: queryParams.score || [],
       studentGroups: queryParams.studentGroups || [],
+      programYear: queryParams.programYear || [],
       reviewers: queryParams.reviewers || [],
       sort: queryParams.sort || sortEnum.SOLUTION_ASC
     });
@@ -165,13 +167,18 @@ function AssignmentsCheckQueue({
   const setFilterValues = useCallback(
     (name, value, checked) => {
       let values;
-      values = filters[name] || [];
+      values = [...(filters[name] || [])]; // Create a new array to avoid mutation
+      
       if (checked) {
-        values.push(value);
+        // Only add the value if it doesn't already exist in the array
+        if (!values.includes(value)) {
+          values.push(value);
+        }
       } else {
         values = values.filter(v => v !== value);
       }
 
+      console.debug(`Setting ${name} filter:`, values);
       setFilterQueryParams({
         [name]: values
       });
@@ -201,6 +208,29 @@ function AssignmentsCheckQueue({
       parseInt(e.target.value, 10),
       e.target.checked
     );
+
+  const setProgramYearFilter = e => {
+    // Use integer value for programYear filter
+    const value = parseInt(e.target.value, 10);
+    
+    // Get current values
+    let values = [...(filters.programYear || [])];
+    
+    if (e.target.checked) {
+      // Add value if it doesn't exist
+      if (!values.some(v => parseInt(v, 10) === value)) {
+        values.push(value);
+      }
+    } else {
+      // Remove value
+      values = values.filter(v => parseInt(v, 10) !== value);
+    }
+    
+    // Update filters directly
+    setFilterQueryParams({
+      programYear: values
+    });
+  };
 
   const filteredPersonalAssignments = getFilteredPersonalAssignments(
     personalAssignments,
@@ -286,26 +316,45 @@ function AssignmentsCheckQueue({
         </div>
 
         <div className="col-xs-3">
-          {studentGroups !== null && (
-            <div className="mb-30">
-              <h5 className="mt-0">Студенческая группа</h5>
-              <>
-                {courseGroups.map(option => (
+          <div className="mb-30">
+            <h5 className="mt-0">Студенческая группа</h5>
+            <>
+              {courseGroups.map(option => (
+                <Checkbox
+                  name="studentGroups"
+                  key={`student-group-${option.value}`}
+                  value={option.value}
+                  checked={
+                    !!filters.studentGroups &&
+                    filters.studentGroups.includes(option.value)
+                  }
+                  onChange={setStudentGroupsFilter}
+                  label={option.label}
+                />
+              ))}
+            </>
+          </div>
+          
+          <div className="mb-30">
+            <h5 className="mt-0">Год программы</h5>
+            <>
+              {programYear.map(option => {
+                return (
                   <Checkbox
-                    name="studentGroups"
-                    key={`student-group-${option.value}`}
+                    name="programYear"
+                    key={`program-year-${option.value}`}
                     value={option.value}
                     checked={
-                      !!filters.studentGroups &&
-                      filters.studentGroups.includes(option.value)
+                      !!filters.programYear &&
+                      filters.programYear.some(val => parseInt(val, 10) === parseInt(option.value, 10))
                     }
-                    onChange={setStudentGroupsFilter}
+                    onChange={setProgramYearFilter}
                     label={option.label}
                   />
-                ))}
-              </>
-            </div>
-          )}
+                );
+              })}
+            </>
+          </div>
 
           <div className="mb-30">
             <h5>Оценка</h5>
@@ -375,6 +424,13 @@ AssignmentsCheckQueue.propTypes = {
     })
   ).isRequired,
   courseGroups: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.number.isRequired,
+      label: PropTypes.string.isRequired,
+      selected: PropTypes.bool.isRequired
+    })
+  ).isRequired,
+  programYear: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.number.isRequired,
       label: PropTypes.string.isRequired,

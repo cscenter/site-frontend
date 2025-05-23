@@ -42,24 +42,42 @@ export const FiltersURLSearchParams = (function () {
 
   // TODO: configure name alias and value serializer with object constructor or try to replace with `query-string` package
   FiltersURLSearchParams.prototype.toString = function () {
-    let search = `?course=${this.course}&assignments=${this.assignments.join(',')}`;
-    if (this['reviewers'] && this['reviewers'].length > 0) {
-      search += `&reviewers=${this['reviewers'].join(',')}`;
+    const params = new URLSearchParams();
+    
+    // Add course parameter
+    if (this.course) {
+      params.append('course', this.course);
     }
-    const selectedStatuses = this['statuses'];
-    if (selectedStatuses && selectedStatuses.length > 0) {
-      search += `&statuses=${selectedStatuses.join(',')}`;
+    
+    // Add assignments parameter
+    if (this.assignments && this.assignments.length > 0) {
+      params.append('assignments', this.assignments.join(','));
     }
-    if (this['score'] && this['score'].length > 0) {
-      search += `&score=${this['score'].join(',')}`;
-    }
-    if (this['studentGroups'] && this['studentGroups'].length > 0) {
-      search += `&studentGroups=${this['studentGroups'].join(',')}`;
-    }
-    if (this['sort']) {
-      search += `&sort=${this['sort']}`;
-    }
-    return search;
+    
+    // Add other filter parameters
+    const filters = {
+      reviewers: this.reviewers,
+      statuses: this.statuses,
+      score: this.score,
+      studentGroups: this.studentGroups,
+      programYear: this.programYear,
+      sort: this.sort
+    };
+
+    Object.entries(filters).forEach(([name, value]) => {
+      if (value && value.length > 0) {
+        // Ensure all values are properly joined as strings and no duplicates
+        if (Array.isArray(value)) {
+          // Remove any potential duplicates
+          const uniqueValues = [...new Set(value)];
+          params.append(name, uniqueValues.join(','));
+        } else {
+          params.append(name, value);
+        }
+      }
+    });
+
+    return `?${params.toString()}`;
   };
 
   return FiltersURLSearchParams;
@@ -78,8 +96,15 @@ export function useQueryParams() {
         value = value
           .split(',')
           .map(x => parseInt(x, 10))
-          .filter(Boolean); // Removes all falsy values including zeroes
-      } else if (['score', 'statuses'].includes(key)) {
+          .filter(Boolean);
+      } 
+      else if (key === 'programYear') {
+          value = value
+            .split(',')
+            .map(x => parseInt(x, 10))
+            .filter(Boolean);
+      } 
+      else if (['score', 'statuses'].includes(key)) {
         value = value.split(',').filter(Boolean);
       } else if (key === 'reviewers') {
         value = value
@@ -106,6 +131,7 @@ export function parsePersonalAssignments({ items, studentGroups, timeZone, local
     if (item.solutionAt !== null) {
       item.solutionAt = new Date(item.solutionAt); // in UTC
     }
+
     items[i] = {
       id: item.id,
       assignmentId: item.assignmentId,
@@ -114,7 +140,8 @@ export function parsePersonalAssignments({ items, studentGroups, timeZone, local
       score: item.score,
       solutionAt: item.solutionAt,
       status: item.status,
-      studentGroupId: studentGroups.get(item.student.id)
+      studentGroupId: studentGroups.get(item.student.id),
+      programYear: item.student.yearOfCurriculum
     };
   });
   return items;
@@ -177,6 +204,22 @@ const includesStudentGroup = (item, filterValues) => {
   return filterValues.includes(item.studentGroupId);
 };
 
+const includesProgramYear = (item, filterValues) => {
+  if (!filterValues || filterValues.length === 0) {
+    return true;
+  }
+  
+  const itemYear = item.programYear || 0;
+  
+  if (filterValues.includes(0) && itemYear === 0) {
+    return true;
+  }
+  
+  const result = filterValues.includes(itemYear);
+  
+  return result;
+};
+
 export function getFilteredPersonalAssignments(items, filters) {
   if (items === null) {
     return [];
@@ -186,7 +229,8 @@ export function getFilteredPersonalAssignments(items, filters) {
       includesStatuses(item, filters.statuses) &&
       includesReviewer(item, filters.reviewers) &&
       includesScore(item, filters.score) &&
-      includesStudentGroup(item, filters.studentGroups)
+      includesStudentGroup(item, filters.studentGroups) &&
+      includesProgramYear(item, filters.programYear)
     );
   });
 }

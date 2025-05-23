@@ -97,14 +97,14 @@ export function useQueryParams() {
           .split(',')
           .map(x => parseInt(x, 10))
           .filter(Boolean);
-      } else if (key === 'programYear') {
-        // Convert programYear values to integers for consistent comparison
-        value = value.split(',').map(x => {
-          const parsed = parseInt(x, 10);
-          // Keep 0 values (don't filter them out)
-          return isNaN(parsed) ? null : parsed;
-        }).filter(x => x !== null);
-      } else if (['score', 'statuses'].includes(key)) {
+      } 
+      else if (key === 'programYear') {
+          value = value
+            .split(',')
+            .map(x => parseInt(x, 10))
+            .filter(Boolean);
+      } 
+      else if (['score', 'statuses'].includes(key)) {
         value = value.split(',').filter(Boolean);
       } else if (key === 'reviewers') {
         value = value

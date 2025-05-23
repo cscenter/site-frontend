@@ -210,26 +210,11 @@ function AssignmentsCheckQueue({
     );
 
   const setProgramYearFilter = e => {
-    // Use integer value for programYear filter
-    const value = parseInt(e.target.value, 10);
-    
-    // Get current values
-    let values = [...(filters.programYear || [])];
-    
-    if (e.target.checked) {
-      // Add value if it doesn't exist
-      if (!values.some(v => parseInt(v, 10) === value)) {
-        values.push(value);
-      }
-    } else {
-      // Remove value
-      values = values.filter(v => parseInt(v, 10) !== value);
-    }
-    
-    // Update filters directly
-    setFilterQueryParams({
-      programYear: values
-    });
+    setFilterValues(
+      'programYear',
+      parseInt(e.target.value, 10),
+      e.target.checked
+    );
   };
 
   const filteredPersonalAssignments = getFilteredPersonalAssignments(
@@ -314,26 +299,28 @@ function AssignmentsCheckQueue({
             items={filteredPersonalAssignments}
           />
         </div>
-
+      
         <div className="col-xs-3">
-          <div className="mb-30">
-            <h5 className="mt-0">Студенческая группа</h5>
-            <>
-              {courseGroups.map(option => (
-                <Checkbox
-                  name="studentGroups"
-                  key={`student-group-${option.value}`}
-                  value={option.value}
-                  checked={
-                    !!filters.studentGroups &&
-                    filters.studentGroups.includes(option.value)
-                  }
-                  onChange={setStudentGroupsFilter}
-                  label={option.label}
-                />
-              ))}
-            </>
-          </div>
+          {studentGroups !== null && (
+            <div className="mb-30">
+              <h5 className="mt-0">Студенческая группа</h5>
+              <>
+                {courseGroups.map(option => (
+                  <Checkbox
+                    name="studentGroups"
+                    key={`student-group-${option.value}`}
+                    value={option.value}
+                    checked={
+                      !!filters.studentGroups &&
+                      filters.studentGroups.includes(option.value)
+                    }
+                    onChange={setStudentGroupsFilter}
+                    label={option.label}
+                  />
+                ))}
+              </>
+            </div>
+          )}
           
           <div className="mb-30">
             <h5 className="mt-0">Год программы</h5>

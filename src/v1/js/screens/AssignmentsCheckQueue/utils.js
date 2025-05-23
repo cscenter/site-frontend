@@ -131,21 +131,7 @@ export function parsePersonalAssignments({ items, studentGroups, timeZone, local
     if (item.solutionAt !== null) {
       item.solutionAt = new Date(item.solutionAt); // in UTC
     }
-   
-    // Convert programYear to integer for consistent comparison
-    let programYearValue = 0;
-    try {
-      if (item.student.yearOfCurriculum !== null && item.student.yearOfCurriculum !== undefined) {
-        programYearValue = parseInt(String(item.student.yearOfCurriculum).trim(), 10);
-        if (isNaN(programYearValue)) {
-          programYearValue = 0;
-        }
-      }
-    } catch (e) {
-      console.error('Error parsing programYear:', e);
-      programYearValue = 0;
-    }
-    
+
     items[i] = {
       id: item.id,
       assignmentId: item.assignmentId,
@@ -155,7 +141,7 @@ export function parsePersonalAssignments({ items, studentGroups, timeZone, local
       solutionAt: item.solutionAt,
       status: item.status,
       studentGroupId: studentGroups.get(item.student.id),
-      programYear: programYearValue
+      programYear: item.student.yearOfCurriculum
     };
   });
   return items;

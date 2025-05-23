@@ -12,7 +12,6 @@ let academicDisciplines = {};
 let partners = {};
 let isPaidBasis = {};
 let UniGraduationYear = {};
-let graduationYears = {};
 
 function getSelectedValues(items) {
   return Object.keys(items)
@@ -32,8 +31,7 @@ function makeQuery() {
     academic_disciplines: getSelectedValues(academicDisciplines),
     partners: getSelectedValues(partners),
     is_paid_basis: getSelectedValues(isPaidBasis),
-    uni_graduation_year: getSelectedValues(UniGraduationYear),
-    graduation_years: getSelectedValues(graduationYears)
+    uni_graduation_year: getSelectedValues(UniGraduationYear)
   };
 
   $.ajax({
@@ -123,10 +121,6 @@ const fn = {
       })
       .on('change', '[name="uni_graduation_year"]', function (e) {
         UniGraduationYear[$(this).val()] = this.checked;
-        query();
-      })
-      .on('change', '[name="graduation_years"]', function (e) {
-        graduationYears[$(this).val()] = this.checked;
         query();
       });
   }

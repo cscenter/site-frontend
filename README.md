@@ -1,3 +1,5 @@
+# This repository has been archived and is no longer maintained. The project has reached the end of its development lifecycle in github and will not receive any updates or support.
+
 # Notes
 Works with **npm 7.24.2** and **node 14.17.6** (you can use `nvm` to install it).
 
